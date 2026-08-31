@@ -52,6 +52,20 @@ core starts holding canonical data or rendering product UI, the boundary has
 drifted — resolve it, don't accept it. See
 [dependency-rules.md](dependency-rules.md).
 
-> **Status:** Not yet built. `aion-core` is **Phase 1** of the
-> [build order](../roadmap/build-order.md). Do not begin implementation as part
-> of establishing `aion-docs`.
+## Depend on ports, not storage
+
+`aion-core` depends on **data contracts / ports**, never on a concrete database
+or persistence implementation. `aion-data` provides the persistence adapters
+behind those ports. The clean `core → data` dependency is a dependency on
+*contracts*, not on a storage vendor — which keeps the control plane decoupled
+from whatever engine is later chosen (a deferred, ADR-gated decision). See
+[dependency-rules.md](dependency-rules.md#core-depends-on-data-contracts-not-storage).
+
+> **Status:** **Phase 1 — AUTHORIZED.** Implementation may begin, bounded by the
+> mission-scoped [critical caveat](../roadmap/build-order.md#the-critical-caveat)
+> and closed by the
+> [Phase 1 exit gate](../roadmap/build-order.md#phase-1-exit-gate--aion-core):
+> stable, versioned contracts for Mission, Actor/Agent, Capability, Tool,
+> Workflow/Run, Command, Event, Policy/Permission, Approval Gate, Result/Outcome
+> reference, and execution telemetry — proven by tests to support one real
+> mission end-to-end with no product-specific logic in core.

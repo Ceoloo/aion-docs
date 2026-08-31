@@ -46,6 +46,23 @@ as a code dependency.
 6. **Legacy is never a dependency.** No repository imports, vendors, or depends
    on Aion-Sys. See [../legacy/README.md](../legacy/README.md).
 
+## Core depends on data contracts, not storage
+
+The `core → data` edge is a dependency on **data contracts / ports**, not on a
+concrete database or persistence implementation:
+
+- `aion-data` owns the canonical **contracts** (schemas, events, the six data
+  kinds) **and** provides the **persistence adapters** that implement them.
+- `aion-core` depends only on those contracts/ports. It must not import, embed,
+  or hard-code a specific storage engine, client, or query dialect.
+- The storage engine itself is a **deferred, ADR-gated decision** (see
+  [../architecture/data-layer.md](../architecture/data-layer.md)). Coupling the
+  control plane to a chosen engine would re-introduce exactly the drift the
+  [reset](../adr/ADR-001-greenfield-reset.md) removed.
+
+This keeps the control plane clean: swap the storage implementation and `core`
+is unaffected because it only ever knew the contract.
+
 ## Where does it belong? — decision aid
 
 | If the thing is… | It belongs in… |

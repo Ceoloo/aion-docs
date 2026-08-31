@@ -111,8 +111,10 @@ code has been built. Maximum autonomy is **not** the goal — reliable business
 outcomes under appropriate governance is. See
 [`roadmap/platform-maturity.md`](roadmap/platform-maturity.md).
 
-The build order begins here (Phase 0) and proceeds to `aion-core`. See
-[`roadmap/build-order.md`](roadmap/build-order.md).
+**Phase 0 (architecture) is COMPLETE; Phase 1 (`aion-core` contracts) is
+AUTHORIZED.** Maturity remains L0 until running systems exist. Phase 1 closes on
+the defined [Phase 1 exit gate](roadmap/build-order.md#phase-1-exit-gate--aion-core).
+See [`roadmap/build-order.md`](roadmap/build-order.md).
 
 ---
 
