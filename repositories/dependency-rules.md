@@ -11,23 +11,30 @@ to prevent the drift that caused the
 flowchart TD
     PROD["aion-products"] --> CORE["aion-core"]
     PROD --> DATA["aion-data"]
+    RUNTIME["aion-runtime"] --> CORE
+    RUNTIME --> DATA
     CORE --> DATA
     CORE -. runs on .-> INFRA["aion-infra"]
     DATA -. runs on .-> INFRA
+    RUNTIME -. runs on .-> INFRA
     PROD -. runs on .-> INFRA
-    DOCS["aion-docs"] -. governs (no code dep) .-> PROD & CORE & DATA & INFRA
+    INFRA -. deploys image .-> RUNTIME
+    DOCS["aion-docs"] -. governs (no code dep) .-> PROD & CORE & DATA & RUNTIME & INFRA
 ```
 
-| From ↓ / May depend on → | docs | core | data | infra | products |
-|---|---|---|---|---|---|
-| **aion-docs** | — | no | no | no | no |
-| **aion-core** | governed by | — | **yes** | runtime only | **no** |
-| **aion-data** | governed by | **no** | — | runtime only | **no** |
-| **aion-infra** | governed by | no | no | — | no |
-| **aion-products** | governed by | **yes** | **yes** | runtime only | — |
+| From ↓ / May depend on → | docs | core | data | runtime | infra | products |
+|---|---|---|---|---|---|---|
+| **aion-docs** | — | no | no | no | no | no |
+| **aion-core** | governed by | — | **yes** | no | runtime only | **no** |
+| **aion-data** | governed by | **no** | — | no | runtime only | **no** |
+| **aion-runtime** | governed by | **yes** | **yes** | — | runtime only | **no** |
+| **aion-infra** | governed by | no | no | image only | — | no |
+| **aion-products** | governed by | **yes** | **yes** | no | runtime only | — |
 
 "Runtime only" means the code runs *on* infrastructure but does not import infra
-as a code dependency.
+as a code dependency. "Image only" means `aion-infra` builds and deploys
+`aion-runtime`'s container image; it does **not** import runtime code — so no
+cycle is created (see [ADR-002](../adr/ADR-002-runtime-host-ownership.md)).
 
 ## Hard rules
 
@@ -45,6 +52,11 @@ as a code dependency.
    forks a canonical schema.
 6. **Legacy is never a dependency.** No repository imports, vendors, or depends
    on Aion-Sys. See [../legacy/README.md](../legacy/README.md).
+7. **The runtime host composes; it does not redefine.** `aion-runtime` wires
+   Core + Data into a running service and owns the deployable image. It must not
+   hold orchestration policy, canonical schema, provider SDKs, or product logic.
+   `aion-infra` consumes its **image**, never its code. See
+   [ADR-002](../adr/ADR-002-runtime-host-ownership.md).
 
 ## Where does it belong? — decision aid
 
@@ -54,6 +66,7 @@ as a code dependency.
 | a decision about *what happens / who does it / whether it's allowed* | **aion-core** |
 | the canonical shape, storage, or lineage of a business entity | **aion-data** |
 | where/how something runs, an environment, a secret store, CI/CD | **aion-infra** |
+| the process that *boots and hosts* the platform (composition root, health, migration entrypoint, the deployable image) | **aion-runtime** |
 | a customer or internal product screen/flow/experiment | **aion-products** |
 | a capability reused across products and worth standardizing | **aion-core**, only under the [platformization rule](../roadmap/platform-maturity.md#platformization-rule) |
 

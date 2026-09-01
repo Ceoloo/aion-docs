@@ -69,13 +69,17 @@ or depended upon. See [`legacy/README.md`](legacy/README.md).
 
 ---
 
-## The Five Canonical Repositories
+## The Six Canonical Repositories
+
+(Five at the greenfield reset; `aion-runtime` added as the sixth by
+[ADR-002](adr/ADR-002-runtime-host-ownership.md).)
 
 | Repository | Owns | Does **not** own |
 |---|---|---|
 | **aion-docs** (this repo) | architecture, principles, governance, terminology, ADRs, ownership rules, standards, mission templates, lifecycle, production-readiness | production application logic |
 | **aion-core** | Company OS primitives, orchestration, execution coordination, agent/tool interfaces, workflow engine, permissions/policy, execution event contracts, observability hooks, shared packages | databases, product UI, infra, department workflows |
 | **aion-data** | canonical schemas, migrations, event persistence, memory models, outcome & learning records, analytics contracts, data governance, lineage | orchestration, product UI, infra |
+| **aion-runtime** | the composition root that boots Core+Data into a running, health-checked service; the migration entrypoint; the one provider-neutral deployable image | orchestration policy, canonical schema, provider SDKs, product logic |
 | **aion-infra** | cloud infra, environments, IaC, networking, secrets architecture, monitoring/security infra, CI/CD infra, environment isolation | business logic, product logic |
 | **aion-products** | customer-facing & internal products, product seeds, mission-gated experiments, interfaces built on core + canonical data | platform primitives, infra, canonical data ownership |
 

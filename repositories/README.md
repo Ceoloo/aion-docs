@@ -1,27 +1,34 @@
 # Repository Ownership
 
-AION is divided into five canonical repositories under the personal `Ceoloo`
+AION is divided into six canonical repositories under the personal `Ceoloo`
 account. Each has a **single, explicit responsibility**. Clear ownership is what
 prevents the architectural drift that caused the [greenfield
-reset](../adr/ADR-001-greenfield-reset.md).
+reset](../adr/ADR-001-greenfield-reset.md). (The system began as five; the
+runtime host was added as the sixth by
+[ADR-002](../adr/ADR-002-runtime-host-ownership.md).)
 
-## The five repositories
+## The six repositories
 
 ```mermaid
 flowchart TD
     DOCS["aion-docs<br/>architecture · governance · standards"]
     CORE["aion-core<br/>orchestration · agents · tools · permissions"]
     DATA["aion-data<br/>canonical schemas · events · memory"]
+    RUNTIME["aion-runtime<br/>composition root · runtime host · image"]
     INFRA["aion-infra<br/>cloud · environments · secrets · CI/CD"]
     PROD["aion-products<br/>customer & internal products"]
 
-    DOCS -.governs.-> CORE & DATA & INFRA & PROD
+    DOCS -.governs.-> CORE & DATA & RUNTIME & INFRA & PROD
     CORE --> DATA
+    RUNTIME --> CORE
+    RUNTIME --> DATA
     PROD --> CORE
     PROD --> DATA
     CORE -.runs on.-> INFRA
     DATA -.runs on.-> INFRA
+    RUNTIME -.runs on.-> INFRA
     PROD -.runs on.-> INFRA
+    INFRA -."deploys image".-> RUNTIME
 ```
 
 | Repository | Role | Detail |
@@ -29,6 +36,7 @@ flowchart TD
 | **aion-docs** | Architectural control plane. Contracts and architecture, not application code. | *this repo* |
 | **aion-core** | Company OS primitives, orchestration, execution coordination. | [aion-core.md](aion-core.md) |
 | **aion-data** | Canonical data, events, memory, learning records. | [aion-data.md](aion-data.md) |
+| **aion-runtime** | Runtime host / composition root; builds the one provider-neutral image. | [aion-runtime.md](aion-runtime.md) |
 | **aion-infra** | Cloud infrastructure and environments. | [aion-infra.md](aion-infra.md) |
 | **aion-products** | Products built on the platform. | [aion-products.md](aion-products.md) |
 

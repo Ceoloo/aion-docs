@@ -10,7 +10,9 @@ flowchart TD
     P0["PHASE 0 — Architecture<br/>aion-docs"] --> P1["PHASE 1 — Core contracts<br/>aion-core"]
     P1 --> P2["PHASE 2 — Canonical data foundation<br/>aion-data"]
     P2 --> P3["PHASE 3 — Minimum infrastructure required<br/>aion-infra"]
-    P3 --> P4["PHASE 4 — First production mission/product<br/>aion-products"]
+    P3 --> P35["PHASE 3.5 — Runtime host<br/>aion-runtime"]
+    P35 --> FOUND(["PLATFORM FOUNDATION COMPLETE"])
+    FOUND --> P4["PHASE 4 — First production mission/product<br/>aion-products"]
     P4 --> P5["PHASE 5 — Outcome instrumentation"]
     P5 --> P6["PHASE 6 — Learning loops"]
     P6 --> P7["PHASE 7 — Platformization of repeated capabilities"]
@@ -18,14 +20,23 @@ flowchart TD
 
 | Phase | Focus | Repo(s) |
 |---|---|---|
-| **0** | Architecture & governance — the constitution. **(current)** | aion-docs |
+| **0** | Architecture & governance — the constitution. | aion-docs |
 | **1** | Core contracts — orchestration, execution, agent/tool interfaces, permissions. | aion-core |
 | **2** | Canonical data foundation — schemas, events, the six data kinds. | aion-data |
 | **3** | Minimum infrastructure required — only what current missions need. | aion-infra |
+| **3.5** | Runtime host — the composition root that boots Core+Data and builds the one provider-neutral image. Closes the platform boundary before any product attaches. See [ADR-002](../adr/ADR-002-runtime-host-ownership.md). | aion-runtime |
 | **4** | First production mission/product. | aion-products |
 | **5** | Outcome instrumentation — record real outcomes. | aion-data + aion-core |
 | **6** | Learning loops — turn outcomes into lessons and memory. | aion-data + aion-core |
 | **7** | Platformization — promote repeated capabilities, under the rule. | aion-core |
+
+**Phase 3.5 (Runtime host)** is deliberately small: it is not a new subsystem
+but the extraction of the Phase 3 reference host into its own repository so the
+dependency rules hold cleanly (infra must not import core/data). With it in
+place, **Docs → Core → Data → Infra → Runtime** constitute the completed
+platform foundation; Phase 4 (the first product) may then attach. Standing up
+the first real production deployment is an **operational activation milestone**,
+not another architecture phase.
 
 ## The critical caveat
 
@@ -54,11 +65,14 @@ Each phase implements **only what is required to support current missions**
 
 ## Current position
 
-AION is in **Phase 0**. `aion-docs` (this repository) is being established. **Do
-not begin implementing `aion-core`, `aion-data`, `aion-infra`, or
-`aion-products` yet.** The recommended next engineering action is defined at the
-close of Phase 0 — see the root [README](../README.md) and
-[../repositories/aion-core.md](../repositories/aion-core.md).
+Phases 0–3 are complete: `aion-docs` (architecture), `aion-core` (Phase 1),
+`aion-data` (Phase 2), and `aion-infra` (Phase 3, provider-portable). The
+current build is **Phase 3.5 — `aion-runtime`**: extracting the runtime host
+into its own repository ([ADR-002](../adr/ADR-002-runtime-host-ownership.md)) to
+close the platform boundary. When it lands, **Docs → Core → Data → Infra →
+Runtime** is the completed foundation and **Phase 4** (the first product) may
+begin; the first real production deployment is an operational activation
+milestone run in parallel, not a further architecture phase.
 
 ## Invariants
 
