@@ -14,6 +14,7 @@ actions can require human gates.
 | [agent-governance.md](agent-governance.md) | Agents as governed workers. |
 | [permissions.md](permissions.md) | The permission model. |
 | [risk-levels.md](risk-levels.md) | How actions are classified by risk. |
+| [autonomy-tiers.md](autonomy-tiers.md) | Graduated autonomy: auto / monitor / approve / deny. |
 | [change-management.md](change-management.md) | How changes reach production. |
 
 ## The governance stance

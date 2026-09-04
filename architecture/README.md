@@ -13,11 +13,13 @@ It defines architecture and contracts — not implementation.
 | [logical-architecture.md](logical-architecture.md) | The layers and how requests flow through them. |
 | [control-plane.md](control-plane.md) | Orchestration, routing, policy, human gates. |
 | [execution-layer.md](execution-layer.md) | Agents, workers, tools, external runtimes, humans. |
+| [execution-gateway.md](execution-gateway.md) | The boundary enforcing at-most-once, replay-safe, evidenced execution. |
 | [intelligence-layer.md](intelligence-layer.md) | Context, memory, reasoning, learning, evals. |
 | [data-layer.md](data-layer.md) | Canonical data, events, memory, lessons, analytics. |
 | [product-layer.md](product-layer.md) | How products consume the platform. |
 | [learning-loop.md](learning-loop.md) | Context → outcome → lesson → memory. |
 | [observability.md](observability.md) | The traceability model for every action. |
+| [agent-economics.md](agent-economics.md) | Cost → completion → value → ROI as a first-class layer. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
 | [environments.md](environments.md) | Environment isolation and promotion. |
 

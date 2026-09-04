@@ -103,6 +103,8 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
   through which products are built.
 - **[adr/](adr/README.md)** — architecture decision records and their standard.
 - **[roadmap/](roadmap/README.md)** — build order and platform maturity model.
+- **[research/](research/README.md)** — dated external-research briefs and the
+  ADRs, architecture, and design specs they drive.
 - **[glossary/](glossary/README.md)** — canonical terminology.
 - **[legacy/](legacy/README.md)** — policy on Aion-Sys reference material.
 

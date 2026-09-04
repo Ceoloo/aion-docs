@@ -67,3 +67,6 @@ prematurely.** Record the required capability and defer:
 |---|---|---|
 | [ADR-000](ADR-000-template.md) | Template | Template |
 | [ADR-001](ADR-001-greenfield-reset.md) | Greenfield Reset | Accepted |
+| [ADR-002](ADR-002-runtime-host-ownership.md) | Runtime Host Ownership (`aion-runtime`) | Accepted |
+| [ADR-003](ADR-003-execution-gateway-and-evidence.md) | Execution Gateway — Idempotency, Replay Safety, Evidence | Accepted |
+| [ADR-004](ADR-004-agent-economics-layer.md) | Agent Economics as a First-Class Layer | Accepted |

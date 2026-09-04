@@ -13,6 +13,7 @@ contracts.
 | [testing.md](testing.md) | Testing expectations. |
 | [evals.md](evals.md) | Evaluating AI-driven quality. |
 | [observability-standards.md](observability-standards.md) | Emitting the traceability spine. |
+| [agent-trace-schema.md](agent-trace-schema.md) | OpenTelemetry-compatible mapping of the trace spine. |
 | [api-standards.md](api-standards.md) | How APIs are designed. |
 | [event-standards.md](event-standards.md) | Events as past-tense facts. |
 | [data-contracts.md](data-contracts.md) | Defining and evolving data contracts. |
