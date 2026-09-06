@@ -26,9 +26,8 @@
       "tag": "execution-platform-v0.2.0-rc1"
     },
     "aion-docs": {
-      "gitSha": "e6997b62d96c88c02f3920ce0159889187017c66",
       "tag": "execution-platform-v0.2.0-rc1",
-      "note": "Docs tip carrying the RC1 manifest and roadmap retarget."
+      "note": "Docs tip is the commit that carries this manifest on the integration branch after PR merge; peel the annotated tag for the exact SHA."
     }
   },
   "priorBaseline": {
