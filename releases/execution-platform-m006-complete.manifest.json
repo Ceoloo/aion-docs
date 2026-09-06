@@ -1,0 +1,64 @@
+{
+  "release": "execution-platform-m006-complete",
+  "title": "AION Execution Platform — M006-complete integration baseline",
+  "kind": "integration-baseline",
+  "result": "PASS",
+  "certifiedAt": "2026-09-06T22:42:00Z",
+  "harness": [
+    "npm run proof:mission001",
+    "npm run proof:mission002",
+    "npm run proof:mission003",
+    "npm run proof:mission004",
+    "npm run proof:mission005",
+    "npm run proof:mission006",
+    "npm run certify:platform-v01"
+  ],
+  "components": {
+    "aion-core": {
+      "gitSha": "4137d3350b138b0d03c0cf13a4c57f0fcf855dec",
+      "tag": "execution-platform-m006-complete"
+    },
+    "aion-data": {
+      "gitSha": "56e7cbe4c2531d7e7f4ad3b7afc7ca87933d5c51",
+      "schemaVersion": "0005",
+      "tag": "execution-platform-m006-complete"
+    },
+    "aion-runtime": {
+      "gitSha": "3fee24e4553c05eb804f49cb13338544d88d4159",
+      "tag": "execution-platform-m006-complete"
+    },
+    "aion-docs": {
+      "gitSha": "01bc0902c3a9595c0518528aa23d94a84f25bf61",
+      "tag": "execution-platform-m006-complete",
+      "note": "Docs tip that declared M006 landed and retargeted next to M007. This manifest documents that baseline; the annotated tag on aion-docs points at 01bc090."
+    }
+  },
+  "priorBaseline": {
+    "tag": "execution-platform-v0.2.0-rc1",
+    "status": "immutable",
+    "note": "RC1 remains the M001–M004 release candidate. M006-complete is a later integration checkpoint, not final v0.2.0."
+  },
+  "includes": [
+    "M001 — durable governed Revenue execution",
+    "M002 — multi-domain Media reuse",
+    "M003 — tenant/domain isolation",
+    "M004 — mission orchestration + lineage",
+    "M005 — mission economics + rollups",
+    "M006 — Workforce Control Center (read-mostly Holding pane of glass)"
+  ],
+  "criteria": {
+    "M001-PROOF": "PASS",
+    "M002-PROOF": "PASS",
+    "M003-ATTACK-SUITE": "PASS",
+    "M004-PROOF": "PASS",
+    "M005-PROOF": "PASS",
+    "M006-PROOF": "PASS",
+    "PLATFORM-V01-CERT": "PASS"
+  },
+  "notes": [
+    "Immutable integration baseline. Do not move execution-platform-m006-complete.",
+    "Do not cut final execution-platform-v0.2.0 yet.",
+    "Next engineering checkpoint: Mission 007 — evaluations + performance routing (recommendation-only).",
+    "M001–M006 built the machine workforce infrastructure; M007+ makes it measurably smarter."
+  ]
+}

@@ -474,10 +474,10 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
 | **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 — **landed** |
 | **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) — **landed** |
-| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** |
+| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** (`execution-platform-m006-complete`) |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
-| **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes — **next** |
-| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
+| **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **in flight** |
+| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant — **next after M007** |
 | **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
@@ -570,7 +570,9 @@ M003 answers: can multiple organizations safely consume the same machine workfor
 
 Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip and included in **`execution-platform-v0.2.0-rc1`**. Combined M001–M004 certification (plus `certify:platform-v01`) was green before the RC cut.
 
-Next architecture move after M005: **Mission 006 — Workforce Control Center** (read-only Holding pane of glass). Do **not** invent dashboard KPIs. Do **not** cut final `execution-platform-v0.2.0` yet.
+Mission 005 (economics) and Mission 006 (Workforce Control Center) are **landed**. Immutable integration baseline: **`execution-platform-m006-complete`** (docs tip `01bc090`).
+
+Next architecture move: **Mission 007 — evaluations + performance routing** (recommendation-only; deterministic fallback). After M007: **Mission 008 — earned autonomy**. Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -744,6 +746,63 @@ Portfolio labels (presentation): Systems, Media, G-Star, Assets, Frontier — ma
 - Replacing Runtime decide with a product-side approval engine (inspect-only; decide stays Runtime POST)
 
 Merge order for M006 PRs: **data → runtime → products → docs**.
+
+### Mission 007 — Evaluations + Performance Routing (MVP)
+
+Turn execution history into **routing intelligence**. AION learns which combination of model + agent + service version + workflow performs best for a given job — then **recommends** a route. Do **not** enable automatic adaptive routing in M007; keep the deterministic catalog / registry route as fallback until rankings are reproducible and sample sizes are sufficient. M008 (earned autonomy) decides what proven workflows may do without human approval.
+
+#### Minimum data model
+
+`EvaluationResult` (durable in aion-data):
+
+```text
+execution_id, mission_id, service_key, service_version, agent_id,
+provider, model, workflow_version, quality_score, success, latency_ms,
+total_cost, human_intervention, policy_events, business_outcome,
+economic_value, evaluated_at (+ tenant_id, evaluation_id)
+```
+
+Scorecards aggregate by candidate (provider/model/service/…). Ranking uses fixed weights in `@aion/core` (`ROUTING_SCORE_WEIGHTS`, `ROUTING_MIN_SAMPLES`).
+
+#### Flow (recommendation-only)
+
+```text
+service request
+  → eligible workers/providers
+  → policy / tenant filter
+  → performance scorecard
+  → recommended route
+  → execution (deterministic fallback unless caller honors recommendation)
+  → evaluation
+  → updated scorecard
+```
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `EvaluationResult`, `CapabilityScorecard`, `RoutingRecommendation`, `computeRankingScore` / `recommendRoute` |
+| **Data** | `evaluation_results` (0006), `evaluations.save` / `scorecardsForTenant` |
+| **Runtime** | `POST/GET /v1/evaluations`, `GET …/evaluation`, `GET /v1/scorecards`, `GET /v1/routing/recommend`, `POST /v1/routing/override` |
+| **Proof** | `npm run proof:mission007` PASS A–E |
+
+#### Proof criteria
+
+1. Identical evaluation inputs → identical rankings (replay).
+2. Candidates below `ROUTING_MIN_SAMPLES` are ineligible and cannot win.
+3. Failed / policy-denying executions are penalized vs clean successes.
+4. Tenant header required; cross-tenant DENY on eval/scorecard/recommend writes & reads.
+5. Manual override can set `recommended` without mutating underlying scorecard order; `fallback: deterministic` always present.
+6. Missions 001–006 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Automatic adaptive / bandit provider switching
+- Expanding `ServiceDefinition` with provider/model columns
+- Control Center scorecard UI (optional later)
+- Earned autonomy promotions (→ **M008**)
+
+Merge order for M007 PRs: **core → data → runtime → docs**.
 
 
 ### Day-7 checklist (Phase I — this week)
