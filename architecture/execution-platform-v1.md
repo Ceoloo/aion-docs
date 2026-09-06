@@ -456,9 +456,51 @@ execution records without forking the control plane.
 
 | ID | Work | Done when |
 |---|---|---|
-| W4.1 | Register Media services/agents/workflows only | No Core redesign |
-| W4.2 | Same Execution Object + catalog + Runtime | Cross-domain proof |
-| W4.3 | Holding can ask workforce/cost/ROI from records | Dashboard or SQL view |
+| W4.1 | Register Media services on frozen ServiceDefinition | 6 `media.*@1` keys in Core+Data (**in PR**) |
+| W4.2 | Same Runtime risk/cost/approval path | Mock adapters + gated `media.post.publish` (**in PR**) |
+| W4.3 | Cross-domain proof (Media + Revenue regression) | `npm run proof:mission002` PASS A/B/C/X (**in PR**) |
+
+
+## Platform roadmap after Mission 001 (M001–M010)
+
+Mission 001 (Revenue) is the **first reference application**, not the platform.
+The Execution Platform is proven when a second domain reuses it unchanged.
+
+| Milestone | Intent | Done when |
+|---|---|---|
+| **M001** | Revenue governed execution | Proof A–D green (complete) |
+| **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign |
+| **M003** | Multi-tenant isolation | Two ventures + one client tenant share capabilities with data/credential isolation |
+| **M004** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
+| **M005** | Mission orchestration | One Mission coordinates many Executions (DAG) |
+| **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
+| **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
+| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
+| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
+| **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
+
+**Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
+
+### Mission 002 — Media / G-Star (current)
+
+Holding objective: grow CEO LOO / G-Star distribution.
+
+```text
+Holding Objective
+  → Mission 002
+  → AION Execution Platform (frozen contracts)
+  → media.trend.research
+  → media.concept.generate
+  → media.script.generate
+  → media.asset.produce
+  → human approval
+  → media.post.publish
+  → media.performance.ingest
+  → evaluation + cost + business outcome
+```
+
+Services register through the **same** `ServiceDefinition` / Runtime / risk / cost / approval path as Revenue. Harness: `aion-runtime` `npm run proof:mission002`.
+
 
 ### Day-7 checklist (Phase I — this week)
 
