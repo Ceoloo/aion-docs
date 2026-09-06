@@ -67,3 +67,5 @@ prematurely.** Record the required capability and defer:
 |---|---|---|
 | [ADR-000](ADR-000-template.md) | Template | Template |
 | [ADR-001](ADR-001-greenfield-reset.md) | Greenfield Reset | Accepted |
+| [ADR-002](ADR-002-runtime-host-ownership.md) | Runtime Host Ownership | Accepted |
+| [ADR-003](ADR-003-execution-gateway-into-runtime.md) | Reconcile Execution Gateway into Runtime | Accepted |
