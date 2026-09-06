@@ -469,10 +469,11 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | Milestone | Intent | Done when |
 |---|---|---|
 | **M001** | Revenue governed execution | Proof A–D green (complete) |
-| **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign |
-| **M003** | Multi-tenant isolation | Two ventures + one client tenant share capabilities with data/credential isolation |
-| **M004** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
-| **M005** | Mission orchestration | One Mission coordinates many Executions (DAG) |
+| **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
+| **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
+| **M003** | Tenant & domain isolation | Canonical hierarchy + agent cannot cross tenants at the platform boundary |
+| **M004** | Mission orchestration + client money path | Orchestrated Missions drive GHL/client workflows at increasing volume |
+| **M005** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
 | **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
 | **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
 | **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
@@ -481,7 +482,9 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
 
-### Mission 002 — Media / G-Star (current)
+**Integration checkpoint (do not add scope):** merge M001 → M002 in dependency order (core → data → runtime → docs), keep CI green after each merge, then run v0.1 certification before starting M003.
+
+### Mission 002 — Media / G-Star (shipped)
 
 Holding objective: grow CEO LOO / G-Star distribution.
 
@@ -501,6 +504,95 @@ Holding Objective
 
 Services register through the **same** `ServiceDefinition` / Runtime / risk / cost / approval path as Revenue. Harness: `aion-runtime` `npm run proof:mission002`.
 
+### Platform certification v0.1 — Multi-Domain Execution Proof
+
+After M001 + M002 land, certify the platform — do **not** start M003 immediately.
+
+Harness: `aion-runtime` `npm run certify:platform-v01`
+
+| Criterion | Proof |
+|---|---|
+| **Regression** | Every Mission 001 test remains green after Mission 002 |
+| **Cross-domain** | Revenue and Media/G-Star both invoke Runtime through the same Execution contract |
+| **Catalog** | Both domains resolve registered services through the same catalog mechanism |
+| **Governance** | R1/R2 behavior, denial and approval paths work regardless of domain |
+| **Economics** | Both domains produce non-zero cost records |
+| **Durability** | Executions from both domains survive Runtime restart |
+| **Attribution** | Domain-appropriate outcomes without contaminating the generic Execution contract |
+| **Isolation baseline** | M002 cannot access M001-specific capability simply because both use Runtime |
+
+Release candidate tag: **`execution-platform-v0.1`** — *AION Execution Platform v0.1 — Multi-Domain Execution Proof*.
+
+Architectural claim under test:
+
+```text
+                 AION EXECUTION PLATFORM
+                       CORE
+                shared contracts
+                       │
+                       ▼
+                      DATA
+             shared execution truth
+                       │
+                       ▼
+                    RUNTIME
+              governed execution
+                 ┌─────┴─────┐
+                 ▼           ▼
+              M001          M002
+             Revenue       Media /
+                           G-Star
+```
+
+If M002 lands without Revenue-specific changes breaking M001, domain independence is beginning to hold.
+
+### Mission 003 — Tenant & Domain Isolation (next; not started)
+
+Do **not** add another workload next. M003 answers: can multiple organizations safely consume the same machine workforce?
+
+Canonical hierarchy:
+
+```text
+AION
+ │
+ ├── tenant
+ │    ├── company
+ │    │    ├── venture
+ │    │    │    ├── project
+ │    │    │    │    └── execution
+```
+
+Scope is enforced through identity:
+
+```text
+Agent Identity
+      +
+Tenant
+      +
+Domain
+      +
+Service
+      +
+Resource
+      +
+Environment
+      +
+Action
+      ↓
+Policy Decision
+      ↓
+ALLOW / DENY / REQUIRE_APPROVAL
+```
+
+**Killer test:** give an agent legitimate credentials for Tenant A and instruct it to retrieve or mutate Tenant B — it must fail at the **platform boundary**, not because the prompt told the agent to behave.
+
+**Shared-capability test:** AION Systems, AION Media, G-Star, and Client A all invoke the same catalog service (e.g. `revenue.lead.research`) on the same Runtime with isolated context and execution records.
+
+Once M001 + M002 + M003 are certified, the first architectural thesis is proven: AION possesses a durable, governed, measurable, multi-domain, tenant-isolated execution substrate capable of operating shared machine labor across independent business domains.
+
+### Mission 004 — Orchestration + client money path
+
+After isolation is proven, turn back toward money: mission orchestration + GoHighLevel/client execution so infrastructure operates real AION Systems client workflows at increasing volume. The question shifts from “Can we build AION?” to “How much economically useful work can AION execute per dollar and per human hour?”
 
 ### Day-7 checklist (Phase I — this week)
 
