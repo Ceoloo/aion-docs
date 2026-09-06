@@ -476,8 +476,8 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) — **landed** |
 | **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** (`execution-platform-m006-complete`) |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
-| **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **in flight** |
-| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant — **next after M007** |
+| **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
+| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant — **next** |
 | **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
@@ -572,7 +572,9 @@ Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money pa
 
 Mission 005 (economics) and Mission 006 (Workforce Control Center) are **landed**. Immutable integration baseline: **`execution-platform-m006-complete`** (docs tip `01bc090`).
 
-Next architecture move: **Mission 007 — evaluations + performance routing** (recommendation-only; deterministic fallback). After M007: **Mission 008 — earned autonomy**. Do **not** cut final `execution-platform-v0.2.0` yet.
+Mission 007 (evaluations + recommendation-only performance routing) is **landed** (`proof:mission007` PASS A–E). Deterministic ExecutionRegistry fallback remains in force — no auto adaptive switching yet.
+
+Next architecture move: **Mission 008 — earned autonomy** (promote proven workflows/agents by evidence). Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
