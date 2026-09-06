@@ -474,7 +474,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
 | **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 — **landed** |
 | **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) |
-| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state |
+| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
 | **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
@@ -570,7 +570,7 @@ M003 answers: can multiple organizations safely consume the same machine workfor
 
 Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip and included in **`execution-platform-v0.2.0-rc1`**. Combined M001–M004 certification (plus `certify:platform-v01`) was green before the RC cut.
 
-Next architecture move: **Mission 005 — mission economics + rollups** (aggregate execution truth upward to Holding). Do **not** build more orchestration next. Do **not** cut final `execution-platform-v0.2.0` yet.
+Next architecture move after M005: **Mission 006 — Workforce Control Center** (read-only Holding pane of glass). Do **not** invent dashboard KPIs. Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -705,6 +705,45 @@ Prefer **SQL rollup** over a second ledger. Holding is the tenant/portfolio aggr
 - Workforce Control Center UI (→ **M006**)
 
 Merge order for M005 PRs: **core → data → runtime → docs**.
+
+### Mission 006 — Workforce Control Center (MVP)
+
+First real pane of glass for the machine workforce. **Read-mostly.** Every number must resolve to canonical Runtime/Data truth (M005 economics + executions + lineage). Do **not** invent dashboard state.
+
+#### MVP surface (exactly 3 primary screens)
+
+| Screen | Route / surface | Source of truth |
+|---|---|---|
+| **Holding Overview** | `aion-products/workforce-control` `/` | `GET /v1/economics`, missions/executions/approvals lists |
+| **Mission Detail** | `/missions/:missionId` | mission + economics + execution lineage |
+| **Execution Detail** | `/executions/:executionId` | full Execution Object + by-root tree |
+| **Approval queue** | side panel (inspect-only) | `GET /v1/approvals?status=pending` |
+
+Portfolio labels (presentation): Systems, Media, G-Star, Assets, Frontier — map Systems/Media to real domains when present; Assets/Frontier may show stub empty state.
+
+#### Backend (thin — enable the UI)
+
+| Layer | Contract |
+|---|---|
+| **Data** | `missions.listForTenant`, `executions.listRecentForTenant`, `approvals.listForTenant` |
+| **Runtime** | `GET /v1/missions`, `GET /v1/missions/:id`, `GET /v1/executions?limit=`, `GET /v1/approvals?status=` (tenant header required) |
+| **Proof** | `npm run proof:mission006` PASS A/B/C |
+
+#### Proof criteria
+
+1. Holding economics returns non-zero totals after seeded activity.
+2. Missions list non-empty; mission economics click-through matches known counts.
+3. Failed executions list/detail resolvable; pending approvals appear with inspect fields.
+4. Cross-tenant DENY on missions/approvals/executions lists; missing tenant header DENY.
+5. Missions 001–005 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Broad write cockpit / inventing KPIs or mock dashboard generators
+- Assets / Frontier as real domains (stubs OK)
+- Replacing Runtime decide with a product-side approval engine (inspect-only; decide stays Runtime POST)
+
+Merge order for M006 PRs: **data → runtime → products → docs**.
 
 
 ### Day-7 checklist (Phase I — this week)
