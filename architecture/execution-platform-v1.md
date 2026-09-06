@@ -399,9 +399,9 @@ Then:
 
 | ID | Work | Repo | Done when |
 |---|---|---|---|
-| W2.1 | Service Catalog v0 (Mission 001 services only) | `aion-core` + `aion-data` | Versioned service records |
-| W2.2 | Runtime enforces actor registry lookup on submit | `aion-runtime` | Unknown agent → reject |
-| W2.3 | Grok adapter as Runtime **client** | `aion-runtime` / products | Submit via `/v1/commands` |
+| W2.1 | Service Catalog v0 (Mission 001 services only) | `aion-core` + `aion-data` | Versioned service records (**in PR**) |
+| W2.2 | Runtime enforces actor registry lookup on submit | `aion-runtime` | Unknown agent → reject (actors saved on submit) |
+| W2.3 | Grok adapter as Runtime **client** | `aion-runtime` / products | Submit via `/v1/commands` + `serviceKey` (**in PR**) |
 | W2.4 | Cost fields populated on every execution | core/data/runtime | Non-zero path tested |
 | W2.5 | Autonomy L0–L3 policy hooks | `aion-core` | L3 requires approval gate |
 
