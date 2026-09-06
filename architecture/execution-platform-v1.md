@@ -472,9 +472,10 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
 | **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
 | **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
-| **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 |
-| **M005** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
-| **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
+| **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 — **landed** |
+| **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) |
+| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state |
+| **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
 | **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
 | **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
@@ -552,7 +553,7 @@ M003 answers: can multiple organizations safely consume the same machine workfor
 
 `execution-platform-v0.1.0` remains the **immutable** freeze baseline. M003 sits on top of that baseline; the v0.1.0 tag was not moved.
 
-**Execution Platform v0.2 candidate** = v0.1 execution foundation + M003 tenant/domain isolation. Do **not** cut a `execution-platform-v0.2.0` tag until M004/orchestration readiness is separately decided — this is a candidate checkpoint, not a freeze.
+**Execution Platform v0.2.0-rc1** = v0.1.0 baseline + M003 tenant/domain isolation + M004 sequential orchestration (lineage, pause/resume under same `rootExecutionId`, mock GHL-shaped client-money step). Tag: `execution-platform-v0.2.0-rc1` (release candidate). **`execution-platform-v0.1.0` remains immutable.** Do **not** cut final `execution-platform-v0.2.0` until post-RC validation + explicit final certification.
 
 | Artifact | Tip (integration `cursor/execution-object-agent-identity-6743`) |
 |---|---|
@@ -567,7 +568,9 @@ M003 answers: can multiple organizations safely consume the same machine workfor
 - `npm run proof:mission003` attack suite — 16/16 PASS (cross-tenant R/W deny, unauthorized service deny, spoof deny, approval bind/replay/expiry, serviceKey tamper, budget, shared-capability allow with isolation)
 - `@aion/core` policy isolation tests — green
 
-Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip. Next architecture move: increase orchestrated client-workflow volume / real client execution plane (**M009**), not more kernel isolation — and do **not** cut `execution-platform-v0.2.0` until orchestration readiness is separately decided.
+Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip and included in **`execution-platform-v0.2.0-rc1`**. Combined M001–M004 certification (plus `certify:platform-v01`) was green before the RC cut.
+
+Next architecture move: **Mission 005 — mission economics + rollups** (aggregate execution truth upward to Holding). Do **not** build more orchestration next. Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -653,7 +656,7 @@ The question shifts from “Can we build AION?” to “How much economically us
 
 - Real GoHighLevel / CRM API credentials, webhooks, or live client-money movement (→ later client execution plane / **M009**)
 - Parallel / DAG orchestration, compensation sagas, or cross-mission scheduling
-- Cutting `execution-platform-v0.2.0` (v0.2 remains a **candidate** = v0.1 + M003; M004 readiness is decided separately)
+- Cutting final `execution-platform-v0.2.0` without an RC + post-tag validation (RC1 is allowed; final freeze is separate)
 - Replacing the Service Catalog or inventing a second control plane
 
 Merge order for M004 PRs: **core → data → runtime → docs**.
@@ -664,11 +667,30 @@ Merge order for M004 PRs: **core → data → runtime → docs**.
 |---|---|
 | aion-core | merge of PR #8 |
 | aion-data | merge of PR #9 |
-| aion-runtime | merge of PR #10 |
-| aion-docs | merge of PR #12 |
+| aion-runtime | merge of PR #10 (+ cert-gate #11) |
+| aion-docs | merge of PR #12 (+ cert-gate #13) |
 
-**Certification evidence:** `npm run proof:mission004` PASS A/B/C on Runtime (lineage tree, gated resume same root, deny stops later steps). Missions 001–003 proof suites remain gated in Runtime CI.
+**Certification evidence:** Combined M001–M004 gate on the integration tip was green (`proof:mission001`…`004` + `certify:platform-v01`) before cutting **`execution-platform-v0.2.0-rc1`**. Manifest: [`releases/execution-platform-v0.2.0-rc1.manifest.json`](../releases/execution-platform-v0.2.0-rc1.manifest.json).
 
+### Mission 005 — Mission economics + rollups (next)
+
+Do **not** build more orchestration. Aggregate execution truth upward:
+
+```text
+Execution
+   ↓
+Mission
+   ↓
+Project / Venture
+   ↓
+Company
+   ↓
+Holding
+```
+
+At mission scope, derive at least: total executions, success/failure counts, approvals, policy denials, total cost, duration, outcome, attributed economic value, human interventions, and ROI / EV-to-cost.
+
+That is the first useful Holding-level metric layer. **Mission 006** (Workforce Control Center) must read this canonical economics surface rather than inventing dashboard state.
 
 ### Day-7 checklist (Phase I — this week)
 

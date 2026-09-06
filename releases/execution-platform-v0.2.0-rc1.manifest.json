@@ -1,0 +1,57 @@
+{
+  "release": "execution-platform-v0.2.0-rc1",
+  "title": "AION Execution Platform v0.2.0-rc1 \u2014 Isolation + Orchestration",
+  "kind": "release-candidate",
+  "result": "PASS",
+  "certifiedAt": "2026-09-06T21:33:00Z",
+  "harness": [
+    "npm run proof:mission001",
+    "npm run proof:mission002",
+    "npm run proof:mission003",
+    "npm run proof:mission004",
+    "npm run certify:platform-v01"
+  ],
+  "components": {
+    "aion-core": {
+      "gitSha": "23ba71822cb888911dd4c1c4408f74ae44d0cd95",
+      "tag": "execution-platform-v0.2.0-rc1"
+    },
+    "aion-data": {
+      "gitSha": "6dcb8286fd0962448f6cd95c646a3a5435c6ac68",
+      "schemaVersion": "0005",
+      "tag": "execution-platform-v0.2.0-rc1"
+    },
+    "aion-runtime": {
+      "gitSha": "f2f14904c31f1f475e497bec77978e9a41495452",
+      "tag": "execution-platform-v0.2.0-rc1"
+    },
+    "aion-docs": {
+      "gitSha": "PENDING_THIS_RELEASE_COMMIT",
+      "note": "Updated to this commit's SHA when the docs RC1 packaging commit is tagged."
+    }
+  },
+  "priorBaseline": {
+    "tag": "execution-platform-v0.1.0",
+    "status": "immutable",
+    "note": "v0.1.0 remains the prior certified multi-domain baseline. RC1 does not move it."
+  },
+  "includes": [
+    "M001 \u2014 durable governed Revenue execution (cost, approvals, restart durability)",
+    "M002 \u2014 multi-domain Media reuse of the same Runtime/catalog/contracts",
+    "M003 \u2014 tenant/domain isolation attack suite",
+    "M004 \u2014 sequential MissionOrchestrator, lineage, approval pause/resume under same rootExecutionId, mock GHL-shaped client-money step"
+  ],
+  "criteria": {
+    "M001-PROOF": "PASS",
+    "M002-PROOF": "PASS",
+    "M003-ATTACK-SUITE": "PASS",
+    "M004-PROOF": "PASS",
+    "PLATFORM-V01-CERT": "PASS"
+  },
+  "notes": [
+    "This is a RELEASE CANDIDATE, not the final v0.2.0 freeze.",
+    "Do not move execution-platform-v0.2.0-rc1. Do not cut execution-platform-v0.2.0 until post-tag validation + explicit final certification.",
+    "Next engineering checkpoint: Mission 005 \u2014 mission economics + rollups (Execution \u2192 Mission \u2192 Project/Venture \u2192 Company \u2192 Holding).",
+    "Mission 006 remains the Workforce Control Center reading canonical economics, not inventing dashboard state."
+  ]
+}
