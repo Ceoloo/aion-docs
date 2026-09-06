@@ -471,7 +471,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M001** | Revenue governed execution | Proof A–D green (complete) |
 | **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
 | **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
-| **M003** | Tenant & domain isolation | Canonical hierarchy + agent cannot cross tenants at the platform boundary |
+| **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
 | **M004** | Mission orchestration + client money path | Orchestrated Missions drive GHL/client workflows at increasing volume |
 | **M005** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
 | **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
@@ -546,47 +546,63 @@ Architectural claim under test:
 
 If M002 lands without Revenue-specific changes breaking M001, domain independence is beginning to hold.
 
-### Mission 003 — Tenant & Domain Isolation (next; not started)
+### Mission 003 — Tenant & Domain Isolation (P0 — in flight)
 
-Do **not** add another workload next. M003 answers: can multiple organizations safely consume the same machine workforce?
+Do **not** add another workload before isolation is proven. M003 answers: can multiple organizations safely consume the same machine workforce?
 
-Canonical hierarchy:
+`execution-platform-v0.1.0` is the immutable baseline. M003 builds on that baseline without moving the tag.
+
+Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
 ```text
-AION
- │
- ├── tenant
- │    ├── company
- │    │    ├── venture
- │    │    │    ├── project
- │    │    │    │    └── execution
+Tenant (REQUIRED)
+  └── Company (optional)
+        └── Venture (optional)
+              └── Project (optional)
+                    └── Mission (optional)
+                          └── Execution
+                                └── Child Execution (lineage)
 ```
 
-Scope is enforced through identity:
+Identity is cryptographically meaningful at the Runtime boundary:
 
 ```text
-Agent Identity
-      +
-Tenant
-      +
-Domain
-      +
-Service
-      +
-Resource
-      +
-Environment
-      +
-Action
-      ↓
-Policy Decision
-      ↓
+WHO     agentId / agentUri
+WHERE   tenantId (+ optional company / environment)
+WHAT    serviceKey / capability
+WHY     missionId / objective
+AUTHORITY  role, grants, autonomy, budget  (evaluated — never trusted blindly)
+REQUEST    action + resource refs + approvalId
+     ↓
+Runtime PolicyEngine.authorize()
+     ↓
 ALLOW / DENY / REQUIRE_APPROVAL
 ```
 
-**Killer test:** give an agent legitimate credentials for Tenant A and instruct it to retrieve or mutate Tenant B — it must fail at the **platform boundary**, not because the prompt told the agent to behave.
+**Rule:** Runtime establishes permission. Never: “the agent says it has permission.”
 
-**Shared-capability test:** AION Systems, AION Media, G-Star, and Client A all invoke the same catalog service (e.g. `revenue.lead.research`) on the same Runtime with isolated context and execution records.
+**Attack suite (must stay green):** `aion-runtime` `npm run proof:mission003`
+
+| Attack | Expected |
+|---|---|
+| Tenant A → read Tenant B execution | DENY |
+| Tenant A → mutate Tenant B artifact | DENY |
+| Tenant A agent → unauthorized service | DENY |
+| Media agent → `production.deploy` | DENY |
+| Spoof `agentId` | DENY |
+| R2 execute without `approvalId` | REQUIRE_APPROVAL |
+| `approvalId` from execution A → execution B | DENY |
+| `approvalId` replay / consume | DENY |
+| Expired approval | DENY |
+| `serviceKey` tampering | DENY |
+| Cross-tenant context / artifact ref | DENY |
+| Budget exceeded | DENY |
+| Valid shared capability | ALLOW |
+| Same service from two tenants | ALLOW (isolated records) |
+
+HTTP reads also require `x-aion-tenant-id`; cross-tenant execution GET is DENY at the gateway.
+
+**Lineage (M004 precursor):** executions carry optional `parentExecutionId` / `rootExecutionId` so orchestrated fan-out can be reconstructed without building the big orchestrator yet.
 
 Once M001 + M002 + M003 are certified, the first architectural thesis is proven: AION possesses a durable, governed, measurable, multi-domain, tenant-isolated execution substrate capable of operating shared machine labor across independent business domains.
 
