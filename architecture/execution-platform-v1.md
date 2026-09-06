@@ -473,10 +473,10 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
 | **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
 | **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 — **landed** |
-| **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) |
-| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) |
+| **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) — **landed** |
+| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
-| **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
+| **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes — **next** |
 | **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
 | **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
