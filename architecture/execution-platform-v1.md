@@ -409,10 +409,10 @@ Then:
 
 | ID | Work | Done when |
 |---|---|---|
-| W3.1 | Revenue Copilot submits to durable Runtime (not in-process Core) | Prod path uses Runtime |
-| W3.2 | Permissions enforced on tools/data | Denied path tested |
-| W3.3 | Approvals resume same run | Durable gate |
-| W3.4 | Cost + telemetry + outcome attribution | Queryable from Data |
+| W3.1 | Revenue Copilot submits to durable Runtime (not in-process Core) | Prod path uses Runtime (**in PR**) |
+| W3.2 | Permissions enforced on tools/data | Denied path tested (**in PR**) |
+| W3.3 | Approvals resume same run | Durable gate (approvalId surfaced; resume via Runtime approvals API) |
+| W3.4 | Cost + telemetry + outcome attribution | Cost on exec results + outcome attribution helper (**in PR**) |
 | W3.5 | Restart recovery still green | CI harness |
 
 ### Week 4 — Mission 002 (Media / G-Star)
