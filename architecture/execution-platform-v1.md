@@ -409,11 +409,48 @@ Then:
 
 | ID | Work | Done when |
 |---|---|---|
-| W3.1 | Revenue Copilot submits to durable Runtime (not in-process Core) | Prod path uses Runtime (**in PR**) |
-| W3.2 | Permissions enforced on tools/data | Denied path tested (**in PR**) |
-| W3.3 | Approvals resume same run | Durable gate (approvalId surfaced; resume via Runtime approvals API) |
-| W3.4 | Cost + telemetry + outcome attribution | Cost on exec results + outcome attribution helper (**in PR**) |
-| W3.5 | Restart recovery still green | CI harness |
+| W3.1 | Revenue Copilot submits to durable Runtime (not in-process Core) | Prod path uses Runtime; proof PASS A via serviceKey (**in PR**) |
+| W3.2 | Permissions enforced on tools/data | Proof matrix PASS B — unauthorized denied before execute (**in PR**) |
+| W3.3 | Approvals resume same run | Proof matrix PASS C — same runId, requestId idempotent, second decision rejected (**in PR**) |
+| W3.4 | Cost + telemetry + outcome attribution | Proof PASS A/C cost>0; execution queryable for outcome attribution (**in PR**) |
+| W3.5 | Restart recovery still green | Proof matrix PASS D — kill/restart Runtime, resume once (**in PR**) |
+
+### Mission 001 close-out — proof before catalog growth
+
+Do **not** expand the 11-service Mission 001 catalog further. Remaining work is
+**proof**, not features. Canonical path:
+
+```text
+Revenue Copilot → serviceKey → Runtime → identity → catalog → permission
+  → R1 execute | R2 approval (once) → adapter → cost > 0 → outcome attribution
+  → survives restart → queryable Execution record
+```
+
+| Pass | Requirement |
+|---|---|
+| **A** | Authorized R1 → completed, cost > 0, catalog snapshot, execution queryable |
+| **B** | Unauthorized → denied before adapter, no side effect |
+| **C** | R2 → awaiting_approval → approve → same run once; requestId replay idempotent; second decision fails |
+| **D** | Runtime restart → run still queryable → resume once, cost recorded, no duplicate side effect |
+
+Harness: `aion-runtime` `npm run proof:mission001` (CI after acceptance).
+
+### Interface freeze (before Mission 002)
+
+Freeze these Core contracts unless a genuine cross-domain requirement appears:
+
+- `Command` / `CommandInput` (ExecutionRequest)
+- `ExecutionResult` / Execution Object
+- `ServiceDefinition` (catalog contract: version, risk, permissions, approval, cost, eval)
+- `PolicyDecision` (PermissionDecision)
+- `ApprovalRequest` / `ApprovalDecision`
+- Cost on results (`ExecutionCost`)
+- Outcome attribution fields / references
+- Evaluation / evalRefs on services
+
+Mission 002 Media/G-Star must **consume** these interfaces — register services like
+`media.trend.research@1` through the same Runtime, risk, cost, approvals, and
+execution records without forking the control plane.
 
 ### Week 4 — Mission 002 (Media / G-Star)
 
