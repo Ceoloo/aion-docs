@@ -486,7 +486,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 
 **Architecture rule:** no new abstraction without a real AION workload that needs it.
 
-**North-star metric (post-isolation):** `EVPE = attributed economic value ÷ total execution cost`, alongside success rate, human intervention rate, latency, and policy violations.
+**North-star metric (post-isolation):** `EVPE = attributed economic value ÷ total execution cost`
 
 ### Mission 002 — Media / G-Star (shipped)
 
