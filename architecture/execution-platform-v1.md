@@ -477,8 +477,8 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** (`execution-platform-m006-complete`) |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
-| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant — **next** |
-| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
+| **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **in flight** |
+| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth — **next after M008** |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
@@ -574,7 +574,7 @@ Mission 005 (economics) and Mission 006 (Workforce Control Center) are **landed*
 
 Mission 007 (evaluations + recommendation-only performance routing) is **landed** (`proof:mission007` PASS A–E). Deterministic ExecutionRegistry fallback remains in force — no auto adaptive switching yet.
 
-Next architecture move: **Mission 008 — earned autonomy** (promote proven workflows/agents by evidence). Do **not** cut final `execution-platform-v0.2.0` yet.
+Next architecture move after M007: **Mission 008 — earned autonomy policy** (scoped grants; R3 never waived). After M008 greens, prefer RC2 / deferred final v0.2.0 around governed+evaluated+selectively autonomous execution, then **M009** live external-system execution (GHL-shaped client-money). Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -806,6 +806,62 @@ service request
 
 Merge order for M007 PRs: **core → data → runtime → docs**.
 
+
+### Mission 008 — Earned Autonomy Policy (MVP)
+
+Autonomy is **granted** to a specific agent × service × tenant × environment combination based on observed performance and risk — not “make agents autonomous.”
+
+**HARD RULE:** Performance can earn autonomy only inside policy limits. Performance must never override risk policy (R3 is never waived).
+
+#### Levels
+
+| Level | Meaning |
+|---|---|
+| L0 | Observe |
+| L1 | Recommend |
+| L2 | Execute reversible work |
+| L3 | Execute sensitive work with approval |
+| L4 | Bounded autonomous execution (proven scoped workflow may skip human gate) |
+
+#### AutonomyGrant (minimum)
+
+`agent_id`, `service_key`, `tenant_scope`, `environment`, `current_level`, `eligible_level`, evidence window metrics (executions, success_rate, policy_violation_rate, rollback_rate, human_intervention_rate, cost_variance, eval_score), `last_reviewed_at`, `grant_reason`.
+
+L4 eligibility (deterministic): executions ≥ 25, success ≥ 98%, policy violations = 0, rollback < 1%, intervention/eval/cost within thresholds, tenant/env explicitly allow L4, service risk ≠ R3.
+
+#### Flow
+
+```text
+ExecutionRequest → identity/tenant/service/env → risk → AutonomyPolicy.evaluate()
+  → ALLOW | REQUIRE_APPROVAL | DENY → Execution → EvaluationResult → evidence update
+```
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `AutonomyGrant`, `evaluateAutonomy`, `computeEligibleAutonomyLevel`, PolicyEngine hook |
+| **Data** | `autonomy_grants` (0007), `autonomyGrants.save` / `getActive` / `listForTenant` |
+| **Runtime** | `POST /v1/autonomy/{evaluate,promote,demote}`, `GET /v1/autonomy/grants` |
+| **Proof** | `npm run proof:mission008` PASS A–G |
+
+#### Proof criteria
+
+1. Low-evidence stays approval-required (L1).
+2. Qualified evidence earns higher autonomy (L4).
+3. Policy violation blocks/demotes autonomy.
+4. Grants are tenant/environment scoped (no bleed).
+5. High-risk (R3) cannot bypass approval even with excellent performance.
+6. Manual demote reduces autonomy immediately.
+7. Reload preserves grant state deterministically.
+
+#### Non-goals
+
+- Unrestricted L4 / auto adaptive switching
+- Raising blanket `AgentActor.autonomyLevel` as the sole mechanism
+- Live external CRM I/O (→ **M009**)
+
+Merge order: **core → data → runtime → docs**.
 
 ### Day-7 checklist (Phase I — this week)
 
