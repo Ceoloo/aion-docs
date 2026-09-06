@@ -20,8 +20,7 @@
       "serviceVersion": "0.1.0"
     },
     "aion-docs": {
-      "gitSha": "PENDING_DOCS_FREEZE_COMMIT",
-      "note": "Filled after docs freeze commit; certified platform code SHAs above are authoritative."
+      "gitSha": "98cfbceb9b2984198d82864be724d4fd09bd95fa"
     }
   },
   "catalogVersion": "v0",
