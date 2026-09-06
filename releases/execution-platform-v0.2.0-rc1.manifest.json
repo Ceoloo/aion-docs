@@ -26,8 +26,9 @@
       "tag": "execution-platform-v0.2.0-rc1"
     },
     "aion-docs": {
-      "gitSha": "PENDING_THIS_RELEASE_COMMIT",
-      "note": "Updated to this commit's SHA when the docs RC1 packaging commit is tagged."
+      "gitSha": "3f5ce0b2188458584a78d774015b1c90b282a20e",
+      "tag": "execution-platform-v0.2.0-rc1",
+      "note": "Docs tip carrying the RC1 manifest and roadmap retarget."
     }
   },
   "priorBaseline": {
