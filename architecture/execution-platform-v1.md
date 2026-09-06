@@ -472,7 +472,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
 | **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
 | **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
-| **M004** | Mission orchestration + client money path | Orchestrated Missions drive GHL/client workflows at increasing volume |
+| **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 |
 | **M005** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
 | **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
 | **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
@@ -623,9 +623,40 @@ HTTP reads also require `x-aion-tenant-id`; cross-tenant execution GET is DENY a
 
 Once M001 + M002 + M003 are certified, the first architectural thesis is proven: AION possesses a durable, governed, measurable, multi-domain, tenant-isolated execution substrate capable of operating shared machine labor across independent business domains.
 
-### Mission 004 — Orchestration + client money path
+### Mission 004 — Orchestration + client money path (MVP)
 
-After isolation is proven, turn back toward money: mission orchestration + GoHighLevel/client execution so infrastructure operates real AION Systems client workflows at increasing volume. The question shifts from “Can we build AION?” to “How much economically useful work can AION execute per dollar and per human hour?”
+After isolation is proven, turn back toward money: **mission orchestration** so infrastructure can run multi-step client workflows under one governed lineage tree — with a **mock** GoHighLevel-shaped client-money step as the first proof, not a production CRM integration.
+
+The question shifts from “Can we build AION?” to “How much economically useful work can AION execute per dollar and per human hour?”
+
+#### MVP definition (in scope)
+
+| Piece | Contract |
+|---|---|
+| **Sequential MissionOrchestrator** | Runs an ordered Workflow as governed single-command steps via the existing Orchestrator (no parallel DAG) |
+| **Lineage** | Every child step carries `parentExecutionId` / `rootExecutionId`; root step is its own root |
+| **Durable plans** | Workflow definitions persist in Data (`workflows` table) and reload after Runtime restart |
+| **Lineage queries** | `listByRoot` / `listByParent` reconstruct the execution tree |
+| **Approval pause/resume** | Gated mid-step → `awaiting_approval`; resume continues remaining steps under the **same** `rootExecutionId` |
+| **Mock client-money path** | Capability `client.ghl.contact.upsert` with GHL-shaped payload in step metadata (provider + contact) — proves payload/lineage plumbing only |
+| **Runtime surface** | `POST /v1/missions/run` (+ lineage on command ExecutionObjects); proof matrix `proof:mission004` |
+
+#### Proof criteria (must stay green)
+
+1. Multi-step mission completes under one root; `listByRoot` returns every step in order with correct parents.
+2. Gated mid-step pauses; after approval, remaining steps resume under the same root.
+3. Mid-plan deny stops later steps (no silent continuation).
+4. Mock GHL step accepts/preserves GHL-shaped payload without leaking CRM fields onto the generic Execution contract.
+5. Missions 001–003 proof suites remain green on the same Runtime tip.
+
+#### Non-goals (explicitly out of M004)
+
+- Real GoHighLevel / CRM API credentials, webhooks, or live client-money movement (→ later client execution plane / **M009**)
+- Parallel / DAG orchestration, compensation sagas, or cross-mission scheduling
+- Cutting `execution-platform-v0.2.0` (v0.2 remains a **candidate** = v0.1 + M003; M004 readiness is decided separately)
+- Replacing the Service Catalog or inventing a second control plane
+
+Merge order for M004 PRs: **core → data → runtime → docs**.
 
 ### Day-7 checklist (Phase I — this week)
 
