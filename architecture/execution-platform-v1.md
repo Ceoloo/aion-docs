@@ -470,19 +470,23 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 |---|---|---|
 | **M001** | Revenue governed execution | Proof A–D green (complete) |
 | **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
-| **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
-| **M003** | Tenant & domain isolation | Canonical hierarchy + agent cannot cross tenants at the platform boundary |
-| **M004** | Mission orchestration + client money path | Orchestrated Missions drive GHL/client workflows at increasing volume |
-| **M005** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers |
-| **M006** | Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
-| **M007** | Learning / router loop | Route by evidence (cost × quality × KPI), not vibes |
-| **M008** | Earned autonomy L0→L4 | Autonomy is a promotion on agent+service+env, not a blanket grant |
-| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth |
-| **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
+| **v0.1.0** | Multi-domain platform certification (immutable) | `npm run certify:platform-v01` PASS + manifest; tag `execution-platform-v0.1.0` |
+| **M003** | Tenant & domain isolation ← **NEXT / P0** | Hierarchy + attack suite; Runtime decides ALLOW/DENY/REQUIRE_APPROVAL |
+| **M004** | Mission orchestration | Mission object above Execution; business intent → plan → executions |
+| **M005** | Holding Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
+| **M006** | Real client execution / GoHighLevel | AION Systems client workflow through platform |
+| **M007** | Evaluation + intelligent routing | Route by evidence (cost × quality × KPI), not vibes |
+| **M008** | Earned autonomy | Autonomy is a promotion on agent+service+env, not a blanket grant |
+| **M009** | AION Workforce productization | Monetize the platform as a governed AI workforce |
+| **M010** | Venture provisioning / empire-scale execution | Multi-venture provisioning on the shared substrate |
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
 
 **Integration checkpoint (do not add scope):** merge M001 → M002 in dependency order (core → data → runtime → docs), keep CI green after each merge, then run v0.1 certification before starting M003.
+
+**Architecture rule:** no new abstraction without a real AION workload that needs it.
+
+**North-star metric (post-isolation):** `EVPE = attributed economic value ÷ total execution cost`, alongside success rate, human intervention rate, latency, and policy violations.
 
 ### Mission 002 — Media / G-Star (shipped)
 
@@ -521,9 +525,29 @@ Harness: `aion-runtime` `npm run certify:platform-v01`
 | **Attribution** | Domain-appropriate outcomes without contaminating the generic Execution contract |
 | **Isolation baseline** | M002 cannot access M001-specific capability simply because both use Runtime |
 
-Release candidate tag: **`execution-platform-v0.1`** — *AION Execution Platform v0.1 — Multi-Domain Execution Proof*.
+**Immutable release tag:** **`execution-platform-v0.1.0`** — *AION Execution Platform v0.1.0 — Multi-Domain Execution Proof*.
 
-Architectural claim under test:
+Machine-readable evidence: [`releases/execution-platform-v0.1.0.manifest.json`](../releases/execution-platform-v0.1.0.manifest.json)  
+(fields: git SHA → schema version → Runtime version → catalog version → certification result → timestamp).
+
+Do **not** move `execution-platform-v0.1.0`. Fixes ship as `execution-platform-v0.1.1+`.
+
+#### What v0.1.0 guarantees
+
+| Guarantees | Does **not** guarantee |
+|---|---|
+| Mission 001 Revenue path remains green after Mission 002 | Tenant / company / venture isolation (that is M003) |
+| Media/G-Star executes on the **same** Runtime contracts | Cryptographic agent identity / spoof resistance |
+| Shared catalog resolves both domains | Cross-tenant shared-capability isolation |
+| R1 deny + R2 approval work for both domains | Mission orchestration / DAG of executions |
+| Non-zero cost records for both domains | Holding Control Center / EVPE dashboards |
+| Dual-domain executions survive Runtime restart | GoHighLevel / client commercial loop |
+| Domain attribution without contaminating generic Execution | Earned autonomy L3–L4 |
+| Capability-level isolation baseline across domains | Production multi-tenant security posture |
+
+v0.1.0 is the **baseline** future architecture is compared against.
+
+Architectural claim certified:
 
 ```text
                  AION EXECUTION PLATFORM
