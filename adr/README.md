@@ -19,7 +19,8 @@ Write an ADR when a decision:
 is as harmful as no ADRs. See
 [../governance/change-management.md](../governance/change-management.md).
 
-> Guidance: **Do not create unnecessary ADRs yet.** Only two exist at reset.
+> Guidance: **Do not create unnecessary ADRs yet.** Prefer extending existing
+> decisions; only add an ADR when a boundary or precedent actually changes.
 
 ## The standard
 
