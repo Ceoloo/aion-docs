@@ -672,25 +672,40 @@ Merge order for M004 PRs: **core → data → runtime → docs**.
 
 **Certification evidence:** Combined M001–M004 gate on the integration tip was green (`proof:mission001`…`004` + `certify:platform-v01`) before cutting **`execution-platform-v0.2.0-rc1`**. Manifest: [`releases/execution-platform-v0.2.0-rc1.manifest.json`](../releases/execution-platform-v0.2.0-rc1.manifest.json).
 
-### Mission 005 — Mission economics + rollups (next)
+### Mission 005 — Mission Economics + Rollups (MVP)
 
-Do **not** build more orchestration. Aggregate execution truth upward:
+Aggregate execution truth upward — do **not** build more orchestration:
 
 ```text
-Execution
-   ↓
-Mission
-   ↓
-Project / Venture
-   ↓
-Company
-   ↓
-Holding
+Execution → Mission → Project / Venture → Company → Holding (tenant)
 ```
 
-At mission scope, derive at least: total executions, success/failure counts, approvals, policy denials, total cost, duration, outcome, attributed economic value, human interventions, and ROI / EV-to-cost.
+Prefer **SQL rollup** over a second ledger. Holding is the tenant/portfolio aggregate without a dedicated Holding table in MVP.
 
-That is the first useful Holding-level metric layer. **Mission 006** (Workforce Control Center) must read this canonical economics surface rather than inventing dashboard state.
+#### MVP surface
+
+| Piece | Contract |
+|---|---|
+| **Core** | `MissionEconomicsRollup` / `ScopeEconomicsRollup` + shared metrics (cost, EV, ROI, denials, approvals, …) |
+| **Data** | `economics.rollupByMission` / `rollupByScope` derived from `executions` + `approvals` + `outcomes` |
+| **Runtime** | `GET /v1/missions/:missionId/economics`, `GET /v1/economics?…` (tenant header required) |
+| **Proof** | `npm run proof:mission005` PASS A/B/C |
+
+#### Proof criteria
+
+1. After a multi-step / command flow, mission rollup matches known execution, approval, cost, and attributed EV totals (incl. ROI).
+2. Holding (tenant) scope rollup includes mission spend; cross-tenant query DENY.
+3. Missing `x-aion-tenant-id` is DENY on economics reads.
+4. Missions 001–004 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Service Catalog as internal discovery API (deferred; was the prior M005 label)
+- A second cost/revenue ledger table or Holding entity table
+- Workforce Control Center UI (→ **M006**)
+
+Merge order for M005 PRs: **core → data → runtime → docs**.
+
 
 ### Day-7 checklist (Phase I — this week)
 
