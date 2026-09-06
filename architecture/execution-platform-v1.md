@@ -546,11 +546,28 @@ Architectural claim under test:
 
 If M002 lands without Revenue-specific changes breaking M001, domain independence is beginning to hold.
 
-### Mission 003 — Tenant & Domain Isolation (P0 — in flight)
+### Mission 003 — Tenant & Domain Isolation (P0 — landed)
 
-Do **not** add another workload before isolation is proven. M003 answers: can multiple organizations safely consume the same machine workforce?
+M003 answers: can multiple organizations safely consume the same machine workforce? **Yes — certified on the integration tip after ordered landings (core → data → runtime → docs).**
 
-`execution-platform-v0.1.0` is the immutable baseline. M003 builds on that baseline without moving the tag.
+`execution-platform-v0.1.0` remains the **immutable** freeze baseline. M003 sits on top of that baseline; the v0.1.0 tag was not moved.
+
+**Execution Platform v0.2 candidate** = v0.1 execution foundation + M003 tenant/domain isolation. Do **not** cut a `execution-platform-v0.2.0` tag until M004/orchestration readiness is separately decided — this is a candidate checkpoint, not a freeze.
+
+| Artifact | Tip (integration `cursor/execution-object-agent-identity-6743`) |
+|---|---|
+| aion-core | merge of PR #7 |
+| aion-data | merge of PR #7 |
+| aion-runtime | merge of PR #8 |
+| aion-docs | merge of PR #10 |
+
+**Certification evidence (merged tip):**
+
+- Runtime post-merge CI: Mission 001 proof, Mission 002 proof, Platform v0.1 multi-domain cert — all green
+- `npm run proof:mission003` attack suite — 16/16 PASS (cross-tenant R/W deny, unauthorized service deny, spoof deny, approval bind/replay/expiry, serviceKey tamper, budget, shared-capability allow with isolation)
+- `@aion/core` policy isolation tests — green
+
+Next architecture move: **Mission 004 — Mission Orchestration** (not more isolation work).
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
