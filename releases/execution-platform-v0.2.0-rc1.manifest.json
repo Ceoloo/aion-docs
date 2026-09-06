@@ -26,7 +26,7 @@
       "tag": "execution-platform-v0.2.0-rc1"
     },
     "aion-docs": {
-      "gitSha": "3f5ce0b2188458584a78d774015b1c90b282a20e",
+      "gitSha": "e6997b62d96c88c02f3920ce0159889187017c66",
       "tag": "execution-platform-v0.2.0-rc1",
       "note": "Docs tip carrying the RC1 manifest and roadmap retarget."
     }
