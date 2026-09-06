@@ -567,7 +567,7 @@ M003 answers: can multiple organizations safely consume the same machine workfor
 - `npm run proof:mission003` attack suite — 16/16 PASS (cross-tenant R/W deny, unauthorized service deny, spoof deny, approval bind/replay/expiry, serviceKey tamper, budget, shared-capability allow with isolation)
 - `@aion/core` policy isolation tests — green
 
-Next architecture move: **Mission 004 — Mission Orchestration** (not more isolation work).
+Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip. Next architecture move: increase orchestrated client-workflow volume / real client execution plane (**M009**), not more kernel isolation — and do **not** cut `execution-platform-v0.2.0` until orchestration readiness is separately decided.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -657,6 +657,18 @@ The question shifts from “Can we build AION?” to “How much economically us
 - Replacing the Service Catalog or inventing a second control plane
 
 Merge order for M004 PRs: **core → data → runtime → docs**.
+
+#### Landed status (integration tip)
+
+| Artifact | Tip |
+|---|---|
+| aion-core | merge of PR #8 |
+| aion-data | merge of PR #9 |
+| aion-runtime | merge of PR #10 |
+| aion-docs | merge of PR #12 |
+
+**Certification evidence:** `npm run proof:mission004` PASS A/B/C on Runtime (lineage tree, gated resume same root, deny stops later steps). Missions 001–003 proof suites remain gated in Runtime CI.
+
 
 ### Day-7 checklist (Phase I — this week)
 
