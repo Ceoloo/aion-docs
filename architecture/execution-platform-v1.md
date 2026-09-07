@@ -478,7 +478,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
 | **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **landed** |
-| **M009** | Client execution plane | Live GHL via governed adapters + ExternalSideEffect ledger; payment movement out of MVP — **in flight** |
+| **M009** | Client execution plane | Live GHL via governed adapters + ExternalSideEffect ledger; payment movement out of MVP — **landed** |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
@@ -576,7 +576,9 @@ Mission 007 (evaluations + recommendation-only performance routing) is **landed*
 
 Mission 008 (earned autonomy policy) is **landed** (`proof:mission008` PASS A–G). Performance can earn autonomy only inside policy limits; R3 is never waived. L4 means bounded autonomous execution for a proven agent×service×tenant×env grant — not unrestricted autonomy.
 
-Mission 009 (live GHL client-money plane) is **in flight**. GoHighLevel owns CRM state; AION owns governance truth (identity, tenant, permission, risk, autonomy, approval, cost, lineage, audit). Prefer promoting `execution-platform-v0.2.0` only after M009 greens. Do **not** cut final v0.2.0 yet.
+Mission 009 (live GHL client-money plane) is **landed** (`proof:mission009` PASS A–J). GoHighLevel owns CRM state; AION owns governance truth (identity, tenant, permission, risk, autonomy, approval, cost, lineage, audit). Payment movement remains out of MVP.
+
+The platform chain is now: governed → multi-domain → isolated → orchestrated → economic → observable → evaluated → autonomy-scoped → external execution. Prefer promoting `execution-platform-v0.2.0` after a clean post-M009 validation. Do **not** cut final v0.2.0 until that certification is explicit.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
