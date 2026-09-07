@@ -60,7 +60,9 @@ Production evidence drives autonomy changes — not a push to get everything to 
 
 ### OL-001 — Revenue Production Loop
 
-A **real operating workload**, not an architecture mission.
+A **real operating workload**, not an architecture mission. **Dominant priority**
+after v0.2.0. Do **not** start OL-002 until this cohort produces a trustworthy
+baseline.
 
 ```text
 REAL LEAD
@@ -80,8 +82,19 @@ REAL LEAD
 
 **First production target:** **100 real revenue missions** through v0.2.0.
 
-Enough volume for operational patterns; small enough to inspect failures manually.
-Run repeatedly — not once.
+Run repeatedly — not once. Version meaningful workflow changes so cohort data
+stays comparable (`Revenue Production v1`, `v1.1`, …). Do **not** continuously
+redesign the workflow across the entire 100 without versioning.
+
+#### Cohort checkpoints (production experiment)
+
+| Missions | Mode |
+|---|---|
+| **1–10** | Supervised production — inspect essentially every execution and intervention |
+| **11–25** | Stabilize recurring failures; remove obvious operator friction |
+| **26–50** | Compare workflow versions, routing recommendations, intervention patterns |
+| **51–75** | Cautiously exercise earned autonomy where M008 evidence supports it |
+| **76–100** | Closer to steady state; establish first trustworthy production baseline |
 
 #### Primary KPIs
 
@@ -97,12 +110,66 @@ Run repeatedly — not once.
 Secondary: approval wait time, time-to-outcome, retry rate, provider/model
 performance, workflow step failure rate, tenant-level economics.
 
+#### Revenue identity (protect aggressively)
+
+Keep these **separate** on every scoreboard and rollup:
+
+| Field | Meaning |
+|---|---|
+| **Pipeline created** | Forward opportunity value — not cash |
+| **Revenue influenced** | Soft attribution / assist — not collected |
+| **Revenue attributed** | Execution-level attributed EV (M005) |
+| **Revenue collected** | Actual cash received |
+
+`pipeline ≠ attributed ≠ collected`. Collapsing them produces impressive but
+economically meaningless ROI.
+
+#### OL-001 scoreboard (heartbeat)
+
+```text
+OL-001 — REVENUE PRODUCTION
+PRODUCTION
+  Real missions             N / 100
+  Successful                     —
+  Failed                         —
+  In progress                    —
+THROUGHPUT
+  Missions / day                 —
+  Median completion time         —
+HUMAN LOAD
+  Intervention rate              —
+  Approvals / mission            —
+  Human minutes / mission        —
+ECONOMICS
+  Cost / mission                 —
+  Cost / successful mission      —
+  Economic value / execution     —
+  EV / execution cost            —
+REVENUE
+  Pipeline created               —   (≠ attributed ≠ collected)
+  Revenue influenced             —
+  Revenue attributed             —
+  Revenue collected              —
+RELIABILITY
+  Failure rate                   —
+  Retry rate                     —
+  Policy violations              —
+  External-system failures       —
+```
+
+**Major checkpoint:** scoreboard reads **100 / 100** with enough evidence to
+answer how productive, reliable, expensive, autonomous, and economically
+valuable the machine workforce is in the real world.
+
+UI/backend changes during OL-001 are **pulled by friction**, not pre-built.
+Next Console slices when needed: create-mission (first), then policy-aware retry.
+
 ---
 
 ### OL-002 — Client Production Loop
 
-Once the internal revenue loop is stable, run **one** real client tenant on the
-same platform.
+**Deferred until OL-001 baseline exists.** Do not onboard client tenants to prove
+scalability before proving the internal revenue loop produces measurable value.
 
 ```text
                  AION PLATFORM v0.2
@@ -233,35 +300,68 @@ internals, risk policy code, provider adapters, deploy config.
 
 ---
 
-## UX-001 — AION Operator Console (next milestone)
+## UX-001 — AION Operator Console
 
-**Not another backend mission.** First production operator surface.
+**Not another backend mission.** Human operating surface over certified v0.2.0.
 
 **Home:** `aion-products/workforce-control` (evolves M006 Control Center).
-Reuse Vite + shadcn stack already wired to canonical Runtime APIs — do not
-rebuild in `aion-desks` (marketing/checkout) or invent a parallel Next app unless
-operator behavior later demands a split.
+Reuse Vite + shadcn already wired to canonical Runtime APIs.
 
-### First production flows
+### Interaction model (steady state)
 
-1. See active / completed / failed missions
-2. Inspect execution lineage
-3. **Approve / deny** pending actions (governed Runtime decision)
+```text
+Open AION
+  → COMMAND CENTER — "What needs my attention?"
+  → Act (approve / launch / inspect)
+  → AION executes via Runtime
+```
+
+Cursor / Claude Code remain the engineering cockpit. The Console runs the machine.
+Natural language later is another interface into the **same governed services** —
+never a privileged backdoor.
+
+### Landed flows
+
+1. Command Center OL scoreboard + Mission Control filters
+2. Inspect execution lineage / agent / tenant-company scope
+3. **Approve / deny** via `POST /v1/approvals/:id/decision`
 4. View mission economics
-5. Inspect failures
-6. See tenant / company scope
-7. Inspect agent / service responsible for an execution
-8. (Next slice) Create a mission from a business objective via `POST /v1/missions/run`
+5. **Create / launch mission** via `POST /v1/missions/run` (canonical contract — no UI-specific execution path)
 
-### Non-goals for UX-001
+### Pulled by friction (do not pre-build)
 
-- New Core contracts or migrations
+- **Policy-aware retry** when genuine retry friction appears:
+
+  ```text
+  Execution failed · GHL timeout
+  Retry eligibility: ALLOWED | REFUSED (side-effect / non-idempotent)
+  Attempts: 1 / 3
+  [ Retry execution ]  — only when ALLOWED
+  ```
+
+  Refuse simple retry when side effects may not be idempotent; escalate instead.
+
+- Console v2 features discovered from OL-001 behavior (“I keep opening this”,
+  “I never use that metric”, “too many clicks”)
+
+### Create-mission contract
+
+Launch submits the same Runtime body proofs use:
+
+- inline `mission` + versioned `workflow` (e.g. `Revenue Production v1`)
+- governed `actor` with tenant scope + permissions
+- optional `stepPayloads` / `metadata` (budget, cohort tags)
+
+Autonomy remains **policy managed** — the form does not raise L-levels.
+
+### Non-goals
+
+- New Core contracts or migrations for Console convenience
 - Auto-adaptive routing or autonomy promotion from the UI
-- Broad Client Ops / multi-tenant admin suite
+- Starting OL-002 / Client Ops before OL-001 completes
 - Replacing GHL as CRM truth
 
-### Done when
+### Done when (UX-001 slice)
 
-Operators can run daily revenue/client loops from the console without living in
-the IDE for approvals, mission inspection, lineage, and economics — while all
-writes still go through Runtime governance.
+Operators initiate normal production work and handle approvals from the Console
+without living in the IDE — while all writes still go through Runtime governance.

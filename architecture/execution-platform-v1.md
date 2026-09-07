@@ -488,12 +488,12 @@ Platform construction is closed. **Business operations drive engineering.**
 
 | Program | Intent | Done when |
 |---|---|---|
-| **OL-001** | Revenue Production Loop | 100 real revenue missions through v0.2.0; six primary KPIs tracked |
-| **OL-002** | Client Production Loop | One real client tenant produces measurable value on the same platform |
+| **OL-001** | Revenue Production Loop | **Dominant priority** — 100 real revenue missions; cohort checkpoints; scoreboard heartbeat |
+| **OL-002** | Client Production Loop | Deferred until OL-001 baseline |
 | **OL-003** | Unit economics | Delivery cost vs economic value → known service margins |
 | **OL-004** | Workforce optimization | Production evidence drives routing / workflow / autonomy / cost envelope |
 | **OL-005** | Productization | AION Workforce offering after loops work repeatedly |
-| **UX-001** | Operator Console | Command Center + Mission Control usable daily (approve, inspect, economics) without IDE-as-ops |
+| **UX-001** | Operator Console | Command Center + Mission Control; create-mission; approve/deny; friction-driven slices |
 
 Full chapter: [`../roadmap/operating-leverage.md`](../roadmap/operating-leverage.md).
 
