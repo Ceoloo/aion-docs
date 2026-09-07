@@ -9,6 +9,7 @@ It defines architecture and contracts — not implementation.
 | Document | Purpose |
 |---|---|
 | [system-overview.md](system-overview.md) | What AION is and is not; the layered model. |
+| [execution-platform-v1.md](execution-platform-v1.md) | **Build contract:** Execution Plane, Grok→repos map, catalog, autonomy, 30-day backlog. |
 | [system-context.md](system-context.md) | AION's boundary — external actors and systems. |
 | [logical-architecture.md](logical-architecture.md) | The layers and how requests flow through them. |
 | [control-plane.md](control-plane.md) | Orchestration, routing, policy, human gates. |
