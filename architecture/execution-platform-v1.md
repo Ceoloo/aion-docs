@@ -578,7 +578,9 @@ Mission 008 (earned autonomy policy) is **landed** (`proof:mission008` PASS A–
 
 Mission 009 (live GHL client-money plane) is **landed** (`proof:mission009` PASS A–J). GoHighLevel owns CRM state; AION owns governance truth (identity, tenant, permission, risk, autonomy, approval, cost, lineage, audit). Payment movement remains out of MVP.
 
-The platform chain is now: governed → multi-domain → isolated → orchestrated → economic → observable → evaluated → autonomy-scoped → external execution. Prefer promoting `execution-platform-v0.2.0` after a clean post-M009 validation. Do **not** cut final v0.2.0 until that certification is explicit.
+**`execution-platform-v0.2.0` is frozen** after clean post-M009 certification (`npm run certify:platform-v020` PASS). Meaning: governed, multi-domain, tenant-isolated, mission-orchestrated, economic, observable, evaluated, autonomy-scoped execution with proven live-shaped external-system integration. Do **not** move the tag; fixes ship as `v0.2.1+`.
+
+Post-v0.2.0 focus: **operating leverage** — run more real AION revenue/client workflows and measure throughput, human intervention rate, failure rate, cost per mission, and economic value per execution.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 

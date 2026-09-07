@@ -1,0 +1,78 @@
+{
+  "release": "execution-platform-v0.2.0",
+  "title": "AION Execution Platform v0.2.0 — governed multi-domain external execution",
+  "kind": "immutable-freeze",
+  "result": "PASS",
+  "certifiedAt": "2026-09-07T00:42:50Z",
+  "meaning": "Governed, multi-domain, tenant-isolated, mission-orchestrated, economic, observable, evaluated, autonomy-scoped execution with proven live-shaped external-system integration (GHL).",
+  "harness": [
+    "npm run proof:mission001",
+    "npm run proof:mission002",
+    "npm run proof:mission003",
+    "npm run proof:mission004",
+    "npm run proof:mission005",
+    "npm run proof:mission006",
+    "npm run proof:mission007",
+    "npm run proof:mission008",
+    "npm run proof:mission009",
+    "npm run certify:platform-v01",
+    "npm run certify:platform-v020"
+  ],
+  "components": {
+    "aion-core": {
+      "gitSha": "0c58a7c9cd307a59873d2544ca591982a4f75d4f",
+      "tag": "execution-platform-v0.2.0"
+    },
+    "aion-data": {
+      "gitSha": "27c4a0cd0a6207d0953270dd08b87d159c4d8de0",
+      "schemaVersion": "0008",
+      "tag": "execution-platform-v0.2.0"
+    },
+    "aion-runtime": {
+      "gitSha": "fbad70bd990caa8e651dfcdb7f2e7b15179a28e6",
+      "tag": "execution-platform-v0.2.0"
+    },
+    "aion-docs": {
+      "tag": "execution-platform-v0.2.0",
+      "note": "Docs tip is the commit that carries this manifest on the integration branch after PR merge; peel the annotated tag for the exact SHA."
+    }
+  },
+  "catalog": {
+    "missions": ["001", "002", "009"],
+    "note": "Mission 001 Revenue + Mission 002 Media + Mission 009 CRM/GHL service catalogs"
+  },
+  "priorBaseline": {
+    "tag": "execution-platform-m006-complete",
+    "status": "immutable",
+    "note": "M006-complete and v0.2.0-rc1 remain immutable. v0.2.0 freezes M001–M009 on that chain."
+  },
+  "includes": [
+    "M001 — durable governed Revenue execution",
+    "M002 — multi-domain Media reuse",
+    "M003 — tenant/domain isolation",
+    "M004 — mission orchestration + lineage",
+    "M005 — mission economics + rollups",
+    "M006 — Workforce Control Center",
+    "M007 — evaluations + recommendation-only routing",
+    "M008 — earned autonomy policy (R3 never waived)",
+    "M009 — live-shaped GHL client execution plane (ExternalSideEffect idempotency)"
+  ],
+  "criteria": {
+    "M001-PROOF": "PASS",
+    "M002-PROOF": "PASS",
+    "M003-ATTACK-SUITE": "PASS",
+    "M004-PROOF": "PASS",
+    "M005-PROOF": "PASS",
+    "M006-PROOF": "PASS",
+    "M007-PROOF": "PASS",
+    "M008-PROOF": "PASS",
+    "M009-PROOF": "PASS",
+    "PLATFORM-V01-CERT": "PASS",
+    "PLATFORM-V020-CERT": "PASS"
+  },
+  "notes": [
+    "Immutable freeze. Do not move execution-platform-v0.2.0. Fixes ship as v0.2.1+.",
+    "Prior tags execution-platform-v0.1.0, v0.2.0-rc1, and m006-complete remain immutable.",
+    "Post-v0.2.0 chapter: operating leverage — real revenue/client workflows measured by throughput, human intervention rate, failure rate, cost per mission, and economic value per execution."
+  ]
+}
