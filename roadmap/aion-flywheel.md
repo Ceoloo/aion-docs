@@ -79,12 +79,13 @@ Today that means:
    venture surface (G-Star scale-up, Synapse, Assets, Frontier).
 
 OL-001 (Revenue Production Loop) is the operational program that must spin first
-— **paused** until live GHL / model access is real. Architecture spikes that do
-not make this loop faster, cheaper, or more reliable are out of order.
+— **paused** until **live GHL access** and **live model access** are both real
+**and verified**. Architecture spikes that do not make this loop faster,
+cheaper, or more reliable are out of order. **No new substrate** unless the
+Phase A→B live proof exposes an actual blocker.
 
-**Near-term integration slice / acceptance milestone:** one real tenant’s GHL
-data is read successfully; one CRM change is proposed, explicitly approved,
-executed once, and fully audited — see
+**Active gate:** real tenant read → CRM change proposed → explicit human
+approval → execute exactly once → full AION audit — see
 [`ghl-readonly-governed-write.md`](ghl-readonly-governed-write.md).
 IE-002 stays closed.
 
