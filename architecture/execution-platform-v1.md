@@ -478,7 +478,7 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
 | **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **landed** |
-| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth — **next** |
+| **M009** | Client execution plane | Live GHL via governed adapters + ExternalSideEffect ledger; payment movement out of MVP — **in flight** |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
@@ -576,7 +576,7 @@ Mission 007 (evaluations + recommendation-only performance routing) is **landed*
 
 Mission 008 (earned autonomy policy) is **landed** (`proof:mission008` PASS A–G). Performance can earn autonomy only inside policy limits; R3 is never waived. L4 means bounded autonomous execution for a proven agent×service×tenant×env grant — not unrestricted autonomy.
 
-Next architecture move: **Mission 009 — live external-system execution** (GHL-shaped client-money workflow). Prefer next RC after M008 around governed + evaluated + selectively autonomous execution. Do **not** cut final `execution-platform-v0.2.0` yet.
+Mission 009 (live GHL client-money plane) is **in flight**. GoHighLevel owns CRM state; AION owns governance truth (identity, tenant, permission, risk, autonomy, approval, cost, lineage, audit). Prefer promoting `execution-platform-v0.2.0` only after M009 greens. Do **not** cut final v0.2.0 yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -864,6 +864,69 @@ ExecutionRequest → identity/tenant/service/env → risk → AutonomyPolicy.eva
 - Live external CRM I/O (→ **M009**)
 
 Merge order: **core → data → runtime → docs**.
+
+
+### Mission 009 — Live GHL Client Execution Plane (MVP)
+
+Prove AION can execute a **commercially meaningful** client-money workflow against GoHighLevel through the same identity, tenant, permission, approval, autonomy, cost, lineage, and audit controls established in M001–M008.
+
+**HARD BOUNDARY:** Agents never call GHL directly. Path is always:
+
+```text
+GoHighLevel → AION Adapter → Execution Gateway
+  → Identity / Tenant / Permissions / Risk / Autonomy / Approval / Budget
+  → Registered Service → GHL API
+```
+
+GoHighLevel owns CRM state. AION Data owns execution + governance truth. Runtime owns action authority. Control Center owns enterprise visibility.
+
+"Client-money" means the workflow is commercially meaningful — **not** that Runtime may move payments yet. Payment execution, refunds, financing, deletes, and irreversible customer-impacting actions stay out of MVP.
+
+#### CRM services (live catalog)
+
+| Service | Risk |
+|---|---|
+| `crm.contact.read`, `crm.opportunity.read` | R1 |
+| `crm.contact.enrich`, `crm.note.create`, `crm.task.create` | R1 |
+| `crm.contact.update`, `crm.opportunity.create/update`, `crm.message.draft` | R2 (approval) |
+| `crm.message.send` | R3 (always gated; never waived by autonomy) |
+
+#### ExternalSideEffect (minimum)
+
+`execution_id`, `tenant_id`, `service_key`, `idempotency_key`, `external_resource_id`, `external_request_id`, `requested_action`, `approval_id`, `performed_at`, `result_hash`.
+
+Retries must not create duplicate opportunities, notes, messages, or updates.
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `ExternalSideEffect`, `buildMission009Catalog`, idempotency helpers |
+| **Data** | `external_side_effects` (0008), `saveOnce` / `getByIdempotencyKey` |
+| **Runtime** | `GhlAdapter` (+ FakeGhlBackend for CI), `GET /v1/side-effects` |
+| **Proof** | `npm run proof:mission009` PASS A–J |
+
+#### Proof criteria
+
+1. Valid scoped read
+2. Valid reversible write (once)
+3. Tenant isolation
+4. Approval enforcement on gated send
+5. Idempotency (one external mutation)
+6. Autonomy boundaries (L4 on one service ≠ higher-risk GHL service)
+7. Restart recovery between approval and execution
+8. External failure recorded without false success
+9. Economics rollup includes external cost / attribution
+10. Auditability: Mission → Execution → GHL service → approval → side-effect → CRM record → cost
+
+#### Non-goals
+
+- Payment / refund / financing execution
+- Destructive CRM deletes
+- Broad CRM automation beyond the narrow lead→follow-up path
+- Making GoHighLevel the source of truth for AION execution
+
+Merge order: **core → data → runtime → docs**. After M009 greens, `execution-platform-v0.2.0` becomes promotion-worthy (governed → multi-domain → isolated → orchestrated → economic → observable → evaluated → autonomy-scoped → external execution).
 
 ### Day-7 checklist (Phase I — this week)
 
