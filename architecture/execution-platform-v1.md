@@ -479,9 +479,25 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
 | **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **landed** |
 | **M009** | Client execution plane | Live GHL via governed adapters + ExternalSideEffect ledger; payment movement out of MVP — **landed** |
-| **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
+| **v0.2.0** | Immutable freeze | `execution-platform-v0.2.0` — M001–M009 certified; **do not move** |
+| **M010** | _(deferred)_ AION Workforce product | Absorbed into **OL-005 productization** — only after operating loops prove value. Do **not** start as architecture spike. |
 
-**Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
+### Post-v0.2.0 — Operating Leverage (not M010)
+
+Platform construction is closed. **Business operations drive engineering.**
+
+| Program | Intent | Done when |
+|---|---|---|
+| **OL-001** | Revenue Production Loop | 100 real revenue missions through v0.2.0; six primary KPIs tracked |
+| **OL-002** | Client Production Loop | One real client tenant produces measurable value on the same platform |
+| **OL-003** | Unit economics | Delivery cost vs economic value → known service margins |
+| **OL-004** | Workforce optimization | Production evidence drives routing / workflow / autonomy / cost envelope |
+| **OL-005** | Productization | AION Workforce offering after loops work repeatedly |
+| **UX-001** | Operator Console | Command Center + Mission Control usable daily (approve, inspect, economics) without IDE-as-ops |
+
+Full chapter: [`../roadmap/operating-leverage.md`](../roadmap/operating-leverage.md).
+
+**Rule:** Revenue remains P0 commercially. Do not add foundational architecture unless real operations expose a missing primitive. Flywheel: revenue → execution data → better platform → more automation → more revenue.
 
 **Integration checkpoint (do not add scope):** merge M001 → M002 in dependency order (core → data → runtime → docs), keep CI green after each merge, then run v0.1 certification before starting M003.
 
@@ -580,7 +596,7 @@ Mission 009 (live GHL client-money plane) is **landed** (`proof:mission009` PASS
 
 **`execution-platform-v0.2.0` is frozen** after clean post-M009 certification (`npm run certify:platform-v020` PASS). Meaning: governed, multi-domain, tenant-isolated, mission-orchestrated, economic, observable, evaluated, autonomy-scoped execution with proven live-shaped external-system integration. Do **not** move the tag; fixes ship as `v0.2.1+`.
 
-Post-v0.2.0 focus: **operating leverage** — run more real AION revenue/client workflows and measure throughput, human intervention rate, failure rate, cost per mission, and economic value per execution.
+Post-v0.2.0 focus: **[operating leverage](../roadmap/operating-leverage.md)** — OL-001 Revenue Production Loop (100 real missions), then client loop / unit economics / workforce optimization / productization. Next engineering surface: **UX-001 Operator Console** (not another backend mission).
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
@@ -930,7 +946,7 @@ Retries must not create duplicate opportunities, notes, messages, or updates.
 - Broad CRM automation beyond the narrow lead→follow-up path
 - Making GoHighLevel the source of truth for AION execution
 
-Merge order: **core → data → runtime → docs**. After M009 greens, `execution-platform-v0.2.0` becomes promotion-worthy (governed → multi-domain → isolated → orchestrated → economic → observable → evaluated → autonomy-scoped → external execution).
+Merge order: **core → data → runtime → docs**. After M009 greens, `execution-platform-v0.2.0` became the immutable freeze. Next: [operating leverage](../roadmap/operating-leverage.md) (OL-001 + UX-001), not a new architecture mission.
 
 ### Day-7 checklist (Phase I — this week)
 

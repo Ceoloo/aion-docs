@@ -102,7 +102,7 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 - **[missions/](missions/README.md)** — the mission lifecycle and templates
   through which products are built.
 - **[adr/](adr/README.md)** — architecture decision records and their standard.
-- **[roadmap/](roadmap/README.md)** — build order and platform maturity model.
+- **[roadmap/](roadmap/README.md)** — build order, platform maturity, and post-v0.2.0 [operating leverage](roadmap/operating-leverage.md).
 - **[glossary/](glossary/README.md)** — canonical terminology.
 - **[legacy/](legacy/README.md)** — policy on Aion-Sys reference material.
 
