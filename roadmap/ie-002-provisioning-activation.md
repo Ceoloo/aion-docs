@@ -151,3 +151,6 @@ OL-001 Mission 001
 Bridge:
 
 > Sale → Intake → Recommendation → Blueprint → Provisioning → Human Activation → Revenue Mission
+
+Secure Automation profile for Revenue OS first workflows:
+[SA-STD-001 Lead-to-Appointment](./secure-automation-deployment-standard.md).
