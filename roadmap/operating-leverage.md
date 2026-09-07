@@ -66,12 +66,15 @@ Production evidence drives autonomy changes — not a push to get everything to 
 ### OL-001 — Revenue Production Loop
 
 A **real operating workload**, not an architecture mission. **Dominant priority**
-after v0.2.0 — but **paused until the live GHL / model access path is real**.
+after v0.2.0 — but **paused** until **live GHL access** and **live model access**
+are both real **and verified**.
 
 **Gate:** complete the GHL Phase A→B live acceptance milestone
-([ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)) before
-starting the 100-mission cohort. Do **not** reopen IE-002 for that gate. Do
-**not** start OL-002 until this cohort produces a trustworthy baseline.
+([ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)) — real
+tenant read → proposed CRM change → explicit human approval → execute exactly
+once → full audit (minimum fields listed there). Do **not** reopen IE-002. Do
+**not** add substrate unless that proof exposes an actual blocker. Do **not**
+start OL-002 until the OL-001 cohort produces a trustworthy baseline.
 
 ```text
 REAL LEAD

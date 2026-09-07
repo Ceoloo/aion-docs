@@ -15,17 +15,50 @@ policy demands it, execute it once, and record the result.
 This is **not** a second runtime. It extends Mission 009’s GHL adapter +
 `ExternalSideEffect` ledger.
 
-**Integration priority:** the next engineering slice is **GHL Phase A→B live
-follow-up**. IE-002 stays **closed** — do not reopen it. OL-001 stays **paused**
-until the live GHL / model access path is real.
+**Integration priority:** prove **one governed GHL write end-to-end against a
+real tenant**. That is the only active engineering objective for this slice.
 
-### Acceptance milestone (next slice)
+### Standing rules
 
-> One real tenant’s GHL data is read successfully, one CRM change is proposed,
-> explicitly approved, executed once, and fully audited by AION.
+| Rule | Status |
+|---|---|
+| IE-002 | **Closed** — do not reopen |
+| OL-001 | **Paused** |
+| OL-001 resume | Only after **live GHL access** and **live model access** are both real **and verified** |
+| New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
 
-That is the shortest path from current infrastructure to the first trustworthy
-live revenue workflow. Fake-backend CI proof is necessary but **not** sufficient.
+### Acceptance milestone (active gate)
+
+```text
+real tenant read
+  → CRM change proposed
+  → explicit human approval
+  → execute exactly once
+  → full AION audit
+```
+
+Fake-backend CI proof is necessary but **not** sufficient. This gate is the
+shortest path from current infrastructure to the first trustworthy live revenue
+workflow.
+
+### Audit minimum (must be captured)
+
+| Field | Why |
+|---|---|
+| `tenant` | Isolation / attribution |
+| `operator` / `approver` | Human accountability |
+| `source read` | What CRM state justified the proposal |
+| `proposed mutation` | Exact change requested |
+| `policy decision` | ALLOW / DENY / REQUIRE_APPROVAL (+ reason) |
+| `approval` | Decision record (who / when / note) |
+| `execution id` | Durable Execution Object link |
+| `idempotency key` | Exactly-once guarantee |
+| `GHL response` | Vendor result / error body (redact secrets) |
+| `timestamp` | When it happened |
+| `success` / `failure` | Terminal outcome |
+| `cost` | Execution / side-effect cost record |
+
+Missing any of the above = gate **not** met.
 
 ---
 
@@ -101,21 +134,22 @@ Do **not** start with outbound messaging or broad contact mutation.
 
 ## Next integration slice (follow-up — not IE-002)
 
-**Done when** the acceptance milestone above is green on a **real** tenant
-(not only `FakeGhlBackend`).
+**Done when** the active acceptance gate above is green on a **real** tenant,
+including the audit minimum.
 
 Ordered work:
 
-1. **Operator keys** — rotate GHL (+ OpenRouter / model gateway if needed) into
+1. **Operator keys** — rotate GHL (+ model gateway / OpenRouter) into
    `/opt/aion/.env` (`0600`); set `GHL_API_KEY`, `GHL_LOCATION_ID`,
-   `GHL_API_VERSION`.
-2. **Live Phase A** — one real tenant: contact/pipeline/opportunity/conversation/
-   appointment reads through Runtime; confirm tenant isolation + observability.
+   `GHL_API_VERSION`; verify live model access separately.
+2. **Live Phase A** — one real tenant read path through Runtime (contacts /
+   pipelines / opportunities as needed for the proposal); confirm isolation +
+   observability.
 3. **Live Phase B** — propose **one** CRM change (prefer opportunity stage
-   update, else note), **explicit human approve**, execute **once**, verify a
-   single `ExternalSideEffect` + execution/audit record (no duplicate write).
-4. **Hardening only as ops expose gaps** — connection store, tighter upsert
-   policy; `crm.message.send` still deferred behind stricter approval.
+   update, else note), **explicit human approve**, execute **exactly once**,
+   verify audit minimum fields (single `ExternalSideEffect`, no duplicate write).
+4. **Hardening only if the proof exposes a blocker** — no speculative substrate;
+   `crm.message.send` still deferred.
 
 Explicitly **out of this follow-up:** reopening IE-002, appointment writes,
 autonomous messaging, starting the OL-001 100-mission cohort.
@@ -136,5 +170,7 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 - Appointment **writes** / calendar booking automation
 - Autonomous customer messaging
 - Counting the live proof as OL-001 mission credit (OL-001 stays paused until
-  live GHL/model access is real, then starts its own cohort)
+  live GHL **and** live model access are both verified, then starts its own
+  cohort)
 - Reopening IE-002 provisioning/activation work
+- New substrate without a Phase A→B proof blocker
