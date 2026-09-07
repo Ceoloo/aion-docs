@@ -477,8 +477,8 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 | **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** (`execution-platform-m006-complete`) |
 | **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
 | **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
-| **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **in flight** |
-| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth — **next after M008** |
+| **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **landed** |
+| **M009** | Client execution plane | External systems (GHL, Notion, …) are interfaces; AION owns orchestration truth — **next** |
 | **M010** | AION Workforce product | Monetize the platform as a governed AI workforce, not “install a bot” |
 
 **Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
@@ -574,7 +574,9 @@ Mission 005 (economics) and Mission 006 (Workforce Control Center) are **landed*
 
 Mission 007 (evaluations + recommendation-only performance routing) is **landed** (`proof:mission007` PASS A–E). Deterministic ExecutionRegistry fallback remains in force — no auto adaptive switching yet.
 
-Next architecture move after M007: **Mission 008 — earned autonomy policy** (scoped grants; R3 never waived). After M008 greens, prefer RC2 / deferred final v0.2.0 around governed+evaluated+selectively autonomous execution, then **M009** live external-system execution (GHL-shaped client-money). Do **not** cut final `execution-platform-v0.2.0` yet.
+Mission 008 (earned autonomy policy) is **landed** (`proof:mission008` PASS A–G). Performance can earn autonomy only inside policy limits; R3 is never waived. L4 means bounded autonomous execution for a proven agent×service×tenant×env grant — not unrestricted autonomy.
+
+Next architecture move: **Mission 009 — live external-system execution** (GHL-shaped client-money workflow). Prefer next RC after M008 around governed + evaluated + selectively autonomous execution. Do **not** cut final `execution-platform-v0.2.0` yet.
 
 Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
