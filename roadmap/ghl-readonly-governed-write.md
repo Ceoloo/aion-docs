@@ -179,7 +179,16 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 | GHL outcome | stage applied; restored to Negotiation after proof |
 | success | ✅ |
 
-**Still blocked on production Runtime:** keys not in VPS `/opt/aion/.env`; infra #7 must land; agent has no SSH. Rotate any PIT pasted into chat before VPS install.
+**Production Runtime status:**
+
+| Item | Status |
+|---|---|
+| PIT rotated after chat exposure | ✅ operator confirmed |
+| VPS `/opt/aion/.env` has new `GHL_API_KEY` + `GHL_LOCATION_ID` | ⏳ operator |
+| aion-infra #7 merge + compose redeploy | ⏳ (PR open, checks green) |
+| Re-prove on `runtime.srv1655818.hstgr.cloud` / Console | ⏳ after env + deploy |
+
+Do **not** paste the new PIT into chat. Install only on the VPS.
 
 ---
 
