@@ -12,6 +12,7 @@ to resist the speculative accretion that caused the
 | [build-order.md](build-order.md) | The phased order in which repositories/capabilities are built. |
 | [platform-maturity.md](platform-maturity.md) | The L0–L5 maturity model and the platformization rule. |
 | [operating-leverage.md](operating-leverage.md) | **Post-v0.2.0 chapter** — OL-001–005 + UX-001 Operator Console. Business ops drive engineering. |
+| [ops-001-live-runtime.md](ops-001-live-runtime.md) | **OPS-001** — first live Runtime on VPS behind Traefik before Vercel Console. |
 
 ## The three ideas
 

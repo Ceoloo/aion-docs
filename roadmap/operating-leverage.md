@@ -304,6 +304,9 @@ internals, risk policy code, provider adapters, deploy config.
 
 **Not another backend mission.** Human operating surface over certified v0.2.0.
 
+**Prerequisite:** [OPS-001](ops-001-live-runtime.md) — live Runtime HTTPS behind
+Traefik. Do not deploy the Console against a stub Runtime.
+
 **Home:** `aion-products/workforce-control` (evolves M006 Control Center).
 Reuse Vite + shadcn already wired to canonical Runtime APIs.
 
