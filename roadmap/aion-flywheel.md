@@ -78,13 +78,15 @@ Today that means:
 6. **Reinvest revenue** into infrastructure, acquisitions, and only then the next
    venture surface (G-Star scale-up, Synapse, Assets, Frontier).
 
-OL-001 (Revenue Production Loop) is the operational program that must spin first.
-Architecture spikes that do not make this loop faster, cheaper, or more reliable
-are out of order.
+OL-001 (Revenue Production Loop) is the operational program that must spin first
+— **paused** until live GHL / model access is real. Architecture spikes that do
+not make this loop faster, cheaper, or more reliable are out of order.
 
-**Near-term integration slice:** GHL Phase A→B follow-up (live tenant read + one
-governed write) — see [`ghl-readonly-governed-write.md`](ghl-readonly-governed-write.md).
-Do not reopen IE-002 for that path.
+**Near-term integration slice / acceptance milestone:** one real tenant’s GHL
+data is read successfully; one CRM change is proposed, explicitly approved,
+executed once, and fully audited — see
+[`ghl-readonly-governed-write.md`](ghl-readonly-governed-write.md).
+IE-002 stays closed.
 
 ---
 
