@@ -93,9 +93,61 @@ Provisioning tasks still **do not** count toward OL-001’s 100 real revenue mis
 
 ---
 
-## Explicit non-goals (still)
+## Acceptance matrix (IE-002 closed when these pass in CI)
 
-- Automatic provisioning of tenants/workspaces
-- Autonomous customer messaging
-- Automatic workflow activation without the human gate
-- Expansion recommendations that trigger commercial actions
+| Case | Expected |
+|---|---|
+| Start provisioning before blueprint approval | Reject |
+| Verify step without evidence | Reject |
+| Verify step without `completedBy` | Reject |
+| Reach ready with missing required step | Reject |
+| Verify all required steps | `activation_ready` |
+| Activate without `approvedBy` | `400 approved_by_required` |
+| Activate with approval | `active` |
+| Re-activate already active case | Idempotent |
+| Tenant A touches Tenant B case | Reject |
+| Commercial status change alone | Never causes activation |
+
+Runtime CI: `npm run proof:ie002` (HTTP matrix). Core unit tests cover the
+same transition rules.
+
+---
+
+## Probe maturity (keep narrow)
+
+Current:
+
+```text
+probe → configuration exists → evidence recorded → step verified
+```
+
+Not:
+
+```text
+probe → provision account → modify CRM → enable model → activate workflow
+```
+
+Later (AIO-16 model provider, AIO-17 GHL adapter), upgrade the **same** probe
+interfaces from `CONFIG_PRESENT` to `AUTHENTICATED` / `CAPABILITY_VERIFIED` /
+`TENANT_SCOPED` / `WRITE_TEST_PASSED` without changing the IE state model.
+
+---
+
+## Explicit non-goals / next work
+
+**Do not start IE-003 next.** After this PR chain lands green:
+
+```text
+AIO-16  Model provider access
+AIO-17  GHL adapter
+        ↓
+upgrade probes from config-present → real capability verification
+        ↓
+first real implementation case → activation_ready → human activation
+        ↓
+OL-001 Mission 001
+```
+
+Bridge:
+
+> Sale → Intake → Recommendation → Blueprint → Provisioning → Human Activation → Revenue Mission
