@@ -21,8 +21,23 @@ This is an **operations** milestone, not an architecture mission.
 | SSH user | `root` (prefer a non-root deploy user after bootstrap) |
 | Edge (observed) | Traefik — `:80` → 308 to HTTPS; `:443` answers (unmatched Host → 404) |
 | Preferred hostname | `runtime.aionsystems.ai` → `A`/`AAAA` to `69.62.70.182` |
+| Operator SSH pubkey | `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBShw6Q06tsGaNKxexcOzqwRH1thuID0W/6mJkjXEIg 15168@CEO-Loo` |
+| Pubkey fingerprint | `SHA256:C9hzbv3jzKYS+SaGaM40EHsA1+coDl9fM4AmxEFnrfs` |
 
-Do **not** commit SSH keys or DB passwords. Put them in `/opt/aion/.env` (`0600`) and GitHub Environment secrets (`VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`).
+Do **not** commit **private** SSH keys or DB passwords. Public keys are inventory only.
+Put secrets in `/opt/aion/.env` (`0600`) and GitHub Environment secrets
+(`VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY` = matching **private** key PEM/OpenSSH form).
+
+### SSH unlock (required before agent/CI can deploy)
+
+1. On the VPS (Hostinger console or an existing root session), ensure that pubkey is in
+   `/root/.ssh/authorized_keys` (or the deploy user’s).
+2. In GitHub → `aion-infra` → Settings → Environments → `production` (or repo secrets):
+   - `VPS_HOST=69.62.70.182`
+   - `VPS_USER=root` (or deploy user)
+   - `VPS_SSH_KEY=<private key that matches the pubkey above>` — never paste the private key into chat or commit it
+3. DNS: `runtime.aionsystems.ai` → `69.62.70.182`
+4. Then CI `deploy-vps.yml` or a session with that private key can run `deploy.sh`
 
 ---
 
