@@ -83,7 +83,8 @@ REAL LEAD
 **First production target:** **100 real revenue missions** through v0.2.0.
 
 Run repeatedly — not once. Version meaningful workflow changes so cohort data
-stays comparable (`Revenue Production v1`, `v1.1`, …). Do **not** continuously
+stays comparable (`Revenue Production v1`, `Lead-to-Appointment v1` /
+[SA-STD-001](./secure-automation-deployment-standard.md), …). Do **not** continuously
 redesign the workflow across the entire 100 without versioning.
 
 #### Cohort checkpoints (production experiment)
