@@ -494,8 +494,10 @@ Platform construction is closed. **Business operations drive engineering.**
 | **OL-004** | Workforce optimization | Production evidence drives routing / workflow / autonomy / cost envelope |
 | **OL-005** | Productization | AION Workforce offering after loops work repeatedly |
 | **UX-001** | Operator Console | Command Center + Mission Control; create-mission; approve/deny; friction-driven slices |
+| **OPS-001** | Live Runtime endpoint | Traefik HTTPS on VPS → immutable Runtime image; verify health; **then** Vercel Console |
 
 Full chapter: [`../roadmap/operating-leverage.md`](../roadmap/operating-leverage.md).
+Live Runtime runbook: [`../roadmap/ops-001-live-runtime.md`](../roadmap/ops-001-live-runtime.md).
 
 **Rule:** Revenue remains P0 commercially. Do not add foundational architecture unless real operations expose a missing primitive. Flywheel: revenue → execution data → better platform → more automation → more revenue.
 
