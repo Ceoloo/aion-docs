@@ -6,17 +6,26 @@ policy demands it, execute it once, and record the result.
 
 | Plane | PR | Status |
 |---|---|---|
-| Catalog / confidence gate | aion-core #17 | **Merged** |
-| Adapter + proof matrix | aion-runtime #24 | **Merged** |
-| Roadmap | aion-docs #33 | **Merged** |
+| Catalog / confidence gate | aion-core #17 | ✅ **Landed** |
+| Adapter + proof matrix | aion-runtime #24 | ✅ **Landed** |
+| Roadmap | aion-docs #33 | ✅ **Landed** |
+| Empire flywheel doctrine | aion-docs #34 | ✅ **Landed** |
+| Next-priority record | aion-docs #35 | ✅ **Landed** |
 
 This is **not** a second runtime. It extends Mission 009’s GHL adapter +
 `ExternalSideEffect` ledger.
 
-**Integration priority:** the next engineering slice is **GHL Phase A→B
-follow-up** (live tenant proof + operator keys + small write hardening). Do
-**not** reopen IE-002 for this — provisioning/activation stays as already
-landed feeder work.
+**Integration priority:** the next engineering slice is **GHL Phase A→B live
+follow-up**. IE-002 stays **closed** — do not reopen it. OL-001 stays **paused**
+until the live GHL / model access path is real.
+
+### Acceptance milestone (next slice)
+
+> One real tenant’s GHL data is read successfully, one CRM change is proposed,
+> explicitly approved, executed once, and fully audited by AION.
+
+That is the shortest path from current infrastructure to the first trustworthy
+live revenue workflow. Fake-backend CI proof is necessary but **not** sufficient.
 
 ---
 
@@ -92,19 +101,24 @@ Do **not** start with outbound messaging or broad contact mutation.
 
 ## Next integration slice (follow-up — not IE-002)
 
-Ordered work after the landed PRs:
+**Done when** the acceptance milestone above is green on a **real** tenant
+(not only `FakeGhlBackend`).
 
-1. **Operator keys** — rotate GHL (+ OpenRouter if needed) into `/opt/aion/.env`
-   (`0600`); set `GHL_API_KEY`, `GHL_LOCATION_ID`, `GHL_API_VERSION`.
+Ordered work:
+
+1. **Operator keys** — rotate GHL (+ OpenRouter / model gateway if needed) into
+   `/opt/aion/.env` (`0600`); set `GHL_API_KEY`, `GHL_LOCATION_ID`,
+   `GHL_API_VERSION`.
 2. **Live Phase A** — one real tenant: contact/pipeline/opportunity/conversation/
    appointment reads through Runtime; confirm tenant isolation + observability.
-3. **Live Phase B** — propose **one** stage update (or note), approve once,
-   verify single `ExternalSideEffect` + no duplicate write.
+3. **Live Phase B** — propose **one** CRM change (prefer opportunity stage
+   update, else note), **explicit human approve**, execute **once**, verify a
+   single `ExternalSideEffect` + execution/audit record (no duplicate write).
 4. **Hardening only as ops expose gaps** — connection store, tighter upsert
-   policy, message-send still deferred behind stricter approval.
+   policy; `crm.message.send` still deferred behind stricter approval.
 
 Explicitly **out of this follow-up:** reopening IE-002, appointment writes,
-autonomous messaging, counting the slice as OL-001 mission credit.
+autonomous messaging, starting the OL-001 100-mission cohort.
 
 ---
 
@@ -121,5 +135,6 @@ autonomous messaging, counting the slice as OL-001 mission credit.
 - Continuous live-call streaming
 - Appointment **writes** / calendar booking automation
 - Autonomous customer messaging
-- Counting this proof as OL-001 mission credit
+- Counting the live proof as OL-001 mission credit (OL-001 stays paused until
+  live GHL/model access is real, then starts its own cohort)
 - Reopening IE-002 provisioning/activation work
