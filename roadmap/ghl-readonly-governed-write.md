@@ -8,6 +8,7 @@ policy demands it, execute it once, and record the result.
 |---|---|---|
 | Catalog / confidence gate | aion-core #17 | ✅ **Landed** |
 | Adapter + proof matrix | aion-runtime #24 | ✅ **Landed** |
+| Live acceptance harness | aion-runtime #25 | 🔄 open — green against AION Empire locally |
 | Roadmap | aion-docs #33 | ✅ **Landed** |
 | Empire flywheel doctrine | aion-docs #34 | ✅ **Landed** |
 | Next-priority record | aion-docs #35 | ✅ **Landed** |
@@ -139,17 +140,11 @@ including the audit minimum.
 
 Ordered work:
 
-1. **Operator keys** — rotate GHL (+ model gateway / OpenRouter) into
-   `/opt/aion/.env` (`0600`); set `GHL_API_KEY`, `GHL_LOCATION_ID`,
-   `GHL_API_VERSION`; verify live model access separately.
-2. **Live Phase A** — one real tenant read path through Runtime (contacts /
-   pipelines / opportunities as needed for the proposal); confirm isolation +
-   observability.
-3. **Live Phase B** — propose **one** CRM change (prefer opportunity stage
-   update, else note), **explicit human approve**, execute **exactly once**,
-   verify audit minimum fields (single `ExternalSideEffect`, no duplicate write).
-4. **Hardening only if the proof exposes a blocker** — no speculative substrate;
-   `crm.message.send` still deferred.
+1. ~~**Operator keys / scopes**~~ — CRM scopes verified on AION Empire; **still** install rotated PIT on VPS `/opt/aion/.env` (`0600`); verify live model access separately.
+2. ~~**Live Phase A**~~ — contacts / pipelines / opportunities / conversations read via `ghl-live` backend (local Runtime proof 2026-09-07).
+3. ~~**Live Phase B (local Runtime)**~~ — opportunity stage propose → approve → execute once → audit → restore (aion-runtime #25).
+4. **Production Runtime install** — VPS env + infra #7 deploy; re-prove on `runtime.srv…` / Console approval path.
+5. **Hardening only if the proof exposes a blocker** — no speculative substrate; `crm.message.send` still deferred.
 
 Explicitly **out of this follow-up:** reopening IE-002, appointment writes,
 autonomous messaging, starting the OL-001 100-mission cohort.
@@ -158,9 +153,33 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 ## Operator standing items
 
-1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`)
+1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`) on the Runtime host
 2. For live reads/writes: set `GHL_API_KEY`, `GHL_LOCATION_ID`, `GHL_API_VERSION`
-3. Keep `crm.message.send` behind stricter product policy even after keys exist
+3. Ensure VPS compose passes `GHL_*` into `aion-runtime` (aion-infra #7)
+4. Keep `crm.message.send` behind stricter product policy even after keys exist
+
+### Live credential + acceptance evidence (2026-09-07)
+
+| Check | Result |
+|---|---|
+| Location ID `YK8RT5OnmQiMqprlyqYY` | ✅ **AION Empire** |
+| Contacts / opportunities / pipelines / conversations | ✅ CRM scopes green |
+| Calendars | ✅ list empty; appointment reads return empty list |
+| `npm run proof:ghl-live-acceptance` | ✅ green on local Runtime + live GHL |
+
+| Audit field | Evidence |
+|---|---|
+| tenant | `aion-systems` |
+| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| proposed mutation | stage → Proposal Sent |
+| policy | `REQUIRE_APPROVAL` (R2) |
+| approval | `apr_509b038b-…` |
+| execution / side-effect | `exe_86da771d-…` / `ese_e613a428-…` succeeded |
+| idempotency | `ghl-live-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| GHL outcome | stage applied; restored to Negotiation after proof |
+| success | ✅ |
+
+**Still blocked on production Runtime:** keys not in VPS `/opt/aion/.env`; infra #7 must land; agent has no SSH. Rotate any PIT pasted into chat before VPS install.
 
 ---
 
