@@ -127,6 +127,9 @@ AION internal rehearsal validates process but **does not** substitute for the
 new-client milestone. Provisioning tasks / synthetic tests **do not** count
 toward OL-001 real revenue missions.
 
+**Next:** [IE-002 — Provisioning Readiness + Activation Gate](./ie-002-provisioning-activation.md)
+turns visible blockers into governed transitions into `active` (OL-001 feeder).
+
 ---
 
 ## Explicit non-goals (this slice)
