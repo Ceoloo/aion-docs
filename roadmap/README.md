@@ -16,6 +16,7 @@ to resist the speculative accretion that caused the
 | [ie-001-implementation-engine.md](ie-001-implementation-engine.md) | **IE-001** — one client, one repeatable implementation, one live workflow. |
 | [ie-002-provisioning-activation.md](ie-002-provisioning-activation.md) | **IE-002** — provisioning readiness + human activation gate (OL-001 feeder). |
 | [secure-automation-deployment-standard.md](secure-automation-deployment-standard.md) | **SA-STD-001** — Secure Automation deployment standard + Lead-to-Appointment v1 (OL verification map). |
+| [ghl-readonly-governed-write.md](ghl-readonly-governed-write.md) | **GHL Phase A→B** — read-only CRM plane, then minimal governed writes via Execution Gateway. |
 
 ## The three ideas
 
