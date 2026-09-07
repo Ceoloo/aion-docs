@@ -104,9 +104,16 @@ AION SYSTEMS
 └── AI Agent Systems
 ```
 
-**Flywheel:** internal problem → Systems builds → used internally → measured →
-standardized → client service → repeated → productized → platform capability.
-Revenue Copilot is already on this path.
+**Systems capability flywheel:** internal problem → Systems builds → used
+internally → measured → standardized → client service → repeated → productized →
+platform capability. Revenue Copilot is already on this path.
+
+**Empire flywheel** (attention → leads → conversion → provision → execute →
+outcomes → reusable capabilities → content → attention): see
+[`../roadmap/aion-flywheel.md`](../roadmap/aion-flywheel.md). Holding allocates
+capital so the first loop finances the next venture — Systems creates capability;
+Digital Empire creates distribution; G-Star creates IP; Synapse Grid may later
+create physical/compute infrastructure.
 
 ---
 

@@ -7,6 +7,11 @@ Engineering milestones no longer lead the roadmap — **business operations do**
 (M001–M009 certified). Do not move that tag. Do not add foundational architecture
 unless real operations expose a missing primitive.
 
+**Empire thesis:** the business compounding loop (attention → revenue → capability →
+content → attention) is [`aion-flywheel.md`](aion-flywheel.md). Operating leverage
+is how we **measure and run** the first turn of that flywheel — not a substitute
+for it.
+
 ---
 
 ## North star
