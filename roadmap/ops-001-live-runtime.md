@@ -12,6 +12,20 @@ This is an **operations** milestone, not an architecture mission.
 
 ---
 
+## Host inventory (Hostinger)
+
+| Field | Value |
+|---|---|
+| Provider | Hostinger VPS (Boston) |
+| Public IP | `69.62.70.182` |
+| SSH user | `root` (prefer a non-root deploy user after bootstrap) |
+| Edge (observed) | Traefik — `:80` → 308 to HTTPS; `:443` answers (unmatched Host → 404) |
+| Preferred hostname | `runtime.aionsystems.ai` → `A`/`AAAA` to `69.62.70.182` |
+
+Do **not** commit SSH keys or DB passwords. Put them in `/opt/aion/.env` (`0600`) and GitHub Environment secrets (`VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`).
+
+---
+
 ## Topology
 
 ```text
