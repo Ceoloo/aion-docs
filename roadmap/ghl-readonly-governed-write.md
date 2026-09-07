@@ -158,9 +158,30 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 ## Operator standing items
 
-1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`)
+1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`) on the Runtime host
 2. For live reads/writes: set `GHL_API_KEY`, `GHL_LOCATION_ID`, `GHL_API_VERSION`
-3. Keep `crm.message.send` behind stricter product policy even after keys exist
+3. Ensure VPS compose passes `GHL_*` into `aion-runtime` (not commented out)
+4. Keep `crm.message.send` behind stricter product policy even after keys exist
+
+### Live credential check (2026-09-07)
+
+| Check | Result |
+|---|---|
+| Location ID `YK8RT5OnmQiMqprlyqYY` | ✅ resolves to **AION Empire** |
+| PIT authenticates (`Authorization: Bearer`) | ✅ `GET /locations/{id}` → 200 |
+| Contacts / opportunities / pipelines / calendars / conversations | ❌ `401 The token is not authorized for this scope` |
+
+**Blocker:** expand the Private Integration scopes in GHL, then re-test. Minimum:
+
+- `locations.readonly` (already working)
+- `contacts.readonly` + `contacts.write`
+- `opportunities.readonly` + `opportunities.write`
+- `conversations.readonly`
+- `calendars.readonly`
+
+Until those scopes pass, the acceptance gate cannot complete (no real contact/opportunity read, no governed write).
+
+**Security:** the PIT was pasted into chat — **rotate it** after scopes are fixed and the new token is installed on the VPS only (never commit).
 
 ---
 

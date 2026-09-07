@@ -138,7 +138,7 @@ qualification signals / pain hypotheses / recommended next action / confidence.
 R2 stage-propose parked on approval; Console metrics lit; explicit approve with
 persisted human actor cleared the queue.
 
-### 2) Standing GHL live gate — NEXT
+### 2) Standing GHL live gate — BLOCKED on PIT scopes
 
 ```text
 REAL GHL TENANT
@@ -151,8 +151,13 @@ REAL GHL TENANT
   → audit (minimum fields in ghl-readonly-governed-write.md)
 ```
 
-Requires live `GHL_API_KEY` + `GHL_LOCATION_ID` on the Runtime host and verified
-model access before any mission may count as OL-001.
+**Credential probe:** location `YK8RT5OnmQiMqprlyqYY` = **AION Empire** (PIT
+auth OK). Contacts/opportunities/pipelines still return **scope 401** — expand
+Private Integration scopes (see ghl-readonly-governed-write.md), install into
+`/opt/aion/.env` on the Runtime host, redeploy with GHL env passthrough, then
+re-run. **Rotate the chat-pasted PIT** after re-scoping.
+
+Requires verified model access before any mission may count as OL-001.
 
 Only after:
 
