@@ -76,6 +76,13 @@ once → full audit (minimum fields listed there). Do **not** reopen IE-002. Do
 **not** add substrate unless that proof exposes an actual blocker. Do **not**
 start OL-002 until the OL-001 cohort produces a trustworthy baseline.
 
+**Measurement honesty:** PRE-OL validation missions (Command Center system
+tests, Console launches while paused) are recorded separately — see
+[pre-ol-validation.md](./pre-ol-validation.md). They must show as
+`cohort=pre_ol_validation` / `productionEconomic=false` and **never** inflate
+`OL-001 progress = N / 100`. Next PRE-OL proof is governance (approval gate),
+then the live GHL write.
+
 ```text
 REAL LEAD
   → GHL
