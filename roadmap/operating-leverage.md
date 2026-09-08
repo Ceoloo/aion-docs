@@ -71,16 +71,17 @@ are both real **and verified**.
 
 **Status (2026-09-08):** live GHL access **verified** on production Runtime
 (`ghl-live`, capability matrix in
-[ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)). Live model
-access **not verified** — OpenRouter / Revenue Copilot not available to the
-proof harness yet. **Do not unpause OL-001** until the model gate passes.
+[ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)) after PIT
+rotation. Live model access **not verified** — OpenRouter / Revenue Copilot not
+available to the proof harness yet. **Do not unpause OL-001** until the model
+gate passes, then re-run `npm run proof:ghl-live-capability` end-to-end.
 
 **Measurement honesty:** PRE-OL validation missions (Command Center system
 tests, Console launches while paused) are recorded separately — see
 [pre-ol-validation.md](./pre-ol-validation.md). They must show as
 `cohort=pre_ol_validation` / `productionEconomic=false` and **never** inflate
-`OL-001 progress = N / 100`. Next PRE-OL proof is governance (approval gate),
-then the live GHL write.
+`OL-001 progress = N / 100`. GHL reads + governed write + replay are green;
+**next gate is live model**, then OL-001 Mission 001 / 100.
 
 ```text
 REAL LEAD

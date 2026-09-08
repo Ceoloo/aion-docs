@@ -24,28 +24,32 @@ real tenant**. That is the only active engineering objective for this slice.
 | Rule | Status |
 |---|---|
 | IE-002 | **Closed** — do not reopen |
-| OL-001 | **Paused** — live GHL verified; **live model access still blocked** |
+| OL-001 | **Paused** — live GHL verified (post-PIT rotation); **live model access still blocked** |
 | OL-001 resume | Only after **live GHL access** and **live model access** are both real **and verified** |
 | New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
 
-### Live capability matrix (2026-09-08, prod `3329c01…`)
+### Live capability matrix (2026-09-08, prod `3329c01…`, post-PIT rotation)
 
-| Gate | Required | Result |
+Credential hygiene is **done**. Remaining gate is **live capability proof**.
+
+| Gate | Required | Result (latest harness) |
 |---|---|---|
-| Live GHL tenant read (normalized + evidence) | ✅ | ✅ contacts/opps/pipelines/conversations/appointments via `ghl-live` |
-| Live model call (structured classify) | ✅ | ❌ `OPENROUTER_API_KEY` unset; Revenue Copilot profile not deployed/reachable |
-| Proposed CRM mutation | ✅ | ✅ note body prepared (model_pending until model lands) |
-| R2 approval required | ✅ | ✅ `crm.opportunity.update` → `REQUIRE_APPROVAL` `apr_0e58ad06-…` |
+| Live GHL tenant read (normalized + evidence) | ✅ | ✅ contacts/opps/pipelines/conversations/calendars via `ghl-live` (location_id `YK8RT5OnmQiMqprlyqYY` / AION Empire on every evidence row) |
+| Live model call (structured classify) | ✅ | ❌ `OPENROUTER_API_KEY` unset in proof env; Revenue Copilot not reachable — **blocker** |
+| Proposed CRM mutation | ✅ | ✅ proven earlier same day (`crm.note.create`); harness now **stops before write** until model greens |
+| R2 approval required | ✅ | ✅ `crm.opportunity.update` → `REQUIRE_APPROVAL` (e.g. `apr_cc7ae3ff-…`) |
 | Human approval recorded | ✅ | ✅ |
-| One real GHL write | ✅ | ✅ `crm.note.create` → note `i8vqiqM5AlmtJSNJcZDp` / `ese_0e792897-…` |
+| One real GHL write | ✅ | ✅ note `3X9ITDfBn6bp0RZlVuOB` / `ese_a104b531-…` / `exe_a5830ca9-…` |
 | Replay creates no duplicate | ✅ | ✅ same idempotency key → `idempotentReplay: true` |
-| Provider response captured | ✅ | ✅ |
+| Provider response captured | ✅ | ✅ `ghl_req_372170f9-…` |
 | Full AION audit | ✅ | ✅ |
 
-Harness: `npm run proof:ghl-live-capability` (aion-runtime).  
-**OL-001 stays paused** until the model gate is green (install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot).
+Sequence enforced by harness: **GHL reads → model → note write → replay → R2 stage approve → audit**.  
+Harness: `AION_RUNTIME_URL=https://runtime.srv1655818.hstgr.cloud npm run proof:ghl-live-capability`.
 
-Note: `crm.note.create` is **R1 ALLOW** (gateway-governed, no approval). The matrix R2 row is satisfied by `crm.opportunity.update` in the same proof run.
+**OL-001 stays paused** until the model gate is green. Add `OPENROUTER_API_KEY` (and optional `OPENROUTER_MODEL`) as Cloud Agent secrets or deploy Revenue Copilot on the VPS — never paste keys into chat — then re-run. On full green: set **OL-001 = UNPAUSED** and start Mission 001 / 100 as a real revenue mission (stop infra validation).
+
+Note: `crm.note.create` is **R1 ALLOW** (gateway-governed, low-risk first write). Matrix R2 is satisfied by `crm.opportunity.update` in the same proof. `crm.location.read@1` is added in catalog for GET location → 200 via adapter; until that ships on prod, location identity is proven via bound `location_id` on every read (+ optional direct GET when `GHL_API_KEY` is in the proof env).
 
 ### Acceptance milestone (active gate)
 
