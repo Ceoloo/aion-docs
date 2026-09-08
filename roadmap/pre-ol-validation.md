@@ -1,98 +1,88 @@
 # PRE-OL validation status
 
-Command Center is working. The first missions on the live surface are
-**pre-OL validation**, not OL-001 production missions.
+PRE-OL validation is **complete**. The initial Command Center missions remain preserved as validation records and **do not count** toward OL-001 production progress.
 
-## Observed dashboard (honest read)
+## Final PRE-OL verdict
 
-| Metric | Current | Interpretation |
-|---|---|---|
-| Missions | 3 | Runtime + Console path works |
-| Executions | 7 → 8 after governance | Mission → executions persisted |
-| Mission / execution success | was 100% | **Runtime** success — not revenue-production success |
-| Human intervention | 0% → lit after governance | Governance can be exercised |
-| Policy denials | 0 | Happy path only (until governance) |
-| Pending approvals | 0 → 1 → 0 | Governance path verified |
-| R2/R3 executions | R2 propose parked | Approval gate works |
-| Avg latency | ~3 ms on PRE-OL set | Too low for real model / GHL / research I/O |
-| Execution cost | 31 units | Local/stub cost accounting |
-| Attributed EV / revenue influenced | 0 | No commercial outcome |
+The first three missions were hollow Runtime successes: mission/execution persistence, rollups, and Console surfaces worked, but outcomes were empty, durations were effectively zero, and no business artifacts were produced. Those records remain classified as validation evidence rather than revenue-production proof.
 
-Visible mission IDs:
-
-| ID / name | Role |
+| Gate | Final result |
 |---|---|
-| `msn_d9aa3dac-5655-478f-a600-be018d9d2b2c` | Revenue Production v1 (Console) |
-| `OL-001-M001` | Lead research (supervised) |
-| `msn_c5409a36-1e16-48a8-af21-4d5b107cc863` | Revenue Production v1 (earlier) |
+| Mission → execution → persistence → rollup | ✅ proven |
+| Mission Control inspection | ✅ proven; hollow successes correctly identified |
+| R2 governance / explicit human approval | ✅ proven |
+| Human intervention metrics | ✅ proven |
+| Live GHL tenant bind/read | ✅ proven |
+| Live governed GHL write | ✅ proven |
+| Idempotent replay / no duplicate side effect | ✅ proven |
+| Provider response + full AION audit | ✅ proven |
+| Live model access | ✅ proven |
 
-**Preserve** these records; classify / exclude from OL-001 progress (do not delete).
+## Live acceptance evidence — 2026-09-08
 
-## Mission Control inspect (done)
+### Model gate
 
-All three missions inspected in Mission Detail:
+Revenue Copilot session `sess_3fe5363f…` executed against live model `anthropic/claude-sonnet-5`.
 
-| Check | Result |
-|---|---|
-| Metadata | `cohort=OL-001`, `productionEconomic` empty → treat as PRE-OL |
-| Risk | All R1 on happy-path set |
-| Approvals | 0 on those missions |
-| Duration | ~0 ms start=complete |
-| Outcome summary | **empty** on every inspected execution |
-| Business artifacts | **none** (no company/contact/evidence/qualification payload) |
+- model calls observed: `11`
+- fallbacks: `0`
+- model provider path: live
 
-**Verdict:** hollow Runtime successes — infrastructure works; business output is not captured/displayed. Lead-research “success” ≠ useful research artifact.
+### GHL governed write gate
 
-Live Runtime host used by Console (ops note): `https://runtime.srv1655818.hstgr.cloud`
-(not the docs hostname `runtime.aionsystems.ai` from this agent’s DNS view).
-
-## What this proves
-
-- Mission machinery is healthy: missions → executions → economics → dashboard
-- Command Center reads **Runtime-derived** metrics (not invented UI state)
-- Portfolio attribution / rollups are aggregating
-- Approval / R2 governance can be exercised (PRE-OL + live GHL paths)
-- Live GHL Phase A→B on production Runtime (see ghl-readonly-governed-write.md)
-
-## What this does **not** prove
-
-- 100% success at revenue production
-- Live model calls (OpenRouter / Revenue Copilot still unverified)
-- Commercial outcome / attributed EV
-
-Treat PRE-OL “100% success” as **system-test success**.
-
----
-
-## Current status record
+The production Runtime governed path executed:
 
 ```text
-AION PRE-OL VALIDATION
-Missions:              3 (+ governance command)
-Executions:            7 → 8
-Runtime success:       hollow on PRE-OL set (empty outcomes)
-Failures:              0 on PRE-OL set
-Governance exercised:  YES — R2 crm.opportunity.update → REQUIRE_APPROVAL → approve
-External GHL proof:    YES — production Runtime ghl-live acceptance green
-Live model proof:      not yet
-Economic value:        0
-OL-001 counted:        0 / 100
+/v1/commands
+  → ghl-adapter
+  → ghl-live
 ```
 
-### Governance validation (done)
+A real note was created on the live AION Empire tenant:
+
+- contact: `MyWCgeFaKnifp6LM7yIc`
+- note: `nocp0GEfrxQSOBqxFhPk`
+- backend: `ghl-live`
+- first execution: `idempotentReplay=false`
+- duration: `286 ms`
+- GHL write cost: `4 units`
+
+The same idempotency key was replayed and produced:
+
+- `idempotentReplay=true`
+- same side effect: `ese_802a572f…`
+- same note ID
+- replay cost: `0 units`
+- duration: `1 ms`
+- **no duplicate note**
+
+Canonical execution evidence:
+
+- Execution Object: `exe_c407ee3f…`
+- status: `succeeded`
+- external resource: `nocp0GEfrxQSOBqxFhPk`
+- external request: `ghl_req_17b9b302…`
+- result hash: `6f308f25…`
+- side-effect ledger status: `succeeded`
+
+The note write was correctly classified `R1` and policy returned `ALLOW`; approval was therefore not required for this capability. The separate `crm.opportunity.update@1` R2 proof remains the approval-gate evidence.
+
+## Governance validation
 
 ```text
-PRE-OL command: crm.opportunity.update@1 (dryRun / seed opportunity)
-  → decision REQUIRE_APPROVAL (R2)
+crm.opportunity.update@1
+  → REQUIRE_APPROVAL (R2)
   → pending approvals 0 → 1
-  → explicit human approve (operator-console actor persisted)
-  → pending 0; human interventions lit
+  → explicit human approve
+  → pending approvals 1 → 0
+  → human intervention metrics lit
 ```
 
-Console Approve must send a full human `actor` matching `decidedBy` (actors FK).
-Fixed in Operator Console ApprovalPanel.
+Console approval requires a persisted human actor matching `decidedBy` because of the actors foreign key; the Console flow was corrected accordingly.
 
-Classification for these (and future Console launches while paused):
+## Measurement honesty
+
+Preserve the original PRE-OL records. Do not rewrite them into production missions.
 
 | Field | Value |
 |---|---|
@@ -100,80 +90,53 @@ Classification for these (and future Console launches while paused):
 | `synthetic` | `false` |
 | `productionEconomic` | `false` |
 
-OL-001 scoreboard counts **only** `cohort=OL-001` **and**
-`productionEconomic=true`.
-
----
-
-## Inspect before the next mission
-
-In Mission Control, open each PRE-OL mission and verify:
+The OL-001 scoreboard counts only real production missions with the production cohort/economic flag. Therefore the starting production count remains:
 
 ```text
-Mission
-├── objective
-├── service / workflow selected
-├── execution count + status
-├── agent identity
-├── tenant
-├── inputs
-├── outputs / artifacts
-├── tool calls
-├── approvals
-├── policy decisions
-├── execution cost
-└── terminal outcome
+OL-001 = 0 / 100
 ```
 
-Especially lead-research style missions: a useful success artifact should
-resemble company / contact / source evidence / industry / location / website /
-qualification signals / pain hypotheses / recommended next action / confidence.
-`status: succeeded` alone is **execution success without business output**.
+## Gate decision
 
----
-
-## Next proofs (ordered)
-
-### 1) Governance validation — DONE
-
-R2 stage-propose parked on approval; Console metrics lit; explicit approve with
-persisted human actor cleared the queue.
-
-### 2) Standing GHL live gate — DONE
-
-Production evidence in [ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md):
-
-```text
-REAL GHL TENANT (AION Empire)
-  → read contact/opportunity
-  → normalize through adapter
-  → propose one change
-  → Execution Gateway
-  → explicit approval
-  → execute exactly once
-  → audit + idempotent replay
-```
-
-### 3) Live model access — BLOCKING OL-001
-
-Requires verified model access (OpenRouter via Revenue Copilot or proof harness)
-before any mission may count as OL-001.
-
-Only after:
+The standing pause condition was:
 
 ```text
 GHL LIVE ✓
 MODEL LIVE ✓
-ACTIVATION GATE ✓
+GOVERNED WRITE ✓
+IDEMPOTENT REPLAY ✓
+FULL AUDIT ✓
 ```
 
-may the first mission become **OL-001 Mission 001 / 100**.
+All required gates are now green.
 
----
+# OL-001 IS UNPAUSED
+
+The next execution is not another generic happy-path test. It should be the first real supervised revenue-production mission and may count as **OL-001 Mission 001 / 100** only when it carries real business input, useful business artifacts/outcomes, and complete economics/evaluation data.
+
+## Next chapter
+
+Run Missions 001–010 as a supervised production cohort:
+
+```text
+real lead
+  → GHL intake
+  → AION mission
+  → research / enrichment
+  → qualification
+  → recommended next action
+  → governed CRM action / follow-up
+  → opportunity progression
+  → outcome
+  → evaluation + economics
+```
+
+Inspect essentially every execution during the first 10 missions. Optimize only from observed production friction.
 
 ## Standing rules
 
-- IE-002 stays closed
-- OL-001 stays paused until live model is verified
-- No new substrate unless Phase A→B proof exposes an actual blocker
-- Stop generating only easy internal missions; remaining gate is **live model**
+- IE-002 stays closed.
+- OL-001 is **active** as of 2026-09-08.
+- PRE-OL validation remains excluded from the 100-mission production cohort.
+- No speculative substrate work; production friction pulls the next engineering change.
+- Preserve the distinction between execution success and business/economic success.
