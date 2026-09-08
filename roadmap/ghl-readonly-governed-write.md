@@ -8,7 +8,7 @@ policy demands it, execute it once, and record the result.
 |---|---|---|
 | Catalog / confidence gate | aion-core #17 | ✅ **Landed** |
 | Adapter + proof matrix | aion-runtime #24 | ✅ **Landed** |
-| Live acceptance harness | aion-runtime #25 | 🔄 open — green against AION Empire locally |
+| Live acceptance harness | aion-runtime #25 → #27 (main) | ✅ **Landed** + prod gate green |
 | Roadmap | aion-docs #33 | ✅ **Landed** |
 | Empire flywheel doctrine | aion-docs #34 | ✅ **Landed** |
 | Next-priority record | aion-docs #35 | ✅ **Landed** |
@@ -183,14 +183,28 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 | Item | Status |
 |---|---|
-| PIT scopes (contacts/opps/conversations/calendars) | ✅ host-probed against AION Empire |
-| `/opt/aion/.env` intact (infra vars + `GHL_*`, `0600`) | ✅ rebuilt after clobber — never replace with GHL-only |
-| aion-infra #7 compose `GHL_*` passthrough | ⏳ OPEN — host compose still unwired |
-| Runtime image with `LiveGhlBackend` (#24+) | ⏳ prod still `1f5d1ce` — **no** GHL adapter |
-| Live acceptance harness (#25) | ⏳ OPEN |
-| Re-prove on `runtime.srv1655818.hstgr.cloud` | ⏳ after compose + image recreate |
+| PIT scopes + `/opt/aion/.env` (infra + `GHL_*`) | ✅ |
+| aion-infra #7 compose `GHL_*` | ✅ merged + surgical host apply |
+| Runtime image | ✅ `cdb622959817c1bff6a74e10a5c14b7a5e9bedc7` (main #27+#29) |
+| Live acceptance on `runtime.srv1655818.hstgr.cloud` | ✅ **green** 2026-09-08 |
 
-**Deploy order:** rotate any transcript-exposed PIT → merge/deploy infra #7 → deploy Runtime ≥ #24 (prefer #25) → recreate `aion-runtime` → re-prove. Do **not** paste PITs into chat.
+### Production gate evidence (2026-09-08)
+
+| Audit field | Evidence |
+|---|---|
+| prod `git_sha` | `cdb622959817c1bff6a74e10a5c14b7a5e9bedc7` |
+| backend | `ghl-live` |
+| tenant / location | `aion-systems` / `YK8RT5OnmQiMqprlyqYY` |
+| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| proposed mutation | stage → Proposal Sent |
+| policy | `REQUIRE_APPROVAL` (R2) `apr_ee0beb88-…` |
+| execution / side-effect | `exe_03cd4efe-…` / `ese_bb8cc26b-…` succeeded |
+| idempotency | `ghl-prod-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| cost | `{ units: 4, tokens: 60 }` |
+| GHL outcome | stage applied; restored to Negotiation |
+| success | ✅ |
+
+**Follow-up (non-blocking for this gate):** run `migrate` on the VPS so `seedMission009` inserts Phase A keys still missing from the prod catalog (`crm.contact.search`, `crm.opportunity.search`, `crm.pipeline.read`, `crm.conversation.read`, `crm.appointment.read`). Gate used `contact.read` + `opportunity.read`/`update`, which were already present.
 
 ---
 
