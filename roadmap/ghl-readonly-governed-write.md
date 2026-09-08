@@ -183,12 +183,14 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 | Item | Status |
 |---|---|
-| PIT rotated after chat exposure | ✅ operator confirmed |
-| VPS `/opt/aion/.env` has new `GHL_API_KEY` + `GHL_LOCATION_ID` | ⏳ operator |
-| aion-infra #7 merge + compose redeploy | ⏳ (PR open, checks green) |
-| Re-prove on `runtime.srv1655818.hstgr.cloud` / Console | ⏳ after env + deploy |
+| PIT scopes (contacts/opps/conversations/calendars) | ✅ host-probed against AION Empire |
+| `/opt/aion/.env` intact (infra vars + `GHL_*`, `0600`) | ✅ rebuilt after clobber — never replace with GHL-only |
+| aion-infra #7 compose `GHL_*` passthrough | ⏳ OPEN — host compose still unwired |
+| Runtime image with `LiveGhlBackend` (#24+) | ⏳ prod still `1f5d1ce` — **no** GHL adapter |
+| Live acceptance harness (#25) | ⏳ OPEN |
+| Re-prove on `runtime.srv1655818.hstgr.cloud` | ⏳ after compose + image recreate |
 
-Do **not** paste the new PIT into chat. Install only on the VPS.
+**Deploy order:** rotate any transcript-exposed PIT → merge/deploy infra #7 → deploy Runtime ≥ #24 (prefer #25) → recreate `aion-runtime` → re-prove. Do **not** paste PITs into chat.
 
 ---
 
