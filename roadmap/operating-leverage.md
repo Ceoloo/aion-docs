@@ -66,21 +66,29 @@ Production evidence drives autonomy changes — not a push to get everything to 
 ### OL-001 — Revenue Production Loop
 
 A **real operating workload**, not an architecture mission. **Dominant priority**
-after v0.2.0 — but **paused** until **live GHL access** and **live model access**
-are both real **and verified**.
+after v0.2.0.
 
-**Status (2026-09-08):** live GHL access **verified** on production Runtime
-(`ghl-live`, capability matrix in
-[ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)). Live model
-access **not verified** — OpenRouter / Revenue Copilot not available to the
-proof harness yet. **Do not unpause OL-001** until the model gate passes.
+**Status (2026-09-08): ACTIVE / UNPAUSED.** The PRE-OL gate is closed. Production
+Runtime has verified live GHL access, a governed live CRM write, idempotent replay
+with no duplicate side effect, full Execution Object + side-effect audit evidence,
+and verified live model access through Revenue Copilot using
+`anthropic/claude-sonnet-5`. See [pre-ol-validation.md](./pre-ol-validation.md) and
+[ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md).
 
-**Measurement honesty:** PRE-OL validation missions (Command Center system
-tests, Console launches while paused) are recorded separately — see
-[pre-ol-validation.md](./pre-ol-validation.md). They must show as
-`cohort=pre_ol_validation` / `productionEconomic=false` and **never** inflate
-`OL-001 progress = N / 100`. Next PRE-OL proof is governance (approval gate),
-then the live GHL write.
+The acceptance chain that removed the pause is:
+
+```text
+GHL LIVE ✓
+MODEL LIVE ✓
+GOVERNED WRITE ✓
+IDEMPOTENT REPLAY ✓
+FULL AUDIT ✓
+```
+
+**Production count starts at `0 / 100`.** PRE-OL validation missions remain
+preserved but excluded. They must not be retroactively counted as production
+missions because their outcomes were hollow infrastructure successes rather than
+revenue-production evidence.
 
 ```text
 REAL LEAD
@@ -98,7 +106,8 @@ REAL LEAD
   → Evaluation + economics
 ```
 
-**First production target:** **100 real revenue missions** through v0.2.0.
+**First production target:** **100 real revenue missions** through the certified
+platform.
 
 Run repeatedly — not once. Version meaningful workflow changes so cohort data
 stays comparable (`Revenue Production v1`, `Lead-to-Appointment v1` /
@@ -114,6 +123,14 @@ redesign the workflow across the entire 100 without versioning.
 | **26–50** | Compare workflow versions, routing recommendations, intervention patterns |
 | **51–75** | Cautiously exercise earned autonomy where M008 evidence supports it |
 | **76–100** | Closer to steady state; establish first trustworthy production baseline |
+
+The immediate milestone after unpause is:
+
+> **Complete Missions 001–010 as a supervised real-revenue cohort with useful
+> business artifacts, explicit outcomes, intervention data, and complete economics.**
+
+A mission counts only when it starts from real business input and produces a
+reviewable business artifact or outcome. `status=succeeded` alone is not enough.
 
 #### Primary KPIs
 
@@ -148,7 +165,7 @@ economically meaningless ROI.
 ```text
 OL-001 — REVENUE PRODUCTION
 PRODUCTION
-  Real missions             N / 100
+  Real missions             0 / 100
   Successful                     —
   Failed                         —
   In progress                    —
@@ -181,7 +198,8 @@ answer how productive, reliable, expensive, autonomous, and economically
 valuable the machine workforce is in the real world.
 
 UI/backend changes during OL-001 are **pulled by friction**, not pre-built.
-Next Console slices when needed: create-mission (first), then policy-aware retry.
+The next engineering change should come from observed production friction in the
+first supervised cohort, not from speculative platform expansion.
 
 ---
 
