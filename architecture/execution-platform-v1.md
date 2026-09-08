@@ -104,9 +104,16 @@ AION SYSTEMS
 └── AI Agent Systems
 ```
 
-**Flywheel:** internal problem → Systems builds → used internally → measured →
-standardized → client service → repeated → productized → platform capability.
-Revenue Copilot is already on this path.
+**Systems capability flywheel:** internal problem → Systems builds → used
+internally → measured → standardized → client service → repeated → productized →
+platform capability. Revenue Copilot is already on this path.
+
+**Empire flywheel** (attention → leads → conversion → provision → execute →
+outcomes → reusable capabilities → content → attention): see
+[`../roadmap/aion-flywheel.md`](../roadmap/aion-flywheel.md). Holding allocates
+capital so the first loop finances the next venture — Systems creates capability;
+Digital Empire creates distribution; G-Star creates IP; Synapse Grid may later
+create physical/compute infrastructure.
 
 ---
 
@@ -470,23 +477,38 @@ The Execution Platform is proven when a second domain reuses it unchanged.
 |---|---|---|
 | **M001** | Revenue governed execution | Proof A–D green (complete) |
 | **M002** | Media/G-Star on the same Runtime | Cross-domain proof A/B/C/X green — no Core redesign (complete) |
-| **v0.1.0** | Multi-domain platform certification (immutable) | `npm run certify:platform-v01` PASS + manifest; tag `execution-platform-v0.1.0` |
-| **M003** | Tenant & domain isolation ← **NEXT / P0** | Hierarchy + attack suite; Runtime decides ALLOW/DENY/REQUIRE_APPROVAL |
-| **M004** | Mission orchestration | Mission object above Execution; business intent → plan → executions |
-| **M005** | Holding Workforce Control Center | Holding dashboard from canonical execution/cost/outcome records |
-| **M006** | Real client execution / GoHighLevel | AION Systems client workflow through platform |
-| **M007** | Evaluation + intelligent routing | Route by evidence (cost × quality × KPI), not vibes |
-| **M008** | Earned autonomy | Autonomy is a promotion on agent+service+env, not a blanket grant |
-| **M009** | AION Workforce productization | Monetize the platform as a governed AI workforce |
-| **M010** | Venture provisioning / empire-scale execution | Multi-venture provisioning on the shared substrate |
+| **v0.1** | Multi-domain platform certification | `npm run certify:platform-v01` green; Git tag `execution-platform-v0.1` |
+| **M003** | Tenant & domain isolation | `npm run proof:mission003` attack suite green; cross-tenant DENY at Runtime |
+| **M004** | Mission orchestration + mock client-money path (MVP) | Sequential MissionOrchestrator + lineage + mock GHL step; real CRM I/O is M009 — **landed** |
+| **M005** | Mission economics + rollups | Aggregate Execution → Mission → Project/Venture → Company → Holding (cost, outcomes, ROI/EV-to-cost) — **landed** |
+| **M006** | Workforce Control Center | Holding dashboard **reads** canonical economics/execution truth — does not invent dashboard state (MVP: 3 screens + approval inspect queue) — **landed** (`execution-platform-m006-complete`) |
+| **M005b** | Service Catalog as internal API | Discovery resolves capabilities; models are interchangeable suppliers (shifted after economics) |
+| **M007** | Evaluations + performance routing | Durable `EvaluationResult` → scorecards → **recommendation-only** routing (deterministic fallback) — **landed** |
+| **M008** | Earned autonomy policy | Scoped AutonomyGrant (agent×service×tenant×env); L4 waives R2 only; R3 never waived — **landed** |
+| **M009** | Client execution plane | Live GHL via governed adapters + ExternalSideEffect ledger; payment movement out of MVP — **landed** |
+| **v0.2.0** | Immutable freeze | `execution-platform-v0.2.0` — M001–M009 certified; **do not move** |
+| **M010** | _(deferred)_ AION Workforce product | Absorbed into **OL-005 productization** — only after operating loops prove value. Do **not** start as architecture spike. |
 
-**Rule:** Revenue remains P0 commercially. Platform work must not starve Revenue Copilot / client delivery. Flywheel: revenue → execution data → better platform → more automation → more revenue.
+### Post-v0.2.0 — Operating Leverage (not M010)
+
+Platform construction is closed. **Business operations drive engineering.**
+
+| Program | Intent | Done when |
+|---|---|---|
+| **OL-001** | Revenue Production Loop | **Dominant priority** — 100 real revenue missions; cohort checkpoints; scoreboard heartbeat |
+| **OL-002** | Client Production Loop | Deferred until OL-001 baseline |
+| **OL-003** | Unit economics | Delivery cost vs economic value → known service margins |
+| **OL-004** | Workforce optimization | Production evidence drives routing / workflow / autonomy / cost envelope |
+| **OL-005** | Productization | AION Workforce offering after loops work repeatedly |
+| **UX-001** | Operator Console | Command Center + Mission Control; create-mission; approve/deny; friction-driven slices |
+| **OPS-001** | Live Runtime endpoint | Traefik HTTPS on VPS → immutable Runtime image; verify health; **then** Vercel Console |
+
+Full chapter: [`../roadmap/operating-leverage.md`](../roadmap/operating-leverage.md).
+Live Runtime runbook: [`../roadmap/ops-001-live-runtime.md`](../roadmap/ops-001-live-runtime.md).
+
+**Rule:** Revenue remains P0 commercially. Do not add foundational architecture unless real operations expose a missing primitive. Flywheel: revenue → execution data → better platform → more automation → more revenue.
 
 **Integration checkpoint (do not add scope):** merge M001 → M002 in dependency order (core → data → runtime → docs), keep CI green after each merge, then run v0.1 certification before starting M003.
-
-**Architecture rule:** no new abstraction without a real AION workload that needs it.
-
-**North-star metric (post-isolation):** `EVPE = attributed economic value ÷ total execution cost`
 
 ### Mission 002 — Media / G-Star (shipped)
 
@@ -525,29 +547,9 @@ Harness: `aion-runtime` `npm run certify:platform-v01`
 | **Attribution** | Domain-appropriate outcomes without contaminating the generic Execution contract |
 | **Isolation baseline** | M002 cannot access M001-specific capability simply because both use Runtime |
 
-**Immutable release tag:** **`execution-platform-v0.1.0`** — *AION Execution Platform v0.1.0 — Multi-Domain Execution Proof*.
+Release candidate tag: **`execution-platform-v0.1`** — *AION Execution Platform v0.1 — Multi-Domain Execution Proof*.
 
-Machine-readable evidence: [`releases/execution-platform-v0.1.0.manifest.json`](../releases/execution-platform-v0.1.0.manifest.json)  
-(fields: git SHA → schema version → Runtime version → catalog version → certification result → timestamp).
-
-Do **not** move `execution-platform-v0.1.0`. Fixes ship as `execution-platform-v0.1.1+`.
-
-#### What v0.1.0 guarantees
-
-| Guarantees | Does **not** guarantee |
-|---|---|
-| Mission 001 Revenue path remains green after Mission 002 | Tenant / company / venture isolation (that is M003) |
-| Media/G-Star executes on the **same** Runtime contracts | Cryptographic agent identity / spoof resistance |
-| Shared catalog resolves both domains | Cross-tenant shared-capability isolation |
-| R1 deny + R2 approval work for both domains | Mission orchestration / DAG of executions |
-| Non-zero cost records for both domains | Holding Control Center / EVPE dashboards |
-| Dual-domain executions survive Runtime restart | GoHighLevel / client commercial loop |
-| Domain attribution without contaminating generic Execution | Earned autonomy L3–L4 |
-| Capability-level isolation baseline across domains | Production multi-tenant security posture |
-
-v0.1.0 is the **baseline** future architecture is compared against.
-
-Architectural claim certified:
+Architectural claim under test:
 
 ```text
                  AION EXECUTION PLATFORM
@@ -570,53 +572,390 @@ Architectural claim certified:
 
 If M002 lands without Revenue-specific changes breaking M001, domain independence is beginning to hold.
 
-### Mission 003 — Tenant & Domain Isolation (next; not started)
+### Mission 003 — Tenant & Domain Isolation (P0 — landed)
 
-Do **not** add another workload next. M003 answers: can multiple organizations safely consume the same machine workforce?
+M003 answers: can multiple organizations safely consume the same machine workforce? **Yes — certified on the integration tip after ordered landings (core → data → runtime → docs).**
 
-Canonical hierarchy:
+`execution-platform-v0.1.0` remains the **immutable** freeze baseline. M003 sits on top of that baseline; the v0.1.0 tag was not moved.
+
+**Execution Platform v0.2.0-rc1** = v0.1.0 baseline + M003 tenant/domain isolation + M004 sequential orchestration (lineage, pause/resume under same `rootExecutionId`, mock GHL-shaped client-money step). Tag: `execution-platform-v0.2.0-rc1` (release candidate). **`execution-platform-v0.1.0` remains immutable.** Do **not** cut final `execution-platform-v0.2.0` until post-RC validation + explicit final certification.
+
+| Artifact | Tip (integration `cursor/execution-object-agent-identity-6743`) |
+|---|---|
+| aion-core | merge of PR #7 |
+| aion-data | merge of PR #7 |
+| aion-runtime | merge of PR #8 |
+| aion-docs | merge of PR #10 |
+
+**Certification evidence (merged tip):**
+
+- Runtime post-merge CI: Mission 001 proof, Mission 002 proof, Platform v0.1 multi-domain cert — all green
+- `npm run proof:mission003` attack suite — 16/16 PASS (cross-tenant R/W deny, unauthorized service deny, spoof deny, approval bind/replay/expiry, serviceKey tamper, budget, shared-capability allow with isolation)
+- `@aion/core` policy isolation tests — green
+
+Mission 004 (sequential MissionOrchestrator + lineage + mock GHL client-money path) is **landed** on the integration tip and included in **`execution-platform-v0.2.0-rc1`**. Combined M001–M004 certification (plus `certify:platform-v01`) was green before the RC cut.
+
+Mission 005 (economics) and Mission 006 (Workforce Control Center) are **landed**. Immutable integration baseline: **`execution-platform-m006-complete`** (docs tip `01bc090`).
+
+Mission 007 (evaluations + recommendation-only performance routing) is **landed** (`proof:mission007` PASS A–E). Deterministic ExecutionRegistry fallback remains in force — no auto adaptive switching yet.
+
+Mission 008 (earned autonomy policy) is **landed** (`proof:mission008` PASS A–G). Performance can earn autonomy only inside policy limits; R3 is never waived. L4 means bounded autonomous execution for a proven agent×service×tenant×env grant — not unrestricted autonomy.
+
+Mission 009 (live GHL client-money plane) is **landed** (`proof:mission009` PASS A–J). GoHighLevel owns CRM state; AION owns governance truth (identity, tenant, permission, risk, autonomy, approval, cost, lineage, audit). Payment movement remains out of MVP.
+
+**`execution-platform-v0.2.0` is frozen** after clean post-M009 certification (`npm run certify:platform-v020` PASS). Meaning: governed, multi-domain, tenant-isolated, mission-orchestrated, economic, observable, evaluated, autonomy-scoped execution with proven live-shaped external-system integration. Do **not** move the tag; fixes ship as `v0.2.1+`.
+
+Post-v0.2.0 focus: **[operating leverage](../roadmap/operating-leverage.md)** — OL-001 Revenue Production Loop (100 real missions), then client loop / unit economics / workforce optimization / productization. Next engineering surface: **UX-001 Operator Console** (not another backend mission).
+
+Canonical hierarchy (partial OK — only `tenantId` is required on an execution):
 
 ```text
-AION
- │
- ├── tenant
- │    ├── company
- │    │    ├── venture
- │    │    │    ├── project
- │    │    │    │    └── execution
+Tenant (REQUIRED)
+  └── Company (optional)
+        └── Venture (optional)
+              └── Project (optional)
+                    └── Mission (optional)
+                          └── Execution
+                                └── Child Execution (lineage)
 ```
 
-Scope is enforced through identity:
+Identity is cryptographically meaningful at the Runtime boundary:
 
 ```text
-Agent Identity
-      +
-Tenant
-      +
-Domain
-      +
-Service
-      +
-Resource
-      +
-Environment
-      +
-Action
-      ↓
-Policy Decision
-      ↓
+WHO     agentId / agentUri
+WHERE   tenantId (+ optional company / environment)
+WHAT    serviceKey / capability
+WHY     missionId / objective
+AUTHORITY  role, grants, autonomy, budget  (evaluated — never trusted blindly)
+REQUEST    action + resource refs + approvalId
+     ↓
+Runtime PolicyEngine.authorize()
+     ↓
 ALLOW / DENY / REQUIRE_APPROVAL
 ```
 
-**Killer test:** give an agent legitimate credentials for Tenant A and instruct it to retrieve or mutate Tenant B — it must fail at the **platform boundary**, not because the prompt told the agent to behave.
+**Rule:** Runtime establishes permission. Never: “the agent says it has permission.”
 
-**Shared-capability test:** AION Systems, AION Media, G-Star, and Client A all invoke the same catalog service (e.g. `revenue.lead.research`) on the same Runtime with isolated context and execution records.
+**Attack suite (must stay green):** `aion-runtime` `npm run proof:mission003`
+
+| Attack | Expected |
+|---|---|
+| Tenant A → read Tenant B execution | DENY |
+| Tenant A → mutate Tenant B artifact | DENY |
+| Tenant A agent → unauthorized service | DENY |
+| Media agent → `production.deploy` | DENY |
+| Spoof `agentId` | DENY |
+| R2 execute without `approvalId` | REQUIRE_APPROVAL |
+| `approvalId` from execution A → execution B | DENY |
+| `approvalId` replay / consume | DENY |
+| Expired approval | DENY |
+| `serviceKey` tampering | DENY |
+| Cross-tenant context / artifact ref | DENY |
+| Budget exceeded | DENY |
+| Valid shared capability | ALLOW |
+| Same service from two tenants | ALLOW (isolated records) |
+
+HTTP reads also require `x-aion-tenant-id`; cross-tenant execution GET is DENY at the gateway.
+
+**Lineage (M004 precursor):** executions carry optional `parentExecutionId` / `rootExecutionId` so orchestrated fan-out can be reconstructed without building the big orchestrator yet.
 
 Once M001 + M002 + M003 are certified, the first architectural thesis is proven: AION possesses a durable, governed, measurable, multi-domain, tenant-isolated execution substrate capable of operating shared machine labor across independent business domains.
 
-### Mission 004 — Orchestration + client money path
+### Mission 004 — Orchestration + client money path (MVP)
 
-After isolation is proven, turn back toward money: mission orchestration + GoHighLevel/client execution so infrastructure operates real AION Systems client workflows at increasing volume. The question shifts from “Can we build AION?” to “How much economically useful work can AION execute per dollar and per human hour?”
+After isolation is proven, turn back toward money: **mission orchestration** so infrastructure can run multi-step client workflows under one governed lineage tree — with a **mock** GoHighLevel-shaped client-money step as the first proof, not a production CRM integration.
+
+The question shifts from “Can we build AION?” to “How much economically useful work can AION execute per dollar and per human hour?”
+
+#### MVP definition (in scope)
+
+| Piece | Contract |
+|---|---|
+| **Sequential MissionOrchestrator** | Runs an ordered Workflow as governed single-command steps via the existing Orchestrator (no parallel DAG) |
+| **Lineage** | Every child step carries `parentExecutionId` / `rootExecutionId`; root step is its own root |
+| **Durable plans** | Workflow definitions persist in Data (`workflows` table) and reload after Runtime restart |
+| **Lineage queries** | `listByRoot` / `listByParent` reconstruct the execution tree |
+| **Approval pause/resume** | Gated mid-step → `awaiting_approval`; resume continues remaining steps under the **same** `rootExecutionId` |
+| **Mock client-money path** | Capability `client.ghl.contact.upsert` with GHL-shaped payload in step metadata (provider + contact) — proves payload/lineage plumbing only |
+| **Runtime surface** | `POST /v1/missions/run` (+ lineage on command ExecutionObjects); proof matrix `proof:mission004` |
+
+#### Proof criteria (must stay green)
+
+1. Multi-step mission completes under one root; `listByRoot` returns every step in order with correct parents.
+2. Gated mid-step pauses; after approval, remaining steps resume under the same root.
+3. Mid-plan deny stops later steps (no silent continuation).
+4. Mock GHL step accepts/preserves GHL-shaped payload without leaking CRM fields onto the generic Execution contract.
+5. Missions 001–003 proof suites remain green on the same Runtime tip.
+
+#### Non-goals (explicitly out of M004)
+
+- Real GoHighLevel / CRM API credentials, webhooks, or live client-money movement (→ later client execution plane / **M009**)
+- Parallel / DAG orchestration, compensation sagas, or cross-mission scheduling
+- Cutting final `execution-platform-v0.2.0` without an RC + post-tag validation (RC1 is allowed; final freeze is separate)
+- Replacing the Service Catalog or inventing a second control plane
+
+Merge order for M004 PRs: **core → data → runtime → docs**.
+
+#### Landed status (integration tip)
+
+| Artifact | Tip |
+|---|---|
+| aion-core | merge of PR #8 |
+| aion-data | merge of PR #9 |
+| aion-runtime | merge of PR #10 (+ cert-gate #11) |
+| aion-docs | merge of PR #12 (+ cert-gate #13) |
+
+**Certification evidence:** Combined M001–M004 gate on the integration tip was green (`proof:mission001`…`004` + `certify:platform-v01`) before cutting **`execution-platform-v0.2.0-rc1`**. Manifest: [`releases/execution-platform-v0.2.0-rc1.manifest.json`](../releases/execution-platform-v0.2.0-rc1.manifest.json).
+
+### Mission 005 — Mission Economics + Rollups (MVP)
+
+Aggregate execution truth upward — do **not** build more orchestration:
+
+```text
+Execution → Mission → Project / Venture → Company → Holding (tenant)
+```
+
+Prefer **SQL rollup** over a second ledger. Holding is the tenant/portfolio aggregate without a dedicated Holding table in MVP.
+
+#### MVP surface
+
+| Piece | Contract |
+|---|---|
+| **Core** | `MissionEconomicsRollup` / `ScopeEconomicsRollup` + shared metrics (cost, EV, ROI, denials, approvals, …) |
+| **Data** | `economics.rollupByMission` / `rollupByScope` derived from `executions` + `approvals` + `outcomes` |
+| **Runtime** | `GET /v1/missions/:missionId/economics`, `GET /v1/economics?…` (tenant header required) |
+| **Proof** | `npm run proof:mission005` PASS A/B/C |
+
+#### Proof criteria
+
+1. After a multi-step / command flow, mission rollup matches known execution, approval, cost, and attributed EV totals (incl. ROI).
+2. Holding (tenant) scope rollup includes mission spend; cross-tenant query DENY.
+3. Missing `x-aion-tenant-id` is DENY on economics reads.
+4. Missions 001–004 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Service Catalog as internal discovery API (deferred; was the prior M005 label)
+- A second cost/revenue ledger table or Holding entity table
+- Workforce Control Center UI (→ **M006**)
+
+Merge order for M005 PRs: **core → data → runtime → docs**.
+
+### Mission 006 — Workforce Control Center (MVP)
+
+First real pane of glass for the machine workforce. **Read-mostly.** Every number must resolve to canonical Runtime/Data truth (M005 economics + executions + lineage). Do **not** invent dashboard state.
+
+#### MVP surface (exactly 3 primary screens)
+
+| Screen | Route / surface | Source of truth |
+|---|---|---|
+| **Holding Overview** | `aion-products/workforce-control` `/` | `GET /v1/economics`, missions/executions/approvals lists |
+| **Mission Detail** | `/missions/:missionId` | mission + economics + execution lineage |
+| **Execution Detail** | `/executions/:executionId` | full Execution Object + by-root tree |
+| **Approval queue** | side panel (inspect-only) | `GET /v1/approvals?status=pending` |
+
+Portfolio labels (presentation): Systems, Media, G-Star, Assets, Frontier — map Systems/Media to real domains when present; Assets/Frontier may show stub empty state.
+
+#### Backend (thin — enable the UI)
+
+| Layer | Contract |
+|---|---|
+| **Data** | `missions.listForTenant`, `executions.listRecentForTenant`, `approvals.listForTenant` |
+| **Runtime** | `GET /v1/missions`, `GET /v1/missions/:id`, `GET /v1/executions?limit=`, `GET /v1/approvals?status=` (tenant header required) |
+| **Proof** | `npm run proof:mission006` PASS A/B/C |
+
+#### Proof criteria
+
+1. Holding economics returns non-zero totals after seeded activity.
+2. Missions list non-empty; mission economics click-through matches known counts.
+3. Failed executions list/detail resolvable; pending approvals appear with inspect fields.
+4. Cross-tenant DENY on missions/approvals/executions lists; missing tenant header DENY.
+5. Missions 001–005 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Broad write cockpit / inventing KPIs or mock dashboard generators
+- Assets / Frontier as real domains (stubs OK)
+- Replacing Runtime decide with a product-side approval engine (inspect-only; decide stays Runtime POST)
+
+Merge order for M006 PRs: **data → runtime → products → docs**.
+
+### Mission 007 — Evaluations + Performance Routing (MVP)
+
+Turn execution history into **routing intelligence**. AION learns which combination of model + agent + service version + workflow performs best for a given job — then **recommends** a route. Do **not** enable automatic adaptive routing in M007; keep the deterministic catalog / registry route as fallback until rankings are reproducible and sample sizes are sufficient. M008 (earned autonomy) decides what proven workflows may do without human approval.
+
+#### Minimum data model
+
+`EvaluationResult` (durable in aion-data):
+
+```text
+execution_id, mission_id, service_key, service_version, agent_id,
+provider, model, workflow_version, quality_score, success, latency_ms,
+total_cost, human_intervention, policy_events, business_outcome,
+economic_value, evaluated_at (+ tenant_id, evaluation_id)
+```
+
+Scorecards aggregate by candidate (provider/model/service/…). Ranking uses fixed weights in `@aion/core` (`ROUTING_SCORE_WEIGHTS`, `ROUTING_MIN_SAMPLES`).
+
+#### Flow (recommendation-only)
+
+```text
+service request
+  → eligible workers/providers
+  → policy / tenant filter
+  → performance scorecard
+  → recommended route
+  → execution (deterministic fallback unless caller honors recommendation)
+  → evaluation
+  → updated scorecard
+```
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `EvaluationResult`, `CapabilityScorecard`, `RoutingRecommendation`, `computeRankingScore` / `recommendRoute` |
+| **Data** | `evaluation_results` (0006), `evaluations.save` / `scorecardsForTenant` |
+| **Runtime** | `POST/GET /v1/evaluations`, `GET …/evaluation`, `GET /v1/scorecards`, `GET /v1/routing/recommend`, `POST /v1/routing/override` |
+| **Proof** | `npm run proof:mission007` PASS A–E |
+
+#### Proof criteria
+
+1. Identical evaluation inputs → identical rankings (replay).
+2. Candidates below `ROUTING_MIN_SAMPLES` are ineligible and cannot win.
+3. Failed / policy-denying executions are penalized vs clean successes.
+4. Tenant header required; cross-tenant DENY on eval/scorecard/recommend writes & reads.
+5. Manual override can set `recommended` without mutating underlying scorecard order; `fallback: deterministic` always present.
+6. Missions 001–006 remain green on the same Runtime tip.
+
+#### Non-goals
+
+- Automatic adaptive / bandit provider switching
+- Expanding `ServiceDefinition` with provider/model columns
+- Control Center scorecard UI (optional later)
+- Earned autonomy promotions (→ **M008**)
+
+Merge order for M007 PRs: **core → data → runtime → docs**.
+
+
+### Mission 008 — Earned Autonomy Policy (MVP)
+
+Autonomy is **granted** to a specific agent × service × tenant × environment combination based on observed performance and risk — not “make agents autonomous.”
+
+**HARD RULE:** Performance can earn autonomy only inside policy limits. Performance must never override risk policy (R3 is never waived).
+
+#### Levels
+
+| Level | Meaning |
+|---|---|
+| L0 | Observe |
+| L1 | Recommend |
+| L2 | Execute reversible work |
+| L3 | Execute sensitive work with approval |
+| L4 | Bounded autonomous execution (proven scoped workflow may skip human gate) |
+
+#### AutonomyGrant (minimum)
+
+`agent_id`, `service_key`, `tenant_scope`, `environment`, `current_level`, `eligible_level`, evidence window metrics (executions, success_rate, policy_violation_rate, rollback_rate, human_intervention_rate, cost_variance, eval_score), `last_reviewed_at`, `grant_reason`.
+
+L4 eligibility (deterministic): executions ≥ 25, success ≥ 98%, policy violations = 0, rollback < 1%, intervention/eval/cost within thresholds, tenant/env explicitly allow L4, service risk ≠ R3.
+
+#### Flow
+
+```text
+ExecutionRequest → identity/tenant/service/env → risk → AutonomyPolicy.evaluate()
+  → ALLOW | REQUIRE_APPROVAL | DENY → Execution → EvaluationResult → evidence update
+```
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `AutonomyGrant`, `evaluateAutonomy`, `computeEligibleAutonomyLevel`, PolicyEngine hook |
+| **Data** | `autonomy_grants` (0007), `autonomyGrants.save` / `getActive` / `listForTenant` |
+| **Runtime** | `POST /v1/autonomy/{evaluate,promote,demote}`, `GET /v1/autonomy/grants` |
+| **Proof** | `npm run proof:mission008` PASS A–G |
+
+#### Proof criteria
+
+1. Low-evidence stays approval-required (L1).
+2. Qualified evidence earns higher autonomy (L4).
+3. Policy violation blocks/demotes autonomy.
+4. Grants are tenant/environment scoped (no bleed).
+5. High-risk (R3) cannot bypass approval even with excellent performance.
+6. Manual demote reduces autonomy immediately.
+7. Reload preserves grant state deterministically.
+
+#### Non-goals
+
+- Unrestricted L4 / auto adaptive switching
+- Raising blanket `AgentActor.autonomyLevel` as the sole mechanism
+- Live external CRM I/O (→ **M009**)
+
+Merge order: **core → data → runtime → docs**.
+
+
+### Mission 009 — Live GHL Client Execution Plane (MVP)
+
+Prove AION can execute a **commercially meaningful** client-money workflow against GoHighLevel through the same identity, tenant, permission, approval, autonomy, cost, lineage, and audit controls established in M001–M008.
+
+**HARD BOUNDARY:** Agents never call GHL directly. Path is always:
+
+```text
+GoHighLevel → AION Adapter → Execution Gateway
+  → Identity / Tenant / Permissions / Risk / Autonomy / Approval / Budget
+  → Registered Service → GHL API
+```
+
+GoHighLevel owns CRM state. AION Data owns execution + governance truth. Runtime owns action authority. Control Center owns enterprise visibility.
+
+"Client-money" means the workflow is commercially meaningful — **not** that Runtime may move payments yet. Payment execution, refunds, financing, deletes, and irreversible customer-impacting actions stay out of MVP.
+
+#### CRM services (live catalog)
+
+| Service | Risk |
+|---|---|
+| `crm.contact.read`, `crm.opportunity.read` | R1 |
+| `crm.contact.enrich`, `crm.note.create`, `crm.task.create` | R1 |
+| `crm.contact.update`, `crm.opportunity.create/update`, `crm.message.draft` | R2 (approval) |
+| `crm.message.send` | R3 (always gated; never waived by autonomy) |
+
+#### ExternalSideEffect (minimum)
+
+`execution_id`, `tenant_id`, `service_key`, `idempotency_key`, `external_resource_id`, `external_request_id`, `requested_action`, `approval_id`, `performed_at`, `result_hash`.
+
+Retries must not create duplicate opportunities, notes, messages, or updates.
+
+#### MVP surface
+
+| Layer | Contract |
+|---|---|
+| **Core** | `ExternalSideEffect`, `buildMission009Catalog`, idempotency helpers |
+| **Data** | `external_side_effects` (0008), `saveOnce` / `getByIdempotencyKey` |
+| **Runtime** | `GhlAdapter` (+ FakeGhlBackend for CI), `GET /v1/side-effects` |
+| **Proof** | `npm run proof:mission009` PASS A–J |
+
+#### Proof criteria
+
+1. Valid scoped read
+2. Valid reversible write (once)
+3. Tenant isolation
+4. Approval enforcement on gated send
+5. Idempotency (one external mutation)
+6. Autonomy boundaries (L4 on one service ≠ higher-risk GHL service)
+7. Restart recovery between approval and execution
+8. External failure recorded without false success
+9. Economics rollup includes external cost / attribution
+10. Auditability: Mission → Execution → GHL service → approval → side-effect → CRM record → cost
+
+#### Non-goals
+
+- Payment / refund / financing execution
+- Destructive CRM deletes
+- Broad CRM automation beyond the narrow lead→follow-up path
+- Making GoHighLevel the source of truth for AION execution
+
+Merge order: **core → data → runtime → docs**. After M009 greens, `execution-platform-v0.2.0` became the immutable freeze. Next: [operating leverage](../roadmap/operating-leverage.md) (OL-001 + UX-001), not a new architecture mission.
 
 ### Day-7 checklist (Phase I — this week)
 

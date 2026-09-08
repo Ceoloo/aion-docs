@@ -65,14 +65,11 @@ Each phase implements **only what is required to support current missions**
 
 ## Current position
 
-Phases 0–3 are complete: `aion-docs` (architecture), `aion-core` (Phase 1),
-`aion-data` (Phase 2), and `aion-infra` (Phase 3, provider-portable). The
-current build is **Phase 3.5 — `aion-runtime`**: extracting the runtime host
-into its own repository ([ADR-002](../adr/ADR-002-runtime-host-ownership.md)) to
-close the platform boundary. When it lands, **Docs → Core → Data → Infra →
-Runtime** is the completed foundation and **Phase 4** (the first product) may
-begin; the first real production deployment is an operational activation
-milestone run in parallel, not a further architecture phase.
+Platform foundation + M001–M009 are complete and frozen as
+**`execution-platform-v0.2.0`**. The active chapter is
+**[operating leverage](operating-leverage.md)**: run real revenue/client workloads,
+measure KPIs, and build **UX-001 Operator Console** so operators do not live in
+the IDE. New backend primitives only when production exposes a missing capability.
 
 ## Invariants
 
