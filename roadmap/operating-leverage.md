@@ -129,6 +129,9 @@ The immediate milestone after unpause is:
 > **Complete Missions 001–010 as a supervised real-revenue cohort with useful
 > business artifacts, explicit outcomes, intervention data, and complete economics.**
 
+A mission counts only when it starts from real business input and produces a
+reviewable business artifact or outcome. `status=succeeded` alone is not enough.
+
 #### Primary KPIs
 
 | KPI | Question |
