@@ -8,6 +8,7 @@ policy demands it, execute it once, and record the result.
 |---|---|---|
 | Catalog / confidence gate | aion-core #17 | ✅ **Landed** |
 | Adapter + proof matrix | aion-runtime #24 | ✅ **Landed** |
+| Live acceptance harness | aion-runtime #25 → #27 (main) | ✅ **Landed** + prod gate green |
 | Roadmap | aion-docs #33 | ✅ **Landed** |
 | Empire flywheel doctrine | aion-docs #34 | ✅ **Landed** |
 | Next-priority record | aion-docs #35 | ✅ **Landed** |
@@ -23,9 +24,28 @@ real tenant**. That is the only active engineering objective for this slice.
 | Rule | Status |
 |---|---|
 | IE-002 | **Closed** — do not reopen |
-| OL-001 | **Paused** |
+| OL-001 | **Paused** — live GHL verified; **live model access still blocked** |
 | OL-001 resume | Only after **live GHL access** and **live model access** are both real **and verified** |
 | New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
+
+### Live capability matrix (2026-09-08, prod `3329c01…`)
+
+| Gate | Required | Result |
+|---|---|---|
+| Live GHL tenant read (normalized + evidence) | ✅ | ✅ contacts/opps/pipelines/conversations/appointments via `ghl-live` |
+| Live model call (structured classify) | ✅ | ❌ `OPENROUTER_API_KEY` unset; Revenue Copilot profile not deployed/reachable |
+| Proposed CRM mutation | ✅ | ✅ note body prepared (model_pending until model lands) |
+| R2 approval required | ✅ | ✅ `crm.opportunity.update` → `REQUIRE_APPROVAL` `apr_0e58ad06-…` |
+| Human approval recorded | ✅ | ✅ |
+| One real GHL write | ✅ | ✅ `crm.note.create` → note `i8vqiqM5AlmtJSNJcZDp` / `ese_0e792897-…` |
+| Replay creates no duplicate | ✅ | ✅ same idempotency key → `idempotentReplay: true` |
+| Provider response captured | ✅ | ✅ |
+| Full AION audit | ✅ | ✅ |
+
+Harness: `npm run proof:ghl-live-capability` (aion-runtime).  
+**OL-001 stays paused** until the model gate is green (install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot).
+
+Note: `crm.note.create` is **R1 ALLOW** (gateway-governed, no approval). The matrix R2 row is satisfied by `crm.opportunity.update` in the same proof run.
 
 ### Acceptance milestone (active gate)
 
@@ -139,17 +159,11 @@ including the audit minimum.
 
 Ordered work:
 
-1. **Operator keys** — rotate GHL (+ model gateway / OpenRouter) into
-   `/opt/aion/.env` (`0600`); set `GHL_API_KEY`, `GHL_LOCATION_ID`,
-   `GHL_API_VERSION`; verify live model access separately.
-2. **Live Phase A** — one real tenant read path through Runtime (contacts /
-   pipelines / opportunities as needed for the proposal); confirm isolation +
-   observability.
-3. **Live Phase B** — propose **one** CRM change (prefer opportunity stage
-   update, else note), **explicit human approve**, execute **exactly once**,
-   verify audit minimum fields (single `ExternalSideEffect`, no duplicate write).
-4. **Hardening only if the proof exposes a blocker** — no speculative substrate;
-   `crm.message.send` still deferred.
+1. ~~**Operator keys / scopes**~~ — CRM scopes verified on AION Empire; **still** install rotated PIT on VPS `/opt/aion/.env` (`0600`); verify live model access separately.
+2. ~~**Live Phase A**~~ — contacts / pipelines / opportunities / conversations read via `ghl-live` backend (local Runtime proof 2026-09-07).
+3. ~~**Live Phase B (local Runtime)**~~ — opportunity stage propose → approve → execute once → audit → restore (aion-runtime #25).
+4. **Production Runtime install** — VPS env + infra #7 deploy; re-prove on `runtime.srv…` / Console approval path.
+5. **Hardening only if the proof exposes a blocker** — no speculative substrate; `crm.message.send` still deferred.
 
 Explicitly **out of this follow-up:** reopening IE-002, appointment writes,
 autonomous messaging, starting the OL-001 100-mission cohort.
@@ -158,9 +172,58 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 ## Operator standing items
 
-1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`)
+1. Rotate GHL + OpenRouter keys into `/opt/aion/.env` (`0600`) on the Runtime host
 2. For live reads/writes: set `GHL_API_KEY`, `GHL_LOCATION_ID`, `GHL_API_VERSION`
-3. Keep `crm.message.send` behind stricter product policy even after keys exist
+3. Ensure VPS compose passes `GHL_*` into `aion-runtime` (aion-infra #7)
+4. Keep `crm.message.send` behind stricter product policy even after keys exist
+
+### Live credential + acceptance evidence (2026-09-07)
+
+| Check | Result |
+|---|---|
+| Location ID `YK8RT5OnmQiMqprlyqYY` | ✅ **AION Empire** |
+| Contacts / opportunities / pipelines / conversations | ✅ CRM scopes green |
+| Calendars | ✅ list empty; appointment reads return empty list |
+| `npm run proof:ghl-live-acceptance` | ✅ green on local Runtime + live GHL |
+
+| Audit field | Evidence |
+|---|---|
+| tenant | `aion-systems` |
+| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| proposed mutation | stage → Proposal Sent |
+| policy | `REQUIRE_APPROVAL` (R2) |
+| approval | `apr_509b038b-…` |
+| execution / side-effect | `exe_86da771d-…` / `ese_e613a428-…` succeeded |
+| idempotency | `ghl-live-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| GHL outcome | stage applied; restored to Negotiation after proof |
+| success | ✅ |
+
+**Production Runtime status:**
+
+| Item | Status |
+|---|---|
+| PIT scopes + `/opt/aion/.env` (infra + `GHL_*`) | ✅ |
+| aion-infra #7 compose `GHL_*` | ✅ merged + surgical host apply |
+| Runtime image | ✅ `3329c01b05dc4e0be60231262166d6aa636e9ccf` (main #27–#30) |
+| Live acceptance on `runtime.srv1655818.hstgr.cloud` | ✅ **green** 2026-09-08 |
+
+### Production gate evidence (2026-09-08)
+
+| Audit field | Evidence |
+|---|---|
+| prod `git_sha` | `cdb622959817c1bff6a74e10a5c14b7a5e9bedc7` |
+| backend | `ghl-live` |
+| tenant / location | `aion-systems` / `YK8RT5OnmQiMqprlyqYY` |
+| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| proposed mutation | stage → Proposal Sent |
+| policy | `REQUIRE_APPROVAL` (R2) `apr_ee0beb88-…` |
+| execution / side-effect | `exe_03cd4efe-…` / `ese_bb8cc26b-…` succeeded |
+| idempotency | `ghl-prod-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| cost | `{ units: 4, tokens: 60 }` |
+| GHL outcome | stage applied; restored to Negotiation |
+| success | ✅ |
+
+**Catalog follow-up:** ✅ closed via aion-runtime #30 (`AION_DATA_REF` bump → `seedMission009` 15 caps) on prod `3329c01…`. Full `npm` harness `ghl-live-acceptance` green on prod (L1–L8): `exe_11e4d033-…` / `ese_40620db2-…` / `apr_bd2cd0aa-…`.
 
 ---
 

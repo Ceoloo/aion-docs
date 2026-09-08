@@ -69,12 +69,11 @@ A **real operating workload**, not an architecture mission. **Dominant priority*
 after v0.2.0 — but **paused** until **live GHL access** and **live model access**
 are both real **and verified**.
 
-**Gate:** complete the GHL Phase A→B live acceptance milestone
-([ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)) — real
-tenant read → proposed CRM change → explicit human approval → execute exactly
-once → full audit (minimum fields listed there). Do **not** reopen IE-002. Do
-**not** add substrate unless that proof exposes an actual blocker. Do **not**
-start OL-002 until the OL-001 cohort produces a trustworthy baseline.
+**Status (2026-09-08):** live GHL access **verified** on production Runtime
+(`ghl-live`, capability matrix in
+[ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md)). Live model
+access **not verified** — OpenRouter / Revenue Copilot not available to the
+proof harness yet. **Do not unpause OL-001** until the model gate passes.
 
 **Measurement honesty:** PRE-OL validation missions (Command Center system
 tests, Console launches while paused) are recorded separately — see
