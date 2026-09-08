@@ -185,7 +185,7 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 |---|---|
 | PIT scopes + `/opt/aion/.env` (infra + `GHL_*`) | ✅ |
 | aion-infra #7 compose `GHL_*` | ✅ merged + surgical host apply |
-| Runtime image | ✅ `cdb622959817c1bff6a74e10a5c14b7a5e9bedc7` (main #27+#29) |
+| Runtime image | ✅ `3329c01b05dc4e0be60231262166d6aa636e9ccf` (main #27–#30) |
 | Live acceptance on `runtime.srv1655818.hstgr.cloud` | ✅ **green** 2026-09-08 |
 
 ### Production gate evidence (2026-09-08)
@@ -204,7 +204,7 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 | GHL outcome | stage applied; restored to Negotiation |
 | success | ✅ |
 
-**Follow-up (non-blocking for this gate):** run `migrate` on the VPS so `seedMission009` inserts Phase A keys still missing from the prod catalog (`crm.contact.search`, `crm.opportunity.search`, `crm.pipeline.read`, `crm.conversation.read`, `crm.appointment.read`). Gate used `contact.read` + `opportunity.read`/`update`, which were already present.
+**Catalog follow-up:** ✅ closed via aion-runtime #30 (`AION_DATA_REF` bump → `seedMission009` 15 caps) on prod `3329c01…`. Full `npm` harness `ghl-live-acceptance` green on prod (L1–L8): `exe_11e4d033-…` / `ese_40620db2-…` / `apr_bd2cd0aa-…`.
 
 ---
 
