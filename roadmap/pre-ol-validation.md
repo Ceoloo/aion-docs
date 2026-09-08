@@ -8,7 +8,6 @@ Command Center is working. The first missions on the live surface are
 | Metric | Current | Interpretation |
 |---|---|---|
 | Missions | 3 | Runtime + Console path works |
-<<<<<<< HEAD
 | Executions | 7 → 8 after governance | Mission → executions persisted |
 | Mission / execution success | was 100% | **Runtime** success — not revenue-production success |
 | Human intervention | 0% → lit after governance | Governance can be exercised |
@@ -46,36 +45,22 @@ All three missions inspected in Mission Detail:
 
 Live Runtime host used by Console (ops note): `https://runtime.srv1655818.hstgr.cloud`
 (not the docs hostname `runtime.aionsystems.ai` from this agent’s DNS view).
-=======
-| Executions | 7 | Mission → executions persisted |
-| Mission / execution success | 100% | **Runtime** success — not revenue-production success |
-| Human intervention | 0% | Governance not exercised |
-| Policy denials | 0 | Happy path only |
-| Pending approvals | 0 | No approval gate hit |
-| R2/R3 executions | 0 | No elevated-risk path |
-| Avg latency | ~3 ms | Too low for real model / GHL / research I/O |
-| Execution cost | 31 units | Local/stub cost accounting |
-| Attributed EV / revenue influenced | 0 | No commercial outcome |
-
-Visible mission IDs included `msn_d9aa3dac-…`, `OL-001-M001`,
-`msn_c5409a36-…` — **preserve** these records; reclassify / exclude from OL-001
-progress (do not delete).
->>>>>>> origin/cursor/execution-object-agent-identity-6743
 
 ## What this proves
 
 - Mission machinery is healthy: missions → executions → economics → dashboard
 - Command Center reads **Runtime-derived** metrics (not invented UI state)
 - Portfolio attribution / rollups are aggregating
+- Approval / R2 governance can be exercised (PRE-OL + live GHL paths)
+- Live GHL Phase A→B on production Runtime (see ghl-readonly-governed-write.md)
 
 ## What this does **not** prove
 
 - 100% success at revenue production
-- Live model calls
-- Live GHL I/O
-- Approval / R2–R3 governance surfaces lighting up
+- Live model calls (OpenRouter / Revenue Copilot still unverified)
+- Commercial outcome / attributed EV
 
-Treat “100% success” as **system-test success**.
+Treat PRE-OL “100% success” as **system-test success**.
 
 ---
 
@@ -83,27 +68,17 @@ Treat “100% success” as **system-test success**.
 
 ```text
 AION PRE-OL VALIDATION
-<<<<<<< HEAD
 Missions:              3 (+ governance command)
 Executions:            7 → 8
 Runtime success:       hollow on PRE-OL set (empty outcomes)
 Failures:              0 on PRE-OL set
 Governance exercised:  YES — R2 crm.opportunity.update → REQUIRE_APPROVAL → approve
-External GHL proof:    not yet (dry-run / seed ids only)
-=======
-Missions:              3
-Executions:            7
-Runtime success:       100%
-Failures:              0
-Governance exercised:  not yet
-External GHL proof:    not yet
->>>>>>> origin/cursor/execution-object-agent-identity-6743
+External GHL proof:    YES — production Runtime ghl-live acceptance green
 Live model proof:      not yet
 Economic value:        0
 OL-001 counted:        0 / 100
 ```
 
-<<<<<<< HEAD
 ### Governance validation (done)
 
 ```text
@@ -117,8 +92,6 @@ PRE-OL command: crm.opportunity.update@1 (dryRun / seed opportunity)
 Console Approve must send a full human `actor` matching `decidedBy` (actors FK).
 Fixed in Operator Console ApprovalPanel.
 
-=======
->>>>>>> origin/cursor/execution-object-agent-identity-6743
 Classification for these (and future Console launches while paused):
 
 | Field | Value |
@@ -161,53 +134,31 @@ qualification signals / pain hypotheses / recommended next action / confidence.
 
 ## Next proofs (ordered)
 
-<<<<<<< HEAD
 ### 1) Governance validation — DONE
 
 R2 stage-propose parked on approval; Console metrics lit; explicit approve with
 persisted human actor cleared the queue.
 
-### 2) Standing GHL live gate — BLOCKED on PIT scopes
-=======
-### 1) Governance validation (before more happy-path missions)
+### 2) Standing GHL live gate — DONE
+
+Production evidence in [ghl-readonly-governed-write.md](./ghl-readonly-governed-write.md):
 
 ```text
-Mission: prepare CRM opportunity-stage mutation
-READ:    existing opportunity state
-PROPOSE: New Lead → Qualified
-DO NOT execute until approved
-Expected: R2/R3 · approval created · pending > 0 · no mutation before approval
-Then approve → execute → success → audit
-```
-
-Dry-run / non-GHL write is acceptable if live credentials are not ready — the
-goal is to light up dashboard zeros: R2/R3, pending approvals, interventions.
-
-### 2) Standing GHL live gate
->>>>>>> origin/cursor/execution-object-agent-identity-6743
-
-```text
-REAL GHL TENANT
+REAL GHL TENANT (AION Empire)
   → read contact/opportunity
   → normalize through adapter
   → propose one change
   → Execution Gateway
   → explicit approval
   → execute exactly once
-  → audit (minimum fields in ghl-readonly-governed-write.md)
+  → audit + idempotent replay
 ```
 
-<<<<<<< HEAD
-**Credential probe:** location `YK8RT5OnmQiMqprlyqYY` = **AION Empire** (PIT
-auth OK). Contacts/opportunities/pipelines still return **scope 401** — expand
-Private Integration scopes (see ghl-readonly-governed-write.md), install into
-`/opt/aion/.env` on the Runtime host, redeploy with GHL env passthrough, then
-re-run. **Rotate the chat-pasted PIT** after re-scoping.
+### 3) Live model access — BLOCKING OL-001
 
-Requires verified model access before any mission may count as OL-001.
+Requires verified model access (OpenRouter via Revenue Copilot or proof harness)
+before any mission may count as OL-001.
 
-=======
->>>>>>> origin/cursor/execution-object-agent-identity-6743
 Only after:
 
 ```text
@@ -223,6 +174,6 @@ may the first mission become **OL-001 Mission 001 / 100**.
 ## Standing rules
 
 - IE-002 stays closed
-- OL-001 stays paused
+- OL-001 stays paused until live model is verified
 - No new substrate unless Phase A→B proof exposes an actual blocker
-- Stop generating only easy internal missions; next is governance, then real GHL
+- Stop generating only easy internal missions; remaining gate is **live model**
