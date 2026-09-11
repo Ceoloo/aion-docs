@@ -24,8 +24,8 @@ real tenant**. That is the only active engineering objective for this slice.
 | Rule | Status |
 |---|---|
 | IE-002 | **Closed** — do not reopen |
-| OL-001 | **Paused** — live GHL verified; **live model access still blocked** |
-| OL-001 resume | Only after **live GHL access** and **live model access** are both real **and verified** |
+| OL-001 | **Unpaused for Console Production launches** — live GHL verified; live model still blocked in Cloud Agent harness; **M001 ModernRelx launched** (`msn_648d3df8-…`, `productionEconomic=true`) |
+| OL-001 resume | Production mode is live; keep adding OpenRouter / Revenue Copilot so model-backed proofs green |
 | New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
 
 ### Live capability matrix (2026-09-08, prod `3329c01…`)
@@ -43,7 +43,7 @@ real tenant**. That is the only active engineering objective for this slice.
 | Full AION audit | ✅ | ✅ |
 
 Harness: `npm run proof:ghl-live-capability` (aion-runtime).  
-**OL-001 stays paused** until the model gate is green (install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot).
+**OL-001 Production mode is enabled** and **Mission 001 / 100 (ModernRelx)** is live. Install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot so model-backed steps green. Do not count PRE-OL / infra proofs as OL-001 credit.
 
 Note: `crm.note.create` is **R1 ALLOW** (gateway-governed, no approval). The matrix R2 row is satisfied by `crm.opportunity.update` in the same proof run.
 
@@ -232,7 +232,7 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 - Continuous live-call streaming
 - Appointment **writes** / calendar booking automation
 - Autonomous customer messaging
-- Counting the live proof as OL-001 mission credit (OL-001 stays paused until
+- Counting the live proof as OL-001 mission credit (M001 is a separate production launch; proofs still do not count toward 100 until
   live GHL **and** live model access are both verified, then starts its own
   cohort)
 - Reopening IE-002 provisioning/activation work

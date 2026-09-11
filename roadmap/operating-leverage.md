@@ -66,7 +66,7 @@ Production evidence drives autonomy changes — not a push to get everything to 
 ### OL-001 — Revenue Production Loop
 
 A **real operating workload**, not an architecture mission. **Dominant priority**
-after v0.2.0 — but **paused** until **live GHL access** and **live model access**
+after v0.2.0 — now **unpaused for production launches** (GHL live verified; model still weak on agent harness — Console Production missions may proceed under human approval)
 are both real **and verified**.
 
 **Status (2026-09-08):** live GHL access **verified** on production Runtime
