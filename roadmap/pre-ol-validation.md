@@ -1,7 +1,13 @@
 # PRE-OL validation status
 
-Command Center is working. The first missions on the live surface are
-**pre-OL validation**, not OL-001 production missions.
+> **Status update (2026-09-11):** Operator Console now has explicit **OL-001
+> Production** launch mode. **Mission 001 / 100** is live for ModernRelx
+> (`msn_648d3df8-43f7-422f-b457-4f0bb63291f3`, Annfiera McPherson,
+> `cohort=OL-001`, `productionEconomic=true`). PRE-OL records below remain
+> preserved and excluded from the scoreboard.
+
+Command Center is working. Historical missions on the live surface that predate
+production mode remain **pre-OL validation**, not OL-001 credit.
 
 ## Observed dashboard (honest read)
 
@@ -51,7 +57,7 @@ Governance exercised:  not yet
 External GHL proof:    not yet
 Live model proof:      not yet
 Economic value:        0
-OL-001 counted:        0 / 100
+OL-001 counted:        1 / 100  (ModernRelx M001 live; prior PRE-OL excluded)
 ```
 
 Classification for these (and future Console launches while paused):
@@ -131,13 +137,13 @@ MODEL LIVE ✓
 ACTIVATION GATE ✓
 ```
 
-may the first mission become **OL-001 Mission 001 / 100**.
+**OL-001 Mission 001 / 100 (ModernRelx)** is launched. Continue the cohort via Console Production mode; do not count PRE-OL / infra proofs.
 
 ---
 
 ## Standing rules
 
 - IE-002 stays closed
-- OL-001 stays paused
+- OL-001 **unpaused** — Console has explicit Production mode; M001 ModernRelx launched
 - No new substrate unless Phase A→B proof exposes an actual blocker
 - Stop generating only easy internal missions; next is governance, then real GHL
