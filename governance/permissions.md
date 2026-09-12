@@ -54,3 +54,14 @@ identity may read a data class only if its scope explicitly allows that class.
 - **Central enforcement; no self-granting.**
 - **One canonical definition per permission.**
 - **Permission ≠ automatic clearance** for high-risk actions.
+
+## Identity plane (Runtime)
+
+Caller-supplied actor bodies are **not** authority. Runtime authenticates a
+Principal (bearer credential), then loads durable Actor grants from Data before
+`PolicyEngine.authorize`. See [ADR-005](../adr/ADR-005-runtime-identity-plane.md).
+
+- `AION_AUTH_MODE=required` (staging/production default): bearer mandatory.
+- `x-aion-tenant-id` is a filter ⊆ principal.tenantIds — never a credential.
+- Approval decisions require a human Actor bound to an `approve`-capable principal.
+

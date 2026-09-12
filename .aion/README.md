@@ -38,7 +38,8 @@ MEASURED OUTCOME           ← Data + Product + learning loop
 ├── architecture/             ← system + repository maps for fast orientation
 ├── audits/                   ← reliability / QA posture snapshots
 ├── missions/                 ← agent-mission template (execution overlay)
-└── handoffs/                 ← cross-agent dependency protocol
+├── handoffs/                 ← cross-agent dependency protocol
+└── research/                 ← RESEARCH desk: briefs, backlog, PoC pointers
 ```
 
 **Canonical repos in this Cursor workspace**
