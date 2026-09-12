@@ -47,5 +47,6 @@ A successful product component does **not** automatically become part of
 `aion-core`. Promotion happens only under the
 [platformization rule](../roadmap/platform-maturity.md#platformization-rule).
 
-> **Status:** Not yet built. The first production mission/product is **Phase 4**
-> of the [build order](../roadmap/build-order.md).
+> **Status:** Phase 4 **in progress** — Revenue Copilot engines, validation
+> harnesses, and workforce/operator surfaces live in this repo. New product work
+> remains mission-gated; see [build order](../roadmap/build-order.md).

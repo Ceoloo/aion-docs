@@ -55,5 +55,6 @@ Storage engines, event brokers, and analytics stores are chosen via ADR when a
 mission requires them — not pre-selected. The required *capability* is
 documented; the vendor is not locked prematurely.
 
-> **Status:** Not yet built. `aion-data` is **Phase 2** of the
+> **Status:** Phase 2 **built** — canonical Postgres schemas, migrations, and
+> repositories (`@aion/data`). See the repo README and
 > [build order](../roadmap/build-order.md).
