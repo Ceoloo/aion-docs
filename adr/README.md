@@ -71,3 +71,7 @@ prematurely.** Record the required capability and defer:
 | [ADR-002](ADR-002-runtime-host-ownership.md) | Runtime Host Ownership | Accepted |
 | [ADR-003](ADR-003-execution-gateway-into-runtime.md) | Reconcile Execution Gateway into Runtime | Accepted |
 | [ADR-004](ADR-004-aion-desks-repo-ownership.md) | `aion-desks` Repository Ownership | Accepted |
+| [ADR-005](ADR-005-package-dependency-direction.md) | Package Dependency Direction (Ports) | Accepted |
+| [ADR-006](ADR-006-postgres-durable-store.md) | PostgreSQL as Durable Store | Accepted |
+| [ADR-007](ADR-007-products-runtime-http-client.md) | Products → Runtime HTTP Client | Accepted |
+| [ADR-008](ADR-008-runtime-composition-scope.md) | Runtime Composition-Root Scope | Accepted |

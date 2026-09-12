@@ -21,6 +21,7 @@ It defines architecture and contracts — not implementation.
 | [observability.md](observability.md) | The traceability model for every action. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
 | [environments.md](environments.md) | Environment isolation and promotion. |
+| [runtime-slim-down.md](runtime-slim-down.md) | Plan to keep Runtime a thin composition root + gateway (ADR-008). |
 
 ## Reading order
 
