@@ -65,14 +65,18 @@ Each phase implements **only what is required to support current missions**
 
 ## Current position
 
-Phases 0–3 are complete: `aion-docs` (architecture), `aion-core` (Phase 1),
-`aion-data` (Phase 2), and `aion-infra` (Phase 3, provider-portable). The
-current build is **Phase 3.5 — `aion-runtime`**: extracting the runtime host
-into its own repository ([ADR-002](../adr/ADR-002-runtime-host-ownership.md)) to
-close the platform boundary. When it lands, **Docs → Core → Data → Infra →
-Runtime** is the completed foundation and **Phase 4** (the first product) may
-begin; the first real production deployment is an operational activation
-milestone run in parallel, not a further architecture phase.
+**Phases 0–3.5 are complete:** `aion-docs`, `aion-core`, `aion-data`,
+`aion-infra`, and `aion-runtime` (composition root + Execution Gateway per
+[ADR-002](../adr/ADR-002-runtime-host-ownership.md) /
+[ADR-003](../adr/ADR-003-execution-gateway-into-runtime.md)). Platform
+foundation evidence: [`../releases/`](../releases/).
+
+**Phase 4 is underway:** first product surfaces ship from `aion-products`
+(Revenue Copilot / workforce consoles). Further work is mission-gated
+instrumentation, learning-loop closure, and commercial/integration readiness —
+not re-establishing the foundation. Operational production deploy remains an
+activation milestone with evidence in infra/runtime runbooks, not a new
+architecture phase.
 
 ## Invariants
 

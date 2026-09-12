@@ -44,3 +44,10 @@ Definition of Done qualifies a *change*.
 ## Invariant
 
 **Done means the whole checklist.** "It runs" is one line of it, not the whole.
+
+## Enforcement
+
+**QA / Reliability** reviews handoffs against this checklist and may reject
+work that lacks demonstrated behavior (see
+[`.aion/agents/09-qa-engineer.md`](../.aion/agents/09-qa-engineer.md)).
+Typecheck/build alone do not satisfy “It is tested.”

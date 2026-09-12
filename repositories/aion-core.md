@@ -52,6 +52,6 @@ core starts holding canonical data or rendering product UI, the boundary has
 drifted — resolve it, don't accept it. See
 [dependency-rules.md](dependency-rules.md).
 
-> **Status:** Not yet built. `aion-core` is **Phase 1** of the
-> [build order](../roadmap/build-order.md). Do not begin implementation as part
-> of establishing `aion-docs`.
+> **Status:** Phase 1 **built** — control-plane kernel (`@aion/core`) with
+> contracts, policy, approvals, orchestration, and Execution Object surfaces.
+> See the repo README and [build order](../roadmap/build-order.md).

@@ -4,11 +4,37 @@ A data contract is the explicit, owned definition of a piece of data — its
 schema, its meaning, its owner, and its evolution rules. Data contracts are how
 [explicit ownership](principles.md) becomes enforceable across repositories.
 
-## Ownership
+## Ownership matrix
 
-- **Canonical data contracts are owned by `aion-data`.** A business entity —
-  `lead`, `payment`, `deployment` — has exactly one canonical schema, defined
-  once. See [../repositories/aion-data.md](../repositories/aion-data.md).
+| Layer | Owner | What it defines | Consumers must |
+|---|---|---|---|
+| Control-plane shapes & enums | **`aion-core`** | Zod contracts: Mission, Run, Actor, Approval, Event, Telemetry, Execution Object, OutcomeReference, Service, AutonomyGrant, ExternalSideEffect, branded IDs, status enums | Import from `@aion/core`; never re-declare the same enum |
+| Durable persistence | **`aion-data`** | Postgres schema, migrations, CHECK constraints mirroring Core enums, OutcomeRecord (durable supersets), repositories/mappers | Keep SQL CHECKs in lockstep with Core via enum-drift tests |
+| Transport / HTTP | **`aion-runtime`** | Gateway request/response validation using Core (+ Data) types | Reject non-Core enum values at the edge |
+| Product projections | **`aion-products`** | UI/DTO views of platform truth | Project only; do not fork status enums or invent parallel entity schemas |
+| Deploy / env contracts | **`aion-infra`** | How environments are provisioned | Never redefine business entity schemas |
+
+### Hard rules
+
+1. **One canonical enum set per domain.** `OutcomeStatus` is
+   `pending | realized | failed | unknown` (Core). Products must not invent
+   `cancelled` for outcomes — that value belongs to Mission/Run lifecycles.
+2. **Branded IDs carry prefixes.** Core parse rejects unprefixed / cross-kind IDs
+   (`run_…`, `msn_…`, `exe_…`, `ese_…`, `agr_…`, …).
+3. **SQL CHECKs mirror Core.** `aion-data` migrations copy Core enum members as
+   integrity guards — not a second source of truth. Drift is a CI failure.
+4. **Mappers fail closed.** Corrupt jsonb / invalid rows raise `MappingError`;
+   they must not soft-coerce into fabricated Core-looking values.
+5. **Opaque product payloads stay opaque.** e.g. `revenue_sessions` checkpoint
+   shape is product-owned; Data owns durability/revision only.
+
+## Ownership (summary)
+
+- **Canonical durable business contracts are owned by `aion-data`.** A business
+  entity — `lead`, `payment`, `deployment` — has exactly one canonical schema,
+  defined once. See [../repositories/aion-data.md](../repositories/aion-data.md).
+- **Control-plane contracts (lifecycle enums, branded IDs, Execution Object) are
+  owned by `aion-core`.** Data persists them; it does not redefine them.
 - **Consumers read the contract; they do not fork it.** Products and services
   may cache or project canonical data, but the definition lives in one place.
 - **No repository invents a canonical entity owned by another.** This is a
@@ -30,15 +56,19 @@ Beyond canonical entities, each of the six data kinds
 
 ## Evolution rules
 
-1. **Additive by default.** New optional fields are safe. Removing or repurposing
-   a field is breaking.
-2. **Breaking changes are versioned and migrated.** A migration path is provided;
-   the change is [ADR](../adr/README.md)-backed if architecturally significant.
+1. **Additive by default.** New optional fields are safe. Removing or
+   repurposing a field is breaking.
+2. **Breaking changes are versioned and migrated.** A migration path is
+   provided; the change is [ADR](../adr/README.md)-backed if architecturally
+   significant.
 3. **Lineage is preserved.** Derived data (outcomes, lessons, analytics) must
    remain traceable to its source through a schema change. See
    [../architecture/data-layer.md](../architecture/data-layer.md).
 4. **Migrations are owned by `aion-data`** and run through
    [change management](../governance/change-management.md).
+5. **Enum changes are cross-repo.** Updating a Core status enum requires (a)
+   Core release / pin bump, (b) Data migration altering CHECKs, (c)
+   Runtime/product client updates — in that order.
 
 ## Classification
 
@@ -55,7 +85,9 @@ contracted, owned, classified, and evolved safely — not the tool.
 
 ## Invariants
 
-- **One canonical contract per entity, owned by `aion-data`.**
+- **One canonical contract per entity; control-plane enums owned by
+  `aion-core`, durable business schemas by `aion-data`.**
 - **Consumers read; they never fork canonical definitions.**
 - **Additive-safe; breaking changes are versioned and migrated.**
 - **Every contract is classified and its lineage preserved.**
+- **Core enum ↔ SQL CHECK drift is a test failure, not a docs footnote.**

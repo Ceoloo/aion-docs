@@ -110,12 +110,15 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 
 ## Current Maturity
 
-AION is at **L0 — Documented**: architecture and contracts exist; no production
-code has been built. Maximum autonomy is **not** the goal — reliable business
-outcomes under appropriate governance is. See
-[`roadmap/platform-maturity.md`](roadmap/platform-maturity.md).
+**Platform foundation is built** (Phases 0–3.5: docs → core → data → infra →
+runtime). First product surfaces live in `aion-products`; release evidence is
+under [`releases/`](releases/).
 
-The build order begins here (Phase 0) and proceeds to `aion-core`. See
+Maturity is **per-workflow**, not a single global level. The old “L0 —
+Documented / no production code” claim is **stale** — do not restore it.
+Maximum autonomy is still **not** the goal: reliable business outcomes under
+appropriate governance is. See
+[`roadmap/platform-maturity.md`](roadmap/platform-maturity.md) and
 [`roadmap/build-order.md`](roadmap/build-order.md).
 
 ---

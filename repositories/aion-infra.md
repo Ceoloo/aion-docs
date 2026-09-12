@@ -52,6 +52,6 @@ event delivery once throughput/reliability justify a broker"), not a vendor.
 **No secrets are ever committed** to this or any repository. Secrets live in a
 managed secret system defined by this repo's secrets architecture.
 
-> **Status:** Not yet built. `aion-infra` is **Phase 3** — and only the
-> *minimum* infrastructure required by current missions. See the
-> [build order](../roadmap/build-order.md).
+> **Status:** Phase 3 **built** — provider profiles (VPS/AWS/GCP), deployment
+> contract, secrets boundary, and ops runbooks. Scope remains
+> *mission-minimum*; see [build order](../roadmap/build-order.md).

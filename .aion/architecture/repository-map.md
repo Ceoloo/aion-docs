@@ -39,6 +39,7 @@ Violations are **architecture defects**, not convenience exceptions.
 
 ## Known workspace note
 
-`aion-desks` is present in the Cursor multi-root workspace but is **not listed**
-in the six canonical repositories in `aion-docs`. Treat it as a product surface
-until an ADR / repository ownership update formally includes it.
+`aion-desks` is present in the Cursor multi-root workspace but is **not** one of
+the six canonical platform repositories. **[ADR-004 (Accepted)](../../adr/ADR-004-aion-desks-repo-ownership.md)**
+keeps it a **permanent product-commerce satellite** (landing/Stripe only — not a
+seventh platform plane).
