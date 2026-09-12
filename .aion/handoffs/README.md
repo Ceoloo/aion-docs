@@ -9,6 +9,7 @@ create a handoff file (or paste the block into both chats / the PR).
 |---|---|
 | [TEMPLATE.md](TEMPLATE.md) | Dependency / contract request |
 | [2026-09-12-docs-lag-sync.md](2026-09-12-docs-lag-sync.md) | Docs maturity / ownership honesty sync |
+| [2026-09-12-docs-to-architect-desks-adr.md](2026-09-12-docs-to-architect-desks-adr.md) | DOCS → ARCHITECT: ratify ADR-004 desks ownership |
 | [`../standards/agent-handoff.md`](../standards/agent-handoff.md) | End-of-mission completion format |
 
 ## Rules
