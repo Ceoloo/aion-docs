@@ -58,6 +58,10 @@ derived from events. See [learning-loop.md](learning-loop.md).
   [AI / Agent Engineer](../.aion/agents/03-ai-agent-engineer.md) specialty.
   Durable memory/eval records remain `aion-data`; gateway hosting remains
   `aion-runtime`.
+- **Agent-to-agent context** uses the shared `AgentHandoff` contract in
+  `aion-core` (`facts`, `uncertainties`, `artifactRefs`, `confidence`) — not
+  chat transcripts. Operating standard:
+  [../.aion/standards/agent-handoff.md](../.aion/standards/agent-handoff.md).
 
 ## Evals
 
