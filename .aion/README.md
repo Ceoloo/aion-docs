@@ -36,6 +36,7 @@ MEASURED OUTCOME           ← Data + Product + learning loop
 ├── agents/                   ← specialist role cards + starter prompts
 ├── standards/                ← Cursor-facing engineering rules (links to canon)
 ├── architecture/             ← system + repository maps for fast orientation
+├── audits/                   ← reliability / QA posture snapshots
 ├── missions/                 ← agent-mission template (execution overlay)
 └── handoffs/                 ← cross-agent dependency protocol
 ```
@@ -127,3 +128,7 @@ real, durable, and measurable.
 4. [`../repositories/dependency-rules.md`](../repositories/dependency-rules.md)
 5. [`architecture/repository-map.md`](architecture/repository-map.md)
 6. Relevant repo README in the workspace
+
+**QA additionally:** latest file in [`audits/`](audits/) +
+[`../engineering/testing.md`](../engineering/testing.md) +
+[`../engineering/definition-of-done.md`](../engineering/definition-of-done.md).

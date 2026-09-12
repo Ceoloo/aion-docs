@@ -10,7 +10,7 @@ contracts.
 |---|---|
 | [principles.md](principles.md) | The core architectural principles. |
 | [production-readiness.md](production-readiness.md) | What "production-ready" means. |
-| [testing.md](testing.md) | Testing expectations. |
+| [testing.md](testing.md) | Testing expectations (QA ownership). |
 | [evals.md](evals.md) | Evaluating AI-driven quality. |
 | [observability-standards.md](observability-standards.md) | Emitting the traceability spine. |
 | [api-standards.md](api-standards.md) | How APIs are designed. |
