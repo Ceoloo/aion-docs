@@ -17,6 +17,7 @@ contracts.
 | [event-standards.md](event-standards.md) | Events as past-tense facts. |
 | [data-contracts.md](data-contracts.md) | Defining and evolving data contracts. |
 | [definition-of-done.md](definition-of-done.md) | When work is actually finished. |
+| [contract-hygiene.md](contract-hygiene.md) | Ports completeness, shared DTOs, release pins. |
 
 ## Posture
 

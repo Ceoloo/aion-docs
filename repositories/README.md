@@ -19,17 +19,21 @@ flowchart TD
     PROD["aion-products<br/>customer & internal products"]
 
     DOCS -.governs.-> CORE & DATA & RUNTIME & INFRA & PROD
-    CORE --> DATA
+    DATA --> CORE
     RUNTIME --> CORE
     RUNTIME --> DATA
     PROD --> CORE
-    PROD --> DATA
+    PROD -.HTTP.-> RUNTIME
     CORE -.runs on.-> INFRA
     DATA -.runs on.-> INFRA
     RUNTIME -.runs on.-> INFRA
     PROD -.runs on.-> INFRA
     INFRA -."deploys image".-> RUNTIME
 ```
+
+> Package edge is `DATA --> CORE` (ports pattern, [ADR-005](../adr/ADR-005-package-dependency-direction.md)).
+> Products call Runtime over HTTP ([ADR-007](../adr/ADR-007-products-runtime-http-client.md)), not as a package import.
+
 
 | Repository | Role | Detail |
 |---|---|---|
