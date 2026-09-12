@@ -101,8 +101,14 @@ AION SYSTEMS
 ├── Cybersecurity
 ├── Data Engineering
 ├── Infrastructure / TechOps
-└── AI Agent Systems
+└── AI Agent Systems   ← Cursor specialty: AI / Agent Engineer
 ```
+
+**AI Agent Systems** human ownership (prompts, skills, model routing, evals,
+multi-agent patterns):
+[`.aion/agents/03-ai-agent-engineer.md`](../.aion/agents/03-ai-agent-engineer.md).
+Principle: deterministic software when sufficient; agents when adaptive
+execution creates measurable value.
 
 **Flywheel:** internal problem → Systems builds → used internally → measured →
 standardized → client service → repeated → productized → platform capability.
