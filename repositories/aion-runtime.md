@@ -59,6 +59,7 @@ The runtime never learns which provider it runs on.
 the deployment profile; the runtime reads them from the environment and never
 from a cloud SDK.
 
-> **Status:** Established by ADR-002 (Phase 3→4 boundary). Seeded by extracting
-> the Phase 3 reference host from `aion-infra/runtime/`. See the
-> [build order](../roadmap/build-order.md).
+> **Status:** Phase 3.5 **built** — composition root, health surfaces, Execution
+> Gateway HTTP (ADR-003), runtime clients, and the provider-neutral image.
+> Established by [ADR-002](../adr/ADR-002-runtime-host-ownership.md). See the
+> [build order](../roadmap/build-order.md) and [`../releases/`](../releases/).

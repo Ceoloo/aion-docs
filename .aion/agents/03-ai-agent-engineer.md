@@ -131,6 +131,7 @@ What already exists vs what this role still owes:
 | Skills registry | Conceptual; not a first-class runtime registry |
 | Context assembler / memory retrieval | Spec’d in intelligence layer; not fully built |
 | Adaptive model/agent routing | Recommended post-evals; not automatic yet |
+| **Structured agent handoff** (`facts` / `uncertainties` / `artifactRefs` / `confidence`) | **Contract in `aion-core` + `.aion` templates; Runtime transport / Data persistence still open** |
 
 ## HANDOFF FORMAT
 

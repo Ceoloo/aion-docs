@@ -13,12 +13,22 @@ flowchart LR
 
 | Stage | Meaning |
 |---|---|
-| **L0 — Documented** | Architecture and contracts exist. *(AION is here.)* |
+| **L0 — Documented** | Architecture and contracts exist. |
 | **L1 — Manual** | Humans perform most execution using documented workflows. |
 | **L2 — Assisted** | AI copilots provide intelligence and recommendations; humans still act. |
 | **L3 — Orchestrated** | AION routes work across tools and agents; execution is coordinated. |
 | **L4 — Governed Autonomy** | **Low-risk** workflows execute autonomously **within policy**; high-risk stays gated. |
 | **L5 — Adaptive** | Outcome-driven learning improves workflows and recommendations over time. |
+
+### Current position (honest)
+
+AION is **past L0 as a platform**: the constitution, control-plane kernel,
+canonical data plane, infra profiles, and runtime host (including the Execution
+Gateway) exist, with release manifests under [`../releases/`](../releases/).
+Individual workflows sit at different stages (many revenue paths are assisted /
+partially orchestrated; learning-loop closure and universal autonomy policy
+remain incomplete). Prefer naming the **workflow** and its evidence over a
+single company-wide L-number.
 
 ## Reading the model correctly
 
