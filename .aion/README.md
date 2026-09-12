@@ -37,7 +37,8 @@ MEASURED OUTCOME           ← Data + Product + learning loop
 ├── standards/                ← Cursor-facing engineering rules (links to canon)
 ├── architecture/             ← system + repository maps for fast orientation
 ├── missions/                 ← agent-mission template (execution overlay)
-└── handoffs/                 ← cross-agent dependency protocol
+├── handoffs/                 ← cross-agent dependency protocol
+└── research/                 ← RESEARCH desk: briefs, backlog, PoC pointers
 ```
 
 **Canonical repos in this Cursor workspace**

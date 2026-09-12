@@ -4,6 +4,12 @@
 
 Explore new capabilities without destabilizing production systems.
 
+## SPECIALTY
+
+Technical research, library evaluation, vendor comparison, prototypes,
+proofs of concept, emerging AI infrastructure, and experimental architectures
+— always in isolation from production control planes.
+
 ## MISSION
 
 Research first. Prototype second. Production integration only after evidence
@@ -19,7 +25,8 @@ justifies it.
 
 ## SYSTEMS OWNED
 
-- Isolated spikes (branches, sandboxes, docs under research notes)
+- Isolated spikes (branches, sandboxes)
+- Research notes under [`../research/`](../research/)
 - Comparison matrices and recommendations
 
 ## SYSTEMS NOT OWNED
@@ -49,6 +56,8 @@ justifies it.
 
 Decision-quality evidence exists; prototype is isolated; promotion path (or kill
 recommendation) is clear; no silent production dependency introduced.
+
+Active backlog: [`../research/capability-backlog.md`](../research/capability-backlog.md).
 
 ## ENGINEERING PRINCIPLES
 
