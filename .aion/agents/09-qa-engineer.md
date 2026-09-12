@@ -124,12 +124,12 @@ Snapshot from reliability audit (2026-09-12). Re-audit when posture changes.
 |---|---|
 | `aion-core` lint · typecheck · test · build | Strong — vitest suite (90 tests) + CI job |
 | `aion-data` repository + restart integration | Strong — durability-resume, deny, fail paths; needs Postgres |
-| `aion-runtime` proof matrices (M001–M009, IE002, cert) | Strong acceptance path in CI; sparse unit tests (1 file) |
+| `aion-runtime` proof matrices (M001–M009, IE002, cert) | Strong acceptance path in CI; submit-concurrency unit proof (QA-G2) |
 | `aion-products` node:test + typecheck | Present; live CRM paths gated/documented separately |
 | `aion-desks` | **PASS (QA-G1 closed)** — typecheck · test · lint · build + CI |
 | `aion-docs` | Docs-only; no executable CI (expected) |
 | `aion-infra` | Validate/deploy workflows; not a unit-test suite |
-| Dedicated concurrency / race suites | **Gap** — optimistic concurrency exists in Data; few explicit race tests |
+| Dedicated concurrency / race suites | **QA-G2 closed** (single-process submit coalesce); Data UNIQUE(request_id) still open for multi-process |
 | Cross-repo QA acceptance checklist automation | **Partial** — proof matrices exist; no single cross-repo gate |
 
 See [reliability-audit-2026-09-12.md](../audits/reliability-audit-2026-09-12.md).

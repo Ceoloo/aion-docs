@@ -10,8 +10,9 @@ expected behavior is demonstrated.
 Platform control plane (`aion-core` / `aion-data` / `aion-runtime`) has a
 credible proof culture: unit/integration tests plus mission proof matrices and
 restart/durability scenarios. **QA-G1 (`aion-desks` typecheck/tests/CI) is
-closed.** Remaining gaps concentrate in **explicit concurrency/race suites**
-and **uneven unit-test density** in Runtime vs proof scripts.
+closed. **QA-G2 (concurrent Runtime submit race) is closed** for single-process
+coalescing. Remaining gaps concentrate in **multi-process `request_id`
+uniqueness**, **Runtime unit-test density**, and **live integration gates**.
 
 ## Evidence run (this audit)
 
@@ -110,7 +111,7 @@ proof. Secrets/DR (Linear AIO-7) remain separate operational verification.
 | ID | Severity | Gap | Status |
 |---|---|---|---|
 | QA-G1 | ~~Blocker~~ → **Closed** | `aion-desks` typecheck / tests / CI | Closed 2026-09-12 — desks quality gates + CI |
-| QA-G2 | High | Few dedicated concurrency/race tests at Runtime/gateway submit path | Open — Runtime + QA |
+| QA-G2 | ~~High~~ → **Closed** | Concurrent same-`requestId` submit race at Runtime gateway | Closed 2026-09-12 — inflight coalesce + `commands-submit-concurrency` test in CI |
 | QA-G3 | Medium | Runtime unit-test density low vs proof-script reliance | Open — Runtime + QA |
 | QA-G4 | Medium | No single cross-repo “acceptance checklist” automation beyond per-repo CI | Open — QA / Orchestrator |
 | QA-G5 | Medium | Live integration paths (GHL/CRM) still model/credential gated | Open — Integrations + Product |
@@ -129,10 +130,9 @@ A change or mission is **not done** if any of the following are true:
 ## Next QA actions
 
 1. ~~Add `aion-desks` typecheck + CI~~ **Done** — follow with live Stripe smoke when credentials allow
-2. Schedule Postgres-backed `aion-data` + `aion-runtime` proof re-run in CI or
+2. ~~Concurrent submit race at Runtime gateway (**QA-G2**)~~ **Done** — inflight coalesce + CI unit proof; multi-process still needs `UNIQUE(request_id)` in Data
+3. Schedule Postgres-backed `aion-data` + `aion-runtime` proof re-run in CI or
    a provisioned agent environment; attach logs to go-live missions
-3. Add at least one explicit concurrent-submit / duplicate-side-effect test at
-   Runtime or Data boundary for idempotent resume (**QA-G2**)
 4. Review every specialist PR handoff against this audit’s gap register
 
 ## Related canon
