@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1",
+  "handoffId": "hof_example_structured_handoff",
+  "kind": "delegation",
+  "status": "open",
+  "fromLabel": "AION — AI",
+  "toLabel": "AION — RUNTIME",
+  "need": "Accept AgentHandoff as the shared agent-to-agent payload",
+  "facts": [
+    {
+      "statement": "Shared Zod schema lives in aion-core/src/contracts/agent-handoff.ts",
+      "evidenceRefs": ["art_schema", "art_tests"]
+    },
+    {
+      "statement": "Confidence gates default to escalateBelow=0.5 and autoAcceptAbove=0.85",
+      "evidenceRefs": ["art_schema"]
+    }
+  ],
+  "uncertainties": [
+    {
+      "statement": "Durable persistence of handoffs in aion-data is not in this slice",
+      "impact": "low",
+      "blocking": false,
+      "resolveBy": "Data Engineer mission when audit retention is required"
+    }
+  ],
+  "artifactRefs": [
+    {
+      "id": "art_schema",
+      "kind": "file",
+      "ref": "aion-core/src/contracts/agent-handoff.ts",
+      "label": "AgentHandoff contract"
+    },
+    {
+      "id": "art_tests",
+      "kind": "file",
+      "ref": "aion-core/tests/contracts/agent-handoff.test.ts",
+      "label": "Contract tests"
+    }
+  ],
+  "confidence": 0.86,
+  "confidenceGate": {
+    "escalateBelow": 0.5,
+    "autoAcceptAbove": 0.85
+  },
+  "decisionNeeded": "Confirm Core as sole owner of the handoff schema",
+  "recommendedAction": "Merge Core contract; docs templates already aligned",
+  "contract": "AgentHandoff schemaVersion 1",
+  "blocking": false,
+  "createdAt": "2026-09-12T03:40:00.000Z",
+  "metadata": {
+    "mission": "structured-agent-handoff"
+  }
+}
