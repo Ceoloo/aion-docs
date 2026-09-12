@@ -73,3 +73,8 @@ Human ownership of agent intelligence patterns (prompts, skills, routing, evals,
 multi-agent design) sits with **AI / Agent Engineer** — see
 [`.aion/agents/03-ai-agent-engineer.md`](../.aion/agents/03-ai-agent-engineer.md).
 That role does not waive this governance doc; it implements within it.
+
+Proof that agents and platform paths behave as claimed (tests, restart,
+acceptance) sits with **QA / Reliability Engineer** — see
+[`.aion/agents/09-qa-engineer.md`](../.aion/agents/09-qa-engineer.md).
+Production-ready agents still require the specification fields above.

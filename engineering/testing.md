@@ -49,3 +49,11 @@ bar*, not *which tool*.
 - **Contracts are conformance-tested for compatibility.**
 - **Security-relevant behavior (gates, permissions) is tested.**
 - **CI enforces it.**
+
+## Engineering ownership
+
+Cross-repo proof, acceptance, restart/failure audits, and rejection of
+“compiles = done” sit with **QA / Reliability Engineer** — see
+[`.aion/agents/09-qa-engineer.md`](../.aion/agents/09-qa-engineer.md).
+Baseline posture:
+[`.aion/audits/reliability-audit-2026-09-12.md`](../.aion/audits/reliability-audit-2026-09-12.md).

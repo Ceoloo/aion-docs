@@ -5,9 +5,10 @@ digital products.
 
 > **Canon note:** `aion-desks` is present in the Cursor multi-root workspace and
 > in [`.aion` ownership maps](../.aion/TEAM.md), but it is **not** one of the six
-> ADR-backed canonical platform repositories. Treat it as a **product commerce
-> surface** until an ADR formally extends repository ownership. Do not put
-> control-plane, canonical schema, or Execution Gateway logic here.
+> ADR-backed canonical platform repositories.
+> **[ADR-004 (Accepted)](../adr/ADR-004-aion-desks-repo-ownership.md)** makes it a
+> **permanent product-commerce satellite**. Do not put control-plane, canonical
+> schema, or Execution Gateway logic here.
 
 ## Owns
 

@@ -13,7 +13,7 @@
 | 06 | Infrastructure | `AION — INFRA` | `aion-infra`, deploy configs | Permanent |
 | 07 | Integrations | `AION — INTEGRATIONS` | adapters (GHL, Stripe, Notion, …) | On-demand |
 | 08 | Security | `AION — SECURITY` | policy, permissions, secrets boundaries | On-demand |
-| 09 | QA / Reliability | `AION — QA` | tests across repos | Permanent |
+| 09 | QA / Reliability | `AION — QA` | tests across repos | Permanent — proof over compile; reviews other agents’ handoffs |
 | 10 | Architect / Reviewer | `AION — ARCHITECT` | `aion-docs` ADRs + cross-repo review | Permanent |
 | 11 | Documentation | `AION — DOCS` | `aion-docs`, READMEs | On-demand |
 | 12 | Research / Prototype | `AION — RESEARCH` | spikes / PoCs (isolated) | On-demand |
