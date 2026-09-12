@@ -46,7 +46,8 @@ flowchart TD
 |---|---|---|
 | **aion-desks** | Desk commerce landing / Stripe checkout — product surface only | [aion-desks.md](aion-desks.md) |
 
-Formal inclusion in the six-repo set requires an ADR. Until then, desks must not
+Formal membership in the six-repo set is **[ADR-004 (Proposed)](../adr/ADR-004-aion-desks-repo-ownership.md)**
+(Docs recommends permanent satellite). Until Architect Accepts, desks must not
 own control-plane, schema, or gateway concerns.
 
 ## The rules that keep them separate
