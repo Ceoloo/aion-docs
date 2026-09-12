@@ -40,15 +40,13 @@ curl -si -X OPTIONS https://runtime.srv1655818.hstgr.cloud/v1/missions \
 Do **not** approve a blank `deploy-vps` that resolves only
 `execution-platform-v0.2.1` (`1f5d1ce…`) — that is behind tip.
 
-Preferred pin (after `execution-platform-v0.2.2` publishes, blank pin is fine):
+Preferred pin (blank pin now resolves `execution-platform-v0.2.2`):
 
 | Input | Value |
 |---|---|
 | `environment` | `production` |
-| `runtime_image` | `ghcr.io/ceoloo/aion-runtime@sha256:0e103dd5e79c5cac84fcc440cce2154944183d879ffd29283886be35bc1885c1` |
-| `git_sha` | `75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1` |
-
-Or pin `execution-platform-v0.2.2` once CI publishes that release tag.
+| `runtime_image` | `execution-platform-v0.2.2` **or** `ghcr.io/ceoloo/aion-runtime@sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee` |
+| `git_sha` | `75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1` (required if digest-only pin) |
 
 Confirm `/` and `/health/ready` show `git_sha` starting with `75e9acd` (not
 `3329c01`).
