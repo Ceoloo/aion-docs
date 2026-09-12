@@ -10,45 +10,35 @@ CONTRACT:
   - On Accept: flip Status to Accepted; ensure maps cite ADR-004
   - On fold-into-products: supersede with migration mission + new ADR status
   - Do not leave ownership chat-only
-BLOCKING?:  No (docs already treat desks as satellite; ADR removes ambiguity)
-CONTEXT:    Follow-up from merged aion-docs PR #50 (docs lag sync)
-PRIORITY:   Medium — boundary clarity before desks grows more SKUs
-STATUS:     open
-DELIVERED IN: adr/ADR-004-aion-desks-repo-ownership.md (Proposed)
-```
-
-## Mission
-
-```text
-MISSION
-STATUS                  needs-review
-SUMMARY                 PR #50 merged. Docs posture treats aion-desks as satellite.
-                        Proposed ADR-004 asks Architect to ratify permanent
-                        satellite ownership (recommended) vs promote vs fold.
-FINDINGS                Desks is Next.js+Stripe commerce only; Execution Platform
-                        v1 already says commercial packages outside kernel.
-IMPLEMENTATION          Draft ADR-004 + this handoff (Docs). No code moves.
-FILES CHANGED           adr/ADR-004-*.md, adr/README.md, this handoff
-TESTS                   n/a (docs)
-ARCHITECTURE IMPACT     Repository boundary clarification (six-repo canon)
-SECURITY IMPACT         None direct; keeps Stripe surface out of control plane
-KNOWN LIMITATIONS       Recommendation is Docs'; not Architect Accept yet
-BLOCKERS                Architect decision
-PR / COMMIT / BRANCH    (this PR)
-PROOF                   Linked ADR draft + desks README/repo map
-NEXT RECOMMENDED ACTION Architect reviews ADR-004 and sets Status
+BLOCKING?:  No
+CONTEXT:    Follow-up from merged aion-docs PR #50; review PR #52
+PRIORITY:   Medium
+STATUS:     accepted
+DECISION:   Accept proposed — permanent satellite outside six-repo platform set
+DELIVERED IN: adr/ADR-004-aion-desks-repo-ownership.md (Accepted)
+ACCEPTED BY: AION — ARCHITECT (2026-09-12)
+PROOF:      aion-desks package.json = next/react/stripe only; EP v1 outside kernel
 ```
 
 ## Architect decision checklist
 
-- [ ] Read [`../../adr/ADR-004-aion-desks-repo-ownership.md`](../../adr/ADR-004-aion-desks-repo-ownership.md)
-- [ ] Choose: **Accept proposed** | **Alternative A (7th canon)** | **Alternative B (fold into products)**
-- [ ] Update ADR Status line + any map citations
-- [ ] Close this handoff (`STATUS: accepted`) with pointer to commit/PR
+- [x] Read ADR-004
+- [x] Choose: **Accept proposed** (reject A / defer B / reject C)
+- [x] Update ADR Status → Accepted + map citations
+- [x] Close this handoff
 
-## Starter for Architect chat
+## Mission close-out
 
-Paste from [`.aion/agents/STARTERS.md`](../agents/STARTERS.md) (`AION — ARCHITECT`), then:
-
-> Review Proposed ADR-004 (`aion-desks` ownership). Ratify satellite vs seventh
-> canon vs fold into `aion-products`. Do not leave the decision in chat only.
+```text
+MISSION
+STATUS                  done
+SUMMARY                 ADR-004 Accepted: aion-desks is a permanent product-commerce
+                        satellite; six-repo platform canon unchanged.
+FINDINGS                No platform package imports in aion-desks; EP v1 already
+                        places commercial packages outside the execution kernel.
+                        Seventh-canon promotion rejected; fold-into-products deferred.
+IMPLEMENTATION          ADR Accepted + repository/map/handoff citations updated.
+ARCHITECTURE IMPACT     Boundary clarified — commerce ≠ platform plane
+SECURITY IMPACT         Stripe surface stays out of control plane by ownership rule
+NEXT RECOMMENDED ACTION Merge PR #52; add ADR-004 one-liner to aion-desks README
+```

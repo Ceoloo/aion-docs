@@ -40,15 +40,15 @@ flowchart TD
 | **aion-infra** | Cloud infrastructure and environments. | [aion-infra.md](aion-infra.md) |
 | **aion-products** | Products built on the platform. | [aion-products.md](aion-products.md) |
 
-### Workspace satellite (not yet ADR-canonical)
+### Workspace satellite (ADR-004)
 
 | Repository | Role | Detail |
 |---|---|---|
 | **aion-desks** | Desk commerce landing / Stripe checkout — product surface only | [aion-desks.md](aion-desks.md) |
 
-Formal membership in the six-repo set is **[ADR-004 (Proposed)](../adr/ADR-004-aion-desks-repo-ownership.md)**
-(Docs recommends permanent satellite). Until Architect Accepts, desks must not
-own control-plane, schema, or gateway concerns.
+**[ADR-004 (Accepted)](../adr/ADR-004-aion-desks-repo-ownership.md):** `aion-desks`
+is a **permanent product-commerce satellite** outside the six-repo platform set.
+It must not own control-plane, schema, or gateway concerns.
 
 ## The rules that keep them separate
 
