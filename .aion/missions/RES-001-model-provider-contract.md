@@ -25,28 +25,26 @@ DEPENDENCIES:            None for research slice; AIO-16 for later implementatio
 EXPECTED OUTPUT:         .aion/research/RES-001-*.md + backlog entry
 TEST REQUIREMENTS:       N/A (docs-only)
 SECURITY CONSIDERATIONS: No secrets; Runtime stays SDK-free
-STATUS:                  done (research) / needs-review (Architect)
+STATUS:                  done (research) / conditional-go (Architect) / prototype-complete (products spike)
 HANDOFF:                 see below
 ```
-
----
 
 ## Handoff
 
 ```text
 MISSION                  RES-001
-STATUS                   needs-review
-SUMMARY                  Research brief recommends narrow Core contract (types only) for model.generate@1 + required telemetry; adapters stay in products; defer stream/tool_call and adaptive routing; kill vendor SDKs in Core/Runtime.
-FINDINGS                 Product LlmProvider (Anthropic+OpenRouter) already proves the adapter pattern. Platform gap is AIO-16 telemetry/surface + governed Runtime visibility. PRE-OL proves stubs, not models.
-IMPLEMENTATION           Docs only under .aion/research/
-FILES CHANGED            .aion/research/*, .aion/missions/RES-001-*, .aion/README.md, agents/12-research-engineer.md
-TESTS                    N/A
-TEST RESULTS             N/A
-ARCHITECTURE IMPACT      Potential future Core contract + ADR if Architect accepts; Runtime neutrality preserved
-SECURITY IMPACT          None in this slice; future spikes must stay env-key-only
-KNOWN LIMITATIONS        No prototype run; no live provider smoke in this slice
-BLOCKERS                 Architect go/no-go
-PR / COMMIT / BRANCH     cursor/research-prototype-charter-da87
-PROOF                    Citations in RES-001 brief (intelligence layer, ADR-002, M007, PRE-OL, product OpenRouter design)
-NEXT RECOMMENDED ACTION  Architect accept/reject recommendation; if accept, RESEARCH starts isolated products telemetry spike (prototype second)
+STATUS                   needs-review → accepted (Architect CONDITIONAL GO); prototype-complete
+SUMMARY                  Research brief + Architect CONDITIONAL GO + isolated products telemetry spike (safeGenerate, required telemetry, keyless tests). Core types deferred pending ADR. Runtime stays SDK-free.
+FINDINGS                 Product LlmProvider pattern is sound. Platform gap was telemetry + governed visibility. PRE-OL still needs live model proof on Runtime path after ADR.
+IMPLEMENTATION           Docs in aion-docs; prototype in aion-products (no Core/Runtime SDK changes)
+FILES CHANGED            .aion/research/*, .aion/missions/RES-001-*, aion-products provider contracts/adapters/tests
+TESTS                    aion-products: npm test + npm run typecheck (model-telemetry + openrouter green)
+TEST RESULTS             pass
+ARCHITECTURE IMPACT      Products-only for now; Core contract requires ADR
+SECURITY IMPACT          Error codes redact secret-like fragments; no keys in spikes
+KNOWN LIMITATIONS        No live provider smoke in CI; stream/tool_call deferred; no adaptive routing
+BLOCKERS                 Architect ADR before Core types
+PR / COMMIT / BRANCH     aion-docs: cursor/research-prototype-charter-da87; aion-products: cursor/res001-model-telemetry-spike-da87
+PROOF                    RES-001 brief + architect decision + keyless telemetry tests
+NEXT RECOMMENDED ACTION  Architect drafts short ADR for model.generate@1 types; AI/Runtime register only after ADR
 ```

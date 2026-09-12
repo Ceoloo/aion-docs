@@ -1,9 +1,11 @@
 # RES-001 — Model-provider integration contract
 
-**Status:** Research complete (recommendation). Prototype not started.  
+**Status:** Architect **CONDITIONAL GO** accepted → products telemetry prototype **complete** (keyless).  
 **Owner:** AION — RESEARCH  
 **Linear:** [AIO-16](https://linear.app/aion-empire/issue/AIO-16/p0-implement-model-provider-integration-contract)  
-**Mission overlay:** [../missions/RES-001-model-provider-contract.md](../missions/RES-001-model-provider-contract.md)
+**Mission overlay:** [../missions/RES-001-model-provider-contract.md](../missions/RES-001-model-provider-contract.md)  
+**Architect decision:** [RES-001-architect-decision.md](RES-001-architect-decision.md)  
+**Prototype proof:** `aion-products` branch `cursor/res001-model-telemetry-spike-da87` (`safeGenerate` + required telemetry fields; tests in `test/model-telemetry.test.ts`)
 
 ---
 
@@ -130,8 +132,7 @@ OL-001 cannot honestly claim model-backed operating leverage.
 
 ## Next recommended action
 
-1. Architect reviews this brief (go/no-go on Core contract vs product-only).
-2. If go: RESEARCH opens an isolated products spike for telemetry-complete
-   `generate` (no stream/tool yet) + handoff to AI / Runtime for capability
-   registration.
-3. Integrations continues AIO-17 in parallel (orthogonal).
+1. ~~Architect reviews this brief (go/no-go on Core contract vs product-only).~~ → **CONDITIONAL GO** recorded in [RES-001-architect-decision.md](RES-001-architect-decision.md).
+2. ~~If go: RESEARCH opens an isolated products spike for telemetry-complete `generate`.~~ → **Done** in `aion-products` (`safeGenerate` + provider/latency/cost/ok fields; keyless tests).
+3. Architect authors short ADR before any Core types land; AI/Runtime register capability only after ADR.
+4. Integrations continues AIO-17 in parallel (orthogonal).
