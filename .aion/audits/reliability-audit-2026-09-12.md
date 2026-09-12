@@ -9,9 +9,9 @@ expected behavior is demonstrated.
 
 Platform control plane (`aion-core` / `aion-data` / `aion-runtime`) has a
 credible proof culture: unit/integration tests plus mission proof matrices and
-restart/durability scenarios. Gaps concentrate in **UI surface gates**
-(`aion-desks`), **explicit concurrency/race suites**, and **uneven unit-test
-density** in Runtime vs proof scripts.
+restart/durability scenarios. **QA-G1 (`aion-desks` typecheck/tests/CI) is
+closed.** Remaining gaps concentrate in **explicit concurrency/race suites**
+and **uneven unit-test density** in Runtime vs proof scripts.
 
 ## Evidence run (this audit)
 
