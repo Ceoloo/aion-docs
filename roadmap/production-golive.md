@@ -12,7 +12,7 @@ serving and Console close path works.
 | Production Runtime health | ✅ `https://runtime.srv1655818.hstgr.cloud/health/ready` — DB up, `service_version=0.2.1` |
 | Production Runtime tip | ❌ still `git_sha=3329c01…` — **must advance** to tip with #34/#35/#36 |
 | Traefik edge CORS methods | ❌ `GET,POST,OPTIONS` only — **blocks PATCH** mission close even after Runtime tip |
-| Tip Runtime image (GHCR) | ✅ tip digest `sha256:0e103dd…` tagged `75e9acd…` + `latest`; release tag **`execution-platform-v0.2.2`** cut (CI publishes release tag) |
+| Tip Runtime image (GHCR) | ✅ **`execution-platform-v0.2.2`** @ `sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee` (also tagged `75e9acd…`) |
 | `aion-data` revenue_sessions | ✅ migration `0009` on `main` — still needs prod migrate on next Runtime roll |
 | Preferred DNS `runtime.aionsystems.ai` | ❌ unresolved — keep clients on Hostinger FQDN |
 
