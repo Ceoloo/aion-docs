@@ -53,6 +53,11 @@ derived from events. See [learning-loop.md](learning-loop.md).
   ("summarize", "classify", "reason over context"), not a fixed vendor. Model
   selection is a routing/config concern, deferred to an ADR where it must be
   standardized.
+- Pattern ownership (when to use agents vs deterministic code, prompts, skills,
+  evals, structured outputs) is the
+  [AI / Agent Engineer](../.aion/agents/03-ai-agent-engineer.md) specialty.
+  Durable memory/eval records remain `aion-data`; gateway hosting remains
+  `aion-runtime`.
 
 ## Evals
 

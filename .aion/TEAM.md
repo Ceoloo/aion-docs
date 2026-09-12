@@ -7,7 +7,7 @@
 | 00 | Orchestrator | `AION — ORCHESTRATOR` | all (routing only) | Permanent |
 | 01 | Runtime Engineer | `AION — RUNTIME` | `aion-runtime`, parts of `aion-core` execution | Permanent |
 | 02 | Data Engineer | `AION — DATA` | `aion-data` | Permanent |
-| 03 | AI / Agent Engineer | `AION — AI` | `aion-core` intelligence/agent surfaces, product agent logic | On-demand (often) |
+| 03 | AI / Agent Engineer | `AION — AI` | `aion-core` intelligence/agent surfaces, product agent logic | On-demand (often) — deterministic-first; agents only when measurable value |
 | 04 | Product Engineer | `AION — PRODUCT` | `aion-products`, `aion-desks` | Permanent |
 | 05 | Frontend / UX | `AION — FRONTEND` | `aion-products/web`, `workforce-control`, `aion-desks` | Permanent |
 | 06 | Infrastructure | `AION — INFRA` | `aion-infra`, deploy configs | Permanent |

@@ -66,3 +66,10 @@ flowchart TD
 - **Least privilege for tools and data.**
 - **Escalation and cost controls are mandatory.**
 - **Every agent action is observable and evaluable.**
+
+## Engineering ownership
+
+Human ownership of agent intelligence patterns (prompts, skills, routing, evals,
+multi-agent design) sits with **AI / Agent Engineer** — see
+[`.aion/agents/03-ai-agent-engineer.md`](../.aion/agents/03-ai-agent-engineer.md).
+That role does not waive this governance doc; it implements within it.
