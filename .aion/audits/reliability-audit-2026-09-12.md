@@ -18,6 +18,7 @@ density** in Runtime vs proof scripts.
 | Repo | Command | Result |
 |---|---|---|
 | `aion-core` | `npm ci && npm run check` (lint · typecheck · test · build) | **PASS** — 15 files / 90 tests; build OK |
+| `aion-desks` | `npm run typecheck` · `npm test` · `npm run lint` · `npm run build` | **PASS** — 11 tests; QA-G1 closed |
 
 Other repos were inventory-audited (scripts, CI, harness presence). Full
 Postgres-backed Data/Runtime matrices were not re-executed in this agent VM
@@ -76,17 +77,23 @@ matching proof script run.
 Product RELEASE-STATUS already flags restart/concurrent update needs against
 Postgres for durable Revenue storage — remain open until evidenced.
 
-### aion-desks — FAIL (gates missing)
+### aion-desks — PASS (gates added 2026-09-12)
 
 | Gate | Present |
 |---|---|
-| lint | `next lint` only |
-| typecheck | **Missing** script |
-| test | **Missing** |
-| CI | **Missing** |
+| lint | `next lint` |
+| typecheck | `tsc --noEmit` (`npm run typecheck`) |
+| test | `tsx --test` — SKU helpers + checkout fail-closed validation |
+| build | `next build` |
+| CI | `.github/workflows/ci.yml` — lint · typecheck · test · build |
 
-Blocker for any production claim that depends on desks checkout/Stripe flows
-until typecheck + smoke/build CI exist.
+**Remediation evidence (QA-G1):** `npm run typecheck` PASS; `npm test` PASS
+(11); `npm run lint` PASS; `npm run build` PASS with placeholder Stripe env.
+Also wired `priceIdForSku` to documented `STRIPE_PRICE_*` env vars so
+`/api/checkout` fails closed until prices exist (was always undefined).
+
+Live Payment Link / webhook signature paths still require Stripe credentials for
+end-to-end proof — not claimed by this gate closure.
 
 ### aion-docs — N/A (constitution)
 
@@ -100,14 +107,14 @@ proof. Secrets/DR (Linear AIO-7) remain separate operational verification.
 
 ## Gap register
 
-| ID | Severity | Gap | Recommended owner |
+| ID | Severity | Gap | Status |
 |---|---|---|---|
-| QA-G1 | **Blocker** (for desks go-live) | `aion-desks` lacks typecheck, tests, CI | Frontend / Product + QA |
-| QA-G2 | High | Few dedicated concurrency/race tests at Runtime/gateway submit path | Runtime + QA |
-| QA-G3 | Medium | Runtime unit-test density low vs proof-script reliance | Runtime + QA |
-| QA-G4 | Medium | No single cross-repo “acceptance checklist” automation beyond per-repo CI | QA / Orchestrator |
-| QA-G5 | Medium | Live integration paths (GHL/CRM) still model/credential gated | Integrations + Product |
-| QA-G6 | Low | Core Phase-1 concurrency explicitly deferred — track when multi-process Core appears | Architect / Runtime |
+| QA-G1 | ~~Blocker~~ → **Closed** | `aion-desks` typecheck / tests / CI | Closed 2026-09-12 — desks quality gates + CI |
+| QA-G2 | High | Few dedicated concurrency/race tests at Runtime/gateway submit path | Open — Runtime + QA |
+| QA-G3 | Medium | Runtime unit-test density low vs proof-script reliance | Open — Runtime + QA |
+| QA-G4 | Medium | No single cross-repo “acceptance checklist” automation beyond per-repo CI | Open — QA / Orchestrator |
+| QA-G5 | Medium | Live integration paths (GHL/CRM) still model/credential gated | Open — Integrations + Product |
+| QA-G6 | Low | Core Phase-1 concurrency explicitly deferred — track when multi-process Core appears | Open — Architect / Runtime |
 
 ## Acceptance bar this role will enforce
 
@@ -121,12 +128,11 @@ A change or mission is **not done** if any of the following are true:
 
 ## Next QA actions
 
-1. Add `aion-desks` `typecheck` + CI build/lint (minimum); smoke test for Stripe
-   checkout path when credentials allow
+1. ~~Add `aion-desks` typecheck + CI~~ **Done** — follow with live Stripe smoke when credentials allow
 2. Schedule Postgres-backed `aion-data` + `aion-runtime` proof re-run in CI or
    a provisioned agent environment; attach logs to go-live missions
 3. Add at least one explicit concurrent-submit / duplicate-side-effect test at
-   Runtime or Data boundary for idempotent resume
+   Runtime or Data boundary for idempotent resume (**QA-G2**)
 4. Review every specialist PR handoff against this audit’s gap register
 
 ## Related canon

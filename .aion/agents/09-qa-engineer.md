@@ -126,7 +126,7 @@ Snapshot from reliability audit (2026-09-12). Re-audit when posture changes.
 | `aion-data` repository + restart integration | Strong — durability-resume, deny, fail paths; needs Postgres |
 | `aion-runtime` proof matrices (M001–M009, IE002, cert) | Strong acceptance path in CI; sparse unit tests (1 file) |
 | `aion-products` node:test + typecheck | Present; live CRM paths gated/documented separately |
-| `aion-desks` | **Gap** — no `test` / `typecheck` scripts; no CI workflow |
+| `aion-desks` | **PASS (QA-G1 closed)** — typecheck · test · lint · build + CI |
 | `aion-docs` | Docs-only; no executable CI (expected) |
 | `aion-infra` | Validate/deploy workflows; not a unit-test suite |
 | Dedicated concurrency / race suites | **Gap** — optimistic concurrency exists in Data; few explicit race tests |
