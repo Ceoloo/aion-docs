@@ -136,13 +136,25 @@ The build order begins here (Phase 0) and proceeds to `aion-core`. See
 
 ---
 
+## Cursor Engineering Team (`.aion`)
+
+For multi-agent Cursor workflows — specialist chats as persistent engineering
+departments — see **[`.aion/README.md`](.aion/README.md)**.
+
+That layer defines orchestrator routing, specialist role cards, mission/handoff
+templates, and chat starters. It does **not** replace this constitution; it
+operationalizes it for Cursor.
+
+---
+
 ## Reading Order for a New Engineer (or Agent)
 
 1. This README.
-2. [`architecture/system-overview.md`](architecture/system-overview.md)
-3. [`engineering/principles.md`](engineering/principles.md)
-4. [`repositories/dependency-rules.md`](repositories/dependency-rules.md)
-5. [`governance/authority-model.md`](governance/authority-model.md)
-6. [`missions/lifecycle.md`](missions/lifecycle.md)
-7. [`roadmap/build-order.md`](roadmap/build-order.md)
-8. [`adr/ADR-001-greenfield-reset.md`](adr/ADR-001-greenfield-reset.md)
+2. [`.aion/README.md`](.aion/README.md) — if working via Cursor specialist agents.
+3. [`architecture/system-overview.md`](architecture/system-overview.md)
+4. [`engineering/principles.md`](engineering/principles.md)
+5. [`repositories/dependency-rules.md`](repositories/dependency-rules.md)
+6. [`governance/authority-model.md`](governance/authority-model.md)
+7. [`missions/lifecycle.md`](missions/lifecycle.md)
+8. [`roadmap/build-order.md`](roadmap/build-order.md)
+9. [`adr/ADR-001-greenfield-reset.md`](adr/ADR-001-greenfield-reset.md)

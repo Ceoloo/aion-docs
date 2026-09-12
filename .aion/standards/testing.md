@@ -1,0 +1,34 @@
+# Testing Standards (Cursor agents)
+
+Canon: [`../../engineering/testing.md`](../../engineering/testing.md),
+[`../../engineering/evals.md`](../../engineering/evals.md).
+
+## Principle
+
+Code is not complete because it compiles.
+It is complete when **expected behavior is demonstrated**.
+
+## What every owner owes
+
+| Change type | Minimum proof |
+|---|---|
+| Pure logic / contracts | Unit tests for happy + failure paths |
+| Persistence / migrations | Migration applies cleanly; repository tests; restart survival where relevant |
+| Runtime / gateway | Typecheck + build; smoke or proof matrix for touched path |
+| Product workflow | Deterministic offline path + any live path gated/documented |
+| AI behavior | Evals; no silent eval regression |
+| Infra / deploy | Health checks; rollback note; no secret in logs |
+
+## QA ownership
+
+QA may reject a handoff that lacks:
+
+- stated acceptance criteria
+- commands run + results
+- failure-path coverage for risk-bearing changes
+- restart / durability proof when claiming durability
+
+## Restart & reliability
+
+Any claim that “execution is durable” requires evidence that state survives
+process restart and leaves an auditable record (`execution_id` / run lineage).
