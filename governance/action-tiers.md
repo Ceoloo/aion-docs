@@ -81,10 +81,21 @@ the declared tier. Registration should **fail closed** on contradictions.
 
 At least one automated proof must show:
 
-1. Actor declared/grants Observe-only.
-2. AuthorizationRequest for an Execute-class capability → `DENY`.
-3. Trust Score `permissionCompliance` fails if such a path somehow terminalizes
-   as denied (status `untrusted`).
+1. Actor declared/grants Observe-only (or `autonomyLevel: L0`).
+2. AuthorizationRequest for an Execute-class capability → `DENY` with
+   `action-tier` check failed — even if permissions were over-granted.
+3. Trust Score `permissionCompliance` fails when such a path terminalizes as
+   `denied` (status `untrusted`).
+
+Core implements this in `PolicyEngine.authorize` when `actionTier` is set or
+autonomy is L0, and in `computeAgentTrustScore` (see `@aion/core` tests
+`action-tier-trust-score.test.ts`).
+
+## Enforcement note
+
+Action Tier checks are enforced when `AgentActor.actionTier` is set, or when
+`autonomyLevel` is `L0`. L1+ agents without an explicit Action Tier keep prior
+authorize behavior so earned-autonomy Execute paths are not silently broken.
 
 ## Invariants
 

@@ -197,11 +197,11 @@ regardless of total.
 
 | Finding cluster | SKU |
 |---|---|
-| MFA, consent, sessions, devices | Foundation — AI-Era Identity Protection |
+| MFA, consent, sessions, devices | Foundation — [AI-Era Identity Protection](techops-ai-era-identity-protection.md) |
 | Backup, cloud hardening, network | Foundation |
 | Integration chaos, secrets, agent identity | Secure Automation Layer |
 | No Trust Score / no gates / Execute sprawl | Secure Automation + Managed Intelligence |
-| Alert fatigue / no response | Security Operations Lite (design: AIO-22) |
+| Alert fatigue / no response | [Security Operations Lite](techops-security-operations-lite.md) |
 
 ## Invariants
 
