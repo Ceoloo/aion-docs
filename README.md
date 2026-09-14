@@ -95,7 +95,9 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 - **[repositories/](repositories/README.md)** — per-repo responsibility and the
   dependency rules that prevent architectural drift.
 - **[governance/](governance/README.md)** — authority model, human gates, agent
-  governance, permissions, risk levels, change management.
+  governance, permissions, action tiers, Trust Score, risk levels, change
+  management.
+- **[offers/](offers/README.md)** — client packaging (TechOps audit scorecard).
 - **[engineering/](engineering/README.md)** — principles, production readiness,
   testing, evals, observability/API/event standards, data contracts,
   definition of done.
