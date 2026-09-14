@@ -238,3 +238,15 @@ autonomous messaging, starting the OL-001 100-mission cohort.
   cohort)
 - Reopening IE-002 provisioning/activation work
 - New substrate without a Phase A→B proof blocker
+
+## AIO-17 lead-workflow adapter slice (Runtime)
+
+First adapter slice lands in `aion-runtime` (`docs/ghl-aio17-lead-workflow.md`):
+
+- Enabled: contact get/upsert, opportunity create/stage update, note create, task create
+- Disabled (explicit `CAPABILITY_DISABLED`): conversation read/send, appointment create
+- Pinned API version: `2021-07-28`
+- Proof: `npm run proof:aio17-ghl-lead-workflow`
+
+AIO-17 remains partially complete; OL-001 broader resume still requires remaining
+capabilities and the model-provider dependency.
