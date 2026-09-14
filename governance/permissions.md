@@ -65,3 +65,16 @@ Principal (bearer credential), then loads durable Actor grants from Data before
 - `x-aion-tenant-id` is a filter ⊆ principal.tenantIds — never a credential.
 - Approval decisions require a human Actor bound to an `approve`-capable principal.
 
+## Action tiers (product vocabulary)
+
+Client and vertical packaging use **Observe / Assist / Execute** as Action
+Tiers. They project onto Autonomy L0–L4 + risk + capability grants — they do
+**not** replace the Core autonomy ladder. See
+[action-tiers.md](action-tiers.md) and
+[ADR-007](../adr/ADR-007-observe-assist-execute-tiers.md).
+
+## Trust Score
+
+Permission and human-gate compliance are hard dimensions of the per-execution
+[Agent Trust Score](agent-trust-score.md) ([ADR-006](../adr/ADR-006-agent-trust-score.md)).
+
