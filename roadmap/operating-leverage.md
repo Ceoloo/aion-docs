@@ -179,20 +179,25 @@ RELIABILITY
 
 ### M001 close sequence (do not stall the cohort)
 
-**Rule:** one evidence-driven `crm.task.create` retry after Runtime #34 is
-deployed. Pass → complete normally. Fail → **visible waiver**, close as
-`completed_with_exception`, open one narrow GHL task-surface defect, launch M002.
-Do **not** stop OL-001 to over-engineer the task endpoint.
+**Rule:** one evidence-driven `crm.task.create` retry after Runtime tip
+(**#34 + #35 + #36**, `75e9acd…` / `execution-platform-v0.2.2`) is deployed
+**and** Traefik edge CORS allows `PATCH`. Pass → complete normally. Fail →
+**visible waiver**, close as `completed_with_exception`, open one narrow GHL
+task-surface defect, launch M002. Do **not** stop OL-001 to over-engineer the
+task endpoint.
 
-1. **Merge** aion-runtime #34 ✅ (landed on `main` as `8cf0b96`; image published)
-2. **Deploy** that Runtime image to production (`deploy-vps.yml` →
-   `ghcr.io/ceoloo/aion-runtime:8cf0b96…`; confirm `/` git_sha advances past
-   `3329c01`)
-3. **One** `crm.task.create` retry using the surfaced GHL 4xx body
-4. If task succeeds → complete M001 normally  
+Full ops checklist: [production-golive.md](./production-golive.md).
+
+1. **Merge** aion-runtime #34/#35/#36 ✅ (`75e9acd…`; image published)
+2. **Sync** Traefik CORS methods to include `PATCH` on `/opt/aion/docker-compose.yml`
+   (aion-infra Traefik CORS fix — `deploy-vps` does not sync compose from git)
+3. **Deploy** tip Runtime to production (`deploy-vps.yml` pin tip digest or
+   `execution-platform-v0.2.2`; confirm `/` `git_sha` advances past `3329c01`)
+4. **One** `crm.task.create` retry using the surfaced GHL 4xx body
+5. If task succeeds → complete M001 normally  
    If still fails → record explicit task-step waiver on the mission, close M001
    with `completed_with_exception`, open one narrow GHL task-surface defect
-5. **Launch M002**
+6. **Launch M002**
 
 M001 terminal record (when waived) must be **on the mission**, not only in chat:
 

@@ -25,7 +25,7 @@ real tenant**. That is the only active engineering objective for this slice.
 |---|---|
 | IE-002 | **Closed** — do not reopen |
 | OL-001 | **Unpaused for Console Production launches** — live GHL verified; live model still blocked in Cloud Agent harness; **M001 ModernRelx launched** (`msn_648d3df8-…`, `productionEconomic=true`) |
-| OL-001 M001 next | Merge/deploy runtime #34 ✅ merged + image published; **operator deploy required**; one `crm.task.create` retry; pass or **visible waiver** (`completed_with_exception`) then **M002** — do not over-engineer task.create |
+| OL-001 M001 next | Runtime tip image published (`75e9acd…`); **operator:** sync Traefik CORS `PATCH` + deploy tip (not `v0.2.1`); one `crm.task.create` retry; pass or **visible waiver** then **M002** — see [production-golive.md](./production-golive.md) |
 | OL-001 resume | Production mode is live; keep adding OpenRouter / Revenue Copilot so model-backed proofs green |
 | New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
 

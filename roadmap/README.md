@@ -11,6 +11,8 @@ to resist the speculative accretion that caused the
 |---|---|
 | [build-order.md](build-order.md) | The phased order in which repositories/capabilities are built. |
 | [platform-maturity.md](platform-maturity.md) | The L0–L5 maturity model and the platformization rule. |
+| [production-golive.md](production-golive.md) | Live production close-out for OL-001 (Console + Runtime tip + Traefik PATCH). |
+| [operating-leverage.md](operating-leverage.md) | OL-001→005 program; M001 close sequence. |
 
 ## The two ideas
 
