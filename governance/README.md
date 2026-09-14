@@ -13,6 +13,8 @@ actions can require human gates.
 | [human-gates.md](human-gates.md) | When a human must approve. |
 | [agent-governance.md](agent-governance.md) | Agents as governed workers. |
 | [permissions.md](permissions.md) | The permission model. |
+| [action-tiers.md](action-tiers.md) | Observe / Assist / Execute product tiers (maps to L0–L4). |
+| [agent-trust-score.md](agent-trust-score.md) | Per-execution Trust Score (five dimensions). |
 | [risk-levels.md](risk-levels.md) | How actions are classified by risk. |
 | [change-management.md](change-management.md) | How changes reach production. |
 
