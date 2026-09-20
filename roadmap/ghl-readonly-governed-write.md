@@ -246,7 +246,10 @@ First adapter slice lands in `aion-runtime` (`docs/ghl-aio17-lead-workflow.md`):
 - Enabled: contact get/upsert, opportunity create/stage update, note create, task create
 - Disabled (explicit `CAPABILITY_DISABLED`): conversation read/send, appointment create
 - Pinned API version: `2021-07-28`
-- Proof: `npm run proof:aio17-ghl-lead-workflow`
+- Adapter fixtures: `npm run proof:aio17-ghl-lead-workflow`
+- **Durable revenue path** (Runtime + Postgres, restart + gates + cost/value):
+  `npm run proof:revenue-workflow` — see `aion-runtime/docs/revenue-workflow-durable-proof.md`
 
-AIO-17 remains partially complete; OL-001 broader resume still requires remaining
-capabilities and the model-provider dependency.
+AIO-17 conversation/appointment write enablement and the model-provider
+dependency remain follow-ups; the revenue-workflow proof is the definition-of-done
+path for Lead→Opp→Note/Task→gate→outcome on the enabled CRM slice.
