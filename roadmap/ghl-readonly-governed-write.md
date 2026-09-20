@@ -24,7 +24,7 @@ real tenant**. That is the only active engineering objective for this slice.
 | Rule | Status |
 |---|---|
 | IE-002 | **Closed** — do not reopen |
-| OL-001 | **Unpaused for Console Production launches** — live GHL verified; live model still blocked in Cloud Agent harness; **M001 ModernRelx launched** (`msn_648d3df8-…`, `productionEconomic=true`) |
+| OL-001 | **Unpaused for Console Production launches** — live GHL verified; live model still blocked in Cloud Agent harness; **M001 Example Client launched** (`msn_648d3df8-…`, `productionEconomic=true`) |
 | OL-001 M001 next | Merge/deploy runtime #34 ✅ merged + image published; **operator deploy required**; one `crm.task.create` retry; pass or **visible waiver** (`completed_with_exception`) then **M002** — do not over-engineer task.create |
 | OL-001 resume | Production mode is live; keep adding OpenRouter / Revenue Copilot so model-backed proofs green |
 | New substrate | **No** — unless this Phase A→B proof exposes an actual blocker |
@@ -44,7 +44,7 @@ real tenant**. That is the only active engineering objective for this slice.
 | Full AION audit | ✅ | ✅ |
 
 Harness: `npm run proof:ghl-live-capability` (aion-runtime).  
-**OL-001 Production mode is enabled** and **Mission 001 / 100 (ModernRelx)** is live. Install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot so model-backed steps green. Do not count PRE-OL / infra proofs as OL-001 credit.
+**OL-001 Production mode is enabled** and **Mission 001 / 100 (Example Client)** is live. Install OpenRouter on the host for Revenue Copilot — do not paste keys into chat — then re-run the harness with `OPENROUTER_API_KEY` in the proof environment or against a live Copilot so model-backed steps green. Do not count PRE-OL / infra proofs as OL-001 credit.
 
 Note: `crm.note.create` is **R1 ALLOW** (gateway-governed, no approval). The matrix R2 row is satisfied by `crm.opportunity.update` in the same proof run.
 
@@ -182,7 +182,7 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 
 | Check | Result |
 |---|---|
-| Location ID `YK8RT5OnmQiMqprlyqYY` | ✅ **AION Empire** |
+| Location ID `<location-id>` | ✅ **AION Empire** |
 | Contacts / opportunities / pipelines / conversations | ✅ CRM scopes green |
 | Calendars | ✅ list empty; appointment reads return empty list |
 | `npm run proof:ghl-live-acceptance` | ✅ green on local Runtime + live GHL |
@@ -190,12 +190,12 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 | Audit field | Evidence |
 |---|---|
 | tenant | `aion-systems` |
-| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| source read | contact `<contact-id>`; opp `<opportunity-id>` (Negotiation) |
 | proposed mutation | stage → Proposal Sent |
 | policy | `REQUIRE_APPROVAL` (R2) |
 | approval | `apr_509b038b-…` |
 | execution / side-effect | `exe_86da771d-…` / `ese_e613a428-…` succeeded |
-| idempotency | `ghl-live-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| idempotency | `ghl-live-stage-<opportunity-id>-…` |
 | GHL outcome | stage applied; restored to Negotiation after proof |
 | success | ✅ |
 
@@ -214,12 +214,12 @@ autonomous messaging, starting the OL-001 100-mission cohort.
 |---|---|
 | prod `git_sha` | `cdb622959817c1bff6a74e10a5c14b7a5e9bedc7` |
 | backend | `ghl-live` |
-| tenant / location | `aion-systems` / `YK8RT5OnmQiMqprlyqYY` |
-| source read | contact `MyWCgeFaKnifp6LM7yIc`; opp `rGbIyrAvGDcmMEzjBER4` (Negotiation) |
+| tenant / location | `aion-systems` / `<location-id>` |
+| source read | contact `<contact-id>`; opp `<opportunity-id>` (Negotiation) |
 | proposed mutation | stage → Proposal Sent |
 | policy | `REQUIRE_APPROVAL` (R2) `apr_ee0beb88-…` |
 | execution / side-effect | `exe_03cd4efe-…` / `ese_bb8cc26b-…` succeeded |
-| idempotency | `ghl-prod-stage-rGbIyrAvGDcmMEzjBER4-…` |
+| idempotency | `ghl-prod-stage-<opportunity-id>-…` |
 | cost | `{ units: 4, tokens: 60 }` |
 | GHL outcome | stage applied; restored to Negotiation |
 | success | ✅ |
