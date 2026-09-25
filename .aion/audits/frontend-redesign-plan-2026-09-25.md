@@ -70,11 +70,13 @@ No shared tokens/package; three type systems; duplicated shadcn trees; `Workflow
 
 ### Phase 1 — P0 operator value (1 PR per app preferred)
 
+**Status:** implemented on `aion-products` branch `cursor/workflow-polish-phase1-ux-r1-r3-53e8`.
+
 | Ticket | Repo | Work | Acceptance |
 |---|---|---|---|
-| UX-R1 | products | Collapse `HoldingOverview` to Attention → Act → Outcomes (missions list). One optional compact rollup with drill-through; remove duplicate KPI sections. | First viewport answers “what needs me?”; no duplicate success-rate tiles |
-| UX-R2 | products | Control Room: surface load errors + retry; lead with failing/open missions / unmet gates before metrics | No silent `.catch`; error is actionable |
-| UX-R3 | products | IE-001 pages use shared `WorkflowState` | Load/Error/Empty parity with Command |
+| UX-R1 | products | ✅ Collapse `HoldingOverview` to Attention → Act → Outcomes (missions list). One optional compact rollup with drill-through; remove duplicate KPI sections. | First viewport answers “what needs me?”; no duplicate success-rate tiles |
+| UX-R2 | products | ✅ Control Room: surface load errors + retry; lead with failing/open missions / unmet gates before metrics | No silent `.catch`; error is actionable |
+| UX-R3 | products | ✅ IE-001 pages use shared `WorkflowState` | Load/Error/Empty parity with Command |
 | UX-R4 | desks | New token/type system; brand-first hero; atmosphere (subtle grain/gradient); focus-visible | Escapes cream/terracotta; brand test passes without nav |
 
 **Skills to invoke:** `redesign-existing-projects`, `impeccable distill` / `quieter` / `clarify`, `operator-ui-workflows`.
