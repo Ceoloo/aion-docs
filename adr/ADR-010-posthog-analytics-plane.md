@@ -71,6 +71,38 @@ compliance surface. So the value is real but the integration must be bounded.
    wrapped by AION governance before it can act, and until then is advisory
    only.
 
+## Implementation status (2026-09-25)
+
+- **Phase 1 — shipped.** `posthog-js` in Revenue Copilot with the PII-safe
+  config (autocapture off, sanitized manual pageviews, replay off by default,
+  `/ingest` same-origin proxy); no-op unless `NEXT_PUBLIC_POSTHOG_KEY` is set.
+- **Phase 2 — shipped.**
+  - **Kill-switch input:** a vendor-neutral `FeatureGate` port + `StaticFeatureGate`
+    in `aion-core`, consulted by the Orchestrator **before** policy as an input
+    (fail-open, bounded) — a switched-off agent domain is withheld pre-dispatch
+    and emits `command.rejected` with `policyId: feature-gate.kill-switch`. It
+    can withhold, never grant; the `PolicyEngine` stays the sole authority.
+  - **Experimentation:** an `ExperimentProvider` seam over the decision-engine's
+    confidence→route thresholds, with `evaluateShadowByVariant` for per-arm
+    calibration. The engine runs in **shadow mode** at the action-service
+    approval gate, recording what auto-approve *would* have decided with the
+    human decision as ground truth.
+- **One-way DecisionRecord mirror — shipped** (resolves a Follow-up below).
+  The action-service streams shadow `DecisionRecord`s to PostHog server-side
+  through a vendor-neutral sink (the decision-engine stays SDK-free; the client
+  is injected at the composition root). Off by default; a no-op unless the
+  **server-side** `POSTHOG_API_KEY` is set. Events:
+  - `aion_decision_shadow_recorded` — route, confidence, risk, decision type,
+    experiment key + variant, latency, cost (non-PII, explicitly enumerated).
+  - `aion_decision_shadow_settled` — ground truth and whether the shadow
+    **agreed** with the human. The deciding human (`humanOverride.by`) is
+    **never** emitted.
+
+Still ahead in **Phase 3**: AI/LLM observability + error tracking in the
+runtime/adapters, and CDP/warehouse export of ledger + economics rollups.
+Streaming **FeatureGate flag reads** lands once a service composes the
+`aion-core` Orchestrator (no live gate reads exist to mirror until then).
+
 ## Alternatives Considered
 
 - **Build on the existing event ledger / Watchtower for everything** — Rejected
@@ -122,8 +154,11 @@ compliance surface. So the value is real but the integration must be bounded.
 ## Follow-up Decisions
 
 - Cloud region vs self-host, and the DPA / data-residency posture.
-- The exact one-way mirror schema from the event ledger / `DecisionRecord`s to
-  PostHog (which properties, how PII is stripped at the boundary).
+- ~~The exact one-way mirror schema from the event ledger / `DecisionRecord`s to
+  PostHog (which properties, how PII is stripped at the boundary).~~ **Decided**
+  for `DecisionRecord`s — see the shipped `aion_decision_shadow_*` events under
+  Implementation status. The event-ledger mirror (execution receipts / economics
+  rollups) remains open, to be settled with the Phase-3 CDP/warehouse export.
 - Experiment framework around decision-engine thresholds (ties to ADR-009).
 - Whether feature-flag evaluation belongs in the Execution Gateway or the
   orchestrator, and how flag state is recorded on execution objects.
