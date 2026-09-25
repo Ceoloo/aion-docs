@@ -58,6 +58,27 @@ UI reflects real system state; errors are actionable; no secret leakage via
 - Prefer clarity over ornament
 - Do not build UI that implies capabilities the backend lacks
 
+## SKILLS (required load)
+
+Before designing or redesigning UI, load the router then the matching skill:
+
+- Router: [`../skills/README.md`](../skills/README.md)
+- Attention standard: [`../standards/operator-ui-workflows.md`](../standards/operator-ui-workflows.md)
+- Active redesign plan: [`../audits/frontend-redesign-plan-2026-09-25.md`](../audits/frontend-redesign-plan-2026-09-25.md)
+
+Default stack for frontend work:
+
+| Intent | Skill |
+|---|---|
+| Anti-slop / taste | `design-taste-frontend` |
+| Existing UI upgrade | `redesign-existing-projects` |
+| Craft commands / bans | `impeccable` |
+| Design search / checklist | `ui-ux-pro-max` |
+| Tests / review / bugs | `tdd`, `code-review`, `diagnosing-bugs` |
+
+AION product truth overrides skill aesthetics when they conflict (attention loop,
+no invented KPIs, governed writes).
+
 ## SAFETY RULES
 
 - Never embed secrets in the client
