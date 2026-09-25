@@ -76,17 +76,23 @@ compliance surface. So the value is real but the integration must be bounded.
 - **Phase 1 — shipped.** `posthog-js` in Revenue Copilot with the PII-safe
   config (autocapture off, sanitized manual pageviews, replay off by default,
   `/ingest` same-origin proxy); no-op unless `NEXT_PUBLIC_POSTHOG_KEY` is set.
-- **Phase 2 — shipped.**
-  - **Kill-switch input:** a vendor-neutral `FeatureGate` port + `StaticFeatureGate`
+- **Phase 2 — partially shipped.** The vendor-neutral *seams* are in; the
+  PostHog-backed, live rollout control that Phase 2 also calls for is not.
+  - **Kill-switch input (seam shipped):** a `FeatureGate` port + `StaticFeatureGate`
     in `aion-core`, consulted by the Orchestrator **before** policy as an input
     (fail-open, bounded) — a switched-off agent domain is withheld pre-dispatch
     and emits `command.rejected` with `policyId: feature-gate.kill-switch`. It
     can withhold, never grant; the `PolicyEngine` stays the sole authority.
-  - **Experimentation:** an `ExperimentProvider` seam over the decision-engine's
-    confidence→route thresholds, with `evaluateShadowByVariant` for per-arm
-    calibration. The engine runs in **shadow mode** at the action-service
-    approval gate, recording what auto-approve *would* have decided with the
-    human decision as ground truth.
+  - **Experimentation (shipped):** an `ExperimentProvider` seam over the
+    decision-engine's confidence→route thresholds, with `evaluateShadowByVariant`
+    for per-arm calibration. The engine runs in **shadow mode** at the
+    action-service approval gate, recording what auto-approve *would* have
+    decided with the human decision as ground truth.
+  - **Pending:** a PostHog-backed `FeatureGate` provider behind the seam, and a
+    running service that composes the `aion-core` Orchestrator so flags gate
+    *live* dispatch. Until then the seam is exercised only by `StaticFeatureGate`
+    (config/env-driven) and there are no live gate reads — so PostHog-driven
+    rollout control / kill-switch is not yet available in a deployed path.
 - **One-way DecisionRecord mirror — shipped** (resolves a Follow-up below).
   The action-service streams shadow `DecisionRecord`s to PostHog server-side
   through a vendor-neutral sink (the decision-engine stays SDK-free; the client
