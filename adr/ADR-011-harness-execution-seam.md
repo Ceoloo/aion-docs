@@ -19,7 +19,11 @@ harness and `model` selecting the model), plus files, sessions, streaming, and
 cancellation. Its contract is the **Unified Harness Protocol (UHP)** — versioned,
 with machine-readable schemas and a conformance suite. It self-hosts (Docker:
 Console / Gateway / Runner), keeping provider keys, sessions, files, and
-workspaces local; only model calls egress to the configured provider.
+workspaces local. Self-hosting keeps *state* local, but it does **not** make
+model calls the only outbound path: the Runner executes arbitrary shell/tools
+and installed harness CLIs, any of which can make non-model network requests
+(and could exfiltrate workspace or resolved-secret data). Runner egress is a
+policy concern, not a property of self-hosting — see the boundary rules.
 
 This is an **execution-plane** abstraction, not a model router (that is
 OpenRouter/LiteLLM) and not a policy layer. The tension is the same one ADR-008
@@ -48,10 +52,18 @@ optimization, managed workspaces) but the integration must be bounded.
    - **Not authority.** Harness selection (`harnessId`) is a routing/
      optimization input, never permission. The `PolicyEngine` / Execution
      Gateway remain the sole authority.
-   - **Fails closed.** Unlike the fail-open `FeatureGate`, harness execution is
-     the running of authorized work: a provider error is a first-class `failed`
-     result, surfaced — never a silent success. A dropped execution must be
-     visible in the ledger.
+   - **Fails closed — including on indeterminate outcomes.** Unlike the
+     fail-open `FeatureGate`, harness execution is the running of authorized
+     work: a *definite* provider failure is a first-class `failed` result,
+     surfaced — never a silent success. But a **lost response or stream is not a
+     definite failure**: HarnessRouter may have accepted the request and the
+     remote harness may still be running shell/fs/git. Marking that terminal
+     `failed` is not failing closed — it misreports the ledger and a naive retry
+     duplicates side effects. So every dispatch carries a stable **idempotency
+     key** across the seam, and an ambiguous outcome is recorded as
+     **indeterminate** (not `failed`) and must be **reconciled or cancelled**
+     against that key before it is declared terminal; a retry re-uses the key so
+     the harness de-duplicates rather than re-executing.
    - **No raw tenant PII crosses the seam.** Context and files pass by reference;
      secrets pass as resolver references (`vault:…`, `$headers.…`) resolved at
      the composition root — Core never holds the secret value.
@@ -59,9 +71,20 @@ optimization, managed workspaces) but the integration must be bounded.
      autonomy level, budget ceiling, tool/data scope, and tenant isolation the
      authorized command carries — nothing wider. High-blast-radius shell/fs/git
      execution is governed like any other execution, not exempt from it.
-   - **Governed rollout.** A harness is enabled behind a `FeatureGate` kill-
-     switch (`harness.<id>.enabled`) and its harness×model choices are measured
-     through the decision-engine experiment + shadow calibration (ADR-009) and
+   - **Runner egress is deny-by-default.** All outbound network from the Runner
+     is denied or explicitly allow-listed by the `aion-infra` network policy
+     (the model provider host, and nothing else unless a task's tools require a
+     named destination). Model traffic is not assumed to be the only egress; the
+     shell/tools/CLIs are treated as capable of arbitrary outbound requests and
+     confined accordingly.
+   - **Governed rollout, fail-closed activation.** A harness is enabled behind a
+     kill-switch (`harness.<id>.enabled`). Because it gates dispatch to an
+     untrusted, high-blast-radius executor, this activation check is
+     **fail-closed** — deny-by-default: a flag-lookup timeout or outage (or an
+     activated kill-switch) leaves the harness **disabled**, the opposite of the
+     fail-open `FeatureGate` posture used for ordinary governed work. Prefer a
+     locally cached last-known state that defaults to disabled. Harness×model
+     choices are measured through the decision-engine experiment (ADR-009) and
      the PostHog `DecisionRecord` mirror (ADR-010) before promotion.
 
 4. **We treat HarnessRouter as an untrusted execution dependency.** Self-host in
@@ -119,10 +142,18 @@ optimization, managed workspaces) but the integration must be bounded.
   `harnessId` from `metadata`/`toolId`, overridable for capability/risk/
   experiment routing; fails closed).
 - **Pilot next:** a UHP/HarnessRouter-backed provider at the composition root
-  (runtime / action-engine), one task class in shadow/canary behind
-  `harness.<id>.enabled`, measured against outcomes before promotion. Prove the
-  cost/latency claims on our own task classes — the upstream benchmark numbers
-  are task-dependent by their own methodology.
+  (runtime / action-engine), one task class behind `harness.<id>.enabled`,
+  measured against outcomes before promotion. Prove the cost/latency claims on
+  our own task classes — the upstream benchmark numbers are task-dependent by
+  their own methodology.
+  - **"Shadow" here is not ADR-009 shadow.** ADR-009 shadow is record-only — the
+    decision engine computes but never acts. A harness *executes* real
+    shell/fs/git, so running one "in shadow" on a live command would duplicate
+    its side effects (a second CRM write, message, deployment, or repo
+    mutation). So: shadow-compare harnesses only on an **isolated,
+    read-only/eval task class** (no external writes), and for side-effectful
+    commands use **canary-only** — a single, governed, real execution on the new
+    harness for a slice of traffic, never a duplicate alongside the incumbent.
 - Do not send governed-decision authority through a harness; the `PolicyEngine`
   authorizes, the harness executes.
 
