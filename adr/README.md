@@ -75,3 +75,4 @@ prematurely.** Record the required capability and defer:
 | [ADR-006](ADR-006-agent-trust-score.md) | Agent Trust Score (Execution Contract) | Accepted |
 | [ADR-007](ADR-007-observe-assist-execute-tiers.md) | Observe / Assist / Execute Action Tiers | Accepted |
 | [ADR-008](ADR-008-authority-and-provenance-primitives.md) | Authority and Provenance Primitives | Accepted |
+| [ADR-009](ADR-009-decision-plane.md) | Decision Plane (System-One Judgments) | Accepted |
