@@ -76,3 +76,4 @@ prematurely.** Record the required capability and defer:
 | [ADR-007](ADR-007-observe-assist-execute-tiers.md) | Observe / Assist / Execute Action Tiers | Accepted |
 | [ADR-008](ADR-008-authority-and-provenance-primitives.md) | Authority and Provenance Primitives | Accepted |
 | [ADR-009](ADR-009-decision-plane.md) | Decision Plane (System-One Judgments) | Accepted |
+| [ADR-010](ADR-010-posthog-analytics-plane.md) | Adopt PostHog as the Analytics / Experimentation Plane | Accepted |
