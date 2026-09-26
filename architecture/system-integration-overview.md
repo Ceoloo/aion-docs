@@ -68,23 +68,24 @@ flowchart TD
 
 | # | Disconnect | Fix |
 |---|---|---|
-| F1 | **Four different `@aion/core` contract surfaces.** Data pinned `0c58a7c` (side branch), Runtime `72294ec` (reachable from *no* branch — a fresh clone could stop resolving it once GitHub GCs it), Products `5ea731a` (Phase 1, 12 commits behind). | Landed the missing contracts (ImplementationCase, Secure Automation, M009 Phase A 15-key catalog, `inactive` service status) on core main lineage → `6993013`; all consumers pin it. Lock recorded in [`../releases/platform-contract-lock.json`](../releases/platform-contract-lock.json). |
-| F2 | **Forked schema lineage.** Runtime vendored Data from a side branch whose `0009/0010` (implementation cases) collided with main's `0009/0010` (revenue sessions, tenant RLS), patched at install time by an overlay script. | Implementation cases landed on Data main as `0011/0012`, `0013` mirrors the core enum; overlay script deleted; Runtime pins Data `b49deec`. |
+| F1 | **Four different `@aion/core` contract surfaces.** Data pinned `0c58a7c` (side branch), Runtime `72294ec` (reachable from *no* branch — a fresh clone could stop resolving it once GitHub GCs it), Products `5ea731a` (Phase 1, 12 commits behind). | Landed the missing contracts (ImplementationCase, Secure Automation, M009 Phase A 15-key catalog, `inactive` service status) on core main lineage → `52ecf40`; all consumers pin it. Lock recorded in [`../releases/platform-contract-lock.json`](../releases/platform-contract-lock.json). |
+| F2 | **Forked schema lineage.** Runtime vendored Data from a side branch whose `0009/0010` (implementation cases) collided with main's `0009/0010` (revenue sessions, tenant RLS), patched at install time by an overlay script. | Implementation cases landed on Data main as `0011/0012`, `0013` mirrors the core enum; overlay script deleted; Runtime pins Data `5da145a`. |
 | F3 | Existing pilot DB migrated on the forked lineage would fail the migrate job (checksum mismatch) on any re-pin. | `reconcileLegacyMigrationLineage` relabels the exact legacy `(version,name)` rows in one transaction (no DDL re-run) + test. |
 | F4 | `aion-action-engine` published a package named **`@aion/core`**, shadowing the canonical kernel. | Renamed to `@aion/action-core`. |
 | F5 | Docs drew `core → data`; code (correctly) is `data → core` (ports & adapters). | [dependency-rules.md](../repositories/dependency-rules.md), repo README and `.aion` map corrected. |
 | F6 | `aion-action-engine` absent from ownership docs. | [repositories/aion-action-engine.md](../repositories/aion-action-engine.md). |
+| F7 | **Tenant RLS vs Runtime.** Data `0010` ENABLEs RLS on `executions`, `approvals`, `autonomy_grants`; ENABLE already binds the non-owner `aion_app`, and Runtime never set `aion.tenant_id` — every tenant write failed. Core also created approvals tenant-less and stamped them afterwards. | Data: `DataLayerConfig.tenantContext` + `TenantScopedPool` set `aion.tenant_id` on every query/transaction. Runtime: AsyncLocalStorage request tenant (principal-authorised header, re-bound to the durable agent's tenant). Core: approvals stamped with tenant + execution at creation. |
 
-Verification: core 201/201 tests + lint/typecheck/build; data 91/91 tests on
-real Postgres 16; runtime typecheck + gateway 92/92 + proof-safety 14/14 +
-AIO-17 fixtures 14/14 + migrate job 13/13; products typecheck + 79/79;
-action-engine build/typecheck/tests green.
+Verification: core 203/203 + lint/typecheck/build; data 94/94 on real
+Postgres 16 (incl. a non-owner NOBYPASSRLS role); runtime on the real
+`aion_migrator`/`aion_app` split — `proof:revenue-workflow` A–J green across a
+restart, mission003 attack suite 16/16, boot smoke, gateway 42/42,
+proof-safety 92/92, AIO-17 fixtures 14/14; products 79/79; action-engine green.
 
 ### Open (needs a decision or a larger change)
 
 | # | Gap | Impact |
 |---|---|---|
-| O1 | **Tenant RLS vs Runtime.** Data `0010` *enables* RLS on `executions`, `approvals`, `autonomy_grants`. Because `aion_app` is not the table owner, `ENABLE` already applies to it (FORCE only matters for owners), and Runtime never sets `aion.tenant_id`. The durable revenue-workflow proof fails on the new pin ("failed to save execution") — most likely this. | **Blocks deploying the new Runtime pin.** Fix forward: Runtime sets `aion.tenant_id` per request-scoped transaction (ADR-005 follow-on). |
 | O2 | **Two Revenue Copilots.** `AION-Sys/Ceoloo-aion-revenue-copilot` (+ `aion-software-factory` process) is active, uses its own Supabase entities and a completion proxy, never the Execution Gateway; ADR-001 calls AION-Sys legacy. | Duplicated canonical entities (lead/outcome) and ungoverned writes. Needs a carry-forward ADR: absorb, bridge to Runtime, or retire. |
 | O3 | Action Engine approvals/execution run outside the Gateway on SQLite. | Parallel approval semantics; outcomes not canonical. Bridge per [aion-action-engine.md](../repositories/aion-action-engine.md). |
 | O4 | Pins are hand-maintained in three scripts. | Drift will recur. Add a CI check that each consumer's pin equals the lock. |
@@ -95,9 +96,11 @@ action-engine build/typecheck/tests green.
 1. **Merge the alignment in dependency order** — core → data → runtime →
    products → action-engine → docs — using merge commits (not squash) so the
    pinned SHAs stay reachable, or re-pin to the merge commits and update the lock.
-2. **Close O1**: set `aion.tenant_id` in Runtime per request transaction, then
-   re-run `proof:revenue-workflow`, `proof:mission003` (tenant attack suite)
-   and `certify:platform-v020`. Only then publish a new runtime digest.
+2. **Certify and publish**: run `certify:platform-v020` on the merged tip, then
+   publish a new runtime digest. Note: with tenant RLS live, rows with a NULL
+   `tenant_id` in `executions`/`approvals`/`autonomy_grants` are invisible to
+   tenant-scoped requests — audit the pilot DB for such legacy rows and
+   backfill before cut-over.
 3. **Staging rehearsal of the migrate job against a copy of the pilot DB** to
    prove F3 reconciliation on real history; record the digest + SHA.
 4. **Finish Track A go-live** ([../roadmap/production-golive.md](../roadmap/production-golive.md)):

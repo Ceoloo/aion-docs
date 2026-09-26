@@ -3,23 +3,27 @@
   "recordedAt": "2026-09-26",
   "status": "proposed — on claude/aion-architecture-audit-ccq3bs branches; re-record after merge to main",
   "aion-core": {
-    "commit": "699301357259593545ba8bf445e966389f7b1843",
+    "commit": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157",
     "branch": "claude/aion-architecture-audit-ccq3bs",
-    "summary": "main (660b97d) + ImplementationCase, Secure Automation, M009 Phase A catalog (15 keys), ServiceStatus 'inactive'"
+    "summary": "main (660b97d) + ImplementationCase, Secure Automation, M009 Phase A catalog (15 keys), ServiceStatus 'inactive'; Orchestrator stamps tenant + execution on approvals at creation; MissionRunInput.tenantId"
   },
   "aion-data": {
-    "commit": "b49deecf1abd8b72d21adc3bbd180ac235676f5d",
+    "commit": "5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4",
     "branch": "claude/aion-architecture-audit-ccq3bs",
     "migrations": "0001-0013",
-    "summary": "main (4ad6d2b) + implementation_cases (0011/0012) + services.status inactive (0013) + legacy-lineage reconciliation"
+    "summary": "main (4ad6d2b) + implementation_cases (0011/0012) + services.status inactive (0013) + legacy-lineage reconciliation; tenant-scoped connections (DataLayerConfig.tenantContext) for tenant RLS"
   },
   "consumers": {
-    "aion-data/scripts/setup-core.mjs": { "CORE_REF": "699301357259593545ba8bf445e966389f7b1843" },
-    "aion-runtime/scripts/setup-deps.mjs": {
-      "CORE_REF": "699301357259593545ba8bf445e966389f7b1843",
-      "DATA_REF": "b49deecf1abd8b72d21adc3bbd180ac235676f5d"
+    "aion-data/scripts/setup-core.mjs": {
+      "CORE_REF": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157"
     },
-    "aion-products/scripts/setup-core.sh": { "CORE_SHA": "699301357259593545ba8bf445e966389f7b1843" }
+    "aion-runtime/scripts/setup-deps.mjs": {
+      "CORE_REF": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157",
+      "DATA_REF": "5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4"
+    },
+    "aion-products/scripts/setup-core.sh": {
+      "CORE_SHA": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157"
+    }
   },
   "supersedes": {
     "aion-data CORE_REF": "0c58a7c (cursor/* side branch)",
