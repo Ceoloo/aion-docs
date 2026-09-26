@@ -13,7 +13,7 @@ flowchart TD
     PROD --> DATA["aion-data"]
     RUNTIME["aion-runtime"] --> CORE
     RUNTIME --> DATA
-    CORE --> DATA
+    DATA -- "implements ports" --> CORE
     CORE -. runs on .-> INFRA["aion-infra"]
     DATA -. runs on .-> INFRA
     RUNTIME -. runs on .-> INFRA
@@ -25,8 +25,8 @@ flowchart TD
 | From ↓ / May depend on → | docs | core | data | runtime | infra | products |
 |---|---|---|---|---|---|---|
 | **aion-docs** | — | no | no | no | no | no |
-| **aion-core** | governed by | — | **yes** | no | runtime only | **no** |
-| **aion-data** | governed by | **no** | — | no | runtime only | **no** |
+| **aion-core** | governed by | — | **no** | no | runtime only | **no** |
+| **aion-data** | governed by | **yes** (contracts + ports) | — | no | runtime only | **no** |
 | **aion-runtime** | governed by | **yes** | **yes** | — | runtime only | **no** |
 | **aion-infra** | governed by | no | no | image only | — | no |
 | **aion-products** | governed by | **yes** | **yes** | no | runtime only | — |
@@ -36,11 +36,29 @@ as a code dependency. "Image only" means `aion-infra` builds and deploys
 `aion-runtime`'s container image; it does **not** import runtime code — so no
 cycle is created (see [ADR-002](../adr/ADR-002-runtime-host-ownership.md)).
 
+> **Correction (2026-09-26 integration audit):** earlier revisions drew
+> `core → data`. The implemented, intended direction is `data → core`: `@aion/core`
+> has no database dependency and defines ports (`RunRepository`,
+> `EventSink`, `ApprovalStore`, …); `@aion/data` builds against the real
+> `@aion/core` and implements those ports in Postgres.
+
+### One contract surface (pin lock)
+
+`@aion/core` and `@aion/data` are not published to a registry; consumers
+vendor them at pinned commits. **Every consumer must pin the same core commit**
+(and runtime the matching data commit), or the system silently runs several
+diverged contract surfaces. The current lock is recorded in
+[`../releases/platform-contract-lock.json`](../releases/platform-contract-lock.json);
+bump it and all pins together, as one reviewed change, and only to commits
+reachable from a branch (never a dangling SHA).
+
 ## Hard rules
 
-1. **Dependencies flow downward, never upward.** Products depend on core and
-   data; core depends on data. **Core never depends on products; data never
-   depends on core or products.**
+1. **Dependencies flow downward, never upward.** Products and runtime depend on
+   core and data. **Data depends on core's contracts and persistence ports and
+   implements them (ports & adapters); core never imports data** — core stays
+   vendor- and database-agnostic, and the runtime composition root injects
+   data's adapters into core. **Nothing depends on products.**
 2. **No cycles.** If two repositories need each other, a boundary is wrong —
    resolve it with an ADR, don't add a back-edge.
 3. **aion-docs has no code dependencies and is not depended on in code.** It

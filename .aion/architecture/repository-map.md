@@ -13,11 +13,13 @@ Canon details: [`../../repositories/`](../../repositories/).
 | `aion-infra` | VPS/AWS/GCP profiles, deployment contract, policies | Infra, Security |
 | `aion-products` | Revenue Copilot engines, CLI, web console, workforce-control | Product, Frontend, AI |
 | `aion-desks` | Next.js Stripe landing for Operator/Everyday Desk | Product, Frontend, Integrations |
+| `aion-action-engine` | Action Queue + Decision Plane (`@aion/decision-engine`); satellite | Product, AI, Runtime |
 
 ## Dependency direction (hard)
 
 ```
-products → core → data
+products → core ← data   (data implements core ports)
+products → data
 runtime  → core + data
 infra deploys runtime image (no code cycle)
 docs governs; not imported as code

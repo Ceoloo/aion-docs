@@ -1,0 +1,30 @@
+{
+  "$comment": "Single contract surface for the AION platform. Every consumer pins exactly these commits. Bump all pins together in one reviewed change; pins must be reachable from a branch. See repositories/dependency-rules.md#one-contract-surface-pin-lock.",
+  "recordedAt": "2026-09-26",
+  "status": "proposed — on claude/aion-architecture-audit-ccq3bs branches; re-record after merge to main",
+  "aion-core": {
+    "commit": "699301357259593545ba8bf445e966389f7b1843",
+    "branch": "claude/aion-architecture-audit-ccq3bs",
+    "summary": "main (660b97d) + ImplementationCase, Secure Automation, M009 Phase A catalog (15 keys), ServiceStatus 'inactive'"
+  },
+  "aion-data": {
+    "commit": "b49deecf1abd8b72d21adc3bbd180ac235676f5d",
+    "branch": "claude/aion-architecture-audit-ccq3bs",
+    "migrations": "0001-0013",
+    "summary": "main (4ad6d2b) + implementation_cases (0011/0012) + services.status inactive (0013) + legacy-lineage reconciliation"
+  },
+  "consumers": {
+    "aion-data/scripts/setup-core.mjs": { "CORE_REF": "699301357259593545ba8bf445e966389f7b1843" },
+    "aion-runtime/scripts/setup-deps.mjs": {
+      "CORE_REF": "699301357259593545ba8bf445e966389f7b1843",
+      "DATA_REF": "b49deecf1abd8b72d21adc3bbd180ac235676f5d"
+    },
+    "aion-products/scripts/setup-core.sh": { "CORE_SHA": "699301357259593545ba8bf445e966389f7b1843" }
+  },
+  "supersedes": {
+    "aion-data CORE_REF": "0c58a7c (cursor/* side branch)",
+    "aion-runtime CORE_REF": "72294ec (reachable from no branch)",
+    "aion-runtime DATA_REF": "60ff3d2 (cursor/* side branch) + vendor-revenue-sessions overlay",
+    "aion-products CORE_SHA": "5ea731a (Phase 1 kernel, 12 commits behind main)"
+  }
+}
