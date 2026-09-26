@@ -7,6 +7,7 @@ Machine-readable evidence for immutable / release-candidate platform tags.
 | `execution-platform-v0.1.0` | immutable freeze | [execution-platform-v0.1.0.manifest.json](./execution-platform-v0.1.0.manifest.json) |
 | `execution-platform-v0.2.0-rc1` | release candidate | [execution-platform-v0.2.0-rc1.manifest.json](./execution-platform-v0.2.0-rc1.manifest.json) |
 | `execution-platform-m006-complete` | integration baseline | [execution-platform-m006-complete.manifest.json](./execution-platform-m006-complete.manifest.json) |
+| — | cross-repo pin lock | [platform-contract-lock.json](./platform-contract-lock.json) — the one core/data commit every consumer pins |
 
 ## Rules
 

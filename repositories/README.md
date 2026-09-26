@@ -19,7 +19,7 @@ flowchart TD
     PROD["aion-products<br/>customer & internal products"]
 
     DOCS -.governs.-> CORE & DATA & RUNTIME & INFRA & PROD
-    CORE --> DATA
+    DATA -- implements ports --> CORE
     RUNTIME --> CORE
     RUNTIME --> DATA
     PROD --> CORE
@@ -40,11 +40,23 @@ flowchart TD
 | **aion-infra** | Cloud infrastructure and environments. | [aion-infra.md](aion-infra.md) |
 | **aion-products** | Products built on the platform. | [aion-products.md](aion-products.md) |
 
-### Workspace satellite (ADR-004)
+### Workspace satellites
 
 | Repository | Role | Detail |
 |---|---|---|
-| **aion-desks** | Desk commerce landing / Stripe checkout — product surface only | [aion-desks.md](aion-desks.md) |
+| **aion-desks** | Desk commerce landing / Stripe checkout — product surface only ([ADR-004](../adr/ADR-004-aion-desks-repo-ownership.md)) | [aion-desks.md](aion-desks.md) |
+| **aion-action-engine** | Action Queue (Signal → Action → Approval → Outcome) + the Decision Plane `@aion/decision-engine` ([ADR-009](../adr/ADR-009-decision-plane.md)) — operational module, not a control plane | [aion-action-engine.md](aion-action-engine.md) |
+
+### Outside the canonical set (AION-Sys, unresolved)
+
+`AION-Sys/aion-software-factory` and `AION-Sys/Ceoloo-aion-revenue-copilot`
+are **actively developed** but sit in the organization
+[ADR-001](../adr/ADR-001-greenfield-reset.md) declared legacy. The copilot
+runs its own Supabase schema (leads, calls, outcomes) and an OpenAI-style
+completion proxy — it does **not** go through the Runtime Execution Gateway
+and duplicates `aion-products`' Revenue Copilot. This needs an explicit
+carry-forward ADR (absorb, bridge, or retire). See
+[../architecture/system-integration-overview.md](../architecture/system-integration-overview.md).
 
 **[ADR-004 (Accepted)](../adr/ADR-004-aion-desks-repo-ownership.md):** `aion-desks`
 is a **permanent product-commerce satellite** outside the six-repo platform set.
