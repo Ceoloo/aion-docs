@@ -75,6 +75,11 @@ SECURITY CONSIDERATIONS:
   - Tenant + data-class declared on every production adapter path
   - Copilot remains internal-only until authenticated
 STATUS:                  IN PROGRESS — Products #44 merged (06eedbf9, main CI green);
-                         awaiting pinned Runtime #57 deploy + Annfiera cleanup + live GE-001
-HANDOFF:                 See roadmap/governed-execution-certify.md ordered steps
+                         next: authorized maintainer deploy-vps for Runtime #57
+HANDOFF:                 Production maintainer — §1.2 in
+                         roadmap/governed-execution-certify.md (dispatch inputs +
+                         capture fields). Do not bypass deploy-vps 403. After
+                         serving identity + Annfiera cleanup, run GE-001; keep
+                         payment outside attributed cash; provider expense
+                         UNVERIFIED unless priced.
 ```

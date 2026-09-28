@@ -63,7 +63,8 @@
     "servingImageDigest": null,
     "priorRollbackDigest": null,
     "verifiedAt": null,
-    "verifiedBy": null
+    "verifiedBy": null,
+    "deployWorkflowUrl": null
   },
   "preflightBlockers": [
     "Deploy Runtime tip 20fe3a4 (#57) via infra deploy-vps; pin digest sha256:f7041f41\u2026; verify health/ready git_sha == 20fe3a4",
@@ -95,7 +96,8 @@
     "Do not mark result PASS until productionIdentity is filled and GE-001 acceptance evidence pack exists.",
     "Promote to a named immutable tag only after PASS.",
     "Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.",
-    "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS."
+    "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS.",
+    "Maintainer handoff recorded: deploy-vps from Infra main only; 403 is an access boundary."
   ],
   "observedProduction": {
     "checkedAt": "2026-09-28T21:45:00Z",
@@ -109,5 +111,29 @@
       "crm_backend": "live"
     },
     "note": "Serving git_sha is ancestor of 20fe3a4 (#54 tip) and does NOT include #57. Last Infra-documented digest remains Sep 22 10de0663/e3fef42f\u2026; live health now reports 49cff4e3. Prior rollback digest for next deploy must be captured from deploy.sh output / docker inspect at deploy time."
+  },
+  "nextOwner": {
+    "role": "authorized production maintainer",
+    "action": "Review candidate digest + migration/rollback compatibility; dispatch deploy-vps from Infra main; obtain production Environment review",
+    "workflow": "https://github.com/Ceoloo/aion-infra/blob/main/.github/workflows/deploy-vps.yml",
+    "dispatch": {
+      "environment": "production",
+      "runtime_image": "ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+      "git_sha": "20fe3a435dab5f12175ae03998ad709398ce931d",
+      "ref": "main"
+    },
+    "accessBoundary": "HTTP 403 on workflow_dispatch from unauthorized tokens is expected \u2014 do not work around",
+    "afterDeployCapture": [
+      "workflow run URL + conclusion",
+      "serving image digest",
+      "prior rollback digest",
+      "/health/ready git_sha (must be 20fe3a4\u2026)"
+    ],
+    "then": [
+      "Authorized GHL operator removes identified Annfiera synthetic note and records cleanup",
+      "Only then run GE-001 on a fresh real record",
+      "Keep existing Annfiera payment outside attributed cash",
+      "Provider expense UNVERIFIED unless priced charges exist"
+    ]
   }
 }

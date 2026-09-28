@@ -42,12 +42,57 @@ Ordered gates. Do not skip ahead to a live write until 1.1–1.4 are closed.
 
 ### 1.2 Deploy Runtime tip including synthetic boundary
 
-- [ ] Build/boot-certify Runtime image from `20fe3a4` or later tip that includes
-      [#57](https://github.com/Ceoloo/aion-runtime/pull/57)
-- [ ] Deploy via Infra `deploy.sh` with digest pin
-- [ ] Verify `GET /health/ready` `git_sha` matches deployed SHA
-- [ ] Record Runtime image digest + SHA in the release manifest
-- [ ] Confirm previous digest rollback path still known
+**Owner:** authorized production maintainer (Infra `deploy-vps` + production
+Environment reviewer). Cloud agents and read-only GitHub tokens hit HTTP 403 on
+workflow_dispatch — that is an access boundary; **do not work around it**.
+
+Candidate image (CI-published for Runtime `#57` / `20fe3a4`):
+
+```text
+ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc
+git_sha: 20fe3a435dab5f12175ae03998ad709398ce931d
+```
+
+Observed serving before this deploy (2026-09-28): `/health/ready` →
+`git_sha=49cff4e3bd1e48ed8a43414c8191ff30a28d00be` (behind `#57`).
+
+Maintainer sequence:
+
+1. Review candidate digest against migration set and previous-image × new-schema
+   rollback compatibility.
+2. From **Infra `main`**, dispatch [`deploy-vps`](https://github.com/Ceoloo/aion-infra/blob/main/.github/workflows/deploy-vps.yml)
+   and obtain the **production** Environment review:
+
+```bash
+gh workflow run deploy-vps.yml --repo Ceoloo/aion-infra   --ref main   -f environment=production   -f runtime_image='ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc'   -f git_sha='20fe3a435dab5f12175ae03998ad709398ce931d'
+```
+
+3. After the workflow completes, capture into
+   `releases/governed-execution-candidate.manifest.json` (keep `result: UNVERIFIED`
+   until live GE-001 PASS):
+
+| Capture | Source |
+|---|---|
+| Workflow run URL + conclusion | GitHub Actions `deploy-vps` |
+| Serving image digest | deploy.sh / workflow summary |
+| Prior rollback digest | deploy.sh (“previous runtime”) / `docker inspect` before roll |
+| `/health/ready` `git_sha` | Must equal `20fe3a4…` |
+
+Checklist:
+
+- [x] Build/boot-certify Runtime image including [#57](https://github.com/Ceoloo/aion-runtime/pull/57)
+      — CI run [36385472906](https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906); digest `f7041f41…`
+- [ ] Maintainer reviews candidate digest + migration/rollback compatibility
+- [ ] Dispatch `deploy-vps` from Infra `main` + production Environment approval
+- [ ] Workflow result recorded (URL + conclusion)
+- [ ] Serving digest recorded
+- [ ] Prior rollback digest recorded
+- [ ] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
+
+> **Gate:** do not start §1.3 until §1.2 serving identity is verified.
+> **Gate:** do not start §1.4 (GE-001) until §1.3 cleanup is recorded.
+> Existing Annfiera payment stays outside GE-001 attributed cash. Provider
+> expense stays `UNVERIFIED` unless backed by actual priced charges.
 
 ### 1.3 Close the contamination incident (CRM cleanup)
 
