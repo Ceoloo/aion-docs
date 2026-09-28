@@ -11,7 +11,8 @@ assigns ownership, branches, and acceptance for implementation work.
 | File | Purpose |
 |---|---|
 | [TEMPLATE.md](TEMPLATE.md) | Copy for each agent-owned implementation mission |
-| [RES-001-model-provider-contract.md](RES-001-model-provider-contract.md) | RESEARCH — model-provider contract (research slice) |
+| [RES-001-model-provider-contract.md](RES-001-model-provider-contract.md) | RESEARCH — model-provider contract (research + prototype) |
+| [RES-002-friday-production-brief.md](RES-002-friday-production-brief.md) | RESEARCH — industry brief → GOVERNED EXECUTION certify-first |
 | This README | How agent missions relate to product missions |
 
 ## Rules
