@@ -32,10 +32,13 @@ Ordered gates. Do not skip ahead to a live write until 1.1–1.4 are closed.
 
 ### 1.1 Unblock Products releasability
 
-- [ ] Merge Products [#44](https://github.com/Ceoloo/aion-products/pull/44)
-      (CI green / MERGEABLE as of assessment)
-- [ ] Confirm Products `main` CI green after merge
-- [ ] Record Products SHA in the release manifest
+- [x] Merge Products [#44](https://github.com/Ceoloo/aion-products/pull/44)
+      — merged 2026-09-28T21:45:04Z as `06eedbf9a889ef2c0c721f102baf8c255a36221c`
+- [x] Confirm Products `main` CI green after merge
+      — [CI run 36488161210](https://github.com/Ceoloo/aion-products/actions/runs/36488161210) success
+      (typecheck, web console, WCC, synthetic eval, COPILOT_IMAGE)
+- [x] Record Products SHA in the release manifest
+      — `releases/governed-execution-candidate.manifest.json` (`result` still UNVERIFIED)
 
 ### 1.2 Deploy Runtime tip including synthetic boundary
 

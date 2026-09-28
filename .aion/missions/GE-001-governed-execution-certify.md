@@ -26,7 +26,7 @@ ACCEPTANCE CRITERIA:
   Order (do not reorder): green Products main → deploy+identify Runtime
   digest → clean only the identified Annfiera note (preserve incident
   ledger) → GE-001 on a fresh real record.
-  1. Products #44 merged; Products main CI green
+  1. Products #44 merged; Products main CI green — DONE (06eedbf9 / run 36488161210)
   2. Cross-repo release manifest published with Runtime image digest+SHA,
      Core/Data pins, migration set, Products SHA, Infra SHA, verified
      production identity (health/ready git_sha matches)
@@ -74,6 +74,7 @@ SECURITY CONSIDERATIONS:
   - Synthetic→live boundary must be live-proven
   - Tenant + data-class declared on every production adapter path
   - Copilot remains internal-only until authenticated
-STATUS:                  DEFINED — awaiting Products #44 merge + pinned deploy
+STATUS:                  IN PROGRESS — Products #44 merged (06eedbf9, main CI green);
+                         awaiting pinned Runtime #57 deploy + Annfiera cleanup + live GE-001
 HANDOFF:                 See roadmap/governed-execution-certify.md ordered steps
 ```
