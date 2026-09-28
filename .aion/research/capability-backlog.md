@@ -14,8 +14,9 @@ RESEARCH. Not a commit to build — a queue to investigate.
 | **6** | **OTLP export seam** (CloudWatch Omni-class backends) | AWS Omni validates evals-as-telemetry; AION spine is business-ID not OTEL spans | Infra ADR + exporter only; never vendor SDK in Core/Runtime | **Defer until GOVERNED EXECUTION PASS + ADR** |
 | **7** | **Skills registry / SkillManifest** | GitHub workflow study; Skills conceptual in AI engineer card only | Would fail platformization (one consumer); Workflow + Service Catalog suffice | **Kill until second product consumer** |
 | **8** | **Learning loop / memory kinds** ([AIO-15](https://linear.app/aion-empire/issue/AIO-15/implement-aion-governance-memory-learning-observability-and-economic)) | Six data kinds defined; Phase 6 needs real outcomes | Docs + schema spikes only | **Defer** until OL produces durable outcomes |
-| **9** | **Adaptive / bandit routing** | Explicit **non-goal** of Mission 007 | Would require new mission + eval harness | **Kill until** live model I/O sample depth |
-| **10** | **Frontier / experimental compute** | Portfolio ≤10%; stubs until proof domains earned | `/06-frontier` budget-capped | **Out of scope** for Systems P0 |
+| **9** | **Workforce migration pattern** (AIO-12 / AIO-13) | Legacy products exist outside six-repo canon; greenfield reset forbids silent import | Paper migration map + one thin capability registration PoC | Research **pattern** only; Product/Architect own migration missions |
+| **10** | **Adaptive / bandit routing** | Explicit **non-goal** of Mission 007 | Would require new mission + eval harness | **Kill until** live model I/O sample depth |
+| **11** | **Frontier / experimental compute** | Portfolio ≤10%; stubs until proof domains earned | `/06-frontier` budget-capped | **Out of scope** for Systems P0 |
 
 ## Scoring rubric (for new entries)
 

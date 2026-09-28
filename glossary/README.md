@@ -25,6 +25,9 @@ per term, consistent with [explicit ownership](../governance/authority-model.md)
 | **Human gate** | A runtime pause where a human must approve before a sensitive action proceeds. Fails safe. |
 | **Risk level** | Classification (R0–R3) that drives autonomy, gating, and observation. |
 | **Permission** | An explicit, owned grant of allowed tools/data/actions to an identity. Least privilege. |
+| **Action Tier** | Product vocabulary — Observe / Assist / Execute — projecting onto Autonomy L0–L4 + policy. Not a second autonomy ladder. |
+| **Autonomy level** | Platform ladder L0–L4 (Observe → bounded autonomy). Distinct from platform-maturity L0–L5. |
+| **Agent Trust Score** | Per-execution trust judgment: task completion, tool correctness, permission compliance, human-gate compliance, cost. |
 | **Agent** | A governed worker with an explicit specification (ID, owner, scope, forbidden actions, cost controls, evals, observability). Not a free-roaming personality. |
 | **Canonical owner** | The single repository/team accountable for defining and changing a given entity, contract, or artifact. |
 

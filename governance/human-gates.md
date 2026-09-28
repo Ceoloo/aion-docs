@@ -61,6 +61,10 @@ removed so that low-risk work executes autonomously **within policy** (maturity
 L4). High-risk gates do not disappear with maturity. See
 [../roadmap/platform-maturity.md](../roadmap/platform-maturity.md).
 
+Action Tier **Execute** still requires R3 gates for financial/destructive work —
+see [action-tiers.md](action-tiers.md). Gate outcomes feed the
+[Agent Trust Score](agent-trust-score.md) `humanGateCompliance` dimension.
+
 ## Invariants
 
 - **High-risk actions are gated by default.**

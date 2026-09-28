@@ -21,6 +21,7 @@ It defines architecture and contracts — not implementation.
 | [observability.md](observability.md) | The traceability model for every action. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
 | [environments.md](environments.md) | Environment isolation and promotion. |
+| [system-integration-overview.md](system-integration-overview.md) | **As-built wiring** of layers → repos, audit findings, next steps to production (2026-09-26). |
 
 ## Reading order
 

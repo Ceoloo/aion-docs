@@ -35,12 +35,16 @@ MEASURED OUTCOME           ← Data + Product + learning loop
 ├── TEAM.md                   ← responsibility matrix + chat conventions
 ├── agents/                   ← specialist role cards + starter prompts
 ├── standards/                ← Cursor-facing engineering rules (links to canon)
+├── skills/                   ← skill router (taste / impeccable / ui-ux-pro-max / engineering)
 ├── architecture/             ← system + repository maps for fast orientation
-├── audits/                   ← reliability / QA posture snapshots
+├── audits/                   ← reliability / QA / frontend redesign plans
 ├── missions/                 ← agent-mission template (execution overlay)
 ├── handoffs/                 ← cross-agent dependency protocol
 └── research/                 ← RESEARCH desk: briefs, backlog, PoC pointers
 ```
+
+Installed agent skills also live at repo root `.agents/skills/` and
+`.cursor/skills/` (see [skills/README.md](skills/README.md)).
 
 **Canonical repos in this Cursor workspace**
 

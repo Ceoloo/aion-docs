@@ -71,4 +71,10 @@ prematurely.** Record the required capability and defer:
 | [ADR-002](ADR-002-runtime-host-ownership.md) | Runtime Host Ownership | Accepted |
 | [ADR-003](ADR-003-execution-gateway-into-runtime.md) | Reconcile Execution Gateway into Runtime | Accepted |
 | [ADR-004](ADR-004-aion-desks-repo-ownership.md) | `aion-desks` Repository Ownership | Accepted |
-- [ADR-005: Runtime Identity Plane (Authn → Authz)](./ADR-005-runtime-identity-plane.md)
+| [ADR-005](ADR-005-runtime-identity-plane.md) | Runtime Identity Plane (Authn → Authz) | Accepted |
+| [ADR-006](ADR-006-agent-trust-score.md) | Agent Trust Score (Execution Contract) | Accepted |
+| [ADR-007](ADR-007-observe-assist-execute-tiers.md) | Observe / Assist / Execute Action Tiers | Accepted |
+| [ADR-008](ADR-008-authority-and-provenance-primitives.md) | Authority and Provenance Primitives | Accepted |
+| [ADR-009](ADR-009-decision-plane.md) | Decision Plane (System-One Judgments) | Accepted |
+| [ADR-010](ADR-010-posthog-analytics-plane.md) | Adopt PostHog as the Analytics / Experimentation Plane | Accepted |
+| [ADR-011](ADR-011-harness-execution-seam.md) | Adopt UHP / HarnessRouter as the Harness-Execution Seam | Accepted |
