@@ -51,9 +51,11 @@ Ordered gates. Do not skip ahead to a live write until 1.1–1.4 are closed.
 Follow
 [`aion-runtime` incident](https://github.com/Ceoloo/aion-runtime/blob/main/docs/incidents/2026-09-27-ol001-synthetic-crm-write.md):
 
-- [ ] Delete only the synthetic Annfiera note
+- [ ] Delete **only** the identified synthetic Annfiera note
 - [ ] Append provider note id, UTC time, operator identity, contact id as SHA-256
 - [ ] Leave OL-001 mission / executions / approvals / side-effect ledger intact
+- [ ] Do **not** touch or re-attribute any existing Annfiera payment — it
+      predates GE-001 and stays outside this acceptance run’s attributed outcome
 
 ### 1.4 Live GOVERNED EXECUTION acceptance (fresh record)
 
@@ -68,7 +70,7 @@ Pass bar:
 |---|---|---|
 | 1 | Explicit authority envelope (principal + agent + caps/resources + risk max + spend/time + expires) | Mission + grant records |
 | 2 | Task-scoped capabilities only | Agent registry + authorization audit |
-| 3 | Agent proposes real GHL operation | Approval payload |
+| 3 | Agent proposes real GHL operation | Proposal payload |
 | 4 | Gateway → AUTO \| ASK \| DENY | Decision audit |
 | 5 | ASK: named human decides; DENY: no side effect | Approval / rejection + side-effect absence |
 | 6 | Approved execution exactly once | Idempotency key + single side-effect row |
@@ -76,15 +78,32 @@ Pass bar:
 | 8 | Restart/resume under same `rootExecutionId` | Deliberate restart at governed pause |
 | 9 | Provider reconciliation before retry after crash-after-provider-success | Operator note + no duplicate write |
 | 10 | Eval scores ≥1 governed execution | EvaluationResult |
-| 11 | Economics with **separate** fields: provider expense, operator time, pipeline value, collected cash | Mission economics + outcome |
+| 11 | Economics with **separate** fields: provider expense, operator time, pipeline value, collected cash — see pricing rule below | Priced source **or** explicit UNVERIFIED stamp + outcome fields |
 | 12 | Durable evidence pack | Single acceptance record |
+
+#### Economics / pricing rule (row 11)
+
+Runtime today records **abstract cost units**, not priced USD expense
+([operator-loop-v1](https://github.com/Ceoloo/aion-runtime/blob/main/docs/operator-loop-v1.md):
+“a USD cost or financial ROI needs a priced ledger before it can be claimed”).
+
+Therefore for GE-001:
+
+- **Provider expense** must be either (a) actual charges from a priced source
+  (provider invoice, billing export, or priced ledger tied to this run), **or**
+  (b) stamped explicitly `UNVERIFIED` in the acceptance pack.
+- A completed mission plus a Runtime `totalCostUnits` total **cannot** certify
+  economic execution and must not be reported as provider expense.
+- **Pipeline value** and **collected cash** attribute only to this GE-001 run.
+  Any existing Annfiera payment predates the run and remains separate.
 
 - [ ] Approval path PASS
 - [ ] Denial-without-side-effect path PASS
 - [ ] Restart/resume PASS
 - [ ] Provider reconciliation PASS
-- [ ] Terminal outcome + economics PASS
+- [ ] Terminal outcome + economics PASS (provider expense priced **or** UNVERIFIED)
 - [ ] Contaminated OL-001 explicitly excluded from Mission-001 counts
+- [ ] Pre-existing Annfiera payment excluded from GE-001 attributed outcome
 
 ---
 

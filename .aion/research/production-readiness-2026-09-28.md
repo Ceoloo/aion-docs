@@ -168,14 +168,19 @@ OL-001 CRM run cannot count toward these thresholds.
 
 ## Top three next actions (cash-flow priority)
 
-1. **Certify one clean AION Systems revenue workflow.** Merge green Products
-   [#44](https://github.com/Ceoloo/aion-products/pull/44), deploy a pinned
-   Runtime release containing [#57](https://github.com/Ceoloo/aion-runtime/pull/57),
-   and use a fresh low-risk real record — not synthetic evidence on a client
-   contact. Prove named human approval, denial without side effect,
-   restart/resume under the same root execution, provider reconciliation,
-   terminal outcome, actual provider expense, operator time, pipeline value,
-   and collected cash as separate fields.
+1. **Certify one clean AION Systems revenue workflow.** Order: merge green
+   Products [#44](https://github.com/Ceoloo/aion-products/pull/44) → deploy a
+   pinned Runtime release containing [#57](https://github.com/Ceoloo/aion-runtime/pull/57)
+   and identify the serving digest → clean **only** the identified Annfiera
+   note (preserve the incident ledger) → run GE-001 on a fresh low-risk real
+   record — not synthetic evidence on a client contact. Prove named human
+   approval, denial without side effect, restart/resume under the same root
+   execution, provider reconciliation, and a terminal outcome with separate
+   fields for provider expense, operator time, pipeline value, and collected
+   cash. **Provider expense** must come from a priced source or be stamped
+   explicitly unverified — Runtime cost units alone do not certify economic
+   execution. Keep any existing Annfiera payment separate from GE-001’s
+   attributed outcome; it predates that acceptance run.
 
 2. **Lock the release and recovery boundary.** Publish the cross-repository
    release manifest; audit/backfill NULL tenant rows; verify RLS with the

@@ -65,14 +65,22 @@
     "CA-verified DB TLS still open (rejectUnauthorized:false)"
   ],
   "acceptanceTarget": "GOVERNED EXECUTION — VERIFIED (GE-001)",
+  "economicsRule": {
+    "providerExpense": "Priced source (invoice / billing export / priced ledger) OR explicit UNVERIFIED stamp",
+    "insufficientAlone": ["completed mission", "Runtime totalCostUnits"],
+    "runbook": "aion-runtime/docs/operator-loop-v1.md — cost is abstract units until a priced ledger exists",
+    "annfieraPayment": "Any existing Annfiera payment predates GE-001; keep separate from attributed outcome"
+  },
   "explicitlyExcluded": [
     "Contaminated OL-001 synthetic CRM write (2026-09-27 incident)",
     "Synthetic mission eval suite (NOT production validation)",
-    "Mission-001 conversation thresholds (not yet evidenced)"
+    "Mission-001 conversation thresholds (not yet evidenced)",
+    "Pre-existing Annfiera payment (not GE-001 attributed cash/outcome)"
   ],
   "notes": [
     "A merged change is not a deployed control.",
     "Do not mark result PASS until productionIdentity is filled and GE-001 acceptance evidence pack exists.",
-    "Promote to a named immutable tag only after PASS."
+    "Promote to a named immutable tag only after PASS.",
+    "Order: green Products main → deploy+identify Runtime digest → clean identified Annfiera note only → GE-001 on fresh real record."
   ]
 }
