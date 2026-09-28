@@ -1,5 +1,10 @@
 # Production go-live — Track A authenticated release
 
+> **Superseded for current close-out:** use
+> [governed-execution-certify.md](governed-execution-certify.md) and the
+> [2026-09-28 production readiness assessment](../.aion/research/production-readiness-2026-09-28.md).
+> This Track A document remains historical prerequisite context.
+
 Status snapshot **2026-09-14**. AION is a **controlled internal production
 pilot**, not broad client operations. This checklist is the ordered close-out
 for one **authenticated, compatible** production release before any further

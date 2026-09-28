@@ -25,10 +25,18 @@ flowchart LR
 AION is **past L0 as a platform**: the constitution, control-plane kernel,
 canonical data plane, infra profiles, and runtime host (including the Execution
 Gateway) exist, with release manifests under [`../releases/`](../releases/).
+As of **2026-09-28**, the platform has demonstrated tightly supervised live
+CRM execution and authenticated Console operation, but **GOVERNED EXECUTION —
+VERIFIED** is still open (contaminated OL-001 run; no single current release
+pin; Products `main` red). See
+[production-readiness-2026-09-28](../.aion/research/production-readiness-2026-09-28.md)
+and [governed-execution-certify](governed-execution-certify.md).
+
 Individual workflows sit at different stages (many revenue paths are assisted /
 partially orchestrated; learning-loop closure and universal autonomy policy
 remain incomplete). Prefer naming the **workflow** and its evidence over a
-single company-wide L-number.
+single company-wide L-number. Broad client readiness and repeatable revenue
+production are **not** established.
 
 ## Reading the model correctly
 

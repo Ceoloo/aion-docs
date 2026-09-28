@@ -11,7 +11,8 @@ to resist the speculative accretion that caused the
 |---|---|
 | [build-order.md](build-order.md) | The phased order in which repositories/capabilities are built. |
 | [platform-maturity.md](platform-maturity.md) | The L0–L5 maturity model and the platformization rule. |
-| [production-golive.md](production-golive.md) | Track A authenticated production release checklist (OL-001 pilot). |
+| [production-golive.md](production-golive.md) | Track A authenticated production release checklist (historical; superseded for current close-out). |
+| [governed-execution-certify.md](governed-execution-certify.md) | **Current** GOVERNED EXECUTION certify checklist (GE-001 / 2026-09-28). |
 
 ## The two ideas
 
