@@ -23,6 +23,9 @@ OBJECTIVE:               Close the GOVERNED EXECUTION — VERIFIED gate for one
                          AION Systems revenue workflow using existing
                          Operator Loop + contracts; no new subsystems.
 ACCEPTANCE CRITERIA:
+  Order (do not reorder): green Products main → deploy+identify Runtime
+  digest → clean only the identified Annfiera note (preserve incident
+  ledger) → GE-001 on a fresh real record.
   1. Products #44 merged; Products main CI green
   2. Cross-repo release manifest published with Runtime image digest+SHA,
      Core/Data pins, migration set, Products SHA, Infra SHA, verified
@@ -36,6 +39,15 @@ ACCEPTANCE CRITERIA:
      crash-after-provider-success
   9. Terminal outcome recorded with separate fields:
      provider expense | operator time | pipeline value | collected cash
+     — Provider expense: actual charges from a priced source (invoice,
+       provider billing export, or priced ledger), OR stamped
+       explicitly UNVERIFIED. Runtime cost units alone do NOT certify
+       economic execution (operator-loop-v1: abstract units until a
+       priced ledger exists). A completed mission + cost-unit total
+       is insufficient for the provider-expense field.
+     — Pipeline value and collected cash attributed to this GE-001 run
+       only. Any existing Annfiera payment predates this acceptance
+       run and MUST stay separate from GE-001 attributed outcome.
  10. Durable evidence pack filed (mission, executions, approvals, side
      effects, economics, Console screenshots/records)
 CONSTRAINTS:
@@ -43,6 +55,7 @@ CONSTRAINTS:
   - No client-facing Copilot until auth + durable sessions land (action 3)
   - Supervised named-human execution only
   - Do not count contaminated OL-001 toward Mission-001 gates
+  - Do not attribute pre-existing Annfiera payment to GE-001 outcome
 DEPENDENCIES:
   - RES-002 strategy (accepted)
   - Runtime #57 on main
