@@ -5,7 +5,7 @@ RESEARCH. Not a commit to build — a queue to investigate.
 
 | Rank | Candidate | Evidence today | Isolation | Recommend |
 |---|---|---|---|---|
-| **0** | **GOVERNED EXECUTION acceptance upgrade** ([RES-002](RES-002-friday-production-brief.md)) | Operator Loop v1 procedure exists; M001–M009 + M008 autonomy + gateway + economics + M007 evals landed; OL-001 live 1/100 | Evidence discipline + thin field stamps on live mission; no new subsystem | **Active — certify first** |
+| **0** | **GOVERNED EXECUTION acceptance upgrade** ([RES-002](RES-002-friday-production-brief.md), [2026-09-28 readiness](production-readiness-2026-09-28.md), [GE-001](../missions/GE-001-governed-execution-certify.md)) | Live CRM write demonstrated; OL-001 contaminated (synthetic→Annfiera); Runtime #57 on main (`20fe3a4`) not evidenced as serving image; Products `main` red (#44 green); last prod digest Sep 22 `10de0663` | Evidence discipline + pinned release + clean live mission; no new subsystem | **Active — certify first (blocked on #44 merge + pinned deploy)** |
 | **1** | **Platform model-provider contract** ([AIO-16](https://linear.app/aion-empire/issue/AIO-16/p0-implement-model-provider-integration-contract)) | Product-local `LlmProvider` + RES-001 telemetry spike landed (keyless); Runtime PRE-OL still lacks live model proof; M007 recommend-only | Contract + telemetry in products; keep SDKs out of Runtime | **Prototype complete** — awaiting Architect ADR before Core types; see [RES-001](RES-001-model-provider-contract.md) |
 | **2** | **Mission Authority Envelope** (compose DelegatedAuthority + mission limits) | Anticipatory-oversight industry signal; R0–R3 + M008 + approvals exist; no first-class mission envelope on create | Design/ADR only until Operator Loop live PASS | **P0 design after GOVERNED EXECUTION** |
 | **3** | **MissionOutcome 4D rollup** (execution/quality/governance/economics) | Snowflake-style quality+spend signal; pieces exist separately | Compose view over existing tables | **P0 schema compose; P1 UI** |
@@ -27,5 +27,6 @@ RESEARCH. Not a commit to build — a queue to investigate.
 
 ## Current focus
 
-**RES-002** — Certify-first: raise Operator Loop live acceptance to **GOVERNED EXECUTION — VERIFIED**.  
+**GE-001 / RES-002** — Certify-first: raise Operator Loop live acceptance to **GOVERNED EXECUTION — VERIFIED**.  
+Current position (2026-09-28): live capability demonstrated; clean certification open; Products #44 + Runtime #57 deploy are the immediate gates. See [production-readiness-2026-09-28](production-readiness-2026-09-28.md) and [governed-execution-certify](../../roadmap/governed-execution-certify.md).  
 **RES-001** — Products telemetry prototype complete; Core types still ADR-gated.
