@@ -111,11 +111,20 @@ The live CRM note has not been cleaned up.
    (still open / MERGEABLE as of this assessment). Blocks calling the combined
    Console/Copilot source releasable.
 
-3. **Revenue Copilot active sessions do not survive restart.** Live `Session`
-   objects sit in an in-memory `Map`. Durable storage is best-effort at
-   finalization; accepted turns and feedback are not checkpointed and
-   reconstructed. Operator Loop Core persistence does not make interrupted
-   Copilot conversations durable. Older active-checkpoint work remains open
+3. **Revenue Copilot active sessions do not survive restart in production.**
+   The serving HTTP process has historically retained live `Session` objects in
+   an in-memory `Map`. Durable storage was best-effort at finalization; accepted
+   turns and feedback were not checkpointed and reconstructed. Draft mitigation:
+   Products [#45](https://github.com/Ceoloo/aion-products/pull/45) persists
+   active turns, feedback, state, and execution lineage through Runtime; restart
+   restores committed turns without replaying earlier AI work; interrupted
+   operations return `409 reconciliation_required`. Local typecheck + 82 tests
+   and PR CI are green; the PR remains **draft** for review of checkpointed
+   customer data and interrupted finish behavior. It does **not** establish
+   exactly-once provider execution, client-facing Copilot authentication,
+   production deployment of this change, or GE-001 PASS. Operator Loop Core
+   persistence still does not by itself make interrupted Copilot conversations
+   durable on the serving image. Older active-checkpoint work remains open
    (Data [#1](https://github.com/Ceoloo/aion-data/issues/1)).
 
 4. **Console authentication is operational; Copilot authentication is not.**

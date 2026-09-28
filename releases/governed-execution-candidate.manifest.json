@@ -97,7 +97,8 @@
     "Promote to a named immutable tag only after PASS.",
     "Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.",
     "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS.",
-    "Maintainer handoff recorded: deploy-vps from Infra main only; 403 is an access boundary."
+    "Maintainer handoff recorded: deploy-vps from Infra main only; 403 is an access boundary.",
+    "Products #45 (draft) advances Copilot active-session durability in test/CI only; GE-001 and production deploy handoff unchanged."
   ],
   "observedProduction": {
     "checkedAt": "2026-09-28T21:45:00Z",
@@ -135,5 +136,31 @@
       "Keep existing Annfiera payment outside attributed cash",
       "Provider expense UNVERIFIED unless priced charges exist"
     ]
+  },
+  "relatedWork": {
+    "productsPr45": {
+      "url": "https://github.com/Ceoloo/aion-products/pull/45",
+      "title": "feat(copilot): persist active sessions and recover committed turns",
+      "state": "OPEN draft",
+      "headSha": "a09450a1e8a7359c7d7e293bbffe0f644a7a1c3e",
+      "ci": "https://github.com/Ceoloo/aion-products/actions/runs/36491343366",
+      "ciConclusion": "success",
+      "advances": [
+        "Action 3 checkpoint of accepted turns/feedback",
+        "restart restore of committed turns",
+        "409 reconciliation_required on interrupted mutation"
+      ],
+      "doesNotEstablish": [
+        "exactly-once provider execution",
+        "client-facing Copilot authentication",
+        "production deploy of Copilot checkpoints",
+        "GE-001 PASS"
+      ],
+      "reviewFocus": [
+        "checkpointed customer data / PII",
+        "interrupted finish / outcome publication",
+        "Runtime revenue-session contract"
+      ]
+    }
   }
 }

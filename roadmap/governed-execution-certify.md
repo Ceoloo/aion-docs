@@ -175,12 +175,25 @@ Therefore for GE-001:
 
 **Do not expose Copilot to clients until all of the following land.**
 
+Draft progress (does **not** clear client exposure or GE-001): Products
+[#45](https://github.com/Ceoloo/aion-products/pull/45) (draft) persists active
+turns, feedback, state, and execution lineage through Runtime; restart restores
+committed turns without replaying earlier AI work; interrupted operations return
+`409 reconciliation_required`. Local: typecheck + 82 tests (incl. service
+restart). PR CI green
+([run 36491343366](https://github.com/Ceoloo/aion-products/actions/runs/36491343366)).
+Still draft for review of checkpointed customer data and interrupted finish
+behavior. **Does not** establish exactly-once provider execution, client-facing
+Copilot authentication, production deploy of this change, or GE-001 PASS.
+
 - [ ] Authenticated caller identity on Copilot session endpoints
 - [ ] Tenant binding + authorization
 - [ ] Throttling
 - [ ] Session ownership checks
 - [ ] Checkpoint every accepted turn and feedback event
+      — draft implementation in Products #45 (test-env recovery of committed turns)
 - [ ] Reconstruct session after forced restart
+      — draft implementation in Products #45 (service restart test + CI)
 - [ ] Begin ≥25 real AION Systems conversations with manual ground truth and
       complete outcome lineage
 
