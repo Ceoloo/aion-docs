@@ -226,7 +226,7 @@ and revenue record.
 | `aion-runtime` | `20fe3a4` (#57 merged) | Synthetic boundary on main; **not** evidenced as serving image |
 | `aion-core` | `26f43e5` | Ahead of Runtime’s pinned Core (`52ecf40`) |
 | `aion-data` | `cb29e7c` (#24 RLS) | Ahead of Runtime’s pinned Data (`5da145a`); migrations through `0013` |
-| `aion-products` | `41a8749` | `main` CI red; fix on #44 |
+| `aion-products` | `06eedbf9` (#44 merged) | `main` CI green (run 36488161210) |
 | `aion-infra` | `3382b61` | Last digest evidence still Sep 22 `10de0663` |
 | `aion-docs` | tip at assessment commit | This document |
 

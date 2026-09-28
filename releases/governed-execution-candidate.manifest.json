@@ -1,6 +1,6 @@
 {
   "release": "governed-execution-candidate",
-  "title": "AION GOVERNED EXECUTION candidate — release pin (UNVERIFIED)",
+  "title": "AION GOVERNED EXECUTION candidate \u2014 release pin (UNVERIFIED)",
   "kind": "candidate",
   "result": "UNVERIFIED",
   "recordedAt": "2026-09-28",
@@ -15,14 +15,20 @@
   "components": {
     "aion-runtime": {
       "gitSha": "20fe3a435dab5f12175ae03998ad709398ce931d",
-      "includes": ["#57 SYNTHETIC_TO_PRODUCTION_DENIED boundary", "#56 proof-suite repair"],
+      "includes": [
+        "#57 SYNTHETIC_TO_PRODUCTION_DENIED boundary",
+        "#56 proof-suite repair"
+      ],
       "imageDigest": null,
-      "deployStatus": "merged-to-main; production deploy not evidenced"
+      "deployStatus": "image published + boot-certified in CI; production deploy not yet evidenced (serving still behind tip)",
+      "candidateImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+      "candidateImageRef": "ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+      "bootCertifyCi": "https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906"
     },
     "aion-core": {
       "gitShaMain": "26f43e506f88d1fcb176d64f65727bae20b97652",
       "pinnedByRuntimeSetupDeps": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157",
-      "pinGap": "Runtime/Products/Data setup pins lag Core main — realign before certifying"
+      "pinGap": "Runtime/Products/Data setup pins lag Core main \u2014 realign before certifying"
     },
     "aion-data": {
       "gitShaMain": "cb29e7cdfcf7213edafae4bbc705a20c6bf23a12",
@@ -31,14 +37,17 @@
       "pinGap": "Runtime setup pin lags Data main (#24 RLS lineage)"
     },
     "aion-products": {
-      "gitShaMain": "41a8749142d2ae1c8bc44d6bd94b5962c313eb2c",
-      "mainCi": "red",
-      "fixPr": {
+      "gitShaMain": "06eedbf9a889ef2c0c721f102baf8c255a36221c",
+      "mainCi": "green",
+      "mainCiUrl": "https://github.com/Ceoloo/aion-products/actions/runs/36488161210",
+      "mergedPr": {
         "number": 44,
         "url": "https://github.com/Ceoloo/aion-products/pull/44",
-        "status": "OPEN MERGEABLE CI-green"
+        "mergedAt": "2026-09-28T21:45:04Z",
+        "mergeCommit": "06eedbf9a889ef2c0c721f102baf8c255a36221c"
       },
-      "releasable": false
+      "releasable": true,
+      "note": "Products #44 merged; main CI success including web console + COPILOT_IMAGE publish"
     },
     "aion-infra": {
       "gitSha": "3382b611c3f1847b463476fce8bdd879c18e44d9"
@@ -52,23 +61,27 @@
   "productionIdentity": {
     "healthReadyGitSha": null,
     "servingImageDigest": null,
+    "priorRollbackDigest": null,
     "verifiedAt": null,
     "verifiedBy": null
   },
   "preflightBlockers": [
-    "Merge Products #44 and restore green main",
-    "Deploy Runtime tip including #57; record digest",
-    "Verify health/ready git_sha == deployed SHA",
-    "Clean Annfiera synthetic CRM note per incident doc",
+    "Deploy Runtime tip 20fe3a4 (#57) via infra deploy-vps; pin digest sha256:f7041f41\u2026; verify health/ready git_sha == 20fe3a4",
+    "Record serving digest and prior rollback digest from deploy.sh",
+    "Clean Annfiera synthetic CRM note per incident doc (authorized operator only)",
     "Realign Core/Data pins across Runtime/Products/Data setup scripts",
     "Evidence NULL-tenant backfill + RLS with application role on production",
-    "CA-verified DB TLS still open (rejectUnauthorized:false)"
+    "CA-verified DB TLS still open (rejectUnauthorized:false)",
+    "GE-001 live acceptance evidence pack still outstanding"
   ],
-  "acceptanceTarget": "GOVERNED EXECUTION — VERIFIED (GE-001)",
+  "acceptanceTarget": "GOVERNED EXECUTION \u2014 VERIFIED (GE-001)",
   "economicsRule": {
     "providerExpense": "Priced source (invoice / billing export / priced ledger) OR explicit UNVERIFIED stamp",
-    "insufficientAlone": ["completed mission", "Runtime totalCostUnits"],
-    "runbook": "aion-runtime/docs/operator-loop-v1.md — cost is abstract units until a priced ledger exists",
+    "insufficientAlone": [
+      "completed mission",
+      "Runtime totalCostUnits"
+    ],
+    "runbook": "aion-runtime/docs/operator-loop-v1.md \u2014 cost is abstract units until a priced ledger exists",
     "annfieraPayment": "Any existing Annfiera payment predates GE-001; keep separate from attributed outcome"
   },
   "explicitlyExcluded": [
@@ -81,6 +94,20 @@
     "A merged change is not a deployed control.",
     "Do not mark result PASS until productionIdentity is filled and GE-001 acceptance evidence pack exists.",
     "Promote to a named immutable tag only after PASS.",
-    "Order: green Products main → deploy+identify Runtime digest → clean identified Annfiera note only → GE-001 on fresh real record."
-  ]
+    "Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.",
+    "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS."
+  ],
+  "observedProduction": {
+    "checkedAt": "2026-09-28T21:45:00Z",
+    "healthReadyUrl": "https://runtime.srv1655818.hstgr.cloud/health/ready",
+    "healthReady": {
+      "status": "ready",
+      "database": "up",
+      "environment": "production",
+      "git_sha": "49cff4e3bd1e48ed8a43414c8191ff30a28d00be",
+      "service_version": "0.2.1",
+      "crm_backend": "live"
+    },
+    "note": "Serving git_sha is ancestor of 20fe3a4 (#54 tip) and does NOT include #57. Last Infra-documented digest remains Sep 22 10de0663/e3fef42f\u2026; live health now reports 49cff4e3. Prior rollback digest for next deploy must be captured from deploy.sh output / docker inspect at deploy time."
+  }
 }
