@@ -97,7 +97,8 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 - **[governance/](governance/README.md)** — authority model, human gates, agent
   governance, permissions, action tiers, Trust Score, risk levels, change
   management.
-- **[offers/](offers/README.md)** — client packaging (TechOps audit scorecard).
+- **[offers/](offers/README.md)** — TechOps client packaging (Foundation /
+  Secure AI Execution / Continuous Assurance).
 - **[engineering/](engineering/README.md)** — principles, production readiness,
   testing, evals, observability/API/event standards, data contracts,
   definition of done.

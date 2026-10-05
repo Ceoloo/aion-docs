@@ -17,6 +17,7 @@ actions can require human gates.
 | [agent-trust-score.md](agent-trust-score.md) | Per-execution Trust Score (five dimensions). |
 | [risk-levels.md](risk-levels.md) | How actions are classified by risk. |
 | [change-management.md](change-management.md) | How changes reach production. |
+| [../architecture/security-infrastructure-standard-v1.md](../architecture/security-infrastructure-standard-v1.md) | AIO-43 TechOps control baseline (mandatory agent registry fields). |
 
 ## The governance stance
 
