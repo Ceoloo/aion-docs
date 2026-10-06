@@ -78,3 +78,4 @@ prematurely.** Record the required capability and defer:
 | [ADR-009](ADR-009-decision-plane.md) | Decision Plane (System-One Judgments) | Accepted |
 | [ADR-010](ADR-010-posthog-analytics-plane.md) | Adopt PostHog as the Analytics / Experimentation Plane | Accepted |
 | [ADR-011](ADR-011-harness-execution-seam.md) | Adopt UHP / HarnessRouter as the Harness-Execution Seam | Accepted |
+| [ADR-012](ADR-012-secure-execution-layer-v1.md) | Secure Execution Layer v1 (AIO-45) | Accepted |
