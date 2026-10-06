@@ -13,9 +13,13 @@ Each agent should eventually have all of the following defined:
 | **Agent ID** | Unique, attributable identity. |
 | **Purpose** | The one job this agent exists to do. |
 | **Owner** | The human/team accountable for it. |
+| **Tenant** | Tenant binding for multi-tenant execution. |
+| **Permission tier** | Observe / Assist / Execute ([action-tiers.md](action-tiers.md)). |
 | **Capabilities** | What it is able to do. |
 | **Allowed tools** | The exact tools it may invoke. |
-| **Allowed data** | The data it may read/write — least privilege. |
+| **Allowed data / data scope** | The data it may read/write — least privilege. |
+| **Delegated authority** | Traceable delegation from a human/service principal. |
+| **Policy version** | Policy bundle version governing the agent. |
 | **Forbidden actions** | Explicit prohibitions. |
 | **Risk level** | Its default [risk level](risk-levels.md). |
 | **Escalation conditions** | When it must stop and escalate to a human. |
@@ -23,10 +27,14 @@ Each agent should eventually have all of the following defined:
 | **Output contract** | The shape of results it returns. |
 | **Evaluation criteria** | How its output quality is judged ([evals](../engineering/evals.md)). |
 | **Cost controls** | Token/cost budget and limits. |
-| **Observability requirements** | What it must emit to be traceable. |
+| **Observability / execution evidence** | What it must emit to be traceable. |
+| **Revocation state** | `active` / `suspended` / `revoked` plus contain path. |
 
 An agent without these is not production-eligible. See
-[../engineering/production-readiness.md](../engineering/production-readiness.md).
+[../engineering/production-readiness.md](../engineering/production-readiness.md)
+and mandatory registry controls in
+[../architecture/security-infrastructure-standard-v1.md](../architecture/security-infrastructure-standard-v1.md)
+§3.9 (AIO-43/44).
 
 ## Governed, not autonomous-by-default
 

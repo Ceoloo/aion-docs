@@ -1,6 +1,8 @@
 # Security Standards (Cursor agents)
 
 Canon: [`../../architecture/security-model.md`](../../architecture/security-model.md),
+[`../../architecture/security-infrastructure-standard-v1.md`](../../architecture/security-infrastructure-standard-v1.md)
+(AIO-43 control baseline),
 [`../../governance/permissions.md`](../../governance/permissions.md),
 [`../../governance/human-gates.md`](../../governance/human-gates.md),
 [`../../governance/agent-governance.md`](../../governance/agent-governance.md).
@@ -20,6 +22,11 @@ Sensitive execution supports **human approval**.
 - High-risk actions use Core risk levels + approval gates (R0–R3).
 - Do not bypass the control plane for governed actions.
 - Auditability: sensitive actions leave events / execution records.
+- Sensitive business APIs are reached via the AION gateway — not raw credentials
+  in agent runtimes.
+- Production agents must carry Security Infrastructure Standard registry fields
+  (`agent_id`, owner, purpose, tenant, tier, tools, data scope, delegated
+  authority, policy version, execution evidence, revocation state).
 
 ## When to involve Security Engineer
 

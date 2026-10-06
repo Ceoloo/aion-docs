@@ -1,18 +1,23 @@
 # TechOps Foundation — AI-Era Identity Protection
 
-Foundation SKU component (Linear AIO-21; TechOps Monday Brief 2026-09-14).
+Foundation SKU component (Linear AIO-21; TechOps Monday Briefs 2026-09-14 and
+2026-10-05). Layer: **Secure Digital Foundation** under
+[Security Infrastructure Standard v1](../architecture/security-infrastructure-standard-v1.md).
 
-**Stop selling “MFA setup.” Sell identity hardening.**
+**Stop selling “MFA setup.” Sell Human + Machine Identity Security.**
 
 AI adoption expands the phishing surface (fake Copilot/ChatGPT/Claude updates,
-AiTM token theft, malicious “AI installers”). Identity is the first control in
-the [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md).
+AiTM token theft, malicious “AI installers”). NIST token guidance and SMB
+automation stacks (Zapier, n8n, CRM OAuth, Google/Microsoft, Shopify,
+accounting, webhooks, MCP) make **token inventory and revocation** first-class
+alongside human MFA. Identity is the first control in the
+[Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md).
 
 ## SKU one-liner
 
 > Harden who can sign in, what apps can consent, which devices can access mail
-> and files, and how suspicious sessions are stopped — before any agent
-> automation is switched on.
+> and files, which human/service/agent credentials exist, and how suspicious
+> sessions and tokens are stopped — before any agent automation is switched on.
 
 ## Component stack (delivery order)
 
@@ -24,6 +29,7 @@ the [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md
 | 4 | OAuth / app-consent restrictions (admin approval) | Token theft via malicious apps constrained |
 | 5 | Device compliance / MDM for company data access | Unmanaged devices cannot reach mail/files |
 | 6 | Suspicious-session response playbook | AiTM / token replay detected and revoked |
+| 7 | Credential & Token Inventory (human / service / agent) | Owner, system, scope, expiration, storage, rotation, revocation |
 
 ## Sales / delivery checklist
 
@@ -32,6 +38,7 @@ the [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md
 - [ ] Admin + finance accounts listed; MFA method documented
 - [ ] Shared mailbox / shared password practices identified
 - [ ] Current OAuth apps / consent grants inventoried
+- [ ] Credential & Token Inventory started (Zapier/n8n/CRM/Google/Microsoft/Shopify/accounting/webhooks/MCP)
 - [ ] Endpoint coverage % known (or scored 0 in audit)
 - [ ] Who responds to “unusual sign-in” today?
 
@@ -44,6 +51,7 @@ the [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md
 - [ ] Enable link/attachment protection on mail
 - [ ] Enroll devices in compliance policy before data access
 - [ ] Document session revoke steps (IdP + mail + SaaS)
+- [ ] Populate Credential & Token Inventory columns (audit domain K)
 
 ### Acceptance
 
@@ -51,6 +59,7 @@ the [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md
 - [ ] Unapproved OAuth app cannot be user-consented
 - [ ] Non-compliant device blocked from mail/files
 - [ ] Tabletop: suspicious session → revoke → notify owner &lt; 1 hour
+- [ ] Every inventoried credential has owner, revocation path, and ownership class
 
 ## Accounting-firm premium posture
 
@@ -78,13 +87,17 @@ protecting regulated workflows, not just productivity.
 | A3 OAuth / app-consent restricted | Step 4 |
 | A4 Privileged accounts separated | Step 1 + delivery hygiene |
 | A5 Suspicious-session response | Step 6 |
+| K1–K5 Credential & Token Inventory | Step 7 |
 
-Hard stop from the audit: Identity &lt; 8 → **not Execute-ready** for agents.
+Hard stop from the audit: Identity &lt; 8 **or** Credentials &lt; 6 →
+**not Execute-ready** for agents.
 
 ## Dependencies / non-goals
 
 - **Depends on:** client IdP (M365/Google) admin access.
 - **Does not include:** full SOC, custom SIEM build, or agent automation
-  (those are Secure Automation / Security Ops Lite).
+  (those are Secure AI Execution / Continuous Assurance).
 - **Pairs with:** [action-tiers.md](../governance/action-tiers.md) — customer-facing
   AI still must not receive unrestricted system authority after identity is hardened.
+- **Accounting vertical:** escalate to
+  [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md).

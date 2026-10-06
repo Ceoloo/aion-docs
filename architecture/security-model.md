@@ -7,7 +7,10 @@ gated by a human.
 
 This document defines the architectural model. Concrete infrastructure (secret
 stores, network isolation, IAM) is owned by `aion-infra`; approval policy is
-owned by [governance/](../governance/README.md).
+owned by [governance/](../governance/README.md). The versioned control baseline
+every AION and TechOps client environment inherits is
+[security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md)
+(AIO-43).
 
 ## Identities
 
@@ -71,3 +74,8 @@ No shared or ambient "god" identity. Every actor is attributable.
 - **Least privilege by default; escalation is explicit and gated.**
 - **Destructive, financial, and external-communication actions are high-risk by
   default** and follow [risk-levels.md](../governance/risk-levels.md).
+- **Sensitive execution crosses the AION Action / Execution Gateway** —
+  never `agent → raw API key → business API`
+  ([ADR-003](../adr/ADR-003-execution-gateway-into-runtime.md)).
+- **Agent Identity Registry fields are mandatory infrastructure** before
+  Execute-tier work (see Security Infrastructure Standard §3.9).

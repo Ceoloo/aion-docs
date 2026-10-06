@@ -1,21 +1,30 @@
-# TechOps Security Operations Lite
+# TechOps Security Operations Lite → Continuous Assurance
 
-Recurring managed-service SKU (Linear AIO-22; TechOps Monday Brief 2026-09-14).
+Recurring managed-service SKU (Linear AIO-22; expanded by TechOps Monday Brief
+2026-10-05 and AIO-47). Layer: **Continuous Assurance**.
 
 Sits between traditional MSP “we watch alerts” and an enterprise SOC.
-**Design only for v1** — do not build a full SOC platform in this SKU definition.
+**Design only for v1** — do not build a labor-heavy MSP/SOC. Orchestrate
+existing security telemetry and agents:
+
+```text
+Observe → investigate → recommend → human approve → remediate → verify
+```
+
+Design around **connectors and evidence**, not humans manually reviewing
+dashboards.
 
 ## SKU one-liner
 
-> We operate a governed detect → triage → (approved) remediate loop for your
-> identity, endpoint, mail, and SaaS signals — with humans on low-confidence
-> or high-impact actions.
+> We operate a governed detect → triage → (approved) remediate → verify loop
+> for identity, endpoint, mail, SaaS, credentials, and agent-permission signals
+> — with humans on low-confidence or high-impact actions.
 
 ## Target operating loop
 
 ```
-telemetry → detection → AI triage → confidence scoring
-        → approved remediation → incident record → owner notification
+connectors / telemetry → detection → AI triage → confidence scoring
+        → approved remediation → incident record → owner notification → verify
 ```
 
 | Confidence | Risk | Action |
@@ -36,8 +45,11 @@ automation that AION itself runs.
 - Endpoint medium/high alerts with known playbooks
 - Mail phishing / AiTM indicators
 - SaaS OAuth grant anomalies
+- Credential / token hygiene drift (inventory vs live grants)
+- Agent permission drift vs registry + policy version
+- Backup freshness / restore-evidence freshness (when connected)
 - Weekly digest + monthly risk review
-- Incident record with owner + next action
+- Incident record with owner + next action + verification note
 
 ## Scope (out / exclusions)
 
@@ -49,14 +61,18 @@ automation that AION itself runs.
 
 ## Dependencies
 
-1. **TechOps Foundation** — especially
+1. **Secure Digital Foundation** — especially
    [AI-Era Identity Protection](techops-ai-era-identity-protection.md)
-2. **Secure Automation Layer** — agent identities, permissions, Action Tiers,
-   human gates for any AION-driven remediation
-3. Telemetry sources actually connected (IdP, endpoint, mail)
+   and Credential & Token Inventory
+2. **Secure AI Execution** — agent identities, registry, Action Tiers,
+   gateway, human gates for any AION-driven remediation
+3. Telemetry / connectors actually connected (IdP, endpoint, mail, inventory)
 
-If Foundation Identity score is below audit hard-stop, sell Foundation first —
-Ops Lite without identity hardening is theater.
+If Foundation Identity or Credentials scores are below audit hard-stops, sell
+Foundation first — Ops Lite without identity hardening is theater.
+
+AIO-47 owns the check catalog, cadence, evidence format, and monthly
+client-facing Continuous Assurance report.
 
 ## SLA posture (v1 draft)
 
