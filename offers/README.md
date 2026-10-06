@@ -31,6 +31,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 | Document | Purpose |
 |---|---|
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
+| [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
 | [techops-ai-era-identity-protection.md](techops-ai-era-identity-protection.md) | Foundation SKU — Human + Machine Identity hardening |
 | [techops-secure-accounting-ai-foundation.md](techops-secure-accounting-ai-foundation.md) | Accounting vertical packaging |
 | [techops-security-operations-lite.md](techops-security-operations-lite.md) | Recurring assurance / SecOps Lite SKU (design) |
@@ -38,4 +39,4 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 ## Program tracker
 
 Linear: AIO-43 … AIO-52 (TechOps Security Infrastructure Layer).  
-This-week build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46**.
+Build order: **AIO-43 (Done) → AIO-44 (Registry) → AIO-45 (SEL) → AIO-46 (customer-zero)**.

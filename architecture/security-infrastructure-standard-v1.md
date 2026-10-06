@@ -324,15 +324,15 @@ Snapshot for AIO-46. Status meanings: **Met** (evidenced) · **Partial** ·
 | Human MFA / IdP hardening for AION ops | Partial | Documented practices exist; customer-zero score pending AIO-46 |
 | Secrets not in git | Met | Hard rule + CI hygiene; continuous scan still required |
 | Execution Gateway as Runtime ingress | Partial | ADR-003 + Runtime routes; product paths still migrating |
-| Agent URI / identity contracts | Partial | `aion-core` agent identity URI; full Registry = AIO-44 |
-| Mandatory registry fields (tenant, delegated_authority, policy_version, execution_evidence, revocation_state) | Gap | AIO-44 schema + inventory |
+| Agent URI / identity contracts | Partial | `aion-core` agent identity URI; Registry schema + API = AIO-44 |
+| Mandatory registry fields (tenant, delegated_authority, policy_version, execution_evidence, revocation_state) | Partial | AIO-44 schema/API/inventory landed; production registration still required per environment |
 | Observe / Assist / Execute | Partial | ADR-007 + governance docs; enforce everywhere via AIO-45 |
-| Credential & Token Inventory (human/service/agent) | Gap | Add to AION ops runbooks; audit domain K |
+| Credential & Token Inventory (human/service/agent) | Gap | Add to AION ops runbooks; audit domain K (AIO-46) |
 | No long-lived LoB API keys in agent runtimes | Partial | Doctrine clear; progressive credential isolation under AIO-45 |
-| Kill / revoke / contain for agent identities | Partial | FeatureGate / autonomy demote exist; `contain(agent_id)` design open |
+| Kill / revoke / contain for agent identities | Partial | Registry revoke/suspend + FeatureGate; full contain path in AIO-45 |
 | Continuous Assurance connectors + evidence loop | Gap | AIO-47 |
 | Backup / DR evidence for AION itself | Partial | Related AIO-7; restore evidence required for Met |
-| Customer-zero scored audit | Gap | AIO-46 |
+| Customer-zero scored audit | Partial | AIO-46 scored baseline |
 
 **Build order (do not expand scope):**  
 AIO-43 (this standard) → AIO-44 (Registry) → AIO-45 (Secure Execution Layer) →
