@@ -330,7 +330,7 @@ Snapshot for AIO-46. Status meanings: **Met** (evidenced) · **Partial** ·
 | Credential & Token Inventory (human/service/agent) | Gap | Add to AION ops runbooks; audit domain K (AIO-46) |
 | No long-lived LoB API keys in agent runtimes | Partial | Doctrine clear; progressive credential isolation under AIO-45 |
 | Kill / revoke / contain for agent identities | Partial | Registry revoke/suspend + FeatureGate; full contain path in AIO-45 |
-| Continuous Assurance connectors + evidence loop | Gap | AIO-47 |
+| Continuous Assurance connectors + evidence loop | Partial | AIO-47 catalog + evidence schema; connectors follow-on |
 | Backup / DR evidence for AION itself | Partial | Related AIO-7; restore evidence required for Met |
 | Customer-zero scored audit | Partial | AIO-46 scored baseline |
 

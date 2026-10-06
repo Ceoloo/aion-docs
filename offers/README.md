@@ -11,7 +11,7 @@ must stay consistent with governance ADRs and the
 |---|---|---|
 | **1 — Secure Digital Foundation** | Make the SMB safe enough for software and AI to run parts of the company | [AI-Era Identity Protection](techops-ai-era-identity-protection.md); Credential & Token Inventory (audit domain K) |
 | **2 — Secure AI Execution** | Agent identity, registry, gateway, Observe/Assist/Execute, credential isolation, approvals, evidence, kill/revoke | Audit AI/Agents domain; AIO-44/45; [action-tiers.md](../governance/action-tiers.md) |
-| **3 — Continuous Assurance** | Connector-sourced observe → investigate → recommend → approve → remediate → verify | [Security Operations Lite](techops-security-operations-lite.md) → AIO-47 |
+| **3 — Continuous Assurance** | Connector-sourced observe → investigate → recommend → approve → remediate → verify | [Security Operations Lite](techops-security-operations-lite.md) → [continuous-assurance-v1.md](../architecture/continuous-assurance-v1.md) (AIO-47) |
 
 Front door: [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md).
 
@@ -32,6 +32,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 |---|---|
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
 | [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
+| [continuous-assurance-monthly-report-template.md](continuous-assurance-monthly-report-template.md) | **AIO-47** monthly client-facing assurance report |
 | [techops-ai-era-identity-protection.md](techops-ai-era-identity-protection.md) | Foundation SKU — Human + Machine Identity hardening |
 | [techops-secure-accounting-ai-foundation.md](techops-secure-accounting-ai-foundation.md) | Accounting vertical packaging |
 | [techops-security-operations-lite.md](techops-security-operations-lite.md) | Recurring assurance / SecOps Lite SKU (design) |
@@ -39,4 +40,4 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 ## Program tracker
 
 Linear: AIO-43 … AIO-52 (TechOps Security Infrastructure Layer).  
-Build order: **AIO-43 (Done) → AIO-44 (Registry) → AIO-45 (SEL) → AIO-46 (customer-zero)**.
+Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance)**.

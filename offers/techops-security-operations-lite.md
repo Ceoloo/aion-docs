@@ -72,7 +72,9 @@ If Foundation Identity or Credentials scores are below audit hard-stops, sell
 Foundation first — Ops Lite without identity hardening is theater.
 
 AIO-47 owns the check catalog, cadence, evidence format, and monthly
-client-facing Continuous Assurance report.
+client-facing Continuous Assurance report — see
+[../architecture/continuous-assurance-v1.md](../architecture/continuous-assurance-v1.md)
+and [continuous-assurance-monthly-report-template.md](continuous-assurance-monthly-report-template.md).
 
 ## SLA posture (v1 draft)
 
