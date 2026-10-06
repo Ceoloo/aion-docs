@@ -77,21 +77,43 @@ introduced.
    authority-expanding registration/update with containment actions. That is
    too broad for the normal operator surface.
 
-4. **Containment should become a separate least-privilege authority.**
-   A follow-up Runtime/Core change should separate reducing authority from
-   expanding/restoring authority. The intended model is:
-   - **suspend / emergency contain:** narrow containment authority, allowed to
-     reduce an agent's ability to act;
-   - **reactivate / permission expansion / registration:** governed
-     configuration authority, subject to the Configuration Change lifecycle;
-   - **revoke:** treated as containment but may require stronger confirmation
-     because of its durability/operational impact.
+4. **UI control modes and Runtime authorities use separate vocabularies.**
+   UI labels describe what an action does; Runtime roles describe who may
+   request it. The Command Center control modes are:
+   - **Observe** — read-only;
+   - **Operate** — starts or advances governed work;
+   - **Configure** — low-stakes behavior change that does not alter authority;
+   - **Govern** — authority, policy, permission, autonomy, risk, or human-gate
+     decisions;
+   - **Contain** — rapid authority reduction for safety;
+   - **Maintain** — privileged platform operations.
 
-   The exact principal role name and endpoint contract (for example
-   `contain`) is a follow-up implementation decision and must be tested
-   fail-closed.
+   A Launch is **Operate**, not Govern. If Runtime gates the launched work, the
+   resulting approval/rejection control is Govern.
 
-5. **The Configuration Plane is platform work, not frontend work.**
+5. **Containment and administration become separate least-privilege
+   authorities.** A follow-up Runtime/Core change should replace the current
+   broad mutation semantics with:
+   - `contain` — suspend/emergency stop and other actions that only reduce
+     authority;
+   - `administer` — submit governed configuration/authority changes into the
+     Configuration Change lifecycle;
+   - existing `invoke` — submit governed operational work;
+   - existing `approve` — decide human gates.
+
+   `administer` does **not** authorize an immediate authority-changing write.
+   It authorizes submission of a change that must still pass draft → validate
+   → authorize → human gate when required → publish → audit.
+
+   Reactivation, permission expansion, registration, action-tier/risk changes,
+   and delegated-authority changes are Govern-mode operations through
+   `administer`. Suspend is a Contain-mode operation through `contain`.
+   Revoke may share `contain` but should require stronger confirmation and
+   audit evidence because of its durability/operational impact.
+
+   Both authorities must remain tenant-scoped, attributable, and fail closed.
+
+6. **The Configuration Plane is platform work, not frontend work.**
    - Core owns typed configuration/change contracts and authorization semantics.
    - Data owns durable versions, drafts, approvals/publish state, and audit
      lineage.
@@ -99,7 +121,7 @@ introduced.
    - Command Center owns forms, editors, previews, diffs, and operator UX.
    - Infra continues to own secret material and privileged deployment actions.
 
-6. **Dashboard configuration never becomes direct code, DB, env, or shell
+7. **Dashboard configuration never becomes direct code, DB, env, or shell
    mutation.** Source code defines schemas and executable behavior; the
    dashboard manages validated instances of those schemas.
 
@@ -107,7 +129,7 @@ introduced.
 
 | Option | Why rejected |
 |---|---|
-| Give Command Center `register` now | Bundles permission expansion and containment into one broad role; registry writes apply immediately with no configuration gate. |
+| Give Command Center `register` now | Bundles permission expansion and containment into one broad role; registry writes apply immediately with no configuration gate. |\n| Reuse the UI word `Configure` as a Runtime authority | Conflates action semantics with RBAC semantics; operators would see Govern-labelled actions authorized by a role called configure. |\n| Label Launch as Govern | Launch submits operational work; policy/approval may govern it later. Treating submission itself as governance obscures the distinction between execution and authority decisions. |
 | Enforce draft/gate/publish only in the frontend | A different client could bypass it; not a security or governance boundary. |
 | Combine credential activation with the Runtime registry release | Changes two production variables at once and weakens GE-001 evidence on the pinned candidate. |
 | Keep all configuration in source code permanently | Prevents AION from becoming an operable Company OS and forces engineers into routine business configuration. |
@@ -161,7 +183,7 @@ Recommended delivery order:
 
 - Exact Configuration Change object schema and lifecycle states.
 - Which configuration classes require mandatory human approval by risk level.
-- Exact narrow containment role/capability name and whether revoke shares it.
+- Whether revoke shares `contain` or receives an even stronger containment confirmation policy.\n- Migration path from the existing `register` role to `contain` + `administer` without weakening existing callers.
 - Rollback semantics for published configuration versions.
 - Whether published configuration is hot-reloaded or activated by an explicit
   Runtime configuration refresh operation.
