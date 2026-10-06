@@ -12,12 +12,14 @@ actions can require human gates.
 | [authority-model.md](authority-model.md) | Where authority and ownership sit. |
 | [human-gates.md](human-gates.md) | When a human must approve. |
 | [agent-governance.md](agent-governance.md) | Agents as governed workers. |
+| [agent-identity-registry-inventory.md](agent-identity-registry-inventory.md) | **AIO-44** production agent inventory (SIS-AG-02 / SIS-AG-10). |
 | [permissions.md](permissions.md) | The permission model. |
 | [action-tiers.md](action-tiers.md) | Observe / Assist / Execute product tiers (maps to L0–L4). |
 | [agent-trust-score.md](agent-trust-score.md) | Per-execution Trust Score (five dimensions). |
 | [risk-levels.md](risk-levels.md) | How actions are classified by risk. |
 | [change-management.md](change-management.md) | How changes reach production. |
 | [../architecture/security-infrastructure-standard-v1.md](../architecture/security-infrastructure-standard-v1.md) | AIO-43 TechOps control baseline (mandatory agent registry fields). |
+| [../architecture/agent-identity-registry.md](../architecture/agent-identity-registry.md) | AIO-44 Agent Identity Registry contract. |
 
 ## The governance stance
 
