@@ -21,6 +21,7 @@ It defines architecture and contracts — not implementation.
 | [observability.md](observability.md) | The traceability model for every action. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
 | [security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md) | **AIO-43 control baseline** — mandatory/recommended controls, audit map, agent registry fields, AION gap list. |
+| [secure-execution-layer-v1.md](secure-execution-layer-v1.md) | **AIO-45** gateway boundary, required controls, threat model, migration path. |
 | [environments.md](environments.md) | Environment isolation and promotion. |
 | [system-integration-overview.md](system-integration-overview.md) | **As-built wiring** of layers → repos, audit findings, next steps to production (2026-09-26). |
 
