@@ -197,6 +197,7 @@ Minimum sections:
 **In**
 
 - Catalog + cadence + evidence schema (this doc)
+- Core contracts: `AssuranceEvidence`, `ASSURANCE_CHECK_CATALOG`, `runAssuranceChecks`
 - Runtime registry connectors (`CA-AG-*`, `CA-RV-02`, partial `CA-RT-01`)
 - Monthly report template
 - Mapping onto Security Ops Lite SKU loop
@@ -204,9 +205,31 @@ Minimum sections:
 **Out / follow-on**
 
 - Full multi-tenant assurance service implementation
+- Durable assurance ledger (prototype stores evidence process-locally)
 - Every IdP/endpoint/vuln connector productionized
 - 24×7 SOC staffing
 - OT/ICS monitoring
+
+### 7.1 Prototype API (`aion-runtime`)
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/v1/assurance/catalog` | SIS-CA-01 catalog (+ `prototype` flags) |
+| `POST` | `/v1/assurance/run` | Run connectors; body may include `checkIds`, `observedAgentIds`, health overrides |
+| `GET` | `/v1/assurance/evidence` | List recent `AssuranceEvidence` for `x-aion-tenant-id` (`?checkId=` / `?status=`) |
+
+Prototype connectors (evaluated on `POST /v1/assurance/run`):
+
+| Check | Source |
+|---|---|
+| `CA-AG-01` | Registry completeness for Execute-tier agents |
+| `CA-AG-02` | Observed agents vs registry (`/v1/registry/review` + recent executions) |
+| `CA-AG-03` | Tools / data_scope / policy_version drift |
+| `CA-AG-04` | Deny-rate spike over recent executions |
+| `CA-RT-01` | `ControlPlane.checkDatabase` + Core FeatureGate kill path (partial) |
+| `CA-RV-02` | Suspended/revoked agents with non-denied recent executions |
+
+All other catalog IDs return `status: unknown` (fail-closed for scoring).
 
 ## 8. Acceptance (AIO-47)
 
