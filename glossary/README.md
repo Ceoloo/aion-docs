@@ -9,7 +9,11 @@ per term, consistent with [explicit ownership](../governance/authority-model.md)
 | Term | Definition |
 |---|---|
 | **AION** | An AI-native company and product operating architecture: a governed system for building, operating, and learning from products, with humans holding ultimate authority. |
+| **Outcome-Based Systems Engineering** | Operating philosophy: design, deploy, and operate intelligent business systems that turn existing software into measurable results. Clients buy outcomes; AION owns the producing process. See [offers/aion-outcome-based-services-blueprint.md](../offers/aion-outcome-based-services-blueprint.md). |
+| **Business capability** | The preferred unit of execution: a governed operation (e.g. `qualify_lead_and_prepare_booking`) that may invoke multiple tools, validate results, apply human gates, and emit an Outcome — not a raw tool call. |
+| **Revenue Capture & Appointment OS** | Flagship outcome offer for appointment-driven SMBs: capture → dedupe → qualify → follow-up → book → escalate → verify → report. |
 | **Company OS** | The operating substrate of AION — identities, policies, mission registry, org context. Home: `aion-core`. |
+| **Agent OS** | Informal product name for the governed orchestration substrate (permissions, approvals, evals, audit) realized primarily in `aion-core` + Runtime Execution Gateway — not a separate repository. |
 | **Control plane / Orchestration** | The decision layer: decides what happens, who does it, what context/policy apply, whether a gate is needed, how success is judged. Deciding, not doing. |
 | **Execution layer** | The doing layer: agents, external runtimes, services, and humans that perform work. |
 | **Intelligence layer** | Context, memory, reasoning, learning, and evals. |
