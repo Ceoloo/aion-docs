@@ -322,10 +322,10 @@ Monday–Tuesday build cadence.
 | Window | Focus | Exit criteria | Status |
 |---|---|---|---|
 | **Sprint 1 — Oct 12–13** | Commercial definition + architecture | Offer finalized; process contract; GHL capabilities; baseline method; acceptance tests; demo-client workflow design | **Definition locked** — [revenue-capture-appointment-os/](revenue-capture-appointment-os/) |
-| **Sprint 2 — Oct 19–20** | Pilot implementation + measurement | Authorized actions integrated; approval + exception gates exercised; end-to-end outcome test path; pilot demonstration package ready | **Not started** (implementation) |
+| **Sprint 2 — Oct 19–20** | Pilot implementation + measurement | Authorized actions integrated; approval + exception gates exercised; end-to-end outcome test path; pilot demonstration package ready | **Fake harness green** — `aion-runtime` `proof:rcaos-at` (AT-1…AT-7). Live Empire / external SMB not claimed. |
 
 Production rollout stays gated on testing, permissions, and operational acceptance.
-Sprint 1 lock ≠ pilot complete.
+Fake AT green ≠ live client pilot.
 
 ---
 
@@ -351,10 +351,11 @@ Sprint 1 lock ≠ pilot complete.
 1. ~~Accept or amend ADR-014.~~ **Accepted** 2026-10-12 with Sprint 1 amendments.  
 2. ~~Create mission for Appointment OS v1.~~ [MISSION-RCAOS-001](../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md).  
 3. ~~Lock Sprint 1 pack.~~ [revenue-capture-appointment-os/](revenue-capture-appointment-os/).  
-4. **Sprint 2:** implement demo workflow D0–D7; exercise AT-1…AT-7 on Empire tenant.  
-5. Publish external messaging updates (site, bios, deck) after fee terms are set.  
-6. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data` as gaps appear.  
-7. Align FDE / Revenue Academy modules to this blueprint’s language.  
+4. ~~**Sprint 2 fake path:** implement D0–D7; AT-1…AT-7.~~ Done in `aion-runtime` (`proof:rcaos-at`).  
+5. Live Empire tenant re-prove (optional) and external SMB pilot selection.  
+6. Publish external messaging updates (site, bios, deck) after fee terms are set.  
+7. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data` as gaps appear.  
+8. Align FDE / Revenue Academy modules to this blueprint’s language.  
 
 Linear anchors: **AIO-8** (standardized delivery), **AIO-70** (Revenue Copilot Gate A), **OL-001**.
 
