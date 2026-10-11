@@ -2,7 +2,8 @@
 
 **Offer:** flagship under [Outcome-Based Services Blueprint](../aion-outcome-based-services-blueprint.md)  
 **ADR:** [ADR-014](../../adr/ADR-014-outcome-based-systems-engineering.md) (Accepted)  
-**Mission:** [MISSION-RCAOS-001](../../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md)
+**Mission:** [MISSION-RCAOS-001](../../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md)  
+**Commercial next:** [Pilot-to-Revenue Program](../aion-pilot-to-revenue-program.md) (No Shorts proposed)
 
 ## Sprint 1 lock (Oct 12–13) — commercial definition + architecture
 
@@ -21,7 +22,7 @@
 | D0–D7 Runtime path | **Implemented** (fake GHL) | `aion-runtime` `npm run proof:rcaos-at` |
 | AT-1…AT-7 | **Green** on FakeGhlBackend + Postgres | `.proof-rcaos-at-evidence.json` (local/CI) |
 | Live Empire tenant | **Not claimed** | Separate live follow-up |
-| External SMB pilot | **Not started** | — |
+| External SMB pilot | **Not started** | [Pilot-to-Revenue Program](../aion-pilot-to-revenue-program.md) — proposed design partner: No Shorts Electrical |
 
 Runbook: `aion-runtime/docs/rcaos-at-proof.md`.
 

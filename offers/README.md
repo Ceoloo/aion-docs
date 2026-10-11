@@ -15,6 +15,7 @@ systems that produce them.
 |---|---|
 | [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Single blueprint connecting offers, architecture, FDE training, sales process, and scorecard |
 | [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) | Decision record (**Accepted** 2026-10-12) |
+| [aion-pilot-to-revenue-program.md](aion-pilot-to-revenue-program.md) | **P0 operating priority** — first design-partner pilot → revenue proof (No Shorts proposed) |
 | [revenue-capture-appointment-os/](revenue-capture-appointment-os/) | Flagship Sprint pack — process contract, GHL caps, baseline, demo workflow |
 
 Commercial pillars: **Revenue Systems**, **Operations Systems**, **Managed AI
@@ -49,6 +50,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 | Document | Purpose |
 |---|---|
 | [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Outcome-Based Services Blueprint (commercial + technical operating model) |
+| [aion-pilot-to-revenue-program.md](aion-pilot-to-revenue-program.md) | Pilot-to-Revenue Program — 14-day plan, acceptance metrics, GE-001 live gate |
 | [revenue-capture-appointment-os/](revenue-capture-appointment-os/) | Revenue Capture & Appointment OS — Sprint 1 locked pack + mission link |
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
 | [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
@@ -59,5 +61,5 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 
 ## Program tracker
 
-Linear: AIO-43 … AIO-52 (TechOps Security Infrastructure Layer).  
-Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance)**.
+**Outcome / pilot:** [AIO-71](https://linear.app/aion-empire/issue/AIO-71/p0-pilot-to-revenue-no-shorts-electrical-design-partner-rcaos) (Pilot-to-Revenue; blocked by AIO-35 / AIO-37).  
+**TechOps:** AIO-43 … AIO-52. Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance)**.

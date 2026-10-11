@@ -5,7 +5,8 @@
 **Related ADR:** [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) (**Accepted**)  
 **Flagship pack:** [revenue-capture-appointment-os/](revenue-capture-appointment-os/)  
 **Mission:** [MISSION-RCAOS-001](../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md)  
-**Evidence state:** Commercial/architecture definition locked — not verified production or external pilot milestones
+**Next priority:** [Pilot-to-Revenue Program](aion-pilot-to-revenue-program.md) (No Shorts Electrical proposed design partner)  
+**Evidence state:** Commercial/architecture definition + fake AT harness locked — not verified production or external pilot milestones
 
 This blueprint connects commercial offers, product architecture, Forward Deployment
 Engineer (FDE) training, sales process, and the performance scorecard into one
@@ -352,12 +353,13 @@ Fake AT green ≠ live client pilot.
 2. ~~Create mission for Appointment OS v1.~~ [MISSION-RCAOS-001](../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md).  
 3. ~~Lock Sprint 1 pack.~~ [revenue-capture-appointment-os/](revenue-capture-appointment-os/).  
 4. ~~**Sprint 2 fake path:** implement D0–D7; AT-1…AT-7.~~ Done in `aion-runtime` (`proof:rcaos-at`).  
-5. Live Empire tenant re-prove (optional) and external SMB pilot selection.  
-6. Publish external messaging updates (site, bios, deck) after fee terms are set.  
-7. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data` as gaps appear.  
-8. Align FDE / Revenue Academy modules to this blueprint’s language.  
+5. **Pilot-to-Revenue (P0):** [aion-pilot-to-revenue-program.md](aion-pilot-to-revenue-program.md) — secure No Shorts paid pilot; clear GE-001 (AIO-35 → AIO-37) before live customer-facing writes.  
+6. Live Empire tenant re-prove (optional) in parallel with commercial scoping.  
+7. Publish external messaging updates (site, bios, deck) after fee terms are set.  
+8. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data` as gaps appear.  
+9. Align FDE / Revenue Academy modules to this blueprint’s language.  
 
-Linear anchors: **AIO-8** (standardized delivery), **AIO-70** (Revenue Copilot Gate A), **OL-001**.
+Linear anchors: **AIO-71** (Pilot-to-Revenue / No Shorts), **AIO-35** / **AIO-37** (GE-001 gate), **AIO-8** (standardized delivery), **AIO-70** (Revenue Copilot Gate A), **OL-001**.
 
 ---
 
@@ -377,3 +379,4 @@ Linear anchors: **AIO-8** (standardized delivery), **AIO-70** (Revenue Copilot G
 |---|---|
 | 2026-10-11 | Initial blueprint from Outcome-Based Systems Engineering strategic direction |
 | 2026-10-12 | ADR-014 Accepted; Sprint 1 pack locked; MISSION-RCAOS-001 Defined |
+| 2026-10-11 | Link Pilot-to-Revenue Program as P0 next move after fake AT harness |
