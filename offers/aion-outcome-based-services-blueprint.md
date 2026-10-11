@@ -1,9 +1,11 @@
 # AION Outcome-Based Services Blueprint
 
-**Status:** Proposed operating model (2026-10-11)  
+**Status:** Operating model accepted via ADR-014 (2026-10-12); Sprint 1 definition locked  
 **Decision owners:** CEO LOO  
-**Related ADR:** [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md)  
-**Evidence state:** Strategic direction and proposed sprint targets — not verified production milestones
+**Related ADR:** [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) (**Accepted**)  
+**Flagship pack:** [revenue-capture-appointment-os/](revenue-capture-appointment-os/)  
+**Mission:** [MISSION-RCAOS-001](../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md)  
+**Evidence state:** Commercial/architecture definition locked — not verified production or external pilot milestones
 
 This blueprint connects commercial offers, product architecture, Forward Deployment
 Engineer (FDE) training, sales process, and the performance scorecard into one
@@ -188,15 +190,13 @@ Contractors, electrical service businesses, home-service companies, and other
 
 Exact fees remain founder-owned; do not invent a rate card here.
 
-### Required GHL capability set (minimum for pilot design)
+### Required GHL capability set
 
-| Capability need | Intent |
-|---|---|
-| Contact read / dedupe signals | Avoid duplicate records |
-| Opportunity / pipeline read-write (governed) | Track qualification state |
-| Conversation / messaging actions (policy-gated) | Approved follow-ups |
-| Appointment create / verify | Booking completion proof |
-| Note / task create | Human handoff evidence |
+**Locked:** [revenue-capture-appointment-os/ghl-capabilities.md](revenue-capture-appointment-os/ghl-capabilities.md).
+
+v1 uses governed contact/opportunity/note/task/`message.draft`/`appointment.read`.
+**Deferred:** `crm.message.send`, `crm.appointment.create`, live conversation
+ingest. Human books; system verifies via read.
 
 Prefer extending the existing governed GHL path over new substrate. See
 [roadmap/ghl-readonly-governed-write.md](../roadmap/ghl-readonly-governed-write.md).
@@ -315,17 +315,17 @@ Every flagship engagement ships a short process contract containing:
 | AT-6 | Scorecard | Report includes the six outcome metrics for the window |
 | AT-7 | Fail-closed | Denied / failed actions leave no silent partial writes |
 
-### Two productivity sprints (proposed targets)
+### Two productivity sprints
 
-Monday–Tuesday build cadence. These are **proposed sprint targets**, not
-verified completed milestones.
+Monday–Tuesday build cadence.
 
-| Window | Focus | Exit criteria |
-|---|---|---|
-| **Sprint 1 — Oct 12–13** | Commercial definition + architecture | Offer finalized; process contract template; required GHL capabilities listed; baseline method; acceptance tests; one demo-client workflow design |
-| **Sprint 2 — Oct 19–20** | Pilot implementation + measurement | Authorized actions integrated; approval + exception gates exercised; end-to-end outcome test path; pilot demonstration package ready |
+| Window | Focus | Exit criteria | Status |
+|---|---|---|---|
+| **Sprint 1 — Oct 12–13** | Commercial definition + architecture | Offer finalized; process contract; GHL capabilities; baseline method; acceptance tests; demo-client workflow design | **Definition locked** — [revenue-capture-appointment-os/](revenue-capture-appointment-os/) |
+| **Sprint 2 — Oct 19–20** | Pilot implementation + measurement | Authorized actions integrated; approval + exception gates exercised; end-to-end outcome test path; pilot demonstration package ready | **Not started** (implementation) |
 
 Production rollout stays gated on testing, permissions, and operational acceptance.
+Sprint 1 lock ≠ pilot complete.
 
 ---
 
@@ -348,16 +348,15 @@ Production rollout stays gated on testing, permissions, and operational acceptan
 
 ## 11. Immediate backlog (documentation → missions)
 
-1. Accept or amend [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md).  
-2. Publish external messaging updates (site, bios, deck) after fee terms are set.  
-3. Create a mission for Revenue Capture & Appointment OS v1 (demo client).  
-4. Encode `qualify_lead_and_prepare_booking` (or equivalent) as a governed capability — not an ad hoc agent script.  
-5. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data`.  
-6. Align FDE / Revenue Academy modules to this blueprint’s language.  
+1. ~~Accept or amend ADR-014.~~ **Accepted** 2026-10-12 with Sprint 1 amendments.  
+2. ~~Create mission for Appointment OS v1.~~ [MISSION-RCAOS-001](../missions/MISSION-RCAOS-001-revenue-capture-appointment-os.md).  
+3. ~~Lock Sprint 1 pack.~~ [revenue-capture-appointment-os/](revenue-capture-appointment-os/).  
+4. **Sprint 2:** implement demo workflow D0–D7; exercise AT-1…AT-7 on Empire tenant.  
+5. Publish external messaging updates (site, bios, deck) after fee terms are set.  
+6. Wire scorecard fields to durable Outcome / analytics contracts in `aion-data` as gaps appear.  
+7. Align FDE / Revenue Academy modules to this blueprint’s language.  
 
-Linear anchors already pointing the same direction: **AIO-8** (standardized
-delivery), **AIO-70** (Revenue Copilot Gate A), **OL-001** revenue production
-loop.
+Linear anchors: **AIO-8** (standardized delivery), **AIO-70** (Revenue Copilot Gate A), **OL-001**.
 
 ---
 
@@ -376,3 +375,4 @@ loop.
 | Date | Change |
 |---|---|
 | 2026-10-11 | Initial blueprint from Outcome-Based Systems Engineering strategic direction |
+| 2026-10-12 | ADR-014 Accepted; Sprint 1 pack locked; MISSION-RCAOS-001 Defined |

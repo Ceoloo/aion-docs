@@ -13,6 +13,7 @@ explicit scope, and — crucially — explicit non-goals.
 | [mission-template.md](mission-template.md) | The template for defining a mission. |
 | [release-template.md](release-template.md) | The release gate template. |
 | [validation-template.md](validation-template.md) | The validation gate template. |
+| [MISSION-RCAOS-001-revenue-capture-appointment-os.md](MISSION-RCAOS-001-revenue-capture-appointment-os.md) | Flagship Appointment OS v1 (demo client) — Defined |
 
 ## Why missions
 

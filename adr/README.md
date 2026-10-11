@@ -80,4 +80,4 @@ prematurely.** Record the required capability and defer:
 | [ADR-011](ADR-011-harness-execution-seam.md) | Adopt UHP / HarnessRouter as the Harness-Execution Seam | Accepted |
 | [ADR-012](ADR-012-secure-execution-layer-v1.md) | Secure Execution Layer v1 (AIO-45) | Accepted |
 | [ADR-013](ADR-013-command-center-configuration-authority.md) | Command Center Configuration Authority and Staged Workforce Administration | Proposed |
-| [ADR-014](ADR-014-outcome-based-systems-engineering.md) | Outcome-Based Systems Engineering as operating philosophy | Proposed |
+| [ADR-014](ADR-014-outcome-based-systems-engineering.md) | Outcome-Based Systems Engineering as operating philosophy | Accepted |

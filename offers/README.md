@@ -14,7 +14,8 @@ systems that produce them.
 | Document | Purpose |
 |---|---|
 | [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Single blueprint connecting offers, architecture, FDE training, sales process, and scorecard |
-| [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) | Decision record (Proposed) |
+| [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) | Decision record (**Accepted** 2026-10-12) |
+| [revenue-capture-appointment-os/](revenue-capture-appointment-os/) | Flagship Sprint pack — process contract, GHL caps, baseline, demo workflow |
 
 Commercial pillars: **Revenue Systems**, **Operations Systems**, **Managed AI
 Infrastructure**. Flagship productized process: **Revenue Capture & Appointment OS**.
@@ -48,6 +49,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 | Document | Purpose |
 |---|---|
 | [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Outcome-Based Services Blueprint (commercial + technical operating model) |
+| [revenue-capture-appointment-os/](revenue-capture-appointment-os/) | Revenue Capture & Appointment OS — Sprint 1 locked pack + mission link |
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
 | [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
 | [continuous-assurance-monthly-report-template.md](continuous-assurance-monthly-report-template.md) | **AIO-47** monthly client-facing assurance report |
