@@ -5,6 +5,23 @@ These documents are **sales/delivery contracts**, not Runtime APIs — but they
 must stay consistent with governance ADRs and the
 [Security Infrastructure Standard v1](../architecture/security-infrastructure-standard-v1.md).
 
+## Operating philosophy
+
+**Outcome-Based Systems Engineering** is the proposed central operating model:
+clients buy measurable results; AION designs, deploys, and operates the governed
+systems that produce them.
+
+| Document | Purpose |
+|---|---|
+| [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Single blueprint connecting offers, architecture, FDE training, sales process, and scorecard |
+| [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) | Decision record (Proposed) |
+
+Commercial pillars: **Revenue Systems**, **Operations Systems**, **Managed AI
+Infrastructure**. Flagship productized process: **Revenue Capture & Appointment OS**.
+
+TechOps (below) remains the security substrate that makes autonomous digital
+labor operable — complementary, not replaced.
+
 ## TechOps ladder (three layers)
 
 | Layer | Job | Primary artifacts |
@@ -30,6 +47,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 
 | Document | Purpose |
 |---|---|
+| [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Outcome-Based Services Blueprint (commercial + technical operating model) |
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
 | [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
 | [continuous-assurance-monthly-report-template.md](continuous-assurance-monthly-report-template.md) | **AIO-47** monthly client-facing assurance report |
