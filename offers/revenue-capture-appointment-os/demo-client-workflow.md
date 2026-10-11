@@ -1,7 +1,7 @@
 # Demo-client workflow — AION Empire (customer-zero)
 
-**Status:** Locked design for Sprint 1 (2026-10-12)  
-**Implementation:** Sprint 2 (Oct 19–20)  
+**Status:** Locked design (Sprint 1) · Fake path implemented (Sprint 2)  
+**Implementation evidence:** `aion-runtime` `npm run proof:rcaos-at` (AT-1…AT-7 green on FakeGhlBackend)  
 **Process contract:** [process-contract.md](process-contract.md) Part B  
 **Capabilities:** [ghl-capabilities.md](ghl-capabilities.md)
 

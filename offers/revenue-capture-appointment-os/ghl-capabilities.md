@@ -53,13 +53,14 @@ qualify_lead_and_prepare_booking
 
 Aligned with Secure Automation `lead-to-appointment-v1` steps in `@aion/core`.
 
-## 4. Sprint 2 enablement checklist (not claimed done)
+## 4. Sprint 2 enablement checklist
 
-- [ ] Tenant pipeline/stage IDs configured (`GHL_ACCEPTANCE_*` or client equivalents)  
-- [ ] Demo contact namespace / tag isolation so synthetic runs never touch real prospects  
-- [ ] Approval principals registered for R2 opportunity + draft steps  
-- [ ] Appointment verify path: read returns booking **or** exception Outcome  
-- [ ] Cost units recorded on terminal Outcome  
+- [x] Fake harness: D0–D7 + AT-1…AT-7 (`aion-runtime` `npm run proof:rcaos-at`)  
+- [x] Demo contact namespace / tag isolation (`aion-rcaos-demo`, `@example.invalid`)  
+- [x] Approval principals exercised for R2 opportunity + draft steps (fake)  
+- [x] Appointment verify path: human book sim → `crm.appointment.read` → Outcome (fake)  
+- [ ] Tenant pipeline/stage IDs configured for **live** Empire / client (`GHL_ACCEPTANCE_*`)  
+- [ ] Live Empire re-prove (optional; separate from fake green)  
 - [ ] No enablement of `crm.message.send` or `crm.appointment.create` without new acceptance evidence  
 
 ## 5. Honesty note

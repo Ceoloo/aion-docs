@@ -14,9 +14,16 @@
 | Demo-client workflow design | **Locked** | [demo-client-workflow.md](demo-client-workflow.md) |
 | Acceptance tests | **Locked** (in process contract) | [process-contract.md](process-contract.md#acceptance-tests) |
 
-These locks define **what we will build and measure**. They are **not** production
-rollout or pilot-pass evidence. Sprint 2 (Oct 19–20) implements and proves the
-path under permissions and operational acceptance.
+## Sprint 2 — pilot implementation + measurement (fake harness)
+
+| Artifact | Status | Evidence |
+|---|---|---|
+| D0–D7 Runtime path | **Implemented** (fake GHL) | `aion-runtime` `npm run proof:rcaos-at` |
+| AT-1…AT-7 | **Green** on FakeGhlBackend + Postgres | `.proof-rcaos-at-evidence.json` (local/CI) |
+| Live Empire tenant | **Not claimed** | Separate live follow-up |
+| External SMB pilot | **Not started** | — |
+
+Runbook: `aion-runtime/docs/rcaos-at-proof.md`.
 
 ## Aligns with existing platform work
 

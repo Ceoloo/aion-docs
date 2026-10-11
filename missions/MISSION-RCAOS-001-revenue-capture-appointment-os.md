@@ -2,8 +2,9 @@
 
 - **Mission ID:** MISSION-RCAOS-001
 - **Owner:** CEO LOO (decision) · Sprint FDE (delivery)
-- **Status:** Defined
+- **Status:** Build
 - **Date:** 2026-10-12
+- **Updated:** 2026-10-11 — Sprint 2 fake harness AT-1…AT-7 green (`proof:rcaos-at`)
 
 ## Problem
 
@@ -96,4 +97,5 @@ ADRs: [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) (Accepted).
 | Sprint | Mission stage |
 |---|---|
 | Oct 12–13 definition lock | Defined → Architecture (docs) |
-| Oct 19–20 pilot implementation | Build → evidence toward Release Gate |
+| Sprint 2 fake harness | Build — AT-1…AT-7 green on FakeGhlBackend (`aion-runtime` `proof:rcaos-at`) |
+| Next | Live Empire optional re-prove → external SMB Release Gate |
