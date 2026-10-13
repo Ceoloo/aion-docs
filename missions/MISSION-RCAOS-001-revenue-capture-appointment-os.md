@@ -98,4 +98,4 @@ ADRs: [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md) (Accepted).
 |---|---|
 | Oct 12–13 definition lock | Defined → Architecture (docs) |
 | Sprint 2 fake harness | Build — AT-1…AT-7 green on FakeGhlBackend (`aion-runtime` `proof:rcaos-at`) |
-| Next | [Pilot-to-Revenue Program](../offers/aion-pilot-to-revenue-program.md) — No Shorts design partner (proposed); GE-001 (AIO-35 → AIO-37) before live customer-facing writes; Live Empire optional re-prove in parallel |
+| Next | [Pilot-to-Revenue Program](../offers/aion-pilot-to-revenue-program.md) — No Shorts design partner (proposed); GE-001 (AIO-35 → AIO-37) **and** live AION Systems customer-zero RCAOS proof are **non-waivable** before any external customer-facing writes |
