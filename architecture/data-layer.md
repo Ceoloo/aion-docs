@@ -57,7 +57,13 @@ Events describe **completed facts** in past tense. Commands and intentions must
 - **Lineage is traceable.** Every derived record (state, outcome, lesson,
   analytic) can be traced back to the events it came from.
 - **No shadow canonical entities.** Products and services may cache or project
-  data, but the canonical definition lives once, in `aion-data`.
+  **platform** business data, but the canonical definition lives once, in
+  `aion-data`. **Exception (ADR-015, Proposed):** a Workspace **product-module
+  satellite** under the
+  [Product Module Contract](product-module-contract.md) owns its own product
+  entities (e.g. Creative OS media, edit plans, renders) in the module store;
+  AION Data still owns governance records (missions, approvals, side effects,
+  outcomes). Do not duplicate either side.
 
 ## What aion-data owns
 

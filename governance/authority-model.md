@@ -35,9 +35,10 @@ metric, permission, and API contract has **exactly one canonical owner.**
 
 | Artifact | Canonical owner lives in |
 |---|---|
-| business entity, schema, event | aion-data |
+| platform business entity, schema, event; governance records | aion-data |
 | workflow, agent, permission, tool contract | aion-core |
-| product, product experiment | aion-products |
+| product, product experiment (platform product plane) | aion-products |
+| product-module satellite product entities (media, edit plans, renders, …) | the module repo (e.g. `aion-creative-os-CVD`) per [ADR-015](../adr/ADR-015-workspace-product-module-contract.md) (Proposed) |
 | environment, secret store, deployment pattern | aion-infra |
 | architecture, standard, ADR, terminology | aion-docs |
 

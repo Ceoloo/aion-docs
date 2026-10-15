@@ -14,6 +14,7 @@ Canon details: [`../../repositories/`](../../repositories/).
 | `aion-products` | Revenue Copilot engines, CLI, web console, workforce-control | Product, Frontend, AI |
 | `aion-desks` | Next.js Stripe landing for Operator/Everyday Desk | Product, Frontend, Integrations |
 | `aion-action-engine` | Action Queue + Decision Plane (`@aion/decision-engine`); satellite | Product, AI, Runtime |
+| `aion-creative-os-CVD` | Creative OS product module (media, clips, edit plans, renders); satellite per ADR-015 (Proposed) | Product, Frontend, Runtime |
 
 ## Dependency direction (hard)
 
@@ -38,6 +39,8 @@ Violations are **architecture defects**, not convenience exceptions.
 | Terraform/Compose, secrets injection, CI deploy | `aion-infra` |
 | Copilot engines, product APIs, workforce UI logic | `aion-products` |
 | Desk marketing/checkout pages | `aion-desks` |
+| Creative product logic, media processing, creative product data | `aion-creative-os-CVD` |
+| How any product module plugs into Workspace + Runtime | `aion-docs` ([product-module-contract.md](../../architecture/product-module-contract.md)) |
 
 ## Known workspace note
 

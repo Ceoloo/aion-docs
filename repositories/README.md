@@ -45,6 +45,7 @@ flowchart TD
 | Repository | Role | Detail |
 |---|---|---|
 | **aion-desks** | Desk commerce landing / Stripe checkout — product surface only ([ADR-004](../adr/ADR-004-aion-desks-repo-ownership.md)) | [aion-desks.md](aion-desks.md) |
+| **aion-creative-os** (`aion-creative-os-CVD`) | Creative OS product module: media, clips, edit plans, renders; opens in the Workspace under the [Product Module Contract](../architecture/product-module-contract.md) ([ADR-015](../adr/ADR-015-workspace-product-module-contract.md), Proposed) | [aion-creative-os.md](aion-creative-os.md) |
 | **aion-action-engine** | Action Queue (Signal → Action → Approval → Outcome) + the Decision Plane `@aion/decision-engine` ([ADR-009](../adr/ADR-009-decision-plane.md)) — operational module, not a control plane | [aion-action-engine.md](aion-action-engine.md) |
 
 ### Outside the canonical set (AION-Sys, unresolved)
