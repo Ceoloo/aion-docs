@@ -35,4 +35,6 @@ May call Runtime-facing module APIs and its own providers. Must not import
 
 Phase 1 (media intake, leased job queue) implemented and locally tested.
 Transcription, clip finding, approval and rendering are later phases. Listed as
-`planned` in the Workspace until contract acceptance evidence passes.
+`planned` in the Workspace until contract acceptance evidence passes for every
+advertised gated service. Sequencing and gates:
+[roadmap/aion-build-map-creative-os.md](../roadmap/aion-build-map-creative-os.md).

@@ -6,7 +6,8 @@
 - **Date:** 2026-10-15
 - **Architecture:** [ADR-015](../adr/ADR-015-workspace-product-module-contract.md) (Proposed) ·
   [Product Module Contract](../architecture/product-module-contract.md) ·
-  [repositories/aion-creative-os.md](../repositories/aion-creative-os.md)
+  [repositories/aion-creative-os.md](../repositories/aion-creative-os.md) ·
+  [Build map](../roadmap/aion-build-map-creative-os.md)
 
 ## Problem
 

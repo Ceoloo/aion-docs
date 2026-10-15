@@ -10,7 +10,8 @@
   [ADR-013](ADR-013-command-center-configuration-authority.md),
   [ADR-014](ADR-014-outcome-based-systems-engineering.md),
   [`../architecture/product-module-contract.md`](../architecture/product-module-contract.md),
-  [`../repositories/aion-creative-os.md`](../repositories/aion-creative-os.md)
+  [`../repositories/aion-creative-os.md`](../repositories/aion-creative-os.md),
+  [`../roadmap/aion-build-map-creative-os.md`](../roadmap/aion-build-map-creative-os.md)
 
 ## Context
 
@@ -71,7 +72,15 @@ and Creative OS will be the first module built against it.
    renders). AION Data, through Runtime, holds governance truth: missions,
    executions, approvals, side effects, outcomes, audit. Neither copies the
    other's canonical records; each stores the other's identifiers as
-   references.
+   references. **This amends** the earlier blanket ownership rule in
+   [architecture/data-layer.md](../architecture/data-layer.md),
+   [architecture/product-layer.md](../architecture/product-layer.md) and
+   [governance/authority-model.md](../governance/authority-model.md) that placed
+   every canonical business entity in `aion-data` / allowed products only
+   projections. For **product-module satellites** under this contract, the
+   module owns its product entities; platform business entities and all
+   governance records remain in AION Data. One owner per entity still holds —
+   the owner is the module for product rows, AION Data for governance.
 3. **Governed actions go through Runtime.** Module capabilities are registered
    as Service Catalog entries (`serviceKey` `name@version`) with risk level and
    action tier. Runtime reaches the module through a **module adapter** that
@@ -89,14 +98,23 @@ and Creative OS will be the first module built against it.
    client's tenant ([ADR-005](ADR-005-runtime-identity-plane.md)). Operators do
    not approve on a client's behalf for client-gated actions.
 6. **Tenancy.** Module data is scoped by the Runtime tenant id. The module
-   never accepts tenant or actor identity from the browser.
+   never accepts tenant or actor identity from the browser. Workspace SSO
+   assertions carry claims only from a **Runtime-authenticated** principal /
+   durable actor grants (see contract §2); they are not invented in the
+   browser or from a stale local map.
 7. **Embedding.** A module opens in the Workspace as its own web app in a
    window (`kind: remote_module`), served from a subdomain of the same parent
    domain as the Workspace, with a server-side SSO handoff, a framing lock and
    a small window message protocol. It also works standalone in its own tab.
 8. **Honest availability.** A module stays `planned` in the app registry until
-   its first service passes acceptance evidence. `connected` and `available`
-   are earned, not declared.
+   **every advertised gated service** passes acceptance evidence (contract
+   §10). `connected` and `available` are earned, not declared. A single
+   passing service does not unlock the whole module.
+9. **Idempotency at the module boundary.** The Runtime ledger key is not
+   enough by itself: the stable idempotency key MUST reach the module API, and
+   the module MUST return the original result for repeated or concurrent
+   requests with that key (same seam idea as
+   [ADR-011](ADR-011-harness-execution-seam.md)).
 
 The required capabilities for the SSO assertion, adapter status reporting and
 module data store are stated in the contract. **No platform-wide vendor is
@@ -120,7 +138,9 @@ a product-internal choice inside its boundary, not a platform standard.
   the AION-Sys revenue copilot.
 - **Alternative D: Store creative entities in AION Data.** **Rejected:** AION
   Data explicitly excludes product/content tables; large media and product
-  schemas belong to the product.
+  schemas belong to the product. Choosing this alternative would keep the
+  older data-layer / product-layer ownership text unchanged; we instead amend
+  those docs for product-module satellites (Decision §2).
 - **Alternative E: Open modules only as external links, no window
   embedding.** **Kept as fallback only:** links work without SSO but break the
   single-surface experience the Workspace exists to provide.
@@ -178,11 +198,13 @@ Phases 2–5 and Workspace OS-004 lands.
 - **Creative OS mission charter.** Drafted as
   [MISSION-CREATIVE-001](../missions/MISSION-CREATIVE-001-creative-os-client-shorts.md)
   (Defined, proposed); it must be approved before integration build.
+- **Build map.** Working sequence, backlog and open decisions:
+  [roadmap/aion-build-map-creative-os.md](../roadmap/aion-build-map-creative-os.md).
 - **Adapter status reporting.** Polling vs callback from module to Runtime:
-  capability stated in the contract; mechanism chosen during the first adapter
-  build, by ADR only if it changes a cross-repo contract.
-- **SSO assertion format and key management.** Capability stated; technology
-  deferred.
+  the contract requires at least one; mechanism chosen during the first
+  adapter build, by ADR only if it changes a cross-repo contract.
+- **SSO assertion format and key management.** Capability and Runtime-authority
+  binding stated; technology deferred.
 - **Workspace repository status.** `aion-command-center` is not yet listed in
   the repository maps; its canon/satellite status needs recording (relates to
   ADR-013).

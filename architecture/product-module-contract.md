@@ -12,7 +12,7 @@ Workspace app registry.
 
 | Party | Owns | Never owns |
 |---|---|---|
-| **Workspace** (`aion-command-center`) | Shell, windows, launcher, Assistant, Missions/Approvals UI, SSO assertion issuing | Execution, policy, product logic, product data |
+| **Workspace** (`aion-command-center`) | Shell, windows, launcher, Assistant, Missions/Approvals UI, SSO assertion issuing from Runtime-authenticated session | Execution, policy, product logic, product data |
 | **Runtime** (`aion-runtime`) | Authentication, authorization, Service Catalog, executions, human gates, side-effect ledger, outcomes, module adapters | Product logic, product schemas, provider SDKs |
 | **AION Data** (`aion-data`) | Governance records behind Runtime | Product/content entities |
 | **Module** (e.g. `aion-creative-os-CVD`) | Product UI, product logic, product data store, its own workers | Approval authority, identity, cross-tenant decisions |
@@ -32,7 +32,7 @@ A module MUST publish a manifest the Workspace registers in its app registry:
 |---|---|
 | `appId` | Stable, lowercase, e.g. `creative-os` |
 | `kind` | `remote_module` for web modules; `local_native` only via the Native Companion |
-| `availability` | Starts `planned`. Becomes `connected` only after section 10 evidence passes |
+| `availability` | Starts `planned`. Becomes `connected` only after section 10 evidence passes **for every advertised gated `serviceKey`** |
 | `href` | Module origin on a subdomain of the Workspace's parent domain |
 | `subApps` | Optional list of the module's apps (label, path, description) |
 | `health` | Liveness and readiness URLs |
@@ -42,9 +42,14 @@ A module MUST publish a manifest the Workspace registers in its app registry:
 
 - The module MUST NOT accept tenant, actor or role from the browser.
 - **SSO handoff:** the Workspace server issues a short-lived signed assertion
-  (minutes, single audience = the module) carrying `tenantId`, `actorId`,
-  `principalId` and roles. The module verifies it **server-side** and creates
-  its own session. The signing technology is not fixed by this contract.
+  (minutes, single audience = the module) only for a principal that Runtime has
+  already authenticated in that request path. Claims (`tenantId`, `actorId`,
+  `principalId`, roles) MUST be copied from the Runtime-authenticated session /
+  durable actor grants — not from client-supplied fields or a stale local map.
+  The module verifies the assertion **server-side** (signature, audience,
+  expiry) and creates its own session. Optionally, the module MAY exchange the
+  assertion with Runtime for a fresh validation before creating the session.
+  The signing technology is not fixed by this contract.
 - Module product rows MUST carry the Runtime `tenantId` and be isolated by it
   (row-level policies or equivalent), so one tenant cannot read another's data.
 - Operators act with `invoke` for a tenant. Approvers are **registered human
@@ -68,12 +73,19 @@ A module MUST publish a manifest the Workspace registers in its app registry:
   GHL adapter pattern: backend policy, a fake backend for tests, production
   write eligibility checks, normalized provider errors.
 - Every module write is recorded in the external side-effect ledger with an
-  idempotency key. Retrying the same command MUST NOT create a second artifact.
+  idempotency key. The **same stable idempotency key MUST cross the adapter
+  boundary** into the module API (same idea as the harness seam in
+  [ADR-011](../adr/ADR-011-harness-execution-seam.md)). The module MUST treat
+  that key as the de-duplication key and, for repeated or concurrent requests
+  with the same key, atomically return the original result. Retrying the same
+  command MUST NOT create a second artifact even if the Runtime ledger write
+  was lost after the module succeeded.
 - The adapter authenticates to the module with a server-only, tenant-scoped
   credential. No module credential reaches a browser.
-- **Status reporting:** the module MUST expose job status Runtime can read
-  (polling) and MAY push status changes (callback). The mechanism is chosen
-  during the first adapter build.
+- **Status reporting:** Runtime MUST receive job status through **either**
+  polling **or** callbacks (or both). The module MUST implement at least one of:
+  a pollable status endpoint, or a callback Runtime can verify. The mechanism
+  is chosen during the first adapter build; this contract does not require both.
 
 ## 5. Approvals
 
@@ -111,7 +123,11 @@ A module MUST publish a manifest the Workspace registers in its app registry:
 
 - Product data lives in the module's store; governance data lives in AION Data.
   Each side stores the other's ids as references and never copies canonical
-  records.
+  records. This amends the earlier blanket rule that every canonical entity
+  lives in `aion-data` for **product-module satellites** under this contract
+  (see [ADR-015](../adr/ADR-015-workspace-product-module-contract.md)). Platform
+  business entities (leads, outcomes, missions, approvals, side effects) remain
+  in AION Data.
 - The module MUST NOT import `@aion/core` or `@aion/data`, and MUST NOT write to
   AION Data directly.
 - Untrusted content (uploads, transcripts, scraped posts) is data, never
@@ -132,8 +148,11 @@ A module MUST publish a manifest the Workspace registers in its app registry:
 
 ## 10. Acceptance evidence (before `connected`)
 
-One real, tenant-bound run per gated service, recorded in the
-[operator-loop evidence format](https://github.com/Ceoloo/aion-runtime/blob/main/docs/operator-loop-v1.md):
+One real, tenant-bound run **per advertised gated service**, recorded in the
+[operator-loop evidence format](https://github.com/Ceoloo/aion-runtime/blob/main/docs/operator-loop-v1.md).
+The module stays `planned` until **every** advertised gated `serviceKey` has a
+passing pack. Ungated catalog entries used in production flows SHOULD also have
+an evidence row, but do not alone unlock `connected`.
 
 | Claim | Evidence |
 |---|---|
@@ -142,7 +161,7 @@ One real, tenant-bound run per gated service, recorded in the
 | Dual check | Module log showing revision/hash and approval id matched before execution |
 | Rejection path | A denied gate produces no side effect and no artifact |
 | Edit invalidation | An edit after approval is refused until re-approved |
-| Side effect | Ledger entry with idempotency key; replay creates no duplicate |
+| Side effect | Ledger entry with idempotency key; module returns original result on replay |
 | Outcome | Outcome id with truthful status and evidence reference |
 | Isolation | A principal of tenant B cannot read, run or approve tenant A's work |
 
@@ -151,5 +170,6 @@ One real, tenant-bound run per gated service, recorded in the
 - One authority: Runtime decides; modules execute.
 - One inbox: approvals are decided in the Workspace.
 - No product tables in AION Data; no governance truth in module stores.
-- No identity or tenant from the browser.
-- `planned` until proven.
+- No identity or tenant from the browser; SSO claims come from Runtime-authenticated authority.
+- Idempotency keys cross the adapter; modules de-duplicate.
+- `planned` until every advertised gated service is proven.

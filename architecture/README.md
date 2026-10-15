@@ -18,6 +18,7 @@ It defines architecture and contracts — not implementation.
 | [data-layer.md](data-layer.md) | Canonical data, events, memory, lessons, analytics. |
 | [product-layer.md](product-layer.md) | How products consume the platform. |
 | [product-module-contract.md](product-module-contract.md) | How a product module plugs into the Workspace and Runtime ([ADR-015](../adr/ADR-015-workspace-product-module-contract.md), Proposed). |
+| [../roadmap/aion-build-map-creative-os.md](../roadmap/aion-build-map-creative-os.md) | Build map / Creative OS handoff: repos, flow, rules, gates, backlog. |
 | [learning-loop.md](learning-loop.md) | Context → outcome → lesson → memory. |
 | [observability.md](observability.md) | The traceability model for every action. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
