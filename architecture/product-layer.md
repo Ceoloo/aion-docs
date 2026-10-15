@@ -70,6 +70,9 @@ validated outcomes. See [../missions/lifecycle.md](../missions/lifecycle.md).
 - **Consume, don't rebuild.** Infrastructure, orchestration, and canonical data
   come from the platform.
 - **No reach-around.** Governed actions go through the control plane.
-- **No shadow canonical data.** Products project and cache; they do not own
-  canonical entities.
+- **No shadow canonical data.** Platform products project and cache platform
+  entities; they do not fork them. **Exception (ADR-015, Proposed):** a
+  Workspace product-module satellite owns its **module product entities** under
+  the [Product Module Contract](product-module-contract.md); it still must not
+  own governance records or invent parallel platform entities.
 - **Every product traces to a mission.**

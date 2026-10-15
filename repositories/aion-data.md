@@ -19,9 +19,12 @@ must be **explicit**.
 
 ## Does NOT own
 
-Orchestration (aion-core), product UI (aion-products), or infrastructure
-provisioning (aion-infra). `aion-data` defines *what the data is and how it is
-governed*, not *what decides to write it* or *where it runs*.
+Orchestration (aion-core), product UI (aion-products), infrastructure
+provisioning (aion-infra), or **product-module product entities** under
+[ADR-015](../adr/ADR-015-workspace-product-module-contract.md) (Proposed) —
+those live in the module store (e.g. Creative OS media and edit plans).
+`aion-data` defines *what platform/governance data is and how it is governed*,
+not *what decides to write it* or *where it runs*.
 
 ## The rule that matters most
 

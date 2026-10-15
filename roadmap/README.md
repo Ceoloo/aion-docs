@@ -13,6 +13,7 @@ to resist the speculative accretion that caused the
 | [platform-maturity.md](platform-maturity.md) | The L0–L5 maturity model and the platformization rule. |
 | [production-golive.md](production-golive.md) | Track A authenticated production release checklist (historical; superseded for current close-out). |
 | [governed-execution-certify.md](governed-execution-certify.md) | **Current** GOVERNED EXECUTION certify checklist (GE-001; assessment 2026-10-12). |
+| [aion-build-map-creative-os.md](aion-build-map-creative-os.md) | AION Build Map — Creative OS handoff (repos, flow, gates, backlog). |
 
 ## The two ideas
 
