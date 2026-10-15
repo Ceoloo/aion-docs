@@ -17,6 +17,7 @@ It defines architecture and contracts — not implementation.
 | [intelligence-layer.md](intelligence-layer.md) | Context, memory, reasoning, learning, evals. |
 | [data-layer.md](data-layer.md) | Canonical data, events, memory, lessons, analytics. |
 | [product-layer.md](product-layer.md) | How products consume the platform. |
+| [product-module-contract.md](product-module-contract.md) | How a product module plugs into the Workspace and Runtime ([ADR-015](../adr/ADR-015-workspace-product-module-contract.md), Proposed). |
 | [learning-loop.md](learning-loop.md) | Context → outcome → lesson → memory. |
 | [observability.md](observability.md) | The traceability model for every action. |
 | [security-model.md](security-model.md) | Identities, least privilege, controls. |
