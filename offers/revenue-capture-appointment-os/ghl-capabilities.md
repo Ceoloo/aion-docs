@@ -60,7 +60,7 @@ Aligned with Secure Automation `lead-to-appointment-v1` steps in `@aion/core`.
 - [x] Approval principals exercised for R2 opportunity + draft steps (fake)  
 - [x] Appointment verify path: human book sim → `crm.appointment.read` → Outcome (fake)  
 - [ ] Tenant pipeline/stage IDs configured for **live** Empire / client (`GHL_ACCEPTANCE_*`)  
-- [ ] Live Empire re-prove (optional; separate from fake green)  
+- [ ] Live AION Systems customer-zero RCAOS re-prove (**required** before external writes; separate from fake green)  
 - [ ] No enablement of `crm.message.send` or `crm.appointment.create` without new acceptance evidence  
 
 ## 5. Honesty note

@@ -53,7 +53,8 @@
       "gitSha": "3382b611c3f1847b463476fce8bdd879c18e44d9"
     },
     "aion-docs": {
-      "assessment": ".aion/research/production-readiness-2026-09-28.md",
+      "assessment": ".aion/research/production-readiness-2026-10-12.md",
+      "priorAssessment": ".aion/research/production-readiness-2026-09-28.md",
       "checklist": "roadmap/governed-execution-certify.md",
       "mission": ".aion/missions/GE-001-governed-execution-certify.md"
     }
@@ -98,8 +99,21 @@
     "Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.",
     "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS.",
     "Maintainer handoff recorded: deploy-vps from Infra main only; 403 is an access boundary.",
-    "Products #45 (draft) advances Copilot active-session durability in test/CI only; GE-001 and production deploy handoff unchanged."
+    "Products #45 (draft) advances Copilot active-session durability in test/CI only; GE-001 and production deploy handoff unchanged.",
+    "2026-10-12: Runtime main tip is 7ad6649 (#59 registry, #60 assurance, #61 rooms, #62 RCAOS AT harness). DO NOT retarget this candidate to tip. Certify 20fe3a4 first; tip adds migration 0014 and new release surface.",
+    "2026-10-12 assessment: .aion/research/production-readiness-2026-10-12.md — production/cash-flow readiness unchanged; architecture ahead of ops."
   ],
+  "tipDriftAsOf": {
+    "recordedAt": "2026-10-12",
+    "runtimeMainTip": "7ad664916fdbdf55697fe90801d27d2990cf4f06",
+    "runtimeMainIncludes": ["#59", "#60", "#61", "#62"],
+    "coreMainTip": "6ba12ace604055b1f98d9f12a737059e609b8c44",
+    "dataMainTip": "9d4b59f97ca3f759d7aaa22fbeed136c5e2b2e83",
+    "dataMigrationsOnTip": "0001-0014",
+    "productsMainTip": "06eedbf9a889ef2c0c721f102baf8c255a36221c",
+    "infraMainTip": "805fb77ac246b3c27473ef465552e1889cfc215f",
+    "policy": "Keep candidate gitSha at 20fe3a4 until GE-001 PASS; tipDrift is informational only."
+  },
   "observedProduction": {
     "checkedAt": "2026-09-28T21:45:00Z",
     "healthReadyUrl": "https://runtime.srv1655818.hstgr.cloud/health/ready",

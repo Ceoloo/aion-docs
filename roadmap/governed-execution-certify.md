@@ -1,8 +1,13 @@
 # GOVERNED EXECUTION certify — operational checklist
 
-Status snapshot **2026-09-28**. Implements the cash-flow priority from
-[production-readiness-2026-09-28](../.aion/research/production-readiness-2026-09-28.md)
+Status snapshot **2026-10-12** (checklist gates unchanged since 2026-09-28).
+Implements the cash-flow priority from
+[production-readiness-2026-10-12](../.aion/research/production-readiness-2026-10-12.md)
+(prior: [2026-09-28](../.aion/research/production-readiness-2026-09-28.md))
 and agent mission [GE-001](../.aion/missions/GE-001-governed-execution-certify.md).
+
+**Do not retarget** the candidate pin to Runtime tip (`7ad6649` / #59–#62).
+Certify the existing `20fe3a4` digest first.
 
 Raises Operator Loop live acceptance from “agent continues after approval” to
 **GOVERNED EXECUTION — VERIFIED** (RES-002), without new subsystems.
@@ -17,12 +22,12 @@ context.
 
 | Layer | Position |
 |---|---|
-| Documented architecture | Strong |
-| Implemented platform code | Strong |
-| Automated platform tests | Strong except Products `main` red |
-| Verified live operation | Meaningful but release-fragmented; one contaminated CRM write |
+| Documented architecture | Strong, increasingly ahead of operations |
+| Implemented platform code | Strong on current branches (registry, assurance, rooms, RCAOS tip) |
+| Automated / synthetic tests | Strong; RCAOS AT-1…AT-7 green on fake harness |
+| Verified live operation | No new evidence since 2026-09-28; one contaminated CRM write |
 | Proven revenue production | Not established |
-| GOVERNED EXECUTION — VERIFIED | **Open** |
+| GOVERNED EXECUTION — VERIFIED | **Open** (candidate still `20fe3a4`, not tip) |
 
 ---
 

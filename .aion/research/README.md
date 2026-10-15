@@ -16,7 +16,8 @@ Architect go/no-go, and usually an [ADR](../../adr/README.md).
 | Path | Purpose |
 |---|---|
 | [capability-backlog.md](capability-backlog.md) | Ranked research candidates (evidence + isolation) |
-| [production-readiness-2026-09-28.md](production-readiness-2026-09-28.md) | Dated production readiness assessment → GOVERNED EXECUTION |
+| [production-readiness-2026-10-12.md](production-readiness-2026-10-12.md) | **Current** dated production readiness assessment → certify `20fe3a4` GE-001 candidate |
+| [production-readiness-2026-09-28.md](production-readiness-2026-09-28.md) | Prior assessment (2026-09-28) → GOVERNED EXECUTION |
 | [techops-monday-brief-2026-10-05.md](techops-monday-brief-2026-10-05.md) | TechOps Monday Brief — agent identity as infrastructure |
 | `RES-NNN-*.md` | Per-mission research briefs / comparison matrices |
 | Prototypes | Live **outside** `main` (feature branches / sandboxes); link from the brief |

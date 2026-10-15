@@ -21,7 +21,7 @@
 |---|---|---|
 | D0–D7 Runtime path | **Implemented** (fake GHL) | `aion-runtime` `npm run proof:rcaos-at` |
 | AT-1…AT-7 | **Green** on FakeGhlBackend + Postgres | `.proof-rcaos-at-evidence.json` (local/CI) |
-| Live Empire tenant | **Not claimed** | Separate live follow-up |
+| Live Empire / AION Systems customer-zero | **Not claimed** | **Required** before any external client write (non-waivable with GE-001) |
 | External SMB pilot | **Not started** | [Pilot-to-Revenue Program](../aion-pilot-to-revenue-program.md) — proposed design partner: No Shorts Electrical |
 
 Runbook: `aion-runtime/docs/rcaos-at-proof.md`.

@@ -1,11 +1,12 @@
 # AION Pilot-to-Revenue Program
 
-**Status:** Proposed operating priority (2026-10-11)  
+**Status:** Proposed operating priority (updated 2026-10-12)  
 **Decision:** Move from **Building Systems → Proving Outcomes**  
 **Track chosen:** Launch first client pilot (design partner) before broad acquisition scaling  
 **Linear:** [AIO-71](https://linear.app/aion-empire/issue/AIO-71/p0-pilot-to-revenue-no-shorts-electrical-design-partner-rcaos) (blocked by AIO-35, AIO-37)  
 **Flagship process:** [Revenue Capture & Appointment OS](revenue-capture-appointment-os/)  
-**Operating philosophy:** [Outcome-Based Services Blueprint](aion-outcome-based-services-blueprint.md) · [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md)
+**Operating philosophy:** [Outcome-Based Services Blueprint](aion-outcome-based-services-blueprint.md) · [ADR-014](../adr/ADR-014-outcome-based-systems-engineering.md)  
+**Readiness:** [production-readiness-2026-10-12](../.aion/research/production-readiness-2026-10-12.md) — GE-001 + live customer-zero RCAOS are **non-waivable** before external writes
 
 This program turns the completed blueprint into a **verified, revenue-producing
 client deployment**. Positioning, architecture, and service model are already
@@ -57,9 +58,19 @@ execution production path to be **verified**, not only fake-harness green.
 | Fake RCAOS AT-1…AT-7 | `aion-runtime` `proof:rcaos-at` | Harness path (docs/runtime PRs) | Unblocks **prepare/test**, **not** live customer send/book automation |
 
 **Rule:** Commercial scoping, baseline collection, GHL read-only audit, and
-**draft-only** configuration may proceed in parallel with GE-001.  
-**Enabling live customer-facing writes/sends for the pilot requires GE-001 PASS
-(or an explicit written waiver with named owner and expiry).**
+**draft-only** configuration may proceed in parallel with GE-001.
+
+**Non-waivable live gates (before any external customer-facing writes/sends):**
+
+1. **GE-001 PASS** (AIO-35 → AIO-37) on the pinned `20fe3a4` candidate — no
+   owner waiver for live writes.
+2. **Live AION Systems customer-zero RCAOS proof** — re-prove the revenue
+   workflow against the internal customer-zero tenant before enabling any
+   No Shorts (or other external) write. Synthetic AT-1…AT-7 green does **not**
+   satisfy this gate.
+
+Read-only discovery and commercial SOW work may continue; live external writes
+may not.
 
 ---
 
@@ -112,9 +123,10 @@ window, in-scope capabilities, approval matrix, non-goals, termination.
 | C3 | Limited pilot launch **if authorized** | Cohort label + start timestamp |
 | C4 | Begin collecting outcome evidence vs baseline | Daily scorecard stub |
 
-**No-go** if GE-001 / production identity gates are still open **and** the pilot
-requires live customer-facing writes. In that case: continue prepare/test and
-commercial scoping only.
+**No-go** if GE-001 / production identity gates are still open, **or** if live
+customer-zero RCAOS proof is still open, when the pilot would require live
+customer-facing writes. In that case: continue prepare/test and commercial
+scoping only — do not waive into external writes.
 
 ---
 
@@ -169,7 +181,7 @@ rebuilding from scratch (configure, don’t reinvent).
 | Acquisition vs pilot | **Pilot first** — a real deployment strengthens sales |
 | First partner | No Shorts Electrical (proposed) |
 | Product | Revenue Capture & Appointment OS |
-| Live gate | GE-001 PASS (AIO-35 → AIO-37) before customer-facing live writes |
+| Live gate | GE-001 PASS (AIO-35 → AIO-37) **and** live customer-zero RCAOS proof — both non-waivable before external customer-facing writes |
 
 ---
 
@@ -188,4 +200,5 @@ rebuilding from scratch (configure, don’t reinvent).
 
 | Date | Change |
 |---|---|
+| 2026-10-12 | Remove GE-001 owner-waiver; require live customer-zero RCAOS before external writes ([production-readiness-2026-10-12](../.aion/research/production-readiness-2026-10-12.md)) |
 | 2026-10-11 | Initial Pilot-to-Revenue Program charter; No Shorts as proposed design partner; GE-001 hard gate |
