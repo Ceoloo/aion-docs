@@ -175,9 +175,9 @@ Phases 2–5 and Workspace OS-004 lands.
 
 ## Follow-up Decisions
 
-- **Creative OS mission charter.** Products trace to a mission
-  ([missions/lifecycle.md](../missions/lifecycle.md)); the Creative OS mission
-  (first client of AION's services) must be defined before integration build.
+- **Creative OS mission charter.** Drafted as
+  [MISSION-CREATIVE-001](../missions/MISSION-CREATIVE-001-creative-os-client-shorts.md)
+  (Defined, proposed); it must be approved before integration build.
 - **Adapter status reporting.** Polling vs callback from module to Runtime:
   capability stated in the contract; mechanism chosen during the first adapter
   build, by ADR only if it changes a cross-repo contract.
