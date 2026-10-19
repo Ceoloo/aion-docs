@@ -27,11 +27,16 @@ Inventory and classify:
 
 **Exit criteria:**
 
-- [ ] Written inventory across `aion-core`, `aion-data`, `aion-runtime`,
+- [x] Written inventory across `aion-core`, `aion-data`, `aion-runtime`,
   `aion-infra`, `aion-products`, `aion-desks`, and AI tooling paths.
-- [ ] Each item labeled: **compliant**, **migrate**, **optional-external**, or
+  → [../.aion/audits/sovereignty-inventory-2026-10-19.md](../.aion/audits/sovereignty-inventory-2026-10-19.md)
+- [x] Each item labeled: **compliant**, **migrate**, **optional-external**, or
   **exception-ADR-required**.
-- [ ] Priority ordered migration backlog for Phase 2.
+- [x] Priority ordered migration backlog for Phase 2.
+  → same audit §6 (SOV-002…SOV-006 suggested).
+
+**Status:** Phase 1 audit complete 2026-10-19 (SOV-001). Awaiting
+Architect / Security / CEO review before Phase 2 execution.
 
 **Owners:** Architect (lead), Security Engineer, Infrastructure Engineer,
 Integrations Engineer.
