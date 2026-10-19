@@ -23,6 +23,11 @@ Definition of Done qualifies a *change*.
 - [ ] **It is governed.** Permissions, risk classification, and any required
   gates are in place. ([permissions](../governance/permissions.md),
   [risk](../governance/risk-levels.md), [gates](../governance/human-gates.md))
+- [ ] **It passes the sovereignty gate when critical.** Critical changes answer
+  the five doctrine questions (IP boundary, offline core, model replaceability,
+  data/key/history control, provider-shutdown recovery) or are explicitly
+  classified as optional non-proprietary external functions.
+  ([sovereign intelligence](../architecture/sovereign-intelligence-doctrine.md))
 - [ ] **No secrets committed.** No credentials in code or docs — ever.
   ([security](../architecture/security-model.md))
 - [ ] **It fails safe.** Errors are handled and observable; destructive actions

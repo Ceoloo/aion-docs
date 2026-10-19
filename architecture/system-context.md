@@ -12,18 +12,19 @@ flowchart TB
         CUST["Customers / Users"]
     end
 
-    subgraph AION["AION Platform"]
-        CORE["Control + Orchestration"]
-        INTEL["Intelligence"]
-        DATA["Data + Events"]
-        PROD["Products"]
+    subgraph AION["AION Platform (sovereign boundary)"]
+        CORE["Sovereign Control Plane"]
+        INTEL["Intelligence Engine<br/>local LLMs · RAG · router"]
+        DATA["Owned Data Layer"]
+        PROD["Products / Workspace"]
+        REG["Restricted External Gateway<br/>default deny"]
     end
 
-    subgraph External["External Systems & Runtimes"]
-        LLM["Model Providers<br/>(Claude, others)"]
-        AGENTS["External Agent Runtimes<br/>(Claude Code, Cursor, Codex, Grok, Kimi/OpenClaw)"]
+    subgraph External["Optional external (non-proprietary only)"]
+        LLM["Public model APIs<br/>(frontier — optional)"]
+        AGENTS["External Agent Runtimes"]
         SAAS["Third-party APIs & SaaS"]
-        CLOUD["Cloud Infrastructure"]
+        CLOUD["Hosted cloud delivery<br/>(temporary where needed)"]
     end
 
     CEO -->|strategy, approvals| CORE
@@ -35,10 +36,12 @@ flowchart TB
     PROD -->|consume primitives| CORE
     PROD -->|read canonical data| DATA
 
-    INTEL -->|inference| LLM
-    CORE -->|dispatch work| AGENTS
-    CORE -->|call| SAAS
-    AION -->|runs on| CLOUD
+    INTEL -->|local / owned inference| INTEL
+    CORE --> REG
+    REG -.->|policy-allowed only| LLM
+    REG -.->|policy-allowed only| AGENTS
+    REG -.->|policy-allowed only| SAAS
+    AION -.->|self-hosted path required| CLOUD
 ```
 
 ## External actors
@@ -53,10 +56,11 @@ flowchart TB
 
 | System | Role | Coupling rule |
 |---|---|---|
-| **Model providers** | Provide inference for reasoning and generation. | AION must not be coupled to one model. |
-| **External agent runtimes** | Claude Code, Cursor, Codex, Grok, Kimi/OpenClaw, etc. Perform execution work. | Treated as interchangeable execution environments behind a common interface. |
-| **Third-party APIs / SaaS** | CRMs, payment, comms, analytics vendors. | Accessed as tools under permissions; never a hidden source of canonical truth. |
-| **Cloud infrastructure** | Hosts the platform. Owned by `aion-infra`. | Infrastructure supports the architecture; it does not dictate it. |
+| **Local / owned model runtimes** | Primary inference for proprietary work. | Required path for core intelligence ([doctrine](sovereign-intelligence-doctrine.md)). |
+| **Public model providers** | Optional inference for **non-proprietary** tasks only. | Never mandatory; never receive protected IP. |
+| **External agent runtimes** | Claude Code, Cursor, Codex, Grok, Kimi/OpenClaw, etc. Perform execution work. | Interchangeable behind a common interface; protected IP restricted. |
+| **Third-party APIs / SaaS** | CRMs, payment, comms, analytics vendors. | Explicitly authorized externals; never system of record for protected intelligence. |
+| **Cloud / hosted delivery** | May host temporarily; self-hosted path required. | Infrastructure supports the architecture; it does not dictate it. Owned by `aion-infra`. |
 
 ## Boundary rules
 
@@ -64,8 +68,13 @@ flowchart TB
    layers are internal.
 2. **External runtimes are pluggable.** No AION logic assumes a specific agent
    runtime or model. See [execution-layer.md](execution-layer.md).
-3. **Every external call is a governed tool call.** It carries identity,
-   permissions, and observability. See [security-model.md](security-model.md).
+3. **Every external call is a governed tool call** through the Restricted
+   External Gateway (default deny). It carries identity, permissions,
+   observability, and an IP-exposure check. See
+   [security-model.md](security-model.md) and
+   [sovereign-intelligence-doctrine.md](sovereign-intelligence-doctrine.md).
 4. **No external system owns canonical business entities.** AION mirrors what it
    needs into `aion-data` with explicit ownership. See
    [data-layer.md](data-layer.md).
+5. **Core operations remain viable offline.** External communications may queue
+   until connectivity returns.

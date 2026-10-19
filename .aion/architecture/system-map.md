@@ -49,9 +49,14 @@ A real AION workflow should:
 3. respect permissions and approval gates
 4. emit observable events / telemetry
 5. connect to measurable business outcome where applicable
+6. pass the sovereignty gate when critical (or be classified optional external)
+
+Doctrine: [`../../architecture/sovereign-intelligence-doctrine.md`](../../architecture/sovereign-intelligence-doctrine.md)
+([ADR-016](../../adr/ADR-016-sovereign-intelligence-doctrine.md)).
 
 ## Current company priority
 
 Reliable execution of real business workflows > cosmetic surfaces.
-Favor revenue, execution durability, reliability, observability, reuse, and
-client deployment speed.
+Favor revenue, execution durability, reliability, observability, reuse,
+client deployment speed, **and sovereign control of data/intelligence/execution**.
+Program: [`../../roadmap/sovereignty-program.md`](../../roadmap/sovereignty-program.md).

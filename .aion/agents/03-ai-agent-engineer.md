@@ -31,7 +31,7 @@ constraints.
 | **Agent roles** | Purpose-scoped role cards (executive / orchestrator / specialist / skill), one job each. |
 | **Skills** | Reusable, versioned procedures distinct from deployed agents; promote proven work into skills. |
 | **Tool selection** | Allow-listed tools per agent/capability; least privilege; no unbounded tool authority. |
-| **Model routing** | Provider-neutral capability routing (quality / cost / latency); no vendor lock-in in contracts. |
+| **Model routing** | Provider-neutral capability routing (quality / cost / latency); local/owned inference default for proprietary tasks; public frontier APIs only for classified non-proprietary work ([ADR-016](../../adr/ADR-016-sovereign-intelligence-doctrine.md)). |
 | **Context management** | Minimum relevant context by reference; structured handoffs over chat replay. |
 | **Memory** | Patterns for retrieving scoped memory/lessons into context — durable stores stay in `aion-data`. |
 | **Multi-agent workflows** | Planner/executor and delegation designs that emit structured work items, not free-form agent chat. |

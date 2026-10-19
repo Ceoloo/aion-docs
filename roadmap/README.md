@@ -9,6 +9,7 @@ to resist the speculative accretion that caused the
 
 | Document | Purpose |
 |---|---|
+| [sovereignty-program.md](sovereignty-program.md) | **ADR-016 program:** audit → independent core → offline → optimization → portable customer infra. |
 | [build-order.md](build-order.md) | The phased order in which repositories/capabilities are built. |
 | [platform-maturity.md](platform-maturity.md) | The L0–L5 maturity model and the platformization rule. |
 | [production-golive.md](production-golive.md) | Track A authenticated production release checklist (historical; superseded for current close-out). |

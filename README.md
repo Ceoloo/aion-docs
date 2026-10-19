@@ -18,6 +18,15 @@ AION is an **AI-native company and product operating architecture** — a
 governed system for designing, building, extending, operating, and learning
 from products, with humans retaining ultimate authority.
 
+AION is also building **independent intelligence infrastructure** it owns and
+controls. Binding posture:
+[architecture/sovereign-intelligence-doctrine.md](architecture/sovereign-intelligence-doctrine.md)
+([ADR-016](adr/ADR-016-sovereign-intelligence-doctrine.md)).
+
+> We do not rent the foundation of our intelligence. We own the infrastructure,
+> preserve our knowledge, control execution, and decide when — or whether — the
+> outside world participates.
+
 AION is composed of layers:
 
 ```mermaid
@@ -89,6 +98,9 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 
 ## Architecture Navigation
 
+- **[architecture/sovereign-intelligence-doctrine.md](architecture/sovereign-intelligence-doctrine.md)**
+  — **binding** Sovereign Intelligence Doctrine (data/intelligence sovereignty,
+  offline-first, IP gate, vendor independence).
 - **[architecture/](architecture/README.md)** — system model, layers, control
   plane, execution, intelligence, data, products, learning, observability,
   security, environments.
@@ -105,7 +117,8 @@ Full boundaries and dependency rules: [`repositories/`](repositories/README.md).
 - **[missions/](missions/README.md)** — the mission lifecycle and templates
   through which products are built.
 - **[adr/](adr/README.md)** — architecture decision records and their standard.
-- **[roadmap/](roadmap/README.md)** — build order and platform maturity model.
+- **[roadmap/](roadmap/README.md)** — build order, sovereignty program, and
+  platform maturity model.
 - **[glossary/](glossary/README.md)** — canonical terminology.
 - **[legacy/](legacy/README.md)** — policy on Aion-Sys reference material.
 
@@ -138,7 +151,12 @@ appropriate governance is. See
    repository ownership rules, not by convenience. See
    [`repositories/dependency-rules.md`](repositories/dependency-rules.md).
 4. **Principles are binding.** See
-   [`engineering/principles.md`](engineering/principles.md).
+   [`engineering/principles.md`](engineering/principles.md) — including
+   Sovereign Intelligence (principle 8 / ADR-016).
+5. **Critical proposals pass the sovereignty acceptance gate** (IP boundary,
+   offline core, model replaceability, data/key/history control,
+   provider-shutdown recovery) or are explicitly classified as optional
+   non-proprietary external functions.
 
 ---
 
@@ -157,10 +175,13 @@ operationalizes it for Cursor.
 
 1. This README.
 2. [`.aion/README.md`](.aion/README.md) — if working via Cursor specialist agents.
-3. [`architecture/system-overview.md`](architecture/system-overview.md)
-4. [`engineering/principles.md`](engineering/principles.md)
-5. [`repositories/dependency-rules.md`](repositories/dependency-rules.md)
-6. [`governance/authority-model.md`](governance/authority-model.md)
-7. [`missions/lifecycle.md`](missions/lifecycle.md)
-8. [`roadmap/build-order.md`](roadmap/build-order.md)
-9. [`adr/ADR-001-greenfield-reset.md`](adr/ADR-001-greenfield-reset.md)
+3. [`architecture/sovereign-intelligence-doctrine.md`](architecture/sovereign-intelligence-doctrine.md)
+4. [`architecture/system-overview.md`](architecture/system-overview.md)
+5. [`engineering/principles.md`](engineering/principles.md)
+6. [`repositories/dependency-rules.md`](repositories/dependency-rules.md)
+7. [`governance/authority-model.md`](governance/authority-model.md)
+8. [`missions/lifecycle.md`](missions/lifecycle.md)
+9. [`roadmap/build-order.md`](roadmap/build-order.md) and
+   [`roadmap/sovereignty-program.md`](roadmap/sovereignty-program.md)
+10. [`adr/ADR-001-greenfield-reset.md`](adr/ADR-001-greenfield-reset.md) and
+    [`adr/ADR-016-sovereign-intelligence-doctrine.md`](adr/ADR-016-sovereign-intelligence-doctrine.md)

@@ -28,6 +28,11 @@ actions can require human gates.
 - **Least privilege by default.** Every identity gets only what its work needs.
 - **Explicit ownership.** One canonical owner per entity, workflow, agent,
   metric, and permission.
+- **Sovereign intelligence.** Protected data, models, and execution stay inside
+  AION’s controlled boundary; external participation is optional and
+  policy-gated.
+  ([doctrine](../architecture/sovereign-intelligence-doctrine.md),
+  [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md))
 - **Observability underwrites governance.** You cannot govern what you cannot
   see. See [../architecture/observability.md](../architecture/observability.md).
 - **Autonomy is earned per workflow, within policy** — never assumed. See

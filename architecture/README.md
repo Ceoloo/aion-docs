@@ -8,6 +8,7 @@ It defines architecture and contracts — not implementation.
 
 | Document | Purpose |
 |---|---|
+| [sovereign-intelligence-doctrine.md](sovereign-intelligence-doctrine.md) | **Binding** Sovereign Intelligence Doctrine (ADR-016): data/intelligence sovereignty, offline-first, IP exposure gate, vendor independence. |
 | [system-overview.md](system-overview.md) | What AION is and is not; the layered model. |
 | [execution-platform-v1.md](execution-platform-v1.md) | **Build contract:** Execution Plane, Grok→repos map, catalog, autonomy, 30-day backlog. |
 | [system-context.md](system-context.md) | AION's boundary — external actors and systems. |
@@ -31,11 +32,12 @@ It defines architecture and contracts — not implementation.
 
 ## Reading order
 
-Start with `system-overview.md`, then `logical-architecture.md`. The layer
-documents (`control-plane`, `execution-layer`, `intelligence-layer`,
-`data-layer`, `product-layer`) can then be read in any order.
-`learning-loop.md`, `observability.md`, and `security-model.md` are
-cross-cutting and apply to every layer.
+Start with `sovereign-intelligence-doctrine.md` (binding posture), then
+`system-overview.md`, then `logical-architecture.md`. The layer documents
+(`control-plane`, `execution-layer`, `intelligence-layer`, `data-layer`,
+`product-layer`) can then be read in any order. `learning-loop.md`,
+`observability.md`, and `security-model.md` are cross-cutting and apply to
+every layer.
 
 ## Non-goals of this section
 
