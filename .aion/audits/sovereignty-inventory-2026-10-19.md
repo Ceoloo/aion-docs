@@ -27,7 +27,7 @@ The **material sovereignty gaps** are concentrated in:
 1. **Public frontier inference for proprietary work** — Anthropic / OpenRouter from `aion-products` (and OpenRouter in Runtime proof scripts) send live conversation/business context off-boundary.
 2. **Legacy Supabase project** — still backed up and recoverable (`AION EMPIRE SYSTEM`); not Runtime SoR, but remains a hosted critical-data island.
 3. **Hosted delivery** — Vercel for Operator Console / Revenue Copilot UI / Desks; temporary per doctrine, no complete self-hosted UI path proven as primary.
-4. **CRM SoE (GHL)** — correctly not in Core; live egress from Runtime; authorized external but needs explicit gateway policy + “not SoR” enforcement.
+4. **CRM SoE** — GHL remains live migration adapter (authorized external egress); **Twenty** is the ADR-019 primary SoE (self-hosted, same-host preferred). Neither is intelligence SoR; Runtime + REG required.
 5. **Missing local inference / offline queues / owned RAG** — not built; Phase 2–4 work.
 6. **AI development tooling** — Cursor / Claude / GitHub hold architecture and source; access restriction policy incomplete vs doctrine § stack table.
 7. **ADR-010 PostHog** — Accepted hosted analytics plane; conflicts with sovereignty until self-host / EU / exception ADR.
@@ -43,7 +43,8 @@ The **material sovereignty gaps** are concentrated in:
 | S-01 | `aion-core` control plane | First-party kernel | `aion-core` | None outbound | **compliant** | zod only; ports only; no provider SDKs |
 | S-02 | Postgres (`aion_data`) on Hostinger VPS | Owned persistence | `aion-data`, `aion-runtime`, `aion-infra` | Critical (SoR) | **compliant** | Local Docker Postgres Mode A; AION roles `aion_app` / `aion_migrator` |
 | S-03 | Supabase project `qbahthzqvxytfgobgtxa` (“AION EMPIRE SYSTEM”) | Hosted Postgres island | `aion-infra` recovery docs | High | **migrate** | Nightly B2 backup; restore-tested; **not** Runtime SoR; free plan = no platform backups |
-| S-04 | GoHighLevel / LeadConnector API | CRM SoE | `aion-runtime` adapters; infra env | Critical (PII/CRM) | **optional-external** | Live when `GHL_BACKEND=live`; must stay non-SoR; needs Restricted External Gateway policy |
+| S-04 | GoHighLevel / LeadConnector API | CRM SoE (migration) | `aion-runtime` adapters; infra env | Critical (PII/CRM) | **optional-external** | ADR-019: demoted from primary; keep for dual-run / rollback; live when `GHL_BACKEND=live`; REG required |
+| S-04b | Twenty CRM (self-hosted) | CRM SoE (primary) | `aion-infra` compose (CRM-001); Runtime Twenty adapter | Critical (PII/CRM) | **migrate** → **compliant** when private | Target primary SoE (ADR-019); deploy on `aion_internal`, DB ≠ `aion_data`; not SoR for intelligence |
 | S-05 | OpenRouter (products + proof) | Frontier inference gateway | `aion-products` providers; `aion-runtime` proof script; infra → Copilot | Critical (prompts) | **migrate** | Default proprietary path today for Copilot; doctrine prohibits public API for proprietary tasks |
 | S-06 | Anthropic Claude API | Frontier inference | `aion-products` `provider-adapter.ts` | Critical (prompts) | **migrate** | Direct SDK path when `ANTHROPIC_API_KEY` set |
 | S-07 | Model readiness env probes | Config only | `aion-runtime` gateway | Low | **compliant** | Checks key presence; no production outbound LLM from Runtime host |
@@ -175,7 +176,8 @@ The **material sovereignty gaps** are concentrated in:
 | Grok / Claude / frontier | No public API for proprietary | Anthropic + OpenRouter **are** the proprietary Copilot path today | **migrate** |
 | AION Runtime | Offline queues, policy, local recovery | Live gateway + GHL; offline/queues/local LLM **not proven** | **migrate** |
 | Agent memory / RAG | Owned storage | Not built — opportunity to stay compliant | **compliant*** (build sovereign) |
-| GHL / CRM | Authorized external, not SoR | Correct architecture; live egress; policy gate incomplete | **optional-external** |
+| GHL / CRM | Migration SoE, not SoR | Dual-run until Twenty private SoE proven (ADR-019 / CRM-001) | **optional-external** |
+| Twenty CRM | Primary SoE (self-hosted), not SoR | Not deployed yet; CRM-001 | **migrate** |
 | AI development tools | Restrict protected context | No formal allowlist/deny for Cursor/Claude vs doctrine | **migrate** |
 
 ---

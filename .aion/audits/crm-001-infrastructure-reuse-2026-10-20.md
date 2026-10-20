@@ -85,18 +85,32 @@ as operational SoE and aion-data as governance + outcome + external id map via
 | Asset | Path | Reuse |
 |---|---|---|
 | VPS compose | `aion-infra` `providers/vps/docker-compose.yml` | Traefik labels, `internal` + `traefik` networks, non-published ports |
+| Closest “extra app” precedent | compose `revenue-copilot` profile | Profile-gated service + Traefik Host + least-privilege env allowlist (GHL lines stay off Copilot) |
 | Local Postgres Mode A | same compose + deploy scripts | Pattern for Twenty’s DB (separate volume/DB — do not share `aion_data`) |
 | Secrets file | `/opt/aion/.env` 0600 pattern; `GHL_*` allowlist | Mirror as `TWENTY_*` / `ESPO_*` — never `VITE_*` |
 | Health / ready | runtime `/health/ready` + `crm_backend` reporting | Extend for CRM provider |
 | Credential design | `aion-infra/docs/design/external-credentials.md` | Same secret-store rules |
+| Env validate / deploy | `validate-env.sh`, `deploy.sh`, digest-pinned images | Extend validate-env for Twenty vars; Runtime-only inject |
+
+**Env / secret mirror (GHL → Twenty):**
+
+| Concern | Today (GHL) | Twenty / Espo |
+|---|---|---|
+| Secret store | `/opt/aion/.env` 0600 | Same (or split `.env.crm` if blast radius demands) |
+| Secret vs config | Only `GHL_API_KEY` secret | API token secret; base URL / workspace id = config |
+| Inject target | `aion-runtime` only | Runtime adapter only — never products / `VITE_*` |
+| Backend selector | `GHL_BACKEND=live\|fake` (+ prod fake ack) | `CRM_PROVIDER` / parallel backend enum for dual-run |
+| AWS/GCP profiles | Lack `GHL_*` / gateway keys today | Wire secret-backed CRM + gateway before those profiles |
 
 ### Products / Workspace
 
 | Asset | Path | Reuse |
 |---|---|---|
-| Workforce Control workflows | `aion-products` `workforce-control` (`crm.contact.*`, `crm.opportunity.*`) | Already Runtime-capability oriented |
+| Revenue Copilot → Runtime | `aion-products` `src/platform/runtime-client.ts` → `POST /v1/commands` | No GHL client in product; keep this shape for Twenty |
+| Workforce Control workflows | `workforce-control` (`crm.contact.*`, `crm.opportunity.*`) | Runtime-capability oriented — **but** some forms still hardcode `provider: 'ghl'` + GHL record IDs |
 | RCAOS / lead workflow composition | docs + `@aion/core` secure-automation | First real workflow target |
 | Operator Console / AION OS shell | command-center / desks patterns | Embed Twenty UI later as module/shortcut — **not** in CRM-001 critical path |
+| aion-desks | desks README | **No CRM** — Stripe SoE only; not a Twenty template |
 
 ### Docs / proofs
 
@@ -142,13 +156,19 @@ Ordered engineering slices — **no new repos**:
 
 | Gap | Minimum artifact | New service? |
 |---|---|---|
-| Self-hosted Twenty (dev) | Compose service(s) on `internal` network + isolated creds | **No** — add to `aion-infra` profile / overlay |
-| EspoCRM benchmark harness | Disposable compose + metrics script (mem/CPU/API latency/deploy steps) | **No** — script + ephemeral stack |
+| Self-hosted Twenty (dev) | Compose service(s) on `internal` network + isolated creds + own DB/Redis as Twenty requires | **No** — add to `aion-infra` profile / overlay |
+| Private CRM UI access | VPN / SSO / Traefik IP allowlist — Runtime↔CRM stays on `aion_internal` HTTP, not public SaaS | Config only |
+| EspoCRM benchmark harness | Disposable compose + metrics script (mem/CPU/API latency/deploy steps) + scoring sheet | **No** — script + ephemeral stack |
+| `TWENTY_*` / `ESPO_*` env contract | `.env.example` + `external-credentials.md` + validate-env | Docs + compose |
 | Twenty Runtime backend | `live-twenty-backend.ts` (+ tests) | **No** — module under `src/adapters/` |
+| Provider-neutral Console IDs | Replace hardcoded `provider: 'ghl'` / GHL contact·pipeline·stage IDs in workforce-control | Product touch-up |
 | Company / activity mapping | Catalog decision + mapper | Only if keys missing |
 | Canonical customer SoR in aion-data | Follow-up ADR + migrations | **Not in CRM-001 deploy** until ADR |
 | GHL → Twenty staged migration | Reconcile tooling + rollback | Scripts; no new microservice |
+| CRM datastore backup/monitor | Extend B2/backup + monitor beyond `aion_data` for Twenty DB | Infra scripts |
+| AWS/GCP CRM wiring | Secret-backed CRM + gateway keys (VPS is only live path today) | Later profiles |
 | Offline resilience drill | Local Twenty + Runtime + Postgres without public net | Ops runbook |
+| Channel parity (SMS / appointment write) | Score Twenty against `ghl-capabilities.md`; defer send/create if missing | Later milestone |
 
 ---
 
@@ -180,11 +200,17 @@ Matches leadership sequence; annotated with reuse:
 
 ---
 
+## Sources
+
+- Platform repos inspection (runtime / core / data / infra / products / docs)
+- Parallel infra/products audit pass (compose, env split, Console `provider: 'ghl'` coupling)
+
 ## Handoff
 
 ```text
 AUDIT                    CRM-001 infrastructure reuse (2026-10-20)
-VERDICT                  Reuse Runtime crm.* plane + ledger + VPS compose; do not create new CRM services
+VERDICT                  Reuse Runtime crm.* plane + ledger + VPS compose (revenue-copilot profile precedent); do not create new CRM services
 BLOCKER                  aion-data “no CRM tables” vs V1 “AION Data = customer SoT” — needs follow-up ADR before entity migrations
-NEXT                     CRM-001 mission: Twenty compose overlay + CrmBackend extraction spike
+ALSO                     Product forms hardcode GHL provider/IDs; CRM DB backup + private UI access still gaps
+NEXT                     CRM-001: Twenty compose overlay + CrmBackend extraction spike
 ```

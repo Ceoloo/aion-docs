@@ -28,7 +28,9 @@ Agent / Product
 |---|---|---|
 | Local Postgres (`aion_data`) | No | Owned data layer |
 | Local / AION-private inference | No | Same trust boundary (ADR-017) |
-| LeadConnector / GHL HTTPS | **Yes** | SoE — allowlist |
+| Same-host Twenty CRM (Docker DNS on `aion_internal`) | No | Primary SoE per ADR-019 — still Runtime-mediated; not public SaaS |
+| LeadConnector / GHL HTTPS | **Yes** | Migration SoE — allowlist during dual-run |
+| Public Twenty Cloud / third-party hosted CRM | **Yes** | Deny for proprietary tenants unless exception ADR |
 | Anthropic / OpenRouter / OpenAI / xAI | **Yes** | Frontier — `non_proprietary` only |
 | Stripe API | **Yes** | Commerce SoE |
 | Backblaze B2 | **Yes** | Backup ciphertext |
@@ -104,7 +106,9 @@ block); `true` → fail closed. Default production target: enforce on.
 
 | Provider | Example capabilities | Allowed classes |
 |---|---|---|
-| `ghl` | `crm.contact.*`, `crm.opportunity.*`, `crm.note.*`, `crm.task.*`, `crm.message.*`, `crm.calendar.*` | `soe_authorized` |
+| `twenty` | `crm.contact.*`, `crm.company.*`, `crm.opportunity.*`, `crm.note.*`, `crm.task.*`, `crm.message.*`, `crm.calendar.*` | Internal same-host: not REG egress; if ever public HTTPS → `soe_authorized` only |
+| `ghl` | `crm.contact.*`, `crm.opportunity.*`, `crm.note.*`, `crm.task.*`, `crm.message.*`, `crm.calendar.*` | `soe_authorized` (migration / rollback dual-run) |
+| `espo` | Benchmark harness only — not a production SoE path | Ephemeral; no production allowlist |
 | `stripe` | `commerce.checkout.create`, `commerce.webhook.receive` | `soe_authorized` |
 | `b2` | `backup.object.put` | `none` |
 | `ntfy` | `ops.alert.publish` | `none` |
