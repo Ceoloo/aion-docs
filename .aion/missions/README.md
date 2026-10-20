@@ -17,6 +17,7 @@ assigns ownership, branches, and acceptance for implementation work.
 | [SOV-001-sovereignty-audit.md](SOV-001-sovereignty-audit.md) | P0 — Phase 1 sovereignty audit (ADR-016); inventory + classify exposures |
 | [SOV-002-local-inference-model-router.md](SOV-002-local-inference-model-router.md) | P0 — Local inference + Sovereign Model Router (ADR-017); contracted |
 | [SOV-003-restricted-external-gateway.md](SOV-003-restricted-external-gateway.md) | P0 — Restricted External Gateway IP policy (ADR-018); contracted |
+| [CRM-001-twenty-integration-benchmark.md](CRM-001-twenty-integration-benchmark.md) | CRM — Twenty Integration & Benchmark (ADR-019); reuse-first, no new microservice |
 | This README | How agent missions relate to product missions |
 
 ## Rules

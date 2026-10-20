@@ -1,154 +1,157 @@
 # ADR-019: CRM System-of-Engagement Ownership Path
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-20
+- **Accepted:** 2026-10-20
 - **Decision Owners:** CEO LOO (accountable); Integrations + Architect (review)
+- **Mission:** [CRM-001](../.aion/missions/CRM-001-twenty-integration-benchmark.md)
 - **Related:** [ADR-003](ADR-003-execution-gateway-into-runtime.md),
   [ADR-014](ADR-014-outcome-based-systems-engineering.md),
   [ADR-016](ADR-016-sovereign-intelligence-doctrine.md),
   [ADR-018](ADR-018-restricted-external-gateway.md),
-  [../offers/revenue-capture-appointment-os/ghl-capabilities.md](../offers/revenue-capture-appointment-os/ghl-capabilities.md),
-  [../roadmap/ghl-readonly-governed-write.md](../roadmap/ghl-readonly-governed-write.md)
+  [../.aion/audits/crm-001-infrastructure-reuse-2026-10-20.md](../.aion/audits/crm-001-infrastructure-reuse-2026-10-20.md),
+  [../offers/revenue-capture-appointment-os/ghl-capabilities.md](../offers/revenue-capture-appointment-os/ghl-capabilities.md)
 
 ## Context
 
-AION already treats GoHighLevel (GHL / LeadConnector) as the **CRM
-system-of-engagement (SoE)** behind Runtime: contacts, opportunities, pipelines,
-notes, tasks, appointments, and message drafts are reached through catalogued
-`crm.*` capabilities and the GHL adapter (Mission 009 / AIO-17). AION Data owns
-governance truth (executions, approvals, side effects, outcomes, audit). ADR-016
-and ADR-018 classify GHL as **optional-external / SoE-authorized** — never the
-intelligence system of record — and require gateway policy, not an untested cut.
+AION’s live revenue path today uses **GoHighLevel** as the CRM
+system-of-engagement behind Runtime (`crm.*` capabilities, GHL adapter, fake/live
+backends, external side-effect ledger). ADR-016 / ADR-018 allow authorized SoE
+egress and forbid treating any vendor CRM as intelligence system of record.
 
-The open question is whether AION should **replace GHL** with a fully owned CRM
-so customization and connectivity are easier. Three realistic paths exist:
+Leadership established **AION CRM — Sovereign Infrastructure V1**
+(2026-10-20): replace GHL as the *primary* operational CRM with a self-hosted,
+API-extensible product, while keeping AION’s control plane as the durable core.
+The objective is not only to leave GHL — it is to make CRM a **native,
+commercially deployable component of AION OS**.
 
-| Path | What it is | Ownership | Channels / UI | Fit to current `crm.*` |
-|---|---|---|---|---|
-| **A. GHL-keep** | Keep GHL as SoE; harden REG + adapter | Vendor SoE; AION owns governance | SMS/email, appointments, agency UI today | Already live |
-| **B. Twenty-adapter** | Self-host a mature OSS CRM (Twenty-class); new Runtime backend | Self-hosted SoE; AION owns host + schema evolution within that product | Depends on product; weaker SMS/agency surface than GHL today | New `CrmBackend` implementing same `crm.*` |
-| **C. Thin AION CRM** | Build only the entities `crm.*` models on an AION-owned store + UI | Full product ownership | AION must build messaging, calendar, multi-tenant UI | Native; no vendor mapping |
+Target roles:
 
-A fourth idea — adopting [kargulstudio/sales-crm](https://github.com/kargulstudio/sales-crm)
-— is **not** a CRM path. That repository is a Next.js / Tailwind **boilerplate**
-(“Kargul Starter”), not contacts/pipelines/appointments/messaging. It is
-rejected as a substitute for GHL.
+| Component | Decision | Role |
+|---|---|---|
+| Primary CRM | **Twenty CRM** | API-extensible operational interface (SoE) |
+| Benchmark | **EspoCRM** | Lightweight performance / deploy comparison |
+| Source of truth | **AION Data** | Canonical customer and revenue records |
+| Intelligence | **AION AI Layer** | Locally controlled models and agents |
+| Execution | **AION Runtime** | Governed actions, permissions, audit |
+| Workspace | **AION OS** | Unified operator and client experience |
 
 Forces:
 
-1. **Sovereignty** (ADR-016/018): authorized SoE egress is allowed; CRM must not
-   become intelligence SoR; recovery path must exist if GHL is shut off.
-2. **Revenue path:** Flagship is Revenue Capture & Appointment OS; GE-001 and
-   live RCAOS certification still lead over platform expansion.
-3. **Capability contract:** Runtime already exposes provider-shaped `crm.*`
-   serviceKeys with fake/live backends — the correct seam for any future swap.
-4. **Channel reality:** GHL’s value is not only CRUD CRM — it is client-facing
-   CRM UI plus messaging/booking surface that agents and humans share.
-5. **Capability-over-vendor:** Do not lock “Twenty” (or any OSS CRM) until a
-   replacement is actually triggered and scored against the `crm.*` matrix.
+1. **Reuse first.** Runtime already has a provider-shaped CRM plane; inventing a
+   parallel CRM microservice would duplicate governance.
+2. **Vendor independence.** Twenty must be swappable without rebuilding Core.
+3. **Data boundary tension.** `aion-data` today excludes CRM entity tables and
+   documents “GHL owns CRM state.” V1 asserts AION Data as customer SoT — that
+   requires a **follow-up data-layer ADR** before entity migrations. Until then,
+   governance + outcomes + external id maps live in aion-data; Twenty holds the
+   operational working set.
+4. **Staged migration.** Production GHL tenants must not be hard-cut; dual-run
+   and rollback are mandatory.
+5. **Non-CRM starters** (e.g. marketing boilerplates named “sales-crm”) are not
+   candidates.
 
 ## Decision
 
-We will adopt a **staged CRM SoE ownership path**:
+We will adopt **AION CRM Sovereign Infrastructure V1** as follows:
 
-1. **Near term (in force with this ADR once Accepted): Path A — GHL-keep.**
-   GHL remains the authorized CRM SoE. Priorities are Restricted External
-   Gateway enforcement around GHL (ADR-018 / SOV-003), production write
-   eligibility, and live RCAOS / GE-001 evidence — not a CRM rewrite.
+1. **Primary SoE: Twenty CRM (self-hosted).** Twenty is the operational CRM
+   interface for AION OS. It is deployed under AION control (private networking,
+   isolated credentials, database separate from `aion_data`).
 
-2. **Standing seam rule.** All CRM mutations continue to go through Runtime
-   catalogued `crm.*` capabilities and a backend interface (today:
-   `GhlBackend` / fake|live). No product or agent may treat GHL (or any future
-   CRM) as intelligence SoR. Side-effect ledger + idempotency remain mandatory.
+2. **Benchmark: EspoCRM.** EspoCRM is used for memory/CPU/API/deploy comparison
+   during CRM-001. It is **not** the production SoE unless a later ADR promotes
+   it.
 
-3. **Ownership trigger (when Path B or C may be opened).** Start a replacement
-   evaluation only when **one or more** of these are true and recorded:
-   - GHL customization / API limits block a sold client outcome that `crm.*`
-     already models;
-   - a tenant class requires **self-hosted CRM** under sovereignty or contract;
-   - GHL commercial or availability risk makes a recovery drill fail;
-   - AION deliberately shrinks the offer to entities/channels it will own.
+3. **Execution: AION Runtime only.** Agents and products never access Twenty (or
+   Espo, or GHL) databases or raw APIs. All CRM mutations go through catalogued
+   `crm.*` capabilities and a provider backend port (today `GhlBackend` → extract
+   to `CrmBackend`). Approvals, risk tiers, idempotency, and the external
+   side-effect ledger remain mandatory.
 
-4. **If triggered: prefer Path B before Path C.** First candidate class is a
-   mature self-hosted OSS CRM with a stable API (Twenty is the **reference
-   candidate**, not a locked vendor). Implement a second Runtime CRM backend
-   that satisfies the existing `crm.*` matrix (fake proofs first; dual-run;
-   then migrate customer-zero). Choose Path C (thin AION CRM) only if the
-   required surface is small enough that owning UI + messaging + calendar is
-   cheaper than adapting an OSS CRM — recorded in a follow-up ADR.
+4. **Source of truth: AION Data (canonical customer & revenue), with a gated
+   schema path.** Governance truth already lives in aion-data. Canonical
+   customer/revenue **entity** storage in aion-data is **authorized as intent**
+   but **blocked on implementation** until a follow-up ADR amends the “no CRM
+   tables” rule and defines sync/projection vs ownership. CRM-001 must not add
+   those tables preemptively.
 
-5. **Explicit non-decisions.** This ADR does **not** authorize building a
-   greenfield CRM UI, forking marketing boilerplates, or migrating live client
-   GHL locations. It does **not** remove GHL from the ADR-018 SoE allowlist.
+5. **GHL becomes a migration adapter.** GHL remains on the REG SoE allowlist for
+   staged reconciliation, client isolation tests, and rollback. It is no longer
+   the strategic primary CRM.
+
+6. **First milestone: CRM-001 — Twenty Integration & Benchmark.** Sequence:
+   inspect/reuse audit → deploy Twenty (dev) → benchmark EspoCRM → AION CRM
+   adapter → agents via Runtime → first real workflow proof → staged GHL
+   migration plan. **Create no additional microservices** until reuse is
+   exhausted (see audit).
+
+7. **Three non-negotiables** bind this ADR: sovereign ownership; vendor
+   independence (swap Twenty without rebuilding Core); offline resilience for
+   core records, local intelligence, and internal workflows.
 
 ## Alternatives Considered
 
-- **Path A — GHL-keep (chosen for near term).** Keep GHL as SoE; invest in
-  gateway policy, adapter fidelity, and outcome proof. Accepted near term
-  because the revenue and sovereignty programs already assume authorized SoE
-  egress; rip-and-replace would displace GE-001 / RCAOS without buying Core
-  sovereignty (governance SoR is already AION’s).
+- **Path A — GHL-keep as permanent primary SoE.** Rejected as the strategic end
+  state: limits customization and keeps primary customer operations on a rented
+  SaaS SoE. GHL is retained only as migration/rollback adapter.
 
-- **Path B — Twenty-adapter (deferred).** Self-host Twenty (or EspoCRM /
-  SuiteCRM-class) and map `crm.*` onto its API. Deferred, not rejected: best
-  ownership path when the trigger fires, because it reuses a real CRM product
-  and preserves the Runtime seam. Rejected *now* because it does not remove
-  near-term P0 work, and channel/UI parity with GHL is unproven for
-  Appointment OS.
+- **Path B — Twenty-adapter (chosen as primary SoE).** Self-host Twenty; map
+  `crm.*` through Runtime. Accepted: API-extensible, self-hostable, aligns with
+  TypeScript stack and vendor-independence via the existing capability seam.
 
-- **Path C — Thin AION CRM (deferred, higher bar).** Own contacts /
-  opportunities / notes / tasks / appointments in an AION store with a minimal
-  operator UI. Deferred: maximum control, but AION inherits SMS/email,
-  calendar, multi-location UX, and client CRM training — a product company
-  inside the platform company. Rejected as the default replacement.
+- **Path C — Thin AION CRM (deferred).** Build only `crm.*` entities + UI in
+  AION. Deferred: maximum ownership but forces AION to own messaging, calendar,
+  and CRM UX immediately. May revisit after Twenty is proven if the operational
+  surface shrinks.
 
-- **Adopt kargulstudio/sales-crm (or similar starters) as “the CRM”.**
-  Rejected: not a CRM; would be Path C disguised as Path B with no data model,
-  API, or channels.
+- **EspoCRM as primary SoE.** Rejected for V1 primary (used as benchmark only):
+  leadership selected Twenty for the operational interface; Espo informs
+  performance/deploy tradeoffs.
 
-- **Immediate hard cutover off GHL.** Rejected: violates ADR-016
-  audit-then-migrate and risks live revenue paths (ADR-018 already rejected
-  “block GHL until fully local CRM”).
+- **New aion-crm microservice / greenfield repo.** Rejected for CRM-001: the
+  Runtime adapter plane + ledger already provide the governed boundary.
+
+- **Marketing boilerplate “CRM” starters.** Rejected: not CRMs.
 
 ## Consequences
 
 ### Positive
 
-- Aligns CRM ownership talk with ADR-016/018: SoE allowed, SoR forbidden.
-- Preserves the `crm.*` contract as the only swap surface — future adapters do
-  not rewrite Core or offer process contracts.
-- Avoids a false start on a boilerplate “CRM” that cannot run Appointment OS.
-- Gives a clear trigger for when ownership engineering is justified.
+- Clear primary SoE (Twenty) with a measurable benchmark (Espo).
+- Preserves `crm.*` / Runtime as the swap surface — Core stays vendor-neutral.
+- Aligns CRM work with sovereignty (self-hosted SoE, REG, offline intent).
+- Reuse-first CRM-001 avoids parallel platforms.
 
 ### Negative
 
-- GHL API / UX limits remain until a trigger fires.
-- PII still egresses to GHL under `soe_authorized` (accepted under REG).
-- Path B/C still require later license, ops, and migration ADRs.
-- Dual-backend period (if Path B starts) increases proof and config surface.
+- Channel parity with GHL (SMS/email/agency UX) is not automatic in Twenty —
+  later milestones.
+- Dual-provider period increases proof and ops surface.
+- Customer SoT in aion-data needs a follow-up ADR before schema work.
+- Migration cost and client communication for GHL tenants.
 
 ## Implementation Notes
 
-- **Docs / doctrine:** Keep GHL language as SoE in sovereignty inventory and
-  REG allowlist; do not invent a parallel “AION CRM Core” without a trigger.
-- **Runtime:** Prefer extracting a provider-neutral CRM backend port from
-  today’s GHL types when a second backend is approved — not before. Fake
-  backend and `proof:*` matrix remain the acceptance spine.
-- **Offers:** Appointment OS capability list
-  ([ghl-capabilities.md](../offers/revenue-capture-appointment-os/ghl-capabilities.md))
-  is the scorecard for any Path B/C candidate (including messaging and
-  appointment create — still deferred on GHL).
-- **Out of scope for this ADR:** picking Twenty vs Espo vs Suite; schema
-  design for Path C; client data migration runbooks.
+- **Reuse audit (blocking read before new services):**
+  [../.aion/audits/crm-001-infrastructure-reuse-2026-10-20.md](../.aion/audits/crm-001-infrastructure-reuse-2026-10-20.md)
+- **Runtime:** Extract provider-neutral CRM backend from
+  `aion-runtime/src/adapters/ghl/`; add Twenty fake/live; keep GHL adapter.
+- **Infra:** Compose overlay for Twenty (+ ephemeral Espo) on `internal`
+  network; Traefik only if a controlled UI route is required; never share
+  `aion_data` volume/DB with Twenty.
+- **REG:** Prefer same-host/internal Twenty (not public SaaS egress); still
+  classify CRM payloads; keep `ghl` allowlisted during migration.
+- **Offers:** Generalize the Appointment OS capability scorecard from
+  GHL-specific naming as adapters land.
+- **Proofs:** Mirror `proof:rcaos-at` / AIO-17 matrices against fake then live
+  Twenty before any GHL tenant migration.
 
 ## Follow-up Decisions
 
-- Accept or amend this ADR after leadership review (status → Accepted).
-- Complete SOV-003 Runtime enforce around GHL `fetch` (ADR-018) — prerequisite
-  hygiene for any SoE, including a future self-hosted CRM.
-- When an ownership trigger fires: open **ADR-0xx CRM SoE provider selection**
-  (score Path B candidates against `crm.*` + channels) or **ADR-0xx Thin AION
-  CRM scope** if Path C is chosen.
-- Optional engineering spike (only if scheduled against spare capacity):
-  document `CrmBackend` port shape vs current `GhlBackend` — no production
-  cutover.
+- **ADR (data-layer):** Canonical customer/revenue entities in aion-data —
+  amend “no CRM tables” / sync vs own.
+- **ADR (optional):** Promote or reject Espo after CRM-001 benchmark.
+- Complete SOV-003 enforce path so new SoE providers cannot bypass GATEWAY.
+- Workspace embedding of Twenty UI into AION OS (product-module or shortcut) —
+  after CRM-001 workflow proof.
