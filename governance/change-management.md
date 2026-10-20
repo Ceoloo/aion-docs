@@ -26,6 +26,10 @@ flowchart LR
 - **Architecturally significant changes require an ADR.** Boundary, ownership,
   cross-repo contract, or vendor-selection changes are recorded before they
   ship. See [../adr/README.md](../adr/README.md).
+- **Critical changes pass the sovereignty acceptance gate** (or are explicitly
+  classified as optional non-proprietary external functions). See
+  [../architecture/sovereign-intelligence-doctrine.md](../architecture/sovereign-intelligence-doctrine.md)
+  and [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md).
 - **Promotion is governed, not a copy.** Moving to a higher environment follows
   the promotion path with the isolation guarantees of
   [environments.md](../architecture/environments.md).
@@ -41,7 +45,9 @@ Record an ADR when a change:
 - changes a **cross-repo contract** (event, data, or API);
 - **selects or replaces a vendor/technology** previously left open;
 - changes a **governance rule** (a permission model, a gate policy, a risk
-  mapping).
+  mapping);
+- weakens or exceptions the **sovereignty doctrine** (IP exposure, offline
+  core, mandatory vendor dependency) — time-bounded exception ADRs only.
 
 Routine, reversible, in-boundary changes do **not** need an ADR — do not create
 ADR noise.

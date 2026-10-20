@@ -53,6 +53,17 @@ derived from events. See [learning-loop.md](learning-loop.md).
   ("summarize", "classify", "reason over context"), not a fixed vendor. Model
   selection is a routing/config concern, deferred to an ADR where it must be
   standardized.
+- **Intelligence sovereignty**
+  ([doctrine](sovereign-intelligence-doctrine.md),
+  [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md)):
+  - Prefer locally deployable / AION-hosted models for proprietary tasks.
+  - Public frontier APIs are **prohibited** when the task involves proprietary
+    data, internal workflows, confidential knowledge, or company IP.
+  - External inference is allowed only for explicitly classified
+    non-proprietary tasks via the Restricted External Gateway.
+  - Frontier models must never be a mandatory dependency for core workflows.
+  - Owned context, RAG, and eval systems live under AION-controlled storage and
+    keys (`aion-data` + infra).
 - Pattern ownership (when to use agents vs deterministic code, prompts, skills,
   evals, structured outputs) is the
   [AI / Agent Engineer](../.aion/agents/03-ai-agent-engineer.md) specialty.
@@ -76,3 +87,5 @@ derived from events. See [learning-loop.md](learning-loop.md).
 - **Learning consumes outcomes, not generations.** Volume of model output is not
   evidence of quality.
 - **The six data kinds do not collapse.** Distinct stores, distinct ownership.
+- **Proprietary reasoning stays inside the controlled boundary.** No public API
+  path for protected IP; model swap must not require rebuilding the workflow.

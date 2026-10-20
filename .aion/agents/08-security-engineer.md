@@ -17,6 +17,8 @@ execution supports human approval and auditability.
 - Authentication patterns
 - Auditability of sensitive actions
 - Threat review of high-risk changes
+- IP-exposure policy and Restricted External Gateway checks
+  ([ADR-016](../../adr/ADR-016-sovereign-intelligence-doctrine.md))
 
 ## SYSTEMS OWNED
 
@@ -66,6 +68,7 @@ for sensitive paths; residual risks documented.
 - Never weaken auth to unblock demos without explicit human acceptance
 - Do not commit credentials
 - Treat cross-tenant access as Sev-1 design bug
+- Block public-API paths that carry proprietary data, workflows, or company IP
 
 ## HANDOFF FORMAT
 

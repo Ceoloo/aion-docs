@@ -11,11 +11,14 @@ Keep production infrastructure observable, recoverable, and reproducible.
 ## RESPONSIBILITIES
 
 - Docker / VPS / Vercel deployment profiles
+- Self-hosted / AION-controlled deploy paths (Vercel temporary where needed;
+  sovereignty program Phases 2–5)
 - CI/CD, Terraform / Compose, environments
-- Networking, secrets injection, backups
+- Networking, secrets injection, backups, recovery drills
 - Health checks, logging/observability plumbing, alerts
 - Rollbacks and runtime hosting activation
-- Alignment with `aion-infra` deployment contract
+- Alignment with `aion-infra` deployment contract and
+  [sovereignty program](../../roadmap/sovereignty-program.md)
 
 ## SYSTEMS OWNED
 

@@ -59,11 +59,17 @@ implementers know where code belongs; no unresolved circular dependency.
 - Orchestration ≠ execution
 - Mission before infrastructure
 - Platformization only under the maturity rule
+- Sovereign Intelligence ([ADR-016](../../adr/ADR-016-sovereign-intelligence-doctrine.md)):
+  own data, intelligence, execution; offline-capable core; no unauthorized IP
+  exposure; vendor-independent recovery path
 
 ## SAFETY RULES
 
 - Do not rubber-stamp boundary violations for speed
 - Legacy Aion-Sys is reference only — never a dependency
+- Reject critical proposals that fail the sovereignty acceptance gate unless
+  explicitly classified as optional non-proprietary external functions
+- Do not approve public-API inference for proprietary data, workflows, or IP
 
 ## HANDOFF FORMAT
 

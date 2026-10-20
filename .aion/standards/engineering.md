@@ -24,7 +24,11 @@ This file is the **always-on checklist** every specialist follows.
 - Avoid destructive migrations. Prefer additive, reversible schema changes.
 - Production-impacting changes require rollback consideration.
 - Honor [`../../repositories/dependency-rules.md`](../../repositories/dependency-rules.md).
-- Honor the seven principles in [`../../engineering/principles.md`](../../engineering/principles.md).
+- Honor the eight principles in [`../../engineering/principles.md`](../../engineering/principles.md),
+  including Sovereign Intelligence (principle 8 /
+  [`../../architecture/sovereign-intelligence-doctrine.md`](../../architecture/sovereign-intelligence-doctrine.md)).
+- Critical work must pass the sovereignty acceptance gate or be explicitly
+  classified as optional non-proprietary external function.
 
 ## Definition of done (summary)
 

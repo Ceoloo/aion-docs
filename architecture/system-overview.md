@@ -53,7 +53,9 @@ governed system where:
 - **learning is derived from real outcomes,** not from generation volume;
 - **products are created through explicit missions;**
 - **reusable capabilities become platform primitives** only when justified;
-- **premature infrastructure is avoided.**
+- **premature infrastructure is avoided;**
+- **intelligence infrastructure is owned** — AION does not rent the foundation
+  of its intelligence ([doctrine](sovereign-intelligence-doctrine.md)).
 
 ## The seams that must not blur
 
@@ -74,8 +76,12 @@ These are the boundaries whose erosion caused the reset (see
 ## Design posture
 
 - **Mission before infrastructure.** ([principle](../engineering/principles.md))
+- **Sovereign intelligence.** Own data, intelligence, execution, and recovery;
+  external services are optional and default-deny for proprietary work.
+  ([doctrine](sovereign-intelligence-doctrine.md),
+  [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md))
 - **Least privilege everywhere.** ([security](security-model.md))
 - **Capabilities over vendors.** Defer vendor choice to an ADR when not
-  finalized.
+  finalized. Frontier model APIs must not become a mandatory dependency.
 - **Reliable outcomes over maximum autonomy.** Autonomy is a means, governed and
   earned per workflow — never the objective.

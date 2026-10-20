@@ -1,7 +1,11 @@
 # Core Architectural Principles
 
-These seven principles are **binding**. They are the compressed form of the
+These eight principles are **binding**. They are the compressed form of the
 architecture; when a decision is unclear, decide in the direction these point.
+
+> **Sovereign Intelligence** (principle 8 / [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md))
+> is also expanded as a full doctrine:
+> [../architecture/sovereign-intelligence-doctrine.md](../architecture/sovereign-intelligence-doctrine.md).
 
 ---
 
@@ -95,6 +99,35 @@ user, expected outcome, scope, explicit non-goals, success metrics, architecture
 impact, data requirements, security considerations, release gate, validation
 gate, and learning requirements. See
 [../missions/lifecycle.md](../missions/lifecycle.md).
+
+---
+
+## 8. Sovereign Intelligence
+
+**We do not rent the foundation of our intelligence.** AION owns its data,
+controls its intelligence, governs its execution, and remains operational
+without mandatory dependence on external AI providers or cloud platforms.
+
+Binding non-negotiables (full text in the
+[doctrine](../architecture/sovereign-intelligence-doctrine.md)):
+
+1. **Data sovereignty** — protected data and keys stay under AION control.
+2. **Intelligence sovereignty** — frontier models cannot be a mandatory
+   dependency; prefer local / owned inference and retrieval.
+3. **Offline-first execution** — core operations continue without internet;
+   external comms may queue.
+4. **Zero unauthorized IP exposure** — no public APIs for proprietary tasks.
+5. **Vendor independence** — every critical component has an AION-controlled
+   path, portable formats, and a tested recovery strategy.
+
+**Acceptance gate** (critical proposals must answer all five): IP outside
+boundary? Core works offline? Model replaceable without rebuilding the
+workflow? We control authoritative data, keys, and execution history?
+Restorable after provider shutdown?
+
+Existing integrations require an exposure audit and controlled migration — not
+an untested shutdown. Program:
+[../roadmap/sovereignty-program.md](../roadmap/sovereignty-program.md).
 
 ---
 

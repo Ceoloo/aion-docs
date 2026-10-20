@@ -67,6 +67,21 @@ No shared or ambient "god" identity. Every actor is attributable.
 - Permissions are explicit and owned; there is one canonical permission
   definition per capability. See [../governance/permissions.md](../governance/permissions.md).
 
+## Sovereign boundary (ADR-016)
+
+Security inherits the
+[Sovereign Intelligence Doctrine](sovereign-intelligence-doctrine.md):
+
+- **Data and keys** for protected intelligence stay under AION control.
+- **Restricted External Gateway** — default deny for outbound calls; only
+  non-proprietary tasks may leave; explicit policy checks required.
+- **Zero unauthorized IP exposure** — public APIs are prohibited for proprietary
+  data, internal workflows, confidential knowledge, or company IP.
+- **Offline-first** — core identity, policy, audit, inference, and retrieval
+  must not require public internet or hosted auth to operate.
+- AI development tools must not receive protected repositories, architecture,
+  source, or confidential operational context unless explicitly authorized.
+
 ## Hard rules
 
 - **No secrets in any repository or document — ever.**
@@ -77,5 +92,8 @@ No shared or ambient "god" identity. Every actor is attributable.
 - **Sensitive execution crosses the AION Action / Execution Gateway** —
   never `agent → raw API key → business API`
   ([ADR-003](../adr/ADR-003-execution-gateway-into-runtime.md)).
+- **No proprietary payload on public inference or SaaS APIs** unless the task is
+  classified non-proprietary and policy-allowed
+  ([ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md)).
 - **Agent Identity Registry fields are mandatory infrastructure** before
   Execute-tier work (see Security Infrastructure Standard §3.9).

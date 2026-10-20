@@ -1,6 +1,8 @@
 # Security Standards (Cursor agents)
 
 Canon: [`../../architecture/security-model.md`](../../architecture/security-model.md),
+[`../../architecture/sovereign-intelligence-doctrine.md`](../../architecture/sovereign-intelligence-doctrine.md)
+(ADR-016),
 [`../../architecture/security-infrastructure-standard-v1.md`](../../architecture/security-infrastructure-standard-v1.md)
 (AIO-43 control baseline),
 [`../../governance/permissions.md`](../../governance/permissions.md),
@@ -10,7 +12,8 @@ Canon: [`../../architecture/security-model.md`](../../architecture/security-mode
 ## Principle
 
 Agents receive the **minimum authority** required to complete a mission.
-Sensitive execution supports **human approval**.
+Sensitive execution supports **human approval**. Protected intelligence stays
+inside AION’s controlled boundary.
 
 ## Hard rules
 
@@ -24,6 +27,10 @@ Sensitive execution supports **human approval**.
 - Auditability: sensitive actions leave events / execution records.
 - Sensitive business APIs are reached via the AION gateway — not raw credentials
   in agent runtimes.
+- **No public API calls with proprietary data, internal workflows, confidential
+  knowledge, or company IP** — Restricted External Gateway is default deny.
+- AI development tools must not receive protected repos, architecture, source, or
+  confidential operational context unless explicitly authorized.
 - Production agents must carry Security Infrastructure Standard registry fields
   (`agent_id`, owner, purpose, tenant, tier, tools, data scope, delegated
   authority, policy version, execution evidence, revocation state).

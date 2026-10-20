@@ -8,7 +8,10 @@ per term, consistent with [explicit ownership](../governance/authority-model.md)
 
 | Term | Definition |
 |---|---|
-| **AION** | An AI-native company and product operating architecture: a governed system for building, operating, and learning from products, with humans holding ultimate authority. |
+| **AION** | An AI-native company and product operating architecture: a governed system for building, operating, and learning from products, with humans holding ultimate authority — and independent intelligence infrastructure AION owns and controls. |
+| **Sovereign Intelligence Doctrine** | Binding principle (ADR-016): own data, intelligence, execution, and recovery; offline-first core; zero unauthorized IP exposure; vendor independence. See [architecture/sovereign-intelligence-doctrine.md](../architecture/sovereign-intelligence-doctrine.md). |
+| **Restricted External Gateway** | Default-deny outbound path for optional external services; only non-proprietary, policy-allowed tasks may leave the sovereign boundary. |
+| **Sovereignty acceptance gate** | Five questions every critical proposal must answer: IP exposure, offline core, model replaceability, data/key/history control, provider-shutdown recovery. |
 | **Outcome-Based Systems Engineering** | Operating philosophy: design, deploy, and operate intelligent business systems that turn existing software into measurable results. Clients buy outcomes; AION owns the producing process. See [offers/aion-outcome-based-services-blueprint.md](../offers/aion-outcome-based-services-blueprint.md). |
 | **Business capability** | The preferred unit of execution: a governed operation (e.g. `qualify_lead_and_prepare_booking`) that may invoke multiple tools, validate results, apply human gates, and emit an Outcome — not a raw tool call. |
 | **Revenue Capture & Appointment OS** | Flagship outcome offer for appointment-driven SMBs: capture → dedupe → qualify → follow-up → book → escalate → verify → report. |

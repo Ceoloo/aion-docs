@@ -8,7 +8,8 @@ contracts.
 
 | Document | Purpose |
 |---|---|
-| [principles.md](principles.md) | The core architectural principles. |
+| [principles.md](principles.md) | The core architectural principles (incl. Sovereign Intelligence). |
+| [../architecture/sovereign-intelligence-doctrine.md](../architecture/sovereign-intelligence-doctrine.md) | Full sovereignty doctrine + acceptance gate (ADR-016). |
 | [production-readiness.md](production-readiness.md) | What "production-ready" means. |
 | [testing.md](testing.md) | Testing expectations (QA ownership). |
 | [evals.md](evals.md) | Evaluating AI-driven quality. |
