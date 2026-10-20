@@ -52,13 +52,16 @@ catalog keys or enrich-on-contact — **decide before inventing services**.
 | Asset | Path | Reuse |
 |---|---|---|
 | Backend port shape | `aion-runtime` `src/adapters/ghl/types.ts` (`GhlBackend`) | Same `execute({ tenantId, action, payload, idempotencyKey })` for Twenty |
+| Already CRM-named types | `backend-policy.ts` (`CrmBackendKind` / `CrmBackendChoice`); `normalize.ts` (`CrmContact`, `CrmOpportunity`, `CrmPipeline`, …) | Promote port; keep GHL leaf |
 | Fake backend | `fake-ghl-backend.ts` | Pattern for `fake-twenty-backend` / shared fake CRM |
-| Live backend + connection | `live-ghl-backend.ts`, `connection.ts` | Pattern for Twenty REST/GraphQL client |
+| Live backend + connection | `live-ghl-backend.ts`, `connection.ts` | **GHL-only leaf** — do not reuse HTTP; copy structure for Twenty client |
 | Adapter + ledger | `ghl-adapter.ts` | Policy-after-ALLOW, side-effect record, ambiguous-write handling |
 | Backend selection policy | `backend-policy.ts` | Extend: `CRM_PROVIDER=twenty\|ghl\|fake` (do not silently default live) |
-| Production write eligibility | `production-write-eligibility.ts` | Protect live records; extend for Twenty fixture namespaces |
-| Payload validation | `payload-validation.ts` | Provider-specific validators behind shared actions |
-| Normalize | `normalize.ts` | Provider → AION-normalized contact/opp shapes |
+| Production write eligibility | `production-write-eligibility.ts` | Protect live records; generalize `backendName !== 'ghl-live'` |
+| Payload validation | `payload-validation.ts` | CRM-domain rules (mostly neutral); provider-specific under |
+| Normalize | `normalize.ts` | Already the Twenty mapping target shapes |
+| Opportunity create→update | `aion-core` `opportunity-entity-routing.ts` | Neutral via `opportunityId` (`ghlOpportunityId` = legacy alias only) |
+| Control-plane risk map | `aion-runtime` `src/control-plane.ts` | Keep R1–R3 for `crm.*` |
 
 ### Data — governance SoR (not CRM CRUD)
 
@@ -127,16 +130,34 @@ as operational SoE and aion-data as governance + outcome + external id map via
 
 Ordered engineering slices — **no new repos**:
 
-1. **Extract provider-neutral port** in `aion-runtime`:
-   - `GhlBackend` → `CrmBackend` (or keep GHL types as alias).
-   - `GhlMutationKind` → shared CRM actions; provider mappers underneath.
-2. **Provider selection**: `CRM_PROVIDER` / backend policy supporting
+1. **Extract provider-neutral port** in `aion-runtime` (prefer `adapters/crm/`
+   port + keep `adapters/ghl/` leaf):
+   - `GhlBackend` → `CrmBackend`; `GhlMutationKind` → `CrmMutationKind`.
+   - `GhlAdapter` → injectable `CrmAdapter` with `provider` string.
+   - `validateGhlPayload` → `validateCrmPayload` where rules are domain-level.
+2. **Provider selection**: `CRM_PROVIDER` / `resolveCrmBackendChoice` supporting
    `fake | ghl | twenty` (Espo only in benchmark harness, not production path).
-3. **Allowlist REG**: add `twenty` (and document private-network = non-public);
-   keep `ghl` during staged migration.
-4. **Catalog hygiene**: descriptions that say “GHL” → “tenant CRM workspace”;
-   add `crm.company.*` only if Twenty Company is in V1 scope.
-5. **Ledger**: write `provider: 'twenty'` on side effects; dual-run proofs.
+3. **Allowlist REG**: same-host Twenty = internal; keep `ghl` for dual-run.
+4. **Catalog hygiene**: descriptions “GHL” → “tenant CRM workspace”; drop or
+   un-pin `metadata.provider: 'ghl'`; add `crm.company.*` only if in V1 scope.
+5. **Ledger**: require explicit `provider` on side effects (stop defaulting
+   `'ghl'`); dual-run proofs.
+6. **Soft leaks to clean during extract** (not blockers for compose):
+   - Adapter success payloads hardcoding `provider: 'ghl'` / `GHL_API_VERSION`
+   - `backendName === 'ghl-live'` in write eligibility
+   - `ghlOpportunityId` alias — keep only as legacy; prefer `opportunityId`
+   - `implementation-case` `ghl_connection` → generalize `crm_connection`
+   - `client.ghl.contact.upsert` — keep as GHL migration alias onto `contact.update`
+7. **Day-one Twenty entity scope** (extend catalog only where needed):
+
+| Surface | Today | CRM-001 minimum |
+|---|---|---|
+| Contacts / People | `crm.contact.*` | Map Person ↔ contact |
+| Companies | **none** | Decide: `crm.company.*` **or** company-on-contact enrich |
+| Opportunities | `crm.opportunity.*` + pipeline read | Map Deal ↔ opportunity |
+| Activities / timeline | note.create + task.create only | Create path enough for first workflow; list/read later |
+| Tasks / notes | create only | No read/update/complete in day-one |
+| Messaging / appointments | Deferred / GHL-shaped | Same deferrals unless scored |
 
 ---
 
@@ -180,14 +201,21 @@ Matches leadership sequence; annotated with reuse:
 2. **Deploy Twenty (dev)** — copy VPS compose patterns; private network; own DB.
 3. **Benchmark EspoCRM** — same host class; record metrics; no production adapter
    required.
-4. **AION CRM adapter** — extract `CrmBackend`; implement Twenty; fake proofs
-   first (`proof:rcaos-at` parity).
-5. **Agents via Runtime only** — verify workforce-control / copilot never get
+4. **Keep** Mission 009 `crm.*` + ExternalSideEffect + fake proof spine unchanged
+   as the acceptance frame.
+5. **Extract** `CrmBackend` + normalize layer; leave `LiveGhlBackend` as one impl.
+6. **Add** fake then live Twenty for contacts / opportunities / notes / tasks
+   first (`proof:rcaos-at` / AIO-17 parity on fake).
+7. **Agents via Runtime only** — verify workforce-control / copilot never get
    Twenty DB URLs.
-6. **First real workflow** — lead → qualify → opportunity → approved action →
+8. **First real workflow** — lead → qualify → opportunity → approved action →
    Outcome (fake Twenty, then live Twenty).
-7. **Staged GHL migration** — dual provider; reconcile; client isolation;
-   rollback to GHL adapter.
+9. **Staged GHL migration** — dual provider; reconcile; client isolation;
+   rollback to GHL adapter (keep GHL live proofs for dual-run).
+
+**GHL-only leaves (retain, do not delete):** `live-ghl-backend.ts`,
+`connection.ts`, `constants.ts` / `provider-errors.ts`, protected-record
+denylist, `GHL_ACCEPTANCE_*` live proofs, `ghl_connection` until generalized.
 
 ---
 
@@ -204,6 +232,7 @@ Matches leadership sequence; annotated with reuse:
 
 - Platform repos inspection (runtime / core / data / infra / products / docs)
 - Parallel infra/products audit pass (compose, env split, Console `provider: 'ghl'` coupling)
+- Parallel runtime/core/data audit pass (`Crm*` normalize shapes, soft GHL leaks, entity gaps, proof matrix inventory)
 
 ## Handoff
 

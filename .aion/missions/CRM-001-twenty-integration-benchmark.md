@@ -59,10 +59,10 @@ HANDOFF:                 see below
 | 0 | ADR-019 Accepted + reuse audit + this mission | `aion-docs` | Architect + Integrations |
 | 1 | Twenty (and Espo) compose overlay — internal network, own DB, secrets | `aion-infra` | Infrastructure |
 | 2 | EspoCRM benchmark script + report | `aion-infra` / docs | Infrastructure + QA |
-| 3 | Extract `CrmBackend`; keep GHL adapter; add fake Twenty | `aion-runtime` | Integrations + Runtime |
-| 4 | Live Twenty backend + normalize/validate | `aion-runtime` | Integrations |
-| 5 | Catalog touch-ups (`company` / wording) if required | `aion-core` | Core + Integrations |
-| 6 | Ledger `provider=twenty` + dual-run proofs | `aion-runtime` + `aion-data` | Runtime + Data |
+| 3 | Extract `CrmBackend` port (`adapters/crm/`); keep `adapters/ghl/` leaf; add fake Twenty; clean soft `provider: 'ghl'` leaks | `aion-runtime` | Integrations + Runtime |
+| 4 | Live Twenty backend + map onto existing `CrmContact` / `CrmOpportunity` normalize shapes | `aion-runtime` | Integrations |
+| 5 | Catalog: company decision (`crm.company.*` vs enrich); un-pin `metadata.provider: 'ghl'`; optional `crm_connection` vs `ghl_connection` | `aion-core` | Core + Integrations |
+| 6 | Ledger explicit `provider=twenty` (no default `ghl`) + dual-run proofs | `aion-runtime` + `aion-data` | Runtime + Data |
 | 7 | First workflow proof (fake → live Twenty) | Runtime + QA | QA |
 | 8 | Staged GHL migration plan (reconcile, isolation, rollback) — docs + dry-run | Integrations | Integrations + Security |
 | 9 | *(Follow-up ADR)* Canonical customer SoR in aion-data | `aion-docs` → `aion-data` | Architect + Data |
