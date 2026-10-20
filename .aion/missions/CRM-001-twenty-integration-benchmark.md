@@ -31,9 +31,20 @@ DEPENDENCIES:            ADR-019 Accepted; reuse audit; SOV-003 observe path pre
 EXPECTED OUTPUT:         Docs (ADR+audit+mission); infra compose overlay; runtime Twenty adapter PR; benchmark markdown; workflow proof evidence
 TEST REQUIREMENTS:       fake Twenty proofs mirroring proof:rcaos-at / aio17 matrix; live Twenty against disposable workspace; no writes to production GHL during Twenty proofs
 SECURITY CONSIDERATIONS: Isolated creds; internal Docker network; PIT/API keys never in VITE_*; tenant isolation tests; PII stays on AION-controlled hosts
-STATUS:                  defined — docs/audit slice in progress
+STATUS:                  in progress — cutover sequence A→D; infra + Runtime PRs open
 HANDOFF:                 see below
 ```
+
+## Cutover sequence (production GHL frozen until D)
+
+Canonical runbook: [`../../roadmap/crm-001-cutover-sequence.md`](../../roadmap/crm-001-cutover-sequence.md)
+
+| Gate | Action | Exit criteria |
+|---|---|---|
+| **A** | Enable Twenty on a **non-prod** host (`--profile twenty`) | Overlay up; DB ≠ `aion_data`; prod `CRM_PROVIDER` still unset/ghl |
+| **B** | Fake Twenty RCAOS proofs | `npm run proof:rcaos-at-twenty` PASS; `/health/ready` shows `crm_provider=twenty` |
+| **C** | Live HTTP adapter vs disposable Twenty | contact/opp/note/task via Runtime; no prod GHL writes |
+| **D** | Cutover gate | Workflow + isolation + governance + rollback recorded — **only then** prod `CRM_PROVIDER=twenty` |
 
 ## Target architecture (V1)
 
@@ -75,14 +86,12 @@ HANDOFF:                 see below
 - [ghl-capabilities.md](../../offers/revenue-capture-appointment-os/ghl-capabilities.md) (scorecard until generalized)
 - Runtime adapter reference: `aion-runtime/src/adapters/ghl/`
 
-## Handoff (docs / audit slice)
+## Handoff
 
 ```text
 MISSION                  CRM-001
-STATUS                   defined — docs slice ready for implement branches
-SUMMARY                  Official V1 stack locked (Twenty SoE, Espo benchmark, Data SoT TBD schema, Runtime execution). Reuse audit: no new CRM microservice; extract CrmBackend; Twenty compose on internal net.
-FINDINGS                 aion-data currently forbids CRM tables — blocks literal “customer SoT in Data” until follow-up ADR. GHL plane is the reusable substrate.
-IMPLEMENTATION           Docs/ADR/audit/mission only in this slice
-FILES CHANGED            adr/ADR-019-*, .aion/audits/crm-001-*, .aion/missions/CRM-001-*, adr/README, missions README
-NEXT RECOMMENDED ACTION  Infra: Twenty compose overlay on internal network; Runtime: CrmBackend extraction spike with fake Twenty
+STATUS                   in progress — sequence A→D locked; implement on infra #21 + runtime #64
+SUMMARY                  Non-prod Twenty → proof:rcaos-at-twenty → live HTTP adapter → cutover gate. Production GHL unchanged until Gate D.
+FINDINGS                 aion-data CRM entity tables still gated; day-one Twenty omits messaging/appointments.
+NEXT RECOMMENDED ACTION  Merge infra overlay + Runtime abstraction; run Gate A on non-prod; Gate B proof:rcaos-at-twenty
 ```
