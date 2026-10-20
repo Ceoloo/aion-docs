@@ -101,6 +101,8 @@ Until D is signed off: **do not** set `CRM_PROVIDER=twenty` on production Runtim
 
 | Slice | Repo |
 |---|---|
-| Compose overlay | aion-infra (Twenty profile) |
-| CrmBackend + fake/live Twenty | aion-runtime |
-| Doctrine | ADR-019 |
+| Compose overlay | aion-infra #21 (merged) |
+| CrmBackend + fake/live Twenty | aion-runtime #64 (merged) |
+| Cutover sequence A→D | aion-docs #102 (merged) |
+| Doctrine | ADR-019 (#100/#101) |
+| Gate A staging host prereqs + Gate C adapter invariants | follow-up docs / runtime / infra PRs |
