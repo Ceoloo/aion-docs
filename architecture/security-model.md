@@ -74,7 +74,9 @@ Security inherits the
 
 - **Data and keys** for protected intelligence stay under AION control.
 - **Restricted External Gateway** — default deny for outbound calls; only
-  non-proprietary tasks may leave; explicit policy checks required.
+  non-proprietary / SoE-authorized tasks may leave; explicit policy checks
+  required ([ADR-018](../adr/ADR-018-restricted-external-gateway.md),
+  [restricted-external-gateway.md](restricted-external-gateway.md)).
 - **Zero unauthorized IP exposure** — public APIs are prohibited for proprietary
   data, internal workflows, confidential knowledge, or company IP.
 - **Offline-first** — core identity, policy, audit, inference, and retrieval
