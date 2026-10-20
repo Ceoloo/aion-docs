@@ -55,15 +55,18 @@ derived from events. See [learning-loop.md](learning-loop.md).
   standardized.
 - **Intelligence sovereignty**
   ([doctrine](sovereign-intelligence-doctrine.md),
-  [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md)):
+  [ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md),
+  [ADR-017 router](../adr/ADR-017-sovereign-model-router.md)):
   - Prefer locally deployable / AION-hosted models for proprietary tasks.
   - Public frontier APIs are **prohibited** when the task involves proprietary
     data, internal workflows, confidential knowledge, or company IP.
   - External inference is allowed only for explicitly classified
-    non-proprietary tasks via the Restricted External Gateway.
+    non-proprietary tasks via the Restricted External Gateway
+    ([ADR-018](../adr/ADR-018-restricted-external-gateway.md)).
   - Frontier models must never be a mandatory dependency for core workflows.
   - Owned context, RAG, and eval systems live under AION-controlled storage and
     keys (`aion-data` + infra).
+  - Full routing contract: [sovereign-model-router.md](sovereign-model-router.md).
 - Pattern ownership (when to use agents vs deterministic code, prompts, skills,
   evals, structured outputs) is the
   [AI / Agent Engineer](../.aion/agents/03-ai-agent-engineer.md) specialty.

@@ -83,3 +83,5 @@ prematurely.** Record the required capability and defer:
 | [ADR-014](ADR-014-outcome-based-systems-engineering.md) | Outcome-Based Systems Engineering as operating philosophy | Accepted |
 | [ADR-015](ADR-015-workspace-product-module-contract.md) | Workspace Product Module Contract; Creative OS as the First Module | Proposed |
 | [ADR-016](ADR-016-sovereign-intelligence-doctrine.md) | Sovereign Intelligence Doctrine | Accepted |
+| [ADR-017](ADR-017-sovereign-model-router.md) | Sovereign Model Router | Accepted |
+| [ADR-018](ADR-018-restricted-external-gateway.md) | Restricted External Gateway (IP Policy) | Accepted |

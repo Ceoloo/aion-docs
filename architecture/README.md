@@ -9,6 +9,8 @@ It defines architecture and contracts — not implementation.
 | Document | Purpose |
 |---|---|
 | [sovereign-intelligence-doctrine.md](sovereign-intelligence-doctrine.md) | **Binding** Sovereign Intelligence Doctrine (ADR-016): data/intelligence sovereignty, offline-first, IP exposure gate, vendor independence. |
+| [sovereign-model-router.md](sovereign-model-router.md) | **ADR-017** — inference classes + local-first routing; no silent frontier fallback. |
+| [restricted-external-gateway.md](restricted-external-gateway.md) | **ADR-018** — default-deny outbound IP policy on Runtime Execution Gateway. |
 | [system-overview.md](system-overview.md) | What AION is and is not; the layered model. |
 | [execution-platform-v1.md](execution-platform-v1.md) | **Build contract:** Execution Plane, Grok→repos map, catalog, autonomy, 30-day backlog. |
 | [system-context.md](system-context.md) | AION's boundary — external actors and systems. |
