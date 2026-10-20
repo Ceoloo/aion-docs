@@ -202,8 +202,8 @@ The **material sovereignty gaps** are concentrated in:
 
 Suggested follow-on missions:
 
-1. **SOV-002** — Local inference + model router (P0)
-2. **SOV-003** — Restricted External Gateway IP policy (P0)
+1. **SOV-002** — Local inference + model router (P0) — **contracted** ([ADR-017](../../adr/ADR-017-sovereign-model-router.md); [mission](../missions/SOV-002-local-inference-model-router.md))
+2. **SOV-003** — Restricted External Gateway IP policy (P0) — **contracted** ([ADR-018](../../adr/ADR-018-restricted-external-gateway.md); [mission](../missions/SOV-003-restricted-external-gateway.md))
 3. **SOV-004** — Supabase legacy retirement (P0)
 4. **SOV-005** — Self-hosted UI delivery path (P1)
 5. **SOV-006** — ADR-010/016 reconciliation (PostHog) (P1)

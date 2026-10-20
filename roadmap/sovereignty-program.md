@@ -47,11 +47,19 @@ Integrations Engineer.
 
 **Goal:** AION-controlled operating paths for critical capability.
 
+**Active P0 missions (contracted 2026-10-20):**
+
+| Mission | Focus | ADR |
+|---|---|---|
+| [SOV-002](../.aion/missions/SOV-002-local-inference-model-router.md) | Local inference + sovereign model router | [ADR-017](../adr/ADR-017-sovereign-model-router.md) |
+| [SOV-003](../.aion/missions/SOV-003-restricted-external-gateway.md) | Restricted External Gateway IP policy | [ADR-018](../adr/ADR-018-restricted-external-gateway.md) |
+
 Deploy / prove:
 
 - Self-hosted (or AION-controlled) identity
 - Persistence under AION encryption keys
-- Local / self-hosted inference path for proprietary tasks
+- Local / self-hosted inference path for proprietary tasks (**SOV-002**)
+- Restricted External Gateway default-deny + allowlist (**SOV-003**)
 - Execution queues with durable recovery
 - Secrets management AION controls
 - Audit logging that remains available offline from public SaaS
