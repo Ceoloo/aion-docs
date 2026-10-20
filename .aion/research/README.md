@@ -19,6 +19,7 @@ Architect go/no-go, and usually an [ADR](../../adr/README.md).
 | [production-readiness-2026-10-12.md](production-readiness-2026-10-12.md) | **Current** dated production readiness assessment → certify `20fe3a4` GE-001 candidate |
 | [production-readiness-2026-09-28.md](production-readiness-2026-09-28.md) | Prior assessment (2026-09-28) → GOVERNED EXECUTION |
 | [techops-monday-brief-2026-10-05.md](techops-monday-brief-2026-10-05.md) | TechOps Monday Brief — agent identity as infrastructure |
+| [dsl-001-data-licensing-market-brief-2026-10-20.md](dsl-001-data-licensing-market-brief-2026-10-20.md) | Enterprise operational-data licensing market brief → P-AIO-9 |
 | `RES-NNN-*.md` | Per-mission research briefs / comparison matrices |
 | Prototypes | Live **outside** `main` (feature branches / sandboxes); link from the brief |
 

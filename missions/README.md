@@ -15,6 +15,7 @@ explicit scope, and — crucially — explicit non-goals.
 | [validation-template.md](validation-template.md) | The validation gate template. |
 | [MISSION-RCAOS-001-revenue-capture-appointment-os.md](MISSION-RCAOS-001-revenue-capture-appointment-os.md) | Flagship Appointment OS v1 (demo client) — Defined |
 | [MISSION-CREATIVE-001-creative-os-client-shorts.md](MISSION-CREATIVE-001-creative-os-client-shorts.md) | Creative OS v1: governed shorts for one AION services client — Defined (proposed) |
+| [MISSION-DSL-001-data-sovereignty-licensing-validation.md](MISSION-DSL-001-data-sovereignty-licensing-validation.md) | Data Sovereignty & Licensing 90-day validation (P-AIO-9) — Defined |
 
 ## Why missions
 

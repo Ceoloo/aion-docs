@@ -58,8 +58,10 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 | [techops-ai-era-identity-protection.md](techops-ai-era-identity-protection.md) | Foundation SKU — Human + Machine Identity hardening |
 | [techops-secure-accounting-ai-foundation.md](techops-secure-accounting-ai-foundation.md) | Accounting vertical packaging |
 | [techops-security-operations-lite.md](techops-security-operations-lite.md) | Recurring assurance / SecOps Lite SKU (design) |
+| [aion-data-sovereignty-licensing-execution-spec.md](aion-data-sovereignty-licensing-execution-spec.md) | **DSL-001** 90-day Data Sovereignty & Licensing validation (P-AIO-9) |
 
 ## Program tracker
 
 **Outcome / pilot:** [AIO-71](https://linear.app/aion-empire/issue/AIO-71/p0-pilot-to-revenue-no-shorts-electrical-design-partner-rcaos) (Pilot-to-Revenue; blocked by AIO-35 / AIO-37).  
-**TechOps:** AIO-43 … AIO-52. Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance)**.
+**TechOps:** AIO-43 … AIO-52. Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance)**.  
+**Data Sovereignty commercial validation:** [P-AIO-9](https://linear.app/aion-empire/project/aion-data-sovereignty-and-licensing-validation-sprint-a23e98149964) · [execution spec](aion-data-sovereignty-licensing-execution-spec.md) (does not replace Runtime GE-001 or SOV Phase 2).
