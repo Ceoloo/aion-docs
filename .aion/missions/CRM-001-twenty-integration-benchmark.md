@@ -31,7 +31,7 @@ DEPENDENCIES:            ADR-019 Accepted; reuse audit; SOV-003 observe path pre
 EXPECTED OUTPUT:         Docs (ADR+audit+mission); infra compose overlay; runtime Twenty adapter PR; benchmark markdown; workflow proof evidence
 TEST REQUIREMENTS:       fake Twenty proofs mirroring proof:rcaos-at / aio17 matrix; live Twenty against disposable workspace; no writes to production GHL during Twenty proofs
 SECURITY CONSIDERATIONS: Isolated creds; internal Docker network; PIT/API keys never in VITE_*; tenant isolation tests; PII stays on AION-controlled hosts
-STATUS:                  in progress — cutover sequence A→D; infra + Runtime PRs open
+STATUS:                  in progress — infra #21 + runtime #64 + docs #102 merged; Gate A blocked on isolated staging host
 HANDOFF:                 see below
 ```
 
@@ -41,9 +41,9 @@ Canonical runbook: [`../../roadmap/crm-001-cutover-sequence.md`](../../roadmap/c
 
 | Gate | Action | Exit criteria |
 |---|---|---|
-| **A** | Enable Twenty on a **non-prod** host (`--profile twenty`) | Overlay up; DB ≠ `aion_data`; prod `CRM_PROVIDER` still unset/ghl |
+| **A** | Enable Twenty on a **non-prod** host (`--profile twenty`) | Isolated staging host + staging secrets (`TWENTY_PG_PASSWORD`, `TWENTY_APP_SECRET`, staging Runtime/DB); overlay up; DB ≠ `aion_data`; **no** Gate A on production Docker (`Aionempire`); prod `CRM_PROVIDER` still unset/ghl |
 | **B** | Fake Twenty RCAOS proofs | `npm run proof:rcaos-at-twenty` PASS; `/health/ready` shows `crm_provider=twenty` |
-| **C** | Live HTTP adapter vs disposable Twenty | contact/opp/note/task via Runtime; no prod GHL writes |
+| **C** | Live HTTP adapter vs disposable Twenty | contact/opp/note/task via Runtime; real ids + NoteTarget/TaskTarget + `body`; two-tenant isolation; no prod GHL writes |
 | **D** | Cutover gate | Workflow + isolation + governance + rollback recorded — **only then** prod `CRM_PROVIDER=twenty` |
 
 ## Target architecture (V1)
@@ -90,8 +90,8 @@ Canonical runbook: [`../../roadmap/crm-001-cutover-sequence.md`](../../roadmap/c
 
 ```text
 MISSION                  CRM-001
-STATUS                   in progress — sequence A→D locked; implement on infra #21 + runtime #64
-SUMMARY                  Non-prod Twenty → proof:rcaos-at-twenty → live HTTP adapter → cutover gate. Production GHL unchanged until Gate D.
-FINDINGS                 aion-data CRM entity tables still gated; day-one Twenty omits messaging/appointments.
-NEXT RECOMMENDED ACTION  Merge infra overlay + Runtime abstraction; run Gate A on non-prod; Gate B proof:rcaos-at-twenty
+STATUS                   in progress — PRs merged; Gate A waiting on isolated staging host
+SUMMARY                  Infra/runtime/docs landed. Gate A needs a non-prod host + staging secrets (no values in chat). Adapter Gate C fixes: real ids, body, NoteTarget/TaskTarget. Production GHL unchanged; cutover unauthorized.
+FINDINGS                 Aionempire is production — do not run Gate A there. GitHub staging Environment exists without secrets yet.
+NEXT RECOMMENDED ACTION  Provision isolated staging host; configure TWENTY_PG_PASSWORD + TWENTY_APP_SECRET + staging Runtime/DB; then Gate A → B → C
 ```
