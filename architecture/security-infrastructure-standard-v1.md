@@ -282,7 +282,9 @@ kill-switch / revocation readiness.
 
 ### 5.1 Accounting — strongest near-term security wedge
 
-Offer language: **Secure Accounting AI Foundation**
+Offer language: **Secure Accounting AI Foundation**  
+Artifacts: [../offers/techops-secure-accounting-ai-foundation.md](../offers/techops-secure-accounting-ai-foundation.md),
+[../offers/techops-accounting-ai-governance-policy-template.md](../offers/techops-accounting-ai-governance-policy-template.md) (AIO-50).
 
 Emphasize before meaningful automation: identity/MFA · secure document flow ·
 AI acceptable-use · machine/agent identity inventory · financial-action approval
@@ -296,6 +298,8 @@ SIS-BK-*, SIS-CT-*.
 FTC Safeguards Rule / financial-institution posture for motor vehicle dealers.
 Message: automate aggressively without unrestricted AI authority over customer
 data, pricing, financing, or contracts.
+
+Artifact: [../offers/techops-dealer-rental-security-overlay.md](../offers/techops-dealer-rental-security-overlay.md) (AIO-51).
 
 **Authority bands (dealer reference architecture):**
 
@@ -311,6 +315,8 @@ data, pricing, financing, or contracts.
 Position current offer as **Secure Digital Contractor Infrastructure**.
 Treat OT/IoT / connected infrastructure as an **audit discovery category**,
 not an implementation promise (do not sell OT cybersecurity services yet).
+
+Artifact: [../offers/techops-secure-digital-contractor-infrastructure.md](../offers/techops-secure-digital-contractor-infrastructure.md) (AIO-49).
 
 ---
 
