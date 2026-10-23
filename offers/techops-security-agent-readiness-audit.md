@@ -236,11 +236,13 @@ max = 15 + 15 + 12 + 15 + 12 = 69
 
 ### Vertical packaging notes
 
-| Vertical | Emphasize | Offer language |
+Full client packaging: [techops-governance-security-infrastructure-audit-v2.md](techops-governance-security-infrastructure-audit-v2.md).
+
+| Vertical | Emphasize | Offer language / artifact |
 |---|---|---|
-| Electrical | Job docs, estimates, field devices, AP/AR; OT/IoT as discovery | **Secure Digital Contractor Infrastructure** |
-| Accounting | Identity hardening, document/data boundaries, financial-action approvals, agent governance, immutable evidence | **Secure Accounting AI Foundation** |
-| Dealer / rental | PII, financing, DMS; authority bands | Inventory/search → communication → CRM ops → **financial/contract (human-gated)** |
+| Electrical | Job docs, estimates, field devices, AP/AR; OT/IoT as discovery | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) |
+| Accounting | Identity hardening, document/data boundaries, financial-action approvals, agent governance, immutable evidence | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) |
+| Dealer / rental | PII, financing, DMS; authority bands | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) |
 
 #### Dealer authority bands (reference)
 
