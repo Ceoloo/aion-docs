@@ -32,8 +32,9 @@ with PostHog shadow analytics ([ADR-010](../adr/ADR-010-posthog-analytics-plane.
 |---|---|---|
 | Persistence | Local SQLite (`services/action-service`) | Queue state may stay local; **outcomes** and executed actions must be recorded canonically via the Runtime (`aion_execution` + outcome) |
 | Execution | `POST /v1/actions/:id/execute` only transitions queue status + builds a Context Pack; no external side effects | Dispatch governed work as `POST /v1/commands` (`serviceKey`) to the Runtime Execution Gateway; store the returned `executionId` on the Action Object |
-| Approval | Own approve/claim with header roles (`x-aion-role`) | Human gates for governed commands are the Runtime's `POST /v1/approvals/:id/decision`; queue approval is a UX pre-step, not authority |
-| Deployment | Not deployed by `aion-infra` | Add a profile only once a mission requires it |
+| Approval | Own approve/claim with **server-bound bearer principals** (client `x-aion-role` ignored) | Human gates for governed commands are the Runtime's `POST /v1/approvals/:id/decision`; queue approval is a UX pre-step, not authority |
+| Auth | `Authorization: Bearer` → `AION_ACTION_AUTH_PRINCIPALS` (or local `AION_ACTION_DEV_TOKEN`); all `/v1/*` fail closed | Replace with AION Core / Runtime-authenticated principal + tenant scope before any non-trusted exposure ([audit 2026-10-26](../.aion/audits/agentic-engineering-audit-2026-10-26.md) Finding 4) |
+| Deployment | Not deployed by `aion-infra` | Add a profile only once a mission requires it; keep isolated until auth boundary verified |
 
 ## Related
 
