@@ -78,6 +78,7 @@ The platform can persist run state and resume approved work. Active-session reco
 **Remediation direction (in flight):** bearer tokens bound server-side to principals; ignore client role headers; require auth on all `/v1/*` routes; keep service as isolated satellite until AION-authenticated principals (BFF / Runtime) are the only callers. Do **not** introduce a second independent authority alongside AION Core.
 
 - Repo note: [repositories/aion-action-engine.md](../../repositories/aion-action-engine.md)
+- Apply patch: [patches/aio-106-action-service-auth-boundary.patch](patches/aio-106-action-service-auth-boundary.patch) ([AIO-106](https://linear.app/aion-empire/issue/AIO-106)) — tested locally; push to `aion-action-engine` may require maintainer credentials
 
 ### Finding 5 — Sovereign autonomy incomplete
 
