@@ -75,11 +75,11 @@
     }
   },
   "preflightBlockers": [
-    "Rollback compatibility for previous Runtime image 75e9acd against the exact applied production migration set is not cleared",
+    "Isolated rollback probe shows previous Runtime image cannot read tenant-scoped rows when candidate RLS policies are active; production migration history is unknown and no rollback mitigation is verified",
     "CRM cleanup is operator-reported only; provider note ID, deletion UTC time, operator identity, and contact ID SHA-256 are not yet recorded",
     "Realign Core/Data pins across Runtime/Products/Data setup scripts",
-    "Evidence NULL-tenant backfill + RLS with application role on production",
-    "CA-verified DB TLS still open (rejectUnauthorized:false)",
+    "Capture exact production migration IDs and verify NULL-tenant backfill + RLS with application role on production",
+    "CA-verified DB TLS still open: candidate image uses rejectUnauthorized:false and has no CA configuration path",
     "GE-001 live acceptance evidence pack still outstanding"
   ],
   "acceptanceTarget": "GOVERNED EXECUTION — VERIFIED (GE-001)",
@@ -205,7 +205,41 @@
       "previousImageGitSha": "75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
       "previousImageDataPin": "60ff3d2459a5c2fff7dcd9b0592af713306716eb",
       "finding": "The candidate Runtime tree contains src/tenant-context.ts; the previous Runtime tree does not. Candidate Data includes migration 0010_tenant_rls.sql, which enables tenant policies on executions, approvals, and autonomy_grants. The deployment summary says 2 migrations were applied of 13 but does not identify them in the captured evidence, so whether 0010 is present in the serving schema and how the previous image behaves as the application role are not demonstrated.",
-      "requiredEvidence": "Capture the exact applied migration IDs, then run the exact previous image against that migrated schema using the application role, or document and verify a rollback mitigation before claiming rollback compatibility."
+      "requiredEvidence": "Capture the exact applied migration IDs, then run the exact previous image against that migrated schema using the application role, or document and verify a rollback mitigation before claiming rollback compatibility.",
+      "isolatedProbe": {
+        "recordedAt": "2026-10-26",
+        "status": "PREVIOUS_IMAGE_TENANT_ACCESS_INCOMPATIBLE",
+        "candidateImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+        "previousImageDigest": "sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee",
+        "database": "Disposable PostgreSQL 16; candidate migrations applied from empty schema",
+        "result": "With a tenant-scoped execution row and application-role access, SELECT returns 0 rows without aion.tenant_id and 1 row after setting aion.tenant_id to the matching tenant. The previous image contains no tenant-context module; the candidate image contains dist/tenant-context.js.",
+        "limits": "This is a controlled local compatibility probe, not a query against production data or its exact migration ledger. It demonstrates an access incompatibility if tenant RLS is active, but does not identify the exact production migrations or verify a production rollback mitigation."
+      }
+    },
+    "productionMigrationLedger": {
+      "status": "NOT_CAPTURED",
+      "deployLog": "2 of 13 migrations applied; the log does not identify versions or names",
+      "candidateImageMigrations": [
+        "0001_initial_core_state",
+        "0002_execution_object_agent_identity",
+        "0003_service_catalog",
+        "0004_tenant_scope_lineage",
+        "0005_workflows",
+        "0006_evaluation_results",
+        "0007_autonomy_grants",
+        "0008_external_side_effects",
+        "0009_revenue_sessions",
+        "0010_tenant_rls",
+        "0011_implementation_cases",
+        "0012_ie002_activation_statuses",
+        "0013_service_status_inactive"
+      ],
+      "isolatedPreviousImageReplay": "Previous image migration set followed by candidate migrator reported 3 applied migrations on a disposable database; this differs from production's 2 and does not establish the production ledger."
+    },
+    "databaseTransport": {
+      "candidateImageTlsSetting": "rejectUnauthorized:false",
+      "caVerified": false,
+      "productionEvidence": "No CA-verified production connection or negative invalid-CA test captured; the candidate image does not expose a CA configuration path in its compiled runtime bundle."
     },
     "evidenceLinks": {
       "deployWorkflow": "https://github.com/Ceoloo/aion-infra/actions/runs/36758112318",
@@ -213,7 +247,8 @@
       "candidateTenantContext": "https://github.com/Ceoloo/aion-runtime/blob/20fe3a435dab5f12175ae03998ad709398ce931d/src/tenant-context.ts",
       "previousRuntimeTree": "https://github.com/Ceoloo/aion-runtime/tree/75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
       "candidateRlsMigration": "https://github.com/Ceoloo/aion-data/blob/5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4/migrations/0010_tenant_rls.sql",
-      "cleanupEvidenceUpdatePR": "https://github.com/Ceoloo/aion-runtime/pull/63"
+      "cleanupEvidenceUpdatePR": "https://github.com/Ceoloo/aion-runtime/pull/63",
+      "rollbackProbe": "releases/ge001-closeout-2026-10-26.md"
     }
   },
   "crmCleanupEvidence": {
@@ -226,6 +261,7 @@
     "contactIdSha256": null,
     "ol001LedgerPreserved": "No OL-001 mission, execution, approval, or side-effect ledger changes were made as part of this review.",
     "preexistingAnnfieraPayment": "Not touched or re-attributed; excluded from GE-001 attributed cash.",
-    "incidentPR": "https://github.com/Ceoloo/aion-runtime/pull/63"
+    "incidentPR": "https://github.com/Ceoloo/aion-runtime/pull/63",
+    "verificationStatus": "NOT_VERIFIED; no GHL credential/provider access or required cleanup metadata is available in this session"
   }
 }

@@ -25,7 +25,7 @@ context.
 | Documented architecture | Strong, increasingly ahead of operations |
 | Implemented platform code | Strong on current branches (registry, assurance, rooms, RCAOS tip) |
 | Automated / synthetic tests | Strong; RCAOS AT-1…AT-7 green on fake harness |
-| Verified live operation | Runtime #57 is serving; GE-001 live acceptance remains outstanding; CRM cleanup is operator-reported but unverified |
+| Verified live operation | Runtime #57 is serving; isolated rollback/RLS probe found previous-image tenant access incompatibility if RLS is active; GE-001 live acceptance remains outstanding |
 | Proven revenue production | Not established |
 | GOVERNED EXECUTION — VERIFIED | **Open** (candidate still `20fe3a4`, not tip) |
 
@@ -184,6 +184,12 @@ Therefore for GE-001:
 - [ ] Test previous Runtime image against newly migrated schema
 - [ ] Reconcile DR drill results log + recovery kit stamps with claimed
       RECOVERABLE — VERIFIED (dated results, RTO/RPO, interventions)
+
+The 2026-10-26 isolated previous-image/RLS probe is recorded in
+[`releases/ge001-closeout-2026-10-26.md`](../releases/ge001-closeout-2026-10-26.md).
+It is not a production verification: the production migration ledger remains
+uncaptured, and the candidate image's database client sets
+`rejectUnauthorized: false`.
 
 ---
 

@@ -77,13 +77,18 @@ SECURITY CONSIDERATIONS:
 STATUS:                  IN PROGRESS — Runtime #57 deployment and serving SHA
                          verified; GE-001 remains OPEN. As of 2026-10-26,
                          /health/ready returns ready/database up and the exact
-                         candidate SHA. Deploy run records serving and previous
-                         image digests, but only says 2 of 13 migrations were
-                         applied; exact migration IDs and previous-image
-                         compatibility are not proven. CRM deletion remains an
-                         operator report without provider note ID, deletion
-                         time, operator identity, contact hash, or independent
-                         verification. No GE-001 acceptance run evidenced.
+                         candidate SHA. An isolated PostgreSQL 16 probe shows
+                         the previous image cannot read tenant-scoped rows
+                         without aion.tenant_id when candidate RLS is active;
+                         no rollback mitigation is verified. Deploy run records
+                         only 2 of 13 migrations applied, with no IDs; replaying
+                         from the previous image's own migration set applied 3
+                         in isolation, so production history must be queried.
+                         Candidate DB transport uses rejectUnauthorized=false.
+                         CRM deletion remains an operator report without
+                         provider note ID, deletion time, operator identity,
+                         contact hash, or independent verification. No GE-001
+                         acceptance run evidenced.
 HANDOFF:                 Authorized production maintainer + CRM operator —
                          complete §1.2 rollback/schema evidence and §1.3 exact
                          cleanup metadata before §1.4. Do not bypass deploy-vps
