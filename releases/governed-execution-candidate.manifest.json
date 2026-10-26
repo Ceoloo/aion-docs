@@ -72,7 +72,11 @@
     "productionEnvironmentApproval": {
       "environment": "production",
       "reviewer": "Ceoloo"
-    }
+    },
+    "deployedAt": "2026-09-30T19:34:05Z",
+    "recheckedAt": "2026-10-26T20:27:25Z",
+    "recheck": "GET /health/ready returned status=ready, database=up, environment=production, git_sha=20fe3a435dab5f12175ae03998ad709398ce931d; deploy-vps run 15 (36758112318) is still the latest deploy-vps run",
+    "servingDigestBasis": "Inferred from the run 15 deploy log (pulled and started the pinned digest; ready, smoke OK, public live OK), no later deploy-vps run, and the matching live git_sha. No host-side docker inspect of the running container has been captured."
   },
   "preflightBlockers": [
     "Isolated rollback probe shows previous Runtime image cannot read tenant-scoped rows when candidate RLS policies are active; production migration history is unknown and no rollback mitigation is verified",
