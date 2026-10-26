@@ -1,6 +1,6 @@
 # GOVERNED EXECUTION certify — operational checklist
 
-Status snapshot **2026-10-12** (checklist gates unchanged since 2026-09-28).
+Status snapshot **2026-10-26** (checklist gates unchanged; Runtime #57 deployment identity reverified).
 Implements the cash-flow priority from
 [production-readiness-2026-10-12](../.aion/research/production-readiness-2026-10-12.md)
 (prior: [2026-09-28](../.aion/research/production-readiness-2026-09-28.md))
@@ -25,7 +25,7 @@ context.
 | Documented architecture | Strong, increasingly ahead of operations |
 | Implemented platform code | Strong on current branches (registry, assurance, rooms, RCAOS tip) |
 | Automated / synthetic tests | Strong; RCAOS AT-1…AT-7 green on fake harness |
-| Verified live operation | No new evidence since 2026-09-28; one contaminated CRM write |
+| Verified live operation | Runtime #57 is serving; isolated rollback/RLS probe found previous-image tenant access incompatibility if RLS is active; GE-001 live acceptance remains outstanding |
 | Proven revenue production | Not established |
 | GOVERNED EXECUTION — VERIFIED | **Open** (candidate still `20fe3a4`, not tip) |
 
@@ -60,6 +60,14 @@ git_sha: 20fe3a435dab5f12175ae03998ad709398ce931d
 
 Observed serving before this deploy (2026-09-28): `/health/ready` →
 `git_sha=49cff4e3bd1e48ed8a43414c8191ff30a28d00be` (behind `#57`).
+The authorized deploy-vps run and serving identity were recorded in the
+[candidate manifest](../releases/governed-execution-candidate.manifest.json).
+On 2026-10-26, a fresh `GET /health/ready` returned `status=ready`,
+`database=up`, `environment=production`, and the exact candidate
+`git_sha=20fe3a435dab5f12175ae03998ad709398ce931d`. The deploy workflow log
+also records the candidate digest and prior image digest. It reports 2 of 13
+migrations applied but does not name them, so schema/rollback compatibility
+remains unverified.
 
 Maintainer sequence:
 
@@ -88,11 +96,14 @@ Checklist:
 - [x] Build/boot-certify Runtime image including [#57](https://github.com/Ceoloo/aion-runtime/pull/57)
       — CI run [36385472906](https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906); digest `f7041f41…`
 - [ ] Maintainer reviews candidate digest + migration/rollback compatibility
-- [ ] Dispatch `deploy-vps` from Infra `main` + production Environment approval
-- [ ] Workflow result recorded (URL + conclusion)
-- [ ] Serving digest recorded
-- [ ] Prior rollback digest recorded
-- [ ] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
+- [x] Dispatch `deploy-vps` from Infra `main` + production Environment approval
+      — [run 36758112318](https://github.com/Ceoloo/aion-infra/actions/runs/36758112318), success; production reviewer recorded in manifest
+- [x] Workflow result recorded (URL + conclusion)
+- [x] Serving digest recorded — `sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc`
+- [x] Prior rollback digest recorded — `sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee` (`75e9acd`)
+- [x] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
+      — rechecked 2026-10-26; `status=ready`, database `up`
+- [ ] Capture exact applied migration IDs and prove previous-image behavior against the resulting schema, or verify a rollback mitigation
 
 > **Gate:** do not start §1.3 until §1.2 serving identity is verified.
 > **Gate:** do not start §1.4 (GE-001) until §1.3 cleanup is recorded.
@@ -174,6 +185,12 @@ Therefore for GE-001:
 - [ ] Reconcile DR drill results log + recovery kit stamps with claimed
       RECOVERABLE — VERIFIED (dated results, RTO/RPO, interventions)
 
+The 2026-10-26 isolated previous-image/RLS probe is recorded in
+[`releases/ge001-closeout-2026-10-26.md`](../releases/ge001-closeout-2026-10-26.md).
+It is not a production verification: the production migration ledger remains
+uncaptured, and the candidate image's database client sets
+`rejectUnauthorized: false`.
+
 ---
 
 ## Action 3 — Authenticated durable Revenue Copilot → Mission-001 dataset
@@ -215,17 +232,16 @@ Mission-001 gates remain **not found** (evidence gaps):
 
 ---
 
-## Candidate tips (2026-09-28 — not production-certified)
+## Candidate pins (2026-10-20; GE-001 still open)
 
 | Component | Tip | Caveat |
 |---|---|---|
-| Runtime git | `20fe3a4` | Includes #57; **deploy not evidenced** |
-| Last known prod Runtime | `10de0663` / digest `e3fef42f…` | Sep 22 Infra evidence |
-| Core `main` | `26f43e5` | Ahead of Runtime pin |
-| Data `main` | `cb29e7c` | Migrations `0001`–`0013`; ahead of Runtime pin |
-| Products `main` | `41a8749` | CI red until #44 |
-| Products fix branch | #44 | CI green / MERGEABLE |
-| Infra `main` | `3382b61` | — |
+| Runtime git | `20fe3a4` | Includes #57; serving identity verified; rollback compatibility not cleared |
+| Previous Runtime image | `75e9acd` / digest `b12043ad…` | Previous-image compatibility with the migrated schema is not proven |
+| Core `main` | `6ba12ace` | Runtime setup pin remains `52ecf40` |
+| Data `main` | `9d4b59f` | Migrations `0001`–`0014`; Runtime setup pin remains `5da145a`; deployment log says 2 of 13 applied without naming them |
+| Products `main` | `06eedbf9` | #44 merged; main CI green (run 36488161210) |
+| Infra deploy workflow | `3382b611` | Run 36758112318 succeeded under production approval |
 
 ---
 

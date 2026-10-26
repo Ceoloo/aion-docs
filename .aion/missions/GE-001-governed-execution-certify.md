@@ -74,12 +74,26 @@ SECURITY CONSIDERATIONS:
   - Synthetic→live boundary must be live-proven
   - Tenant + data-class declared on every production adapter path
   - Copilot remains internal-only until authenticated
-STATUS:                  IN PROGRESS — Products #44 merged (06eedbf9, main CI green);
-                         next: authorized maintainer deploy-vps for Runtime #57
-HANDOFF:                 Production maintainer — §1.2 in
-                         roadmap/governed-execution-certify.md (dispatch inputs +
-                         capture fields). Do not bypass deploy-vps 403. After
-                         serving identity + Annfiera cleanup, run GE-001; keep
-                         payment outside attributed cash; provider expense
-                         UNVERIFIED unless priced.
+STATUS:                  IN PROGRESS — Runtime #57 deployment and serving SHA
+                         verified; GE-001 remains OPEN. As of 2026-10-26,
+                         /health/ready returns ready/database up and the exact
+                         candidate SHA. An isolated PostgreSQL 16 probe shows
+                         the previous image cannot read tenant-scoped rows
+                         without aion.tenant_id when candidate RLS is active;
+                         no rollback mitigation is verified. Deploy run records
+                         only 2 of 13 migrations applied, with no IDs; replaying
+                         from the previous image's own migration set applied 3
+                         in isolation, so production history must be queried.
+                         Candidate DB transport uses rejectUnauthorized=false.
+                         CRM deletion remains an operator report without
+                         provider note ID, deletion time, operator identity,
+                         contact hash, or independent verification. No GE-001
+                         acceptance run evidenced.
+HANDOFF:                 Authorized production maintainer + CRM operator —
+                         complete §1.2 rollback/schema evidence and §1.3 exact
+                         cleanup metadata before §1.4. Do not bypass deploy-vps
+                         403. Then run GE-001 on a fresh low-risk real record;
+                         preserve OL-001 ledger and exclude the pre-existing
+                         payment from attributed cash. Provider expense remains
+                         UNVERIFIED unless supported by priced charges.
 ```
