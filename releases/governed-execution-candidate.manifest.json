@@ -19,8 +19,8 @@
         "#57 SYNTHETIC_TO_PRODUCTION_DENIED boundary",
         "#56 proof-suite repair"
       ],
-      "imageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
-      "deployStatus": "deployed to production via Infra deploy-vps run 15 (2026-09-30, success); serving identity re-verified 2026-10-26",
+      "imageDigest": null,
+      "deployStatus": "image published + boot-certified in CI; production deploy not yet evidenced (serving still behind tip)",
       "candidateImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
       "candidateImageRef": "ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
       "bootCertifyCi": "https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906"
@@ -60,40 +60,16 @@
     }
   },
   "productionIdentity": {
-    "healthReadyGitSha": "20fe3a435dab5f12175ae03998ad709398ce931d",
-    "servingImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
-    "priorRollbackDigest": "sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee",
-    "priorRollbackGitSha": "75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
-    "verifiedAt": "2026-10-26T20:27:25Z",
-    "verifiedBy": "Claude Code session (read-only: Infra deploy-vps job log + public GET /health/ready)",
-    "deployWorkflowUrl": "https://github.com/Ceoloo/aion-infra/actions/runs/36758112318",
-    "deployWorkflowConclusion": "success",
-    "deployedAt": "2026-09-30T19:34:05Z",
-    "deployInfraSha": "3382b611c3f1847b463476fce8bdd879c18e44d9",
-    "migrations": "applied=2, total=13 (version names not logged; confirm schema_migrations rows)",
-    "healthReady": {
-      "status": "ready",
-      "database": "up",
-      "environment": "production",
-      "git_sha": "20fe3a435dab5f12175ae03998ad709398ce931d",
-      "service_version": "0.2.1",
-      "crm_backend": "live"
-    },
-    "evidenceBasis": [
-      "deploy-vps run 15 log: pulled + started pinned digest f7041f41\u2026, GIT_SHA 20fe3a4, ready, smoke OK, public live OK",
-      "deploy.sh captured previous runtime b12043ad\u2026 (GIT_SHA 75e9acd) as the immediate rollback target",
-      "run 15 is the latest deploy-vps run as of 2026-10-26 (no later dispatch)",
-      "independent live /health/ready on 2026-09-30 and again 2026-10-26T20:27:25Z returns git_sha 20fe3a4"
-    ],
-    "notEvidenced": [
-      "host-side docker inspect of the running container digest (inferred from deploy log + no later deploy + SHA match)",
-      "prior image b12043ad\u2026 operating against the post-migration schema (0010 tenant RLS) \u2014 isolated compatibility test outstanding",
-      "production schema_migrations version names for the two applied migrations"
-    ]
+    "healthReadyGitSha": null,
+    "servingImageDigest": null,
+    "priorRollbackDigest": null,
+    "verifiedAt": null,
+    "verifiedBy": null,
+    "deployWorkflowUrl": null
   },
   "preflightBlockers": [
-    "Prior-image (b12043ad\u2026 / 75e9acd) compatibility with post-migration schema (0010 tenant RLS) \u2014 isolated test with aion_app role; do not roll live host back",
-    "Confirm production schema_migrations rows for the two migrations applied by deploy-vps run 15",
+    "Deploy Runtime tip 20fe3a4 (#57) via infra deploy-vps; pin digest sha256:f7041f41\u2026; verify health/ready git_sha == 20fe3a4",
+    "Record serving digest and prior rollback digest from deploy.sh",
     "Clean Annfiera synthetic CRM note per incident doc (authorized operator only)",
     "Realign Core/Data pins across Runtime/Products/Data setup scripts",
     "Evidence NULL-tenant backfill + RLS with application role on production",
@@ -126,8 +102,6 @@
     "Products #45 (draft) advances Copilot active-session durability in test/CI only; GE-001 and production deploy handoff unchanged.",
     "2026-10-12: Runtime main tip is 7ad6649 (#59 registry, #60 assurance, #61 rooms, #62 RCAOS AT harness). DO NOT retarget this candidate to tip. Certify 20fe3a4 first; tip adds migration 0014 and new release surface.",
     "2026-10-12 assessment: .aion/research/production-readiness-2026-10-12.md — production/cash-flow readiness unchanged; architecture ahead of ops."
-,
-    "2026-10-26 (AIO-35): productionIdentity recorded from deploy-vps run 15 (2026-09-30). Serving 20fe3a4 / f7041f41\u2026; rollback target b12043ad\u2026 / 75e9acd. Result stays UNVERIFIED until GE-001 PASS."
   ],
   "tipDriftAsOf": {
     "recordedAt": "2026-10-12",
