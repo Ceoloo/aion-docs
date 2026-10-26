@@ -88,11 +88,21 @@ Checklist:
 - [x] Build/boot-certify Runtime image including [#57](https://github.com/Ceoloo/aion-runtime/pull/57)
       — CI run [36385472906](https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906); digest `f7041f41…`
 - [ ] Maintainer reviews candidate digest + migration/rollback compatibility
-- [ ] Dispatch `deploy-vps` from Infra `main` + production Environment approval
-- [ ] Workflow result recorded (URL + conclusion)
-- [ ] Serving digest recorded
-- [ ] Prior rollback digest recorded
-- [ ] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
+      — digest provenance and migration diff reviewed on AIO-35; **open:** isolated
+      test of prior image `b12043ad…` (`75e9acd`) against the post-migration schema
+      (0010 tenant RLS) with the real `aion_app` role, and production
+      `schema_migrations` rows for the two applied versions
+- [x] Dispatch `deploy-vps` from Infra `main` + production Environment approval
+      — run 15, Infra `3382b61`, 2026-09-30
+- [x] Workflow result recorded (URL + conclusion)
+      — [deploy-vps run 15](https://github.com/Ceoloo/aion-infra/actions/runs/36758112318): **success**
+- [x] Serving digest recorded — `sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc`
+- [x] Prior rollback digest recorded — `sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee` (`75e9acd`)
+- [x] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
+      — re-verified 2026-10-26T20:27:25Z (`ready`, `database=up`, `crm_backend=live`)
+
+Serving identity is recorded in the candidate manifest `productionIdentity`.
+Candidate `result` stays **UNVERIFIED** until GE-001 PASS.
 
 > **Gate:** do not start §1.3 until §1.2 serving identity is verified.
 > **Gate:** do not start §1.4 (GE-001) until §1.3 cleanup is recorded.
@@ -219,7 +229,7 @@ Mission-001 gates remain **not found** (evidence gaps):
 
 | Component | Tip | Caveat |
 |---|---|---|
-| Runtime git | `20fe3a4` | Includes #57; **deploy not evidenced** |
+| Runtime git | `20fe3a4` | Includes #57; deployed 2026-09-30 (deploy-vps run 15) |
 | Last known prod Runtime | `10de0663` / digest `e3fef42f…` | Sep 22 Infra evidence |
 | Core `main` | `26f43e5` | Ahead of Runtime pin |
 | Data `main` | `cb29e7c` | Migrations `0001`–`0013`; ahead of Runtime pin |
