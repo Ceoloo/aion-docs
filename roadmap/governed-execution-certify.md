@@ -95,11 +95,21 @@ Checklist:
 - [ ] Verify `GET /health/ready` `git_sha` == `20fe3a435dab5f12175ae03998ad709398ce931d`
 
 > **Gate:** do not start §1.3 until §1.2 serving identity is verified.
-> **Gate:** do not start §1.4 (GE-001) until §1.3 cleanup is recorded.
+> **Gate:** do not start §1.4 (GE-001) until CRM-001 Gate D passes and a
+> Twenty-capable Runtime is deployed and identified (§1.3 superseded 2026-10-26).
 > Existing Annfiera payment stays outside GE-001 attributed cash. Provider
 > expense stays `UNVERIFIED` unless backed by actual priced charges.
 
 ### 1.3 Close the contamination incident (CRM cleanup)
+
+> **2026-10-26 — superseded by the CRM switch (AIO-36 closed).** GHL is being
+> retired as AION's CRM (ADR-019; Twenty is the target). The operator reported
+> deleting the note manually; the provider note id, deletion time, operator
+> identity and contact hash were never recorded and will not be collected. The
+> boxes below stay unchecked on purpose — this cleanup is **not verified**. The
+> OL-001 mission / executions / approvals / side-effect ledger stays permanent,
+> and the pre-existing Annfiera payment stays outside GE-001. §1.3 no longer
+> gates §1.4.
 
 Follow
 [`aion-runtime` incident](https://github.com/Ceoloo/aion-runtime/blob/main/docs/incidents/2026-09-27-ol001-synthetic-crm-write.md):
@@ -112,6 +122,24 @@ Follow
 
 ### 1.4 Live GOVERNED EXECUTION acceptance (fresh record)
 
+> **2026-10-26 — re-scoped to Twenty.** GE-001 certifies against the CRM AION
+> will actually operate, so it runs on **Twenty after CRM-001 Gate D**
+> ([cutover sequence](./crm-001-cutover-sequence.md)), not on GHL. Prerequisites,
+> in order:
+>
+> 1. CRM-001 Gates A → D signed off (workflow, isolation, governance, rollback).
+> 2. A Runtime candidate that contains the Twenty backend (aion-runtime #64/#65,
+>    `main` ≥ `2870b3d`) deployed via Infra `deploy-vps` with production
+>    `CRM_PROVIDER=twenty`, `TWENTY_BACKEND=live`, and its production identity
+>    recorded (digest, prior rollback digest, `/health/ready` SHA and
+>    `crm_provider=twenty`). The current candidate `20fe3a4` predates the Twenty
+>    backend and **cannot** run GE-001 on Twenty.
+> 3. That candidate's previous-image rollback compatibility documented.
+>
+> "Real CRM operation" below means a `crm.*` capability executed by
+> `LiveTwentyBackend` on a fresh low-risk real Twenty record, with the
+> side-effect ledger showing `provider=twenty`.
+
 Use Operator Console +
 [`operator-loop-v1`](https://github.com/Ceoloo/aion-runtime/blob/main/docs/operator-loop-v1.md)
 procedure on a **fresh low-risk real record** — never synthetic evidence on a
@@ -123,7 +151,7 @@ Pass bar:
 |---|---|---|
 | 1 | Explicit authority envelope (principal + agent + caps/resources + risk max + spend/time + expires) | Mission + grant records |
 | 2 | Task-scoped capabilities only | Agent registry + authorization audit |
-| 3 | Agent proposes real GHL operation | Proposal payload |
+| 3 | Agent proposes real CRM operation (Twenty, post-cutover) | Proposal payload |
 | 4 | Gateway → AUTO \| ASK \| DENY | Decision audit |
 | 5 | ASK: named human decides; DENY: no side effect | Approval / rejection + side-effect absence |
 | 6 | Approved execution exactly once | Idempotency key + single side-effect row |
