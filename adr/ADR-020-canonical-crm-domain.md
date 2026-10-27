@@ -82,16 +82,27 @@ projections. Concretely:
    | `crm_opportunities` | Pipeline stage, value, owner |
    | `crm_activities` | Calls, meetings, notes, tasks (body or reference) |
    | `crm_external_identity_map` | AION id ↔ provider object id per provider and workspace |
-   | `crm_events` | Append-only journal of every canonical change and every inbound provider change |
+   | `crm_events` | Append-only journal of every canonical change and every inbound provider change; holds no personal values (see §9) |
 
    Delivery is staged (see Implementation Notes). Stage 1 is the identity spine
    only: customers, contacts, companies, relationships, consents, the identity
    map and the event journal.
 
 3. **AION owns ids.** Ids are opaque, prefixed and AION-minted (for example
-   `cust_…`, `cont_…`, `comp_…`, `opp_…`). Provider ids live only in
-   `crm_external_identity_map`, unique per `(tenant_id, provider,
-   provider_workspace, provider_object, provider_id)`. Agents and products
+   `cust_…`, `cont_…`, `comp_…`, `opp_…`). The canonical provider-to-AION
+   mapping lives in `crm_external_identity_map`. The side-effect ledger also
+   keeps the provider ids of governed writes as evidence, but it is not a
+   lookup source. The map has two uniqueness rules among **active** rows:
+   - one AION id per `(tenant_id, provider, provider_workspace,
+     provider_object, provider_id)`, so two AION records cannot claim the same
+     provider object;
+   - one provider id per `(tenant_id, provider, provider_workspace,
+     provider_object, aion_id)`, so one AION record has at most one live
+     counterpart per provider object type.
+
+   A mapping that is replaced (for example after a provider-side merge or
+   re-import) is closed with `valid_to` and a reason, not deleted, and stays
+   as history. Only rows with no `valid_to` are active. Agents and products
    refer to customers by AION id. Payment processors stay authoritative for
    settlement; AION stores references and verified outcomes (existing
    `outcomes`), not card or bank data.
@@ -203,10 +214,19 @@ projections. Concretely:
    - **Retention has owners.** A retention register lists each data category,
      its retention period and the accountable owner role. Expiry runs as a
      governed action.
+   - **The journal holds no personal values.** A `crm_events` row records
+     the AION id, event type, field names, record version, actor, provenance
+     and time, plus a digest of changed values. It never stores personal
+     values. Raw inbound provider payloads, needed briefly for
+     reconciliation, go to a separate payload store keyed by event id, with a
+     short retention period from the register. They are deleted on erasure
+     and on expiry. The journal stays append-only and survives erasure
+     without containing personal data.
    - **Erasure is verified.** Erasure is a governed action. It removes
-     personal fields from the canonical record, keeps a non-personal tombstone
-     in `crm_events`, and issues a deletion to every mapped provider through
-     the projection path. Each provider deletion is confirmed by read-back.
+     personal fields from the canonical record and deletes the subject's raw
+     payloads, records a non-personal erasure event in `crm_events`, and issues
+     a deletion to every mapped provider through the projection path. Each
+     provider deletion is confirmed by read-back.
    - **Failed or offline deletions are tracked.** A provider that is offline
      or refuses the deletion leaves the request in an `erasure_pending` state
      with a deadline. It retries through the retry queue and escalates to a
@@ -238,6 +258,8 @@ projections. Concretely:
     - sync per §5: outbox, idempotent projection, duplicate inbound events,
       provider outage, ambiguous write and reconciliation;
     - consent enforcement and a verified erasure across providers per §9;
+    - a complete retention register: a period and owner role for every
+      personal data category, including the raw payload store;
     - a rollback plan to provider-only operation without loss of governance
       records;
     - the reviewed field-authority matrix.
@@ -247,7 +269,12 @@ projections. Concretely:
 
 13. **Providers are pinned and benchmarked, and kept at arm's length.** Any
     provider projection targets a pinned provider version that has passed a
-    compatibility benchmark. Twenty runs as a separate process reached only
+    compatibility benchmark. For a self-hosted provider such as Twenty, the
+    pin is the deployed image digest. For a SaaS provider such as GHL, the pin
+    is the API version the adapter sends (for example GHL's `Version` request
+    header) plus the object fields the adapter reads and writes. The
+    benchmark is a contract test of those fields against the pinned version,
+    re-run before any version change. Twenty runs as a separate process reached only
     over its API. AION does not distribute a modified Twenty without a legal
     review of its licence terms.
 
