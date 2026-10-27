@@ -17,6 +17,7 @@ Architect go/no-go, and usually an [ADR](../../adr/README.md).
 |---|---|
 | [capability-backlog.md](capability-backlog.md) | Ranked research candidates (evidence + isolation) |
 | [production-readiness-2026-10-12.md](production-readiness-2026-10-12.md) | **Current** dated production readiness assessment → certify `20fe3a4` GE-001 candidate |
+| [../audits/agentic-engineering-audit-2026-10-26.md](../audits/agentic-engineering-audit-2026-10-26.md) | **2026-10-26** Agentic Engineering audit — near/out-of-loop autonomy vs AION governance |
 | [production-readiness-2026-09-28.md](production-readiness-2026-09-28.md) | Prior assessment (2026-09-28) → GOVERNED EXECUTION |
 | [techops-monday-brief-2026-10-05.md](techops-monday-brief-2026-10-05.md) | TechOps Monday Brief — agent identity as infrastructure |
 | [dsl-001-data-licensing-market-brief-2026-10-20.md](dsl-001-data-licensing-market-brief-2026-10-20.md) | Enterprise operational-data licensing market brief → P-AIO-9 |
