@@ -236,3 +236,16 @@ After 30/60/90 closure, these can become external proof points:
 | 30/60/90 remediation plan | §5 |
 | Evidence links | §6 |
 | Case-study candidates post-remediation | §7 |
+
+## 9. Addendum — Oct 26, 2026 exposure verification
+
+This scored baseline is **not** replaced. An exposure verification against the
+Oct 26 TechOps intelligence brief (LiteLLM 1.107.0, PHP emergency RCEs,
+certificate-trust dependencies) is recorded at:
+
+[../.aion/audits/aion-exposure-verification-2026-10-26.md](../.aion/audits/aion-exposure-verification-2026-10-26.md)
+
+Summary: no LiteLLM or PHP product exposure in workspace artifacts; certificate
+trust inventory remains a gap; supply-chain Trust Gate partially met. Full
+A–K re-score is deferred to the next customer-zero cycle after SIS v1.1
+controls are operationalized.

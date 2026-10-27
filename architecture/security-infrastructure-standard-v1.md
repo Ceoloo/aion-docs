@@ -1,13 +1,16 @@
 # AION Security Infrastructure Standard v1
 
 - **Status:** Active (AIO-43)
-- **Version:** 1.0
-- **Date:** 2026-10-05
+- **Version:** 1.1
+- **Date:** 2026-10-05 (v1.0) · **Amended:** 2026-10-26 (v1.1)
 - **Owners:** TechOps / Security Infrastructure Layer
 - **Applies to:** Every AION internal environment and every client deployment
   that inherits the TechOps baseline
-- **Source brief:** TechOps Monday Brief — Oct 5, 2026 (Blueprint Alliance /
-  Google Agent Gateway / NIST token guidance / agentic SecOps)
+- **Source briefs:** TechOps Monday Brief — Oct 5, 2026 (Blueprint Alliance /
+  Google Agent Gateway / NIST token guidance / agentic SecOps); TechOps Monday
+  Intelligence Brief — Oct 26, 2026 (LiteLLM supply-chain, PHP emergency RCEs,
+  eMudhra trust failure, SafePay ransomware, VeloCloud management-plane,
+  financial-agent restrictions)
 
 This is the **canonical control baseline**. Architectural intent lives in
 [security-model.md](security-model.md); agent behavior rules live in
@@ -106,6 +109,7 @@ Unknown or unverified controls score **0** on the audit (fail closed).
 | SIS-NW-02 | VPN or ZTNA for remote admin | M | C2 | Admin path requires ZTNA/VPN |
 | SIS-NW-03 | DNS / web filtering | R | C3 | Policy + block sample |
 | SIS-NW-04 | Firewall change ownership + logging | M | C4 | Change log + owner |
+| SIS-NW-05 | Network management-plane inventory + patch ownership | M | C* / M | Orchestrators, controllers, vendor admin UIs inventoried with owner + patch SLA (VeloCloud-class risk) |
 
 ### 3.4 Cloud / SaaS workspace (`SIS-CL-*` / `SIS-SA-*`)
 
@@ -137,6 +141,7 @@ Unknown or unverified controls score **0** on the audit (fail closed).
 | SIS-BK-02 | Immutable / offline copy | M | F2 | Immutability config |
 | SIS-BK-03 | Restore tested ≤ 90 days | M | F3 | Restore test record |
 | SIS-BK-04 | RPO/RTO documented and owned | M | F4 | Owned RPO/RTO doc |
+| SIS-BK-05 | Ransomware resilience verification | M | F* / RR | Privileged MFA, VPN exposure, EDR, segmentation, immutable/offline backups, **tested restoration** under ransomware assumptions (SafePay-class) |
 
 ### 3.7 Credential & token inventory (`SIS-CT-*`) — Human + Machine Identity
 
@@ -226,6 +231,48 @@ Execute-tier work is allowed:
 | SIS-GX-08 | Full execution audit evidence | M | J3 / I5 | Execution records |
 | SIS-GX-09 | Rate / spend limits | R | J4 | Limit config |
 | SIS-GX-10 | Emergency revoke + kill / contain | M | I* / A5 | Kill-switch evidence |
+| SIS-GX-11 | Financial-action authorization policy enforced | M | I3 / FA | Observe → Analyze → Prepare → Human Approve → Authorized Execution → Verify; no credential-sharing bank automation ([financial-action-policy.md](../governance/financial-action-policy.md)) |
+
+### 3.10a Software Supply-Chain Trust Gate (`SIS-SC-*`) — **v1.1**
+
+Self-hosting does not equal sovereignty. Compromised dependencies, release
+pipelines, privileged CI credentials, and malicious updates remain in scope
+even when servers and model weights are controlled (LiteLLM Oct 2026 lesson).
+
+| ID | Title | Lvl | Audit | Evidence |
+|---|---|---|---|---|
+| SIS-SC-01 | Dependency inventory (SBOM or equivalent) for production images/services | M | M1 | Generated inventory per release |
+| SIS-SC-02 | Production containers pinned by digest (not floating tags) | M | M2 | Deploy config `@sha256:…` |
+| SIS-SC-03 | Release / artifact verification before promote | M | M3 | Signature, provenance, or checksum gate |
+| SIS-SC-04 | CI credentials least-privilege + no standing master keys | M | M4 | Token inventory; expired/revoked proofs |
+| SIS-SC-05 | Secret scanning on repos + pipelines (blocking) | M | M5 | CI gate evidence (e.g. gitleaks) |
+| SIS-SC-06 | Documented rollback to last-known-good digest | M | M6 | Runbook + successful rollback drill |
+
+### 3.10b Certificate & Trust Dependency Inventory (`SIS-TR-*`) — **v1.1**
+
+Private infrastructure still depends on external certificate authorities and
+OS/browser trust stores (eMudhra Oct 2026 lesson).
+
+| ID | Title | Lvl | Audit | Evidence |
+|---|---|---|---|---|
+| SIS-TR-01 | Certificate inventory (issuer, SAN, expiry, owner) | M | N1 | Owned inventory |
+| SIS-TR-02 | Trust-chain / intermediate inventory for critical TLS | M | N2 | Chain map + CA names |
+| SIS-TR-03 | OS / runtime trust-store ownership + update path | M | N3 | Patch owner + last update |
+| SIS-TR-04 | Renewal ownership + expiry alerting | M | N4 | Alert ≤ 14 days (`CA-EXP-02`) |
+| SIS-TR-05 | DR includes trust-anchor / blocked-CA validation | M | N5 | Drill step evidenced |
+
+### 3.10c Emergency Web Infrastructure Review (`SIS-WEB-*`) — **v1.1**
+
+SMB websites and portals often assume “the host handles security” while patch
+responsibility is split across host, app owner, and maintainer (PHP emergency
+fixes Oct 2026).
+
+| ID | Title | Lvl | Audit | Evidence |
+|---|---|---|---|---|
+| SIS-WEB-01 | Web runtime version inventory (PHP/Node/.NET/etc.) | M | W1 | Version + host map |
+| SIS-WEB-02 | Patch / update responsibility named (host vs app vs MSP) | M | W2 | RACI row |
+| SIS-WEB-03 | Backup status verified for web apps | M | W3 | Job + restore pointer |
+| SIS-WEB-04 | Critical/internet-facing vulns remediated or formally accepted | M | W4 | Patch evidence or risk acceptance |
 
 Normative product path remains Runtime Execution Gateway
 ([ADR-003](../adr/ADR-003-execution-gateway-into-runtime.md)). AIO-45 owns the
@@ -261,10 +308,12 @@ Observe → investigate → recommend → human approve → remediate → verify
 | SIS-CA-04 | Human gate on remediation of high impact | M | I3 | Approval records |
 | SIS-CA-05 | Monthly client-facing assurance report | R | — | Report template |
 
-Initial check domains (AIO-47): external exposure · identity posture ·
-credential/secrets hygiene · cloud/SaaS drift · backup freshness + restore ·
-agent permission drift · runtime/endpoint health · vulnerability signals ·
-kill-switch / revocation readiness.
+Initial check domains (AIO-47 + Oct 26 brief): external exposure · identity
+posture · credential/secrets hygiene · cloud/SaaS drift · backup freshness +
+restore · ransomware resilience · agent permission drift · runtime/endpoint
+health · vulnerability signals · supply-chain trust · certificate/trust-store
+drift · web-runtime exposure · network management-plane · kill-switch /
+revocation readiness.
 
 ---
 
@@ -272,8 +321,8 @@ kill-switch / revocation readiness.
 
 | Layer | Primary control families | Client SKU today |
 |---|---|---|
-| **1 — Secure Digital Foundation** | HI, DV, NW, CL, SA, DA, BK, CT (human/service) | [AI-Era Identity Protection](../offers/techops-ai-era-identity-protection.md) + foundation hardening |
-| **2 — Secure AI Execution** | AG, GX, AU, CT (agent), DA (scope) | Secure Automation / gateway path (AIO-44/45) |
+| **1 — Secure Digital Foundation** | HI, DV, NW, CL, SA, DA, BK, CT (human/service), TR, WEB | [AI-Era Identity Protection](../offers/techops-ai-era-identity-protection.md) + foundation hardening + Emergency Web / Trust Inventory modules |
+| **2 — Secure AI Execution** | AG, GX, AU, CT (agent), DA (scope), SC | Secure Automation / gateway path (AIO-44/45) + Supply-Chain Trust Gate |
 | **3 — Continuous Assurance** | CA, OB, IR | [Security Operations Lite](../offers/techops-security-operations-lite.md) → Continuous Assurance (AIO-47) |
 
 ---
@@ -290,8 +339,12 @@ Emphasize before meaningful automation: identity/MFA · secure document flow ·
 AI acceptable-use · machine/agent identity inventory · financial-action approval
 gates · logging · recovery.
 
-Overlay intensifies: SIS-HI-*, SIS-DA-03/04, SIS-AG-04/06, SIS-GX-06/07,
-SIS-BK-*, SIS-CT-*.
+**Oct 26 discovery lead:** client-data protection + governed financial workflows
+(Observe → Analyze → Prepare → Human Approve → Authorized Execution → Verify).
+Do **not** sell unsupervised bank-login / payment agents.
+
+Overlay intensifies: SIS-HI-*, SIS-DA-03/04, SIS-AG-04/06, SIS-GX-06/07/11,
+SIS-BK-*, SIS-CT-*, SIS-SC-*.
 
 ### 5.2 Auto dealers / rentals — governance over “AI”
 
@@ -310,6 +363,10 @@ Artifact: [../offers/techops-dealer-rental-security-overlay.md](../offers/techop
 | 3 — CRM operations | Appointments, CRM updates (allow-listed) | Execute (policy) |
 | 4 — Financial / contract | Financing submit, refunds, voids, contracts | **Human-gated** |
 
+**Oct 26 discovery lead:** vendor-access security, multi-location network
+management-plane governance (SIS-NW-05), and operational continuity before
+financing automation. Band 4 remains human-gated under SIS-GX-11.
+
 ### 5.3 Electrical contractors — Secure Digital Contractor Infrastructure
 
 Position current offer as **Secure Digital Contractor Infrastructure**.
@@ -317,6 +374,11 @@ Treat OT/IoT / connected infrastructure as an **audit discovery category**,
 not an implementation promise (do not sell OT cybersecurity services yet).
 
 Artifact: [../offers/techops-secure-digital-contractor-infrastructure.md](../offers/techops-secure-digital-contractor-infrastructure.md) (AIO-49).
+
+**Oct 26 discovery lead:** project-system reliability and **Procurement &
+Project Operations Readiness** (estimating, material tracking, supplier
+dependencies, change orders, scheduling) — ahead of industrial cybersecurity
+services AION has not yet proven delivery for.
 
 ---
 
@@ -338,11 +400,17 @@ Snapshot for AIO-46. Status meanings: **Met** (evidenced) · **Partial** ·
 | Kill / revoke / contain for agent identities | Partial | Registry revoke/suspend + FeatureGate; full contain path in AIO-45 |
 | Continuous Assurance connectors + evidence loop | Partial | AIO-47 catalog + evidence schema; connectors follow-on |
 | Backup / DR evidence for AION itself | Partial | Related AIO-7; restore evidence required for Met |
-| Customer-zero scored audit | Partial | AIO-46 scored baseline |
+| Customer-zero scored audit | Partial | AIO-46 scored baseline (2026-10-06); exposure addendum 2026-10-26 |
+| Software Supply-Chain Trust Gate (SIS-SC-*) | Partial | Digest pins + lockfiles + gitleaks Met-path; image CVE gate + SBOM + Action SHA pins still Gap |
+| Certificate & Trust Dependency Inventory (SIS-TR-*) | Gap | Expiry check exists; issuer/trust-store inventory not formalized |
+| Emergency Web Infrastructure (SIS-WEB-*) | N/A (product) / Gap (clients) | No PHP product stack in AION repos; client module still required |
+| Ransomware resilience verification (SIS-BK-05) | Partial | Backup docs exist; SafePay-style module not yet customer-zero evidenced |
+| Financial-action policy (SIS-GX-11) | Partial | Accounting gates strong; cross-vertical policy added 2026-10-26 |
 
 **Build order (do not expand scope):**  
 AIO-43 (this standard) → AIO-44 (Registry) → AIO-45 (Secure Execution Layer) →
-AIO-46 (customer-zero audit).
+AIO-46 (customer-zero audit) → AIO-47 (Continuous Assurance). Oct 26 brief
+**strengthens** these layers; it does not add a fourth product category.
 
 ---
 
@@ -350,8 +418,8 @@ AIO-46 (customer-zero audit).
 
 | Criterion | Evidence |
 |---|---|
-| One versioned standard in aion-docs | This document (`v1.0`) |
-| Control IDs map to TechOps audit scorecard | §3 Audit columns + §4; audit domains A–K |
+| One versioned standard in aion-docs | This document (`v1.1`) |
+| Control IDs map to TechOps audit scorecard | §3 Audit columns + §4; audit domains A–K (+ M/N/W discovery add-ons) |
 | Mandatory vs recommended clear | `M` / `R` on every control |
 | Internal AION compliance gap list | §6 |
 
@@ -364,8 +432,11 @@ AIO-46 (customer-zero audit).
 | [security-model.md](security-model.md) | Architectural security model |
 | [../governance/agent-governance.md](../governance/agent-governance.md) | Agent specification fields |
 | [../governance/action-tiers.md](../governance/action-tiers.md) | Observe / Assist / Execute |
+| [../governance/financial-action-policy.md](../governance/financial-action-policy.md) | Cross-vertical financial-action loop (SIS-GX-11) |
 | [../adr/ADR-003-execution-gateway-into-runtime.md](../adr/ADR-003-execution-gateway-into-runtime.md) | Gateway ownership |
 | [../offers/techops-security-agent-readiness-audit.md](../offers/techops-security-agent-readiness-audit.md) | Client audit scorecard |
+| [../.aion/research/techops-monday-brief-2026-10-26.md](../.aion/research/techops-monday-brief-2026-10-26.md) | Oct 26 intelligence brief |
+| [../.aion/audits/aion-exposure-verification-2026-10-26.md](../.aion/audits/aion-exposure-verification-2026-10-26.md) | Customer-zero exposure evidence |
 | Linear AIO-43 … AIO-52 | Execution tracker |
 | Notion: TechOps Security Infrastructure Layer — Development Plan (Sep 29, 2026) | Program strategy |
 
@@ -374,3 +445,10 @@ AIO-46 (customer-zero audit).
 - Breaking control removals or ID renames require a new major version (`v2`).
 - Additive controls may ship as `v1.x` with changelog in PR description.
 - Client audits always declare which standard version they were scored against.
+
+### Changelog
+
+| Version | Date | Change |
+|---|---|---|
+| 1.0 | 2026-10-05 | Initial AIO-43 baseline |
+| 1.1 | 2026-10-26 | Additive: `SIS-SC-*`, `SIS-TR-*`, `SIS-WEB-*`, `SIS-NW-05`, `SIS-BK-05`, `SIS-GX-11`; layer map + gap list updated from Oct 26 brief |

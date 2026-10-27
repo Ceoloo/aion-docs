@@ -28,8 +28,8 @@ labor operable — complementary, not replaced.
 
 | Layer | Job | Primary artifacts |
 |---|---|---|
-| **1 — Secure Digital Foundation** | Make the SMB safe enough for software and AI to run parts of the company | [AI-Era Identity Protection](techops-ai-era-identity-protection.md); Credential & Token Inventory (audit domain K) |
-| **2 — Secure AI Execution** | Agent identity, registry, gateway, Observe/Assist/Execute, credential isolation, approvals, evidence, kill/revoke | Audit AI/Agents domain; AIO-44/45; [action-tiers.md](../governance/action-tiers.md) |
+| **1 — Secure Digital Foundation** | Make the SMB safe enough for software and AI to run parts of the company | [AI-Era Identity Protection](techops-ai-era-identity-protection.md); Credential & Token Inventory (K); Certificate & Trust (N); Emergency Web (W); Ransomware resilience (RR) |
+| **2 — Secure AI Execution** | Agent identity, registry, gateway, Observe/Assist/Execute, credential isolation, financial-action policy, supply-chain trust gate, approvals, evidence, kill/revoke | Audit AI/Agents + Supply-chain (M); AIO-44/45; [action-tiers.md](../governance/action-tiers.md); [financial-action-policy.md](../governance/financial-action-policy.md) |
 | **3 — Continuous Assurance** | Connector-sourced observe → investigate → recommend → approve → remediate → verify | [Security Operations Lite](techops-security-operations-lite.md) → [continuous-assurance-v1.md](../architecture/continuous-assurance-v1.md) (AIO-47) |
 
 Front door: [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md)
@@ -42,9 +42,9 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 
 | Vertical | Offer language | Notes |
 |---|---|---|
-| Accounting | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) + [governance policy template](techops-accounting-ai-governance-policy-template.md) | Strongest near-term security wedge (AIO-50) |
-| Auto dealers / rentals | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) | Authority bands; financial/contract human-gated (AIO-51) |
-| Electrical contractors | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) | OT/IoT = discovery only (AIO-49) |
+| Accounting | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) + [governance policy template](techops-accounting-ai-governance-policy-template.md) | Strongest near-term security wedge (AIO-50). Discovery lead: client-data protection + governed financial workflows ([financial-action-policy.md](../governance/financial-action-policy.md)) |
+| Auto dealers / rentals | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) | Authority bands; financial/contract human-gated (AIO-51). Discovery lead: vendor-access + operational continuity / management-plane |
+| Electrical contractors | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) | OT/IoT = discovery only (AIO-49). Discovery lead: procurement + project-ops readiness before industrial cybersecurity |
 
 ## Document index
 

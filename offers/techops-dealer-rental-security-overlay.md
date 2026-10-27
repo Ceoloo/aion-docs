@@ -25,6 +25,8 @@ authority over customer data, pricing, financing, or contracts.
 | Website / ads / SMS pricing | Inconsistent prices destroy trust and create agent sprawl |
 | Endpoint / network | Desk, F&I, and service lanes share blast radius |
 | Agents / automations | Unscoped Execute can discount, message, or mutate deals |
+| Vendor / MSP remote access | Standing vendor privilege across multi-location networks |
+| Network orchestrators / SD-WAN controllers | Management-plane compromise → fleet-wide blast radius |
 
 ## Authority bands (reference architecture)
 
@@ -55,14 +57,16 @@ Score 0–3. Add to Audit v2 after A–K + M.
 | DR8 | Endpoint + network segmentation for F&I / server rooms | SIS-DV-*, SIS-NW-* | B/C |
 | DR9 | Incident + revoke path for agent and integration credentials | SIS-CT-*, SIS-AG | J/K |
 | DR10 | Backup/restore covers DMS/CRM exports or vendor RPO evidence | SIS-BK-* | F |
+| DR11 | Network management-plane inventory (orchestrators, vendor admin, patch owner) | SIS-NW-05 | C* / CA-NW-01 |
 
-**Dealer/rental overlay subtotal:** __ / 30
+**Dealer/rental overlay subtotal:** __ / 33
 
 ### Hard stops (dealer/rental)
 
 - DR1 = 0 or DR6 = 0 → cannot be Execute-ready.
 - DR4 = 0 → do not sell pricing agents or “AI desk” Execute.
 - Shared F&I credentials (DR2 = 0) → Foundation first.
+- Unpatched critical management-plane CVE with remote admin exposure (DR11 = 0 and active) → Foundation / network remediation before multi-site automation.
 
 ## Reference architecture
 
@@ -103,11 +107,18 @@ Continuous Assurance. Band 4 stays human-gated.
 | Customer trust | PII and credit data stay scoped and attributable |
 | Kill switch | Every agent and integration can be revoked fast |
 
+### Commercial discovery (Oct 26, 2026)
+
+Lead with **vendor-access security** and **operational continuity** (including
+multi-location network management-plane governance). Financing, deposits, and
+refunds stay Band 4 / SIS-GX-11 human-gated — see
+[../governance/financial-action-policy.md](../governance/financial-action-policy.md).
+
 ## Acceptance (AIO-51)
 
 | Criterion | Evidence |
 |---|---|
-| Audit module | DR1–DR10 |
+| Audit module | DR1–DR11 |
 | Reference architecture | Authority bands + pricing source |
 | Managed offer packaging | Offer table |
 | Human gates on finance/contracts | DR5/DR6 hard stops |

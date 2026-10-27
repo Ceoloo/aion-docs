@@ -43,8 +43,9 @@ Score 0–3. Add to Audit v2 after A–K + M.
 | EC7 | Backup covers identity + files + line-of-business; restore tested | SIS-BK-* | F |
 | EC8 | Connected equipment / IoT adjacency inventoried; explicit out-of-scope decision | Domain L | L1–L3 |
 | EC9 | Agent/automation tiers for scheduling & follow-up declared (no unattended Execute on contracts/money) | SIS-AG-03/04 | I |
+| EC10 | Procurement & project ops readiness (estimating, materials, suppliers, change orders, scheduling access) | Overlay | Discovery |
 
-**Contractor overlay subtotal:** __ / 27
+**Contractor overlay subtotal:** __ / 30
 
 ### Hard stops (contractor)
 
@@ -100,11 +101,20 @@ OT / IoT / plant / EV chargers
 | Automation with brakes | Scheduling help yes; money and contracts stay human-gated |
 | Connected equipment | We inventory adjacency; we do not pretend to be your OT firm |
 
+### Commercial discovery (Oct 26, 2026)
+
+Lead with **project-system reliability** and **procurement automation**
+(quote prep, material availability, project updates, purchasing approvals) —
+not industrial cybersecurity services before delivery expertise exists.
+AI data-center demand is tightening electrical supply chains; inaccurate
+estimates and weak scheduling become more expensive under constraint.
+EC10 scores discovery maturity for that conversation.
+
 ## Acceptance (AIO-49)
 
 | Criterion | Evidence |
 |---|---|
-| Audit module | EC1–EC9 table |
+| Audit module | EC1–EC10 table |
 | Reference architecture | Architecture + tier examples |
 | Packaged offer | Offer table + exclusions |
 | OT/IoT as discovery only | EC8 + Domain L linkage |

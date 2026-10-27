@@ -73,6 +73,13 @@ accounting agents be considered (audit hard stops apply).
 | Agent governance | Named owner, purpose, tools, data scope, revoke path |
 | Immutable evidence | Prove what the agent did — and that a human approved money moves |
 
+### Commercial discovery (Oct 26, 2026)
+
+Lead with **client-data protection** and **governed financial workflows**.
+Banks are restricting unauthorized third-party AI agents — AION sells
+preparation + human-authorized execution, not unsupervised bank access.
+Policy: [../governance/financial-action-policy.md](../governance/financial-action-policy.md).
+
 ## Dependencies / non-goals
 
 - **Depends on:** [Audit v2](techops-governance-security-infrastructure-audit-v2.md)

@@ -22,7 +22,8 @@ Never: `AI agent → everything`.
 
 Financial, destructive, production-release, and security-sensitive actions stay
 **human-gated** even when the agent’s tier is Execute
-([risk-levels.md](risk-levels.md), [human-gates.md](human-gates.md)).
+([risk-levels.md](risk-levels.md), [human-gates.md](human-gates.md),
+[financial-action-policy.md](financial-action-policy.md)).
 
 ## Mapping to Autonomy L0–L4
 
