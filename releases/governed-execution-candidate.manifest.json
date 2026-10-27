@@ -112,7 +112,7 @@
     "dataMigrationsOnTip": "0001-0014",
     "productsMainTip": "06eedbf9a889ef2c0c721f102baf8c255a36221c",
     "infraMainTip": "805fb77ac246b3c27473ef465552e1889cfc215f",
-    "policy": "Keep candidate gitSha at 20fe3a4 until GE-001 PASS; tipDrift is informational only."
+    "policy": "Superseded 2026-10-26: GE-001 re-scoped to Twenty (AIO-37). 20fe3a4 predates the Twenty backend and is not the GE-001 candidate; select, digest-pin and record a Twenty-capable Runtime build under AIO-109 with its own migration and rollback review. tipDrift is informational only."
   },
   "observedProduction": {
     "checkedAt": "2026-09-28T21:45:00Z",
