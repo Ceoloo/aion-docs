@@ -92,6 +92,23 @@
     "Mission-001 conversation thresholds (not yet evidenced)",
     "Pre-existing Annfiera payment (not GE-001 attributed cash/outcome)"
   ],
+  "ge001RescopeSupersedes": {
+    "recordedAt": "2026-10-26",
+    "reference": "roadmap/governed-execution-certify.md \u00a71.3\u2013\u00a71.4; Linear AIO-37, AIO-109",
+    "status": "BLOCKED pending AIO-109 (CRM-001 Gates A\u2013D + Twenty-capable Runtime identity)",
+    "supersededFields": [
+      "nextOwner.dispatch and nextOwner.afterDeployCapture: describe the completed 20fe3a4 deploy (deploy-vps run 15, 2026-09-30); do not dispatch 20fe3a4 for GE-001",
+      "nextOwner.then: the GHL Annfiera cleanup step is superseded; it is an open evidence exception, not a prerequisite",
+      "preflightBlockers entries for deploying/recording 20fe3a4 and for the GHL Annfiera cleanup",
+      "notes 'Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.'"
+    ],
+    "twentyPrerequisites": [
+      "CRM-001 Gates A\u2013D signed off (roadmap/crm-001-cutover-sequence.md)",
+      "Twenty-capable Runtime build selected and digest-pinned under AIO-109 (no digest chosen yet), with its own migration and previous-image rollback review",
+      "That build deployed via Infra deploy-vps with CRM_PROVIDER=twenty, TWENTY_BACKEND=live; capture workflow URL, serving digest, prior rollback digest, /health/ready git_sha and crm_provider=twenty",
+      "Records touched by OL-001 excluded from the GHL \u2192 Twenty migration until verified clean"
+    ]
+  },
   "notes": [
     "A merged change is not a deployed control.",
     "Do not mark result PASS until productionIdentity is filled and GE-001 acceptance evidence pack exists.",
@@ -112,7 +129,7 @@
     "dataMigrationsOnTip": "0001-0014",
     "productsMainTip": "06eedbf9a889ef2c0c721f102baf8c255a36221c",
     "infraMainTip": "805fb77ac246b3c27473ef465552e1889cfc215f",
-    "policy": "Keep candidate gitSha at 20fe3a4 until GE-001 PASS; tipDrift is informational only."
+    "policy": "Superseded 2026-10-26: GE-001 re-scoped to Twenty (AIO-37). 20fe3a4 predates the Twenty backend and is not the GE-001 candidate; select, digest-pin and record a Twenty-capable Runtime build under AIO-109 with its own migration and rollback review. tipDrift is informational only."
   },
   "observedProduction": {
     "checkedAt": "2026-09-28T21:45:00Z",
