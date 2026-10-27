@@ -1,7 +1,7 @@
 # ADR-020: AION Canonical CRM Domain (customer and revenue system of record)
 
 - **Status:** Proposed
-- **Date:** 2026-10-27
+- **Date:** 2026-10-26
 - **Decision Owners:** CEO LOO (accountable); Integrations + Architect (review)
 - **Amends:** [ADR-019](ADR-019-crm-soe-ownership-path.md) (resolves its data-layer follow-up)
 - **Related:** [ADR-003](ADR-003-execution-gateway-into-runtime.md),
@@ -20,7 +20,7 @@ source of truth for canonical customer and revenue records. It left that last
 part blocked: "Customer SoT in aion-data needs a follow-up ADR before schema
 work." This is that ADR.
 
-Facts as of 2026-10-27:
+Facts as of 2026-10-26:
 
 1. **AION Data excludes CRM records today.** `aion-data/README.md` lists
    "product/business entity schemas — no CRM, sales, content, or portal
@@ -52,9 +52,10 @@ Facts as of 2026-10-27:
    it is unset. An isolated probe (aion-docs PR #99) showed the previous
    Runtime image cannot read tenant-scoped rows under those policies, and
    production RLS has not been verified with the application role (AIO-35).
-7. **Cash flow comes first.** GE-001 (first certified revenue workflow) is
-   re-scoped to run on Twenty after CRM-001 Gate D (AIO-37, AIO-109). Nothing
-   in this ADR may add to that critical path.
+7. **Cash flow comes first.** GE-001 is the first certified revenue workflow.
+   A proposal to re-scope it to Twenty after CRM-001 Gate D is under separate
+   review (aion-docs #107, AIO-37, AIO-109). Nothing in this ADR may add to
+   the GE-001 critical path, whichever CRM it runs on.
 
 ## Decision
 
@@ -95,24 +96,56 @@ projections. Concretely:
    settlement; AION stores references and verified outcomes (existing
    `outcomes`), not card or bank data.
 
-4. **Field authority is explicit, and sync starts one-way.** Every canonical
-   field has exactly one authority, recorded in a field-ownership table that
-   ships with the schema:
-   - AION-authoritative: identity, tenant, lifecycle stage, consent,
-     dedupe/merge state, qualification label, and any field changed through a
-     governed Runtime action.
-   - Provider-authoritative: fields a human edits in the provider UI that AION
-     does not govern (named per provider in the ownership table).
+4. **Field authority is a static matrix, and sync starts one-way.** A
+   field-authority matrix ships with the schema and assigns every canonical
+   field exactly one authority, per provider:
+   - **AION-authoritative:** identity, tenant, lifecycle stage, consent,
+     dedupe/merge state, qualification label, and every field written by a
+     governed Runtime capability.
+   - **Provider-authoritative:** named fields a human maintains in the
+     provider UI that AION does not govern.
+
+   Authority is fixed by the matrix. It never changes because an agent or a
+   human edited a field last. The matrix changes only through a reviewed
+   change to the schema contract (migration plus matrix update in the same
+   PR).
 
    Stage 1 to Stage 3 sync is **outbound projection**: canonical changes are
-   pushed to providers through the existing `CrmBackend` adapters and
-   side-effect ledger. Inbound provider changes are received over an
-   authenticated endpoint, recorded in `crm_events` with provenance, and
-   applied to the canonical record only if the field is provider-authoritative
-   or a governed reconcile action accepts them. There is no automatic
-   last-write-wins. Full two-way conflict resolution needs its own ADR.
+   pushed to providers through the existing `CrmBackend` adapters. Inbound
+   provider changes are recorded in `crm_events` with provenance:
+   - to a provider-authoritative field: applied to the canonical record;
+   - to an AION-authoritative field: **not applied**. It is recorded as a
+     conflict and surfaced for a governed reconcile decision. A Twenty edit
+     never silently overrides an AION-authoritative value, and projection does
+     not silently overwrite the human's edit either until reconcile decides.
 
-5. **All access goes through Runtime.** Canonical entities are read and
+   There is no last-write-wins. Full two-way conflict resolution needs its own
+   ADR.
+
+5. **Synchronization is durable.** Both directions are built on these
+   mechanisms; none is optional:
+   - **Transactional outbox.** A canonical write and its outbox entry commit
+     in the same database transaction. Nothing is projected from an
+     uncommitted change, and no committed change is lost.
+   - **Idempotent projection.** Each projection is keyed by (outbox entry,
+     provider, record version) and executed through `external_side_effects`
+     with that key, so retries cannot write twice.
+   - **Inbound deduplication.** Inbound events are unique per (provider,
+     provider workspace, provider event id); replays are no-ops.
+   - **Version checks.** Every canonical record carries a monotonically
+     increasing version. Writes use optimistic concurrency, projections carry
+     the version they reflect, and stale inbound changes are rejected and
+     journaled.
+   - **Retry queue.** Failed projections retry with backoff to a bounded
+     limit, then move to a dead-letter state visible to operators.
+   - **Ambiguous writes.** A projection whose provider outcome is unknown is
+     reconciled by reading the provider before any retry (the GE-001 row 9
+     rule). It is never blindly repeated.
+   - **Reconciliation.** A scheduled job compares canonical records with their
+     mapped provider records and journals every drift it finds; it repairs
+     only through the rules above.
+
+6. **All access goes through Runtime.** Canonical entities are read and
    written only through governed Runtime capabilities (ADR-003). Agents and
    products never receive SQL access, connection strings or provider API keys.
    Canonical operations extend the existing `crm.*` catalog rather than
@@ -123,17 +156,21 @@ projections. Concretely:
    |---|---|---|
    | `crm.customer.resolve` | Find a customer by identifiers; never creates | R1 |
    | `crm.customer.create` | Create after resolve finds no match | R2 |
-   | `crm.customer.merge` | Merge duplicates, keeping both histories | R3 |
-   | `crm.customer.context` | Authorised customer, relationship and consent view | R1 |
-   | `crm.customer.timeline` | Ordered events, activities and outcomes | R1 |
+   | `crm.customer.merge` | Merge duplicates, keeping both histories | R3, **disabled** until the merge/dedupe policy ADR is accepted |
+   | `crm.customer.context` | Authorised customer, relationship and consent view | R1 with field-level permissions, masking and read audit |
+   | `crm.customer.timeline` | Ordered events, activities and outcomes | R1 with field-level permissions, masking and read audit |
    | `crm.lead.qualify` | Record label plus evidence reference | R2 |
    | `crm.opportunity.advance` | Stage transition | R2 |
-   | `crm.activity.record` | Note, call or task on a customer | R1 with mandatory data-class check |
+   | `crm.activity.record` | Note, call or task on a customer | **R2 in production** initially, with mandatory data-class check; lowering it needs evidence and a catalog review |
    | `crm.outreach.prepare` | Reviewable draft; never sends | R2 |
 
    Sending stays on `crm.message.send` / `crm.conversation.send` (R3).
 
-6. **The evidence-class guard moves to the canonical write.** Every canonical
+   R1 reads are not unrestricted. A grant names the fields it may return;
+   fields outside the grant are masked, not omitted silently; and every read
+   is audited with actor, customer id, fields returned and execution id.
+
+7. **The evidence-class guard moves to the canonical write.** Every canonical
    row and event carries `data_class` (`production`, `synthetic`, `test`,
    `fixture`). The canonical write path refuses to mix classes on one customer
    and refuses to project non-`production` data to a live provider, returning
@@ -141,31 +178,74 @@ projections. Concretely:
    stays as defence in depth. A new provider therefore inherits the boundary
    without code of its own.
 
-7. **Tenant isolation and privacy are on from the first table.** Every
-   canonical table has `tenant_id NOT NULL` and `FORCE ROW LEVEL SECURITY`
-   keyed on `aion.tenant_id`, failing closed. Personal data has a documented
-   retention period. Erasure is a governed action: it deletes personal fields,
-   leaves a non-personal tombstone in `crm_events`, and projects the deletion
-   to every mapped provider. Consent is checked before any outreach capability
-   runs.
+8. **Tenant isolation is on from the first table.** Required, not optional:
+   - every canonical table has `tenant_id NOT NULL`, `ENABLE` and
+     `FORCE ROW LEVEL SECURITY`, with policies keyed on `aion.tenant_id`
+     that fail closed when it is unset;
+   - tenant context is **transaction-scoped** (`SET LOCAL` /
+     `set_config('aion.tenant_id', …, true)`) inside the same transaction as
+     the query. Session-level tenant settings are not allowed, because pooled
+     connections are reused across tenants;
+   - the application role does not own the tables and has `NOBYPASSRLS`; it
+     is never a superuser. Migrations run under a separate role;
+   - tests run on a pooled connection that serves tenant A then tenant B, and
+     prove that no row crosses, and that an unset context returns no rows.
 
-8. **No new service.** Schema and repositories live in `aion-data`, ports and
+   The existing `0010_tenant_rls` scaffold does not meet this bar on its own;
+   canonical tables must.
+
+9. **Consent and erasure are enforced, not documented.**
+   - **Consent is per channel** (for example email, SMS, phone, messaging
+     apps). Runtime checks the channel's consent before any outreach or send
+     capability runs and before projecting a contact point to a provider that
+     can use that channel. Withdrawal is journaled and projected like any
+     other change.
+   - **Retention has owners.** A retention register lists each data category,
+     its retention period and the accountable owner role. Expiry runs as a
+     governed action.
+   - **Erasure is verified.** Erasure is a governed action. It removes
+     personal fields from the canonical record, keeps a non-personal tombstone
+     in `crm_events`, and issues a deletion to every mapped provider through
+     the projection path. Each provider deletion is confirmed by read-back.
+   - **Failed or offline deletions are tracked.** A provider that is offline
+     or refuses the deletion leaves the request in an `erasure_pending` state
+     with a deadline. It retries through the retry queue and escalates to a
+     named human owner when the deadline passes. The request closes only when
+     every mapped provider is confirmed.
+
+10. **No new service.** Schema and repositories live in `aion-data`, ports and
    entity types in `aion-core`, governed capabilities and projection in
    `aion-runtime`. No `aion-crm` microservice or repository (consistent with
    ADR-019 and the reuse audit).
 
-9. **This does not block CRM-001 or GE-001.** CRM-001 Gates A–D and GE-001 on
-   Twenty proceed as planned. GE-001 evidence keeps provider ids in the
+11. **This does not block CRM-001 or GE-001.** CRM-001 Gates A–D and GE-001
+   proceed on their own tracks. GE-001 evidence keeps provider ids in the
    side-effect ledger. When Stage 1 lands, a governed backfill maps those ids
-   into `crm_external_identity_map` without rewriting the ledger.
+   into `crm_external_identity_map` without rewriting the ledger. Records
+   touched by the OL-001 incident are excluded from any backfill or migration
+   until verified clean.
 
-10. **Production enablement has preconditions.** Canonical personal data is
-    not written in production until (a) production RLS is verified with the
-    application role and the AIO-35 previous-image finding is closed,
-    (b) GE-001 has passed, and (c) the field-ownership table is reviewed.
-    Non-production work can start once this ADR is accepted.
+12. **Production is a separately certified release.** Canonical personal
+    data is not written in production until Stage 4 passes as its own
+    release, with its own manifest and an evidence pack reviewed by someone
+    other than its implementer. A GE-001 PASS is necessary but not sufficient.
+    The pack must show:
+    - production RLS verified with the application role, and the AIO-35
+      previous-image finding closed;
+    - migration forward, plus the previous Runtime image operating against the
+      migrated schema (or a verified rollback mitigation);
+    - cross-tenant isolation per §8, including the pooled-connection test;
+    - sync per §5: outbox, idempotent projection, duplicate inbound events,
+      provider outage, ambiguous write and reconciliation;
+    - consent enforcement and a verified erasure across providers per §9;
+    - a rollback plan to provider-only operation without loss of governance
+      records;
+    - the reviewed field-authority matrix.
 
-11. **Providers are pinned and benchmarked, and kept at arm's length.** Any
+    Non-production work can start once this ADR is accepted. Production
+    migrations and cutover are not authorized by this ADR.
+
+13. **Providers are pinned and benchmarked, and kept at arm's length.** Any
     provider projection targets a pinned provider version that has passed a
     compatibility benchmark. Twenty runs as a separate process reached only
     over its API. AION does not distribute a modified Twenty without a legal
@@ -212,8 +292,11 @@ projections. Concretely:
 
 - AION takes on schema, migration, privacy and security work for personal
   data, including erasure and retention.
-- Projection and inbound journaling add moving parts; provider outages and
-  duplicates must be handled and tested.
+- Durable sync (outbox, versioning, retries, reconciliation) is real
+  engineering work before any provider sees canonical data; provider outages,
+  duplicates and ambiguous writes must be handled and tested.
+- Field-level permissions, masking and read audit add work to every read
+  capability.
 - Field-ownership rules will need revisiting as more provider fields are used.
 - More data in aion-data raises the cost of the open RLS and rollback findings;
   they become hard preconditions.
@@ -227,23 +310,41 @@ projections. Concretely:
 | Stage | Scope | Exit criteria |
 |---|---|---|
 | 0 | Accept this ADR; amend Data boundary docs | `aion-data` README and `docs/schema.md` updated; `repositories/aion-data.md` updated |
-| 1 | Identity spine (non-prod): customers, contacts, companies, relationships, consents, identity map, events, `data_class`, RLS | Migrations with FORCE RLS; Core ports; Runtime `crm.customer.resolve/create/context`; cross-tenant denial and data-class tests; ledger backfill dry run |
-| 2 | Projection to Twenty and GHL; inbound journal | Outbound projection via `CrmBackend`; authenticated inbound endpoint writing `crm_events`; duplicate and outage tests |
-| 3 | Leads, opportunities, activities; remaining capabilities | Catalog entries with tiers; RCAOS AT-1…AT-7 re-run against canonical records |
-| 4 | Production enablement | Decision §10 preconditions met; governed backfill of GE-001 ids |
+| 1 | Identity spine only (non-prod): customers, contacts, companies, relationships, consents, identity map, events, `data_class`, tenant security per §8 | See Stage 1 acceptance below |
+| 2 | Durable sync per §5: outbox, projection to Twenty and GHL, inbound journal | Outbox, idempotency, inbound dedupe, version, retry, ambiguous-write and reconciliation tests; provider outage tests |
+| 3 | Leads, opportunities, activities; remaining capabilities; consent and erasure per §9 | Catalog entries with tiers; RCAOS AT-1…AT-7 re-run against canonical records; erasure verification across providers |
+| 4 | Production release | Independently certified per §12; governed backfill of GE-001 ids (OL-001 records excluded) |
+
+**Stage 1 acceptance.** Stage 1 stays on the identity spine. It does not
+include opportunity pipelines, messaging or full CRM synchronization. It passes
+when, in a non-production environment:
+
+1. a customer is assigned an AION-owned id through `crm.customer.create`;
+2. that id is linked to at least two provider ids (fake GHL and fake Twenty)
+   in `crm_external_identity_map`;
+3. after a Runtime restart, `crm.customer.resolve` by either provider id and
+   `crm.customer.context` return the same customer within the owning tenant;
+4. the same calls from another tenant return nothing, including on a pooled
+   connection that served the owning tenant first, and with tenant context
+   unset;
+5. synthetic and production `data_class` rows cannot be mixed on one customer;
+6. Stage 1 migrations, Core ports and Runtime capabilities pass the repo CI.
 
 **Per repository**
 
 - `aion-data`: next free migration numbers on `main` (0014 is the latest);
-  Postgres repositories; RLS policies modelled on `0010_tenant_rls` but with
-  `FORCE ROW LEVEL SECURITY` from creation.
+  Postgres repositories; tenant security per §8 from creation; outbox, version
+  columns and inbound-event uniqueness per §5; the field-authority matrix as a
+  versioned artifact next to the schema.
 - `aion-core`: entity types, repository ports, capability catalog entries and
   risk tiers; the `data_class` rule as a pure function.
-- `aion-runtime`: governed handlers for the new capabilities; projection that
+- `aion-runtime`: governed handlers for the new capabilities; transaction-
+  scoped tenant context on every canonical query; outbox-driven projection that
   reuses `CrmBackend` and `external_side_effects`; inbound provider endpoint
-  (authenticated, idempotent) writing to `crm_events`; move the
-  `SYNTHETIC_TO_PRODUCTION_DENIED` decision to the canonical write and keep the
-  adapter check.
+  (authenticated, deduplicated) writing to `crm_events`; consent checks before
+  outreach and channel projection; read audit and field masking for R1 reads;
+  move the `SYNTHETIC_TO_PRODUCTION_DENIED` decision to the canonical write and
+  keep the adapter check.
 - `aion-infra`: no new services; secrets for inbound provider webhooks only.
 
 ## Follow-up Decisions
@@ -251,8 +352,9 @@ projections. Concretely:
 - **Two-way sync and conflict resolution** (before any provider field becomes
   writable from both sides).
 - **Customer merge and dedupe policy** (matching rules, confidence thresholds,
-  human review).
-- **Retention periods and erasure SLA** per data category.
+  human review). `crm.customer.merge` stays disabled until it is accepted.
+- **Retention register**: periods, owner roles and erasure deadlines per data
+  category.
 - **Twenty version re-pin**: replace the v0.40.0 default and Gate C invariants
   with a pinned current release after a compatibility benchmark.
 - **Licence review** of Twenty before any commercial distribution of a
