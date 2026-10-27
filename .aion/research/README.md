@@ -20,6 +20,8 @@ Architect go/no-go, and usually an [ADR](../../adr/README.md).
 | [../audits/agentic-engineering-audit-2026-10-26.md](../audits/agentic-engineering-audit-2026-10-26.md) | **2026-10-26** Agentic Engineering audit — near/out-of-loop autonomy vs AION governance |
 | [production-readiness-2026-09-28.md](production-readiness-2026-09-28.md) | Prior assessment (2026-09-28) → GOVERNED EXECUTION |
 | [techops-monday-brief-2026-10-05.md](techops-monday-brief-2026-10-05.md) | TechOps Monday Brief — agent identity as infrastructure |
+| [techops-monday-brief-2026-10-26.md](techops-monday-brief-2026-10-26.md) | TechOps Monday Intelligence Brief — supply-chain, PHP, CA trust, ransomware, financial agents |
+| [../audits/aion-exposure-verification-2026-10-26.md](../audits/aion-exposure-verification-2026-10-26.md) | Customer-zero exposure verification from the Oct 26 brief |
 | [dsl-001-data-licensing-market-brief-2026-10-20.md](dsl-001-data-licensing-market-brief-2026-10-20.md) | Enterprise operational-data licensing market brief → P-AIO-9 |
 | `RES-NNN-*.md` | Per-mission research briefs / comparison matrices |
 | Prototypes | Live **outside** `main` (feature branches / sandboxes); link from the brief |

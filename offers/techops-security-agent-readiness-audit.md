@@ -189,6 +189,54 @@ cybersecurity services from this row alone.
 **Connected-infra discovery subtotal:** __ / 9 (reported separately; not in
 automation-readiness formula)
 
+### M. Software supply-chain trust (Secure AI Execution / Foundation)
+
+Score separately; feeds Secure AI Execution packaging. Unknown = 0.
+
+| # | Control | 0–3 | Evidence | SIS |
+|---|---|---|---|---|
+| M1 | Dependency inventory for production images/services | | | SIS-SC-01 |
+| M2 | Production containers digest-pinned (not floating tags) | | | SIS-SC-02 |
+| M3 | Release / artifact verification before promote | | | SIS-SC-03 |
+| M4 | CI credentials least-privilege; no standing master keys | | | SIS-SC-04 |
+| M5 | Secret scanning blocking on repos/pipelines | | | SIS-SC-05 |
+| M6 | Rollback to last-known-good digest documented + drilled | | | SIS-SC-06 |
+
+**Supply-chain subtotal:** __ / 18 (reported separately)
+
+### N. Certificate & trust dependencies (Foundation)
+
+| # | Control | 0–3 | Evidence | SIS |
+|---|---|---|---|---|
+| N1 | Certificate inventory (issuer, SAN, expiry, owner) | | | SIS-TR-01 |
+| N2 | Trust-chain / intermediate inventory for critical TLS | | | SIS-TR-02 |
+| N3 | OS / runtime trust-store ownership + update path | | | SIS-TR-03 |
+| N4 | Renewal ownership + expiry alerting | | | SIS-TR-04 |
+| N5 | DR includes trust-anchor / blocked-CA validation | | | SIS-TR-05 |
+
+**Trust-dependency subtotal:** __ / 15 (reported separately)
+
+### W. Emergency web infrastructure (Foundation — client websites/apps)
+
+| # | Control | 0–3 | Evidence | SIS |
+|---|---|---|---|---|
+| W1 | Web runtime version inventory | | | SIS-WEB-01 |
+| W2 | Patch responsibility named (host vs app vs MSP) | | | SIS-WEB-02 |
+| W3 | Backup status verified | | | SIS-WEB-03 |
+| W4 | Critical internet-facing vulns remediated or accepted | | | SIS-WEB-04 |
+
+**Web infrastructure subtotal:** __ / 12 (reported separately)
+
+### RR. Ransomware resilience (Foundation / Continuous Assurance)
+
+| # | Control | 0–3 | Evidence | SIS |
+|---|---|---|---|---|
+| RR1 | Privileged MFA + VPN/remote-access exposure reviewed | | | SIS-BK-05 / HI / NW |
+| RR2 | Endpoint protection coverage on critical systems | | | SIS-DV-01 |
+| RR3 | Immutable/offline backups + tested restoration | | | SIS-BK-02/03/05 |
+
+**Ransomware resilience subtotal:** __ / 9 (reported separately)
+
 ## Totals
 
 | Domain | Max | Score |
@@ -206,6 +254,10 @@ automation-readiness formula)
 | Credentials & tokens | 15 | |
 | **Total (A–K)** | **141** | |
 | Connected-infra discovery (L) | 9 | *(informational)* |
+| Supply-chain trust (M) | 18 | *(informational; Secure AI Execution)* |
+| Certificate & trust (N) | 15 | *(informational; Foundation)* |
+| Web infrastructure (W) | 12 | *(informational; Foundation)* |
+| Ransomware resilience (RR) | 9 | *(informational; Foundation / Assurance)* |
 
 ### Automation readiness (derived)
 
@@ -240,9 +292,9 @@ Full client packaging: [techops-governance-security-infrastructure-audit-v2.md](
 
 | Vertical | Emphasize | Offer language / artifact |
 |---|---|---|
-| Electrical | Job docs, estimates, field devices, AP/AR; OT/IoT as discovery | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) |
-| Accounting | Identity hardening, document/data boundaries, financial-action approvals, agent governance, immutable evidence | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) |
-| Dealer / rental | PII, financing, DMS; authority bands | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) |
+| Electrical | Project-system reliability + procurement readiness; job docs, estimates, field devices, AP/AR; OT/IoT as discovery | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) |
+| Accounting | Client-data protection + governed financial workflows (not bank-login agents); identity, docs, financial-action approvals | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) |
+| Dealer / rental | Vendor-access security + operational continuity; PII/financing; authority bands; multi-location management-plane | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) |
 
 #### Dealer authority bands (reference)
 

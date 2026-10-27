@@ -1,12 +1,13 @@
 # Continuous Assurance v1
 
 - **Status:** Active (AIO-47)
-- **Date:** 2026-10-06
-- **Standard map:** SIS-CA-01…05 in
-  [security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md) §3.12
+- **Date:** 2026-10-06 · **Amended:** 2026-10-26 (supply-chain, trust, ransomware, web, management-plane)
+- **Standard map:** SIS-CA-01…05 (+ SIS-SC / SIS-TR / SIS-WEB / SIS-BK-05 / SIS-NW-05) in
+  [security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md)
 - **Commercial SKU:** [../offers/techops-security-operations-lite.md](../offers/techops-security-operations-lite.md)
-- **Depends on:** SIS v1 (AIO-43), Agent Identity Registry (AIO-44),
+- **Depends on:** SIS v1.1 (AIO-43), Agent Identity Registry (AIO-44),
   Secure Execution Layer (AIO-45), customer-zero baseline method (AIO-46)
+- **Brief:** [../.aion/research/techops-monday-brief-2026-10-26.md](../.aion/research/techops-monday-brief-2026-10-26.md)
 
 Continuous Assurance verifies the security baseline **remains true** after
 implementation. It is designed around **connectors and evidence**, not humans
@@ -23,11 +24,16 @@ cadence/severity, evidence format, escalation path, and monthly report.
 
 1. Prefer connector-sourced evidence over screenshots (SIS-CA-02).
 2. Drift domains must cover exposure, identity, credentials, cloud/SaaS,
-   backup, agent permissions/behavior, runtime health, vulns, and revoke
-   readiness (SIS-CA-03).
+   backup / ransomware resilience, agent permissions/behavior, runtime health,
+   vulns, supply-chain trust, certificate/trust-store, web runtimes, network
+   management-plane, and revoke readiness (SIS-CA-03).
 3. High-impact remediation is always human-gated (SIS-CA-04; R3 always).
 4. Every open finding has a named owner and next action (SIS-IR-01).
 5. Unknown / unverified checks score **0** on the audit (fail closed).
+6. Prefer correlating **asset inventory × vulnerability severity × external
+   exposure × remediation ownership** inside approved infrastructure
+   (Tenable OPEN-for-AI class pattern — integrate findings; do not rebuild
+   scanners).
 
 ## 2. Check catalog (SIS-CA-01)
 
@@ -58,11 +64,22 @@ Stable check IDs. Each check produces an `AssuranceEvidence` record (§4).
 | `CA-VN-02` | Vulnerabilities | High CVE unpatched past SLA | Weekly | high |
 | `CA-RV-01` | Revoke readiness | Agent revoke/contain tabletop stale (>90d) | Monthly | high |
 | `CA-RV-02` | Revoke readiness | Suspended/revoked agent still executing | Continuous | critical |
+| `CA-SC-01` | Supply chain | Production image/service not digest-pinned | Daily | critical |
+| `CA-SC-02` | Supply chain | Known-bad package/version in dependency inventory | Daily | critical |
+| `CA-SC-03` | Supply chain | CI standing master key / over-privileged token detected | Daily | critical |
+| `CA-TR-01` | Trust / PKI | Trust-store includes blocked intermediate/root | Daily | critical |
+| `CA-TR-02` | Trust / PKI | Certificate issuer not on approved inventory | Weekly | high |
+| `CA-BK-03` | Backup / ransomware | Immutable or offline backup copy missing | Daily | critical |
+| `CA-BK-04` | Backup / ransomware | Ransomware-scenario restore drill stale (>90d) | Monthly | high |
+| `CA-RR-01` | Ransomware resilience | Gap in MFA / VPN exposure / EDR / segmentation / backup verify set | Weekly | high |
+| `CA-NW-01` | Network management plane | Critical CVE on orchestrator / controller (internet or vendor-admin exposed) | Daily | critical |
+| `CA-WEB-01` | Web infrastructure | Internet-facing web runtime below patched security release | Daily | critical |
 
 Connector sources (examples): IdP export, endpoint console API, mail security,
 SaaS admin API, vault/inventory CSV, Runtime
 `GET /v1/registry/review` + `/v1/registry/inventory`, executions ledger,
-backup vendor API, vuln scanner.
+backup vendor API, vuln scanner / exposure platform, SBOM/dependency inventory,
+certificate inventory, hosting provider patch confirmations.
 
 ## 3. Cadence and severity model
 
@@ -206,9 +223,10 @@ Minimum sections:
 
 - Full multi-tenant assurance service implementation
 - Durable assurance ledger (prototype stores evidence process-locally)
-- Every IdP/endpoint/vuln connector productionized
+- Every IdP/endpoint/vuln / SBOM / cert / web-runtime connector productionized
 - 24×7 SOC staffing
 - OT/ICS monitoring
+- Auto-remediation of ransomware or supply-chain incidents (recommend + human approve only)
 
 ### 7.1 Prototype API (`aion-runtime`)
 
@@ -246,3 +264,5 @@ All other catalog IDs return `status: unknown` (fail-closed for scoring).
 - [agent-identity-registry.md](agent-identity-registry.md)
 - [secure-execution-layer-v1.md](secure-execution-layer-v1.md)
 - [../offers/aion-customer-zero-security-baseline-2026-10-06.md](../offers/aion-customer-zero-security-baseline-2026-10-06.md)
+- [../.aion/audits/aion-exposure-verification-2026-10-26.md](../.aion/audits/aion-exposure-verification-2026-10-26.md)
+- [../governance/financial-action-policy.md](../governance/financial-action-policy.md)
