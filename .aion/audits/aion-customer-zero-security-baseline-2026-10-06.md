@@ -10,3 +10,7 @@ AIO-46 acceptance artifact (dated snapshot).
 | Total A–K | **68 / 141** |
 | Automation readiness | **36 / 69 → Assist-ready** |
 | Execute-ready? | **No** (Credentials hard-stop) |
+
+**Oct 26, 2026 exposure addendum:**
+[aion-exposure-verification-2026-10-26.md](aion-exposure-verification-2026-10-26.md)
+(no LiteLLM/PHP product exposure in workspace; trust inventory gap).
