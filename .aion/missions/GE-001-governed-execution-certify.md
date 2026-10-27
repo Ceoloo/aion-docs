@@ -23,15 +23,23 @@ OBJECTIVE:               Close the GOVERNED EXECUTION — VERIFIED gate for one
                          AION Systems revenue workflow using existing
                          Operator Loop + contracts; no new subsystems.
 ACCEPTANCE CRITERIA:
-  Order (do not reorder): green Products main → deploy+identify Runtime
-  digest → clean only the identified Annfiera note (preserve incident
-  ledger) → GE-001 on a fresh real record.
+  Order (re-scoped 2026-10-26; see roadmap/governed-execution-certify.md
+  §1.3–§1.4): green Products main → CRM-001 Gates A–D → deploy+identify a
+  Twenty-capable Runtime digest → GE-001 on a fresh real Twenty record.
+  The GHL Annfiera note cleanup is superseded: it is not a step and not a
+  pass, but an open evidence exception (criterion 4).
   1. Products #44 merged; Products main CI green — DONE (06eedbf9 / run 36488161210)
-  2. Cross-repo release manifest published with Runtime image digest+SHA,
+  2. Cross-repo release manifest published for the Twenty-capable
+     candidate with Runtime image digest+SHA,
      Core/Data pins, migration set, Products SHA, Infra SHA, verified
      production identity (health/ready git_sha matches)
-  3. Serving Runtime includes #57 synthetic-production boundary
-  4. Contaminated Annfiera note cleaned per incident cleanup section
+  3. Serving Runtime includes the #57 synthetic-production boundary,
+     applied to the live Twenty backend as well as GHL
+  4. OL-001 evidence exception recorded in the evidence pack: the GHL
+     Annfiera cleanup is operator-reported and unverified (provider note id,
+     deletion time, operator identity and contact hash not collected);
+     records touched by OL-001 are excluded from the GHL → Twenty migration;
+     the incident ledger is preserved
   5. Fresh low-risk real record used — not synthetic evidence on client contact
   6. Named human approval path + denial-without-side-effect path both proven
   7. Restart/resume under same rootExecutionId at governed pause
@@ -60,11 +68,13 @@ DEPENDENCIES:
   - RES-002 strategy (accepted)
   - Runtime #57 on main
   - Products #44 (merge gate)
-  - Human VPS deploy + GHL cleanup credentials
+  - Human VPS deploy (deploy-vps) authorization
+  - CRM-001 Gate D sign-off and Twenty-capable Runtime identity (AIO-109)
 EXPECTED OUTPUT:
   - Updated release manifest result: PASS (or explicit FAIL with blockers)
   - Live acceptance evidence pack
-  - Incident cleanup append on runtime incident doc
+  - OL-001 evidence exception in the evidence pack (cleanup superseded;
+    see the runtime incident doc)
 TEST REQUIREMENTS:
   - Operator Loop v1 sequence + GOVERNED EXECUTION checklist
   - Deliberate restart at governed pause
