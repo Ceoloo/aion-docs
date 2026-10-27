@@ -17,5 +17,4 @@ Machine-readable evidence for immutable / release-candidate platform tags.
 - **`execution-platform-m006-complete` is an immutable integration baseline** (M001–M006). Docs tip at tag time: `01bc090`. Do not move it.
 - Promote to `execution-platform-v0.2.0` only after a clean post-tag validation and explicit final certification.
 - **`governed-execution-candidate` is not certified.** Update `result` and `productionIdentity` only after a live deploy verify; promote to an immutable tag only after GE-001 PASS.
-- **GE-001 candidate retarget (2026-10-26).** GE-001 now runs on Twenty, so the candidate moves from `20fe3a4` to a Twenty-capable Runtime build chosen under AIO-109. Record that build's components and production identity in this manifest when it is selected and deployed; keep `20fe3a4`'s recorded identity as the prior production evidence.
 - Next checkpoint after M009: prefer promoting **`execution-platform-v0.2.0`** after clean validation (governed → … → external execution). M006-complete baseline remains immutable; do not move tags casually.

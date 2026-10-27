@@ -97,14 +97,6 @@ All must be true and recorded:
 
 Until D is signed off: **do not** set `CRM_PROVIDER=twenty` on production Runtime.
 
-## After Gate D — GE-001 on Twenty
-
-GE-001 (governed-execution certification) is re-scoped to run on Twenty
-(2026-10-26). It starts only after Gate D **and** a Runtime build containing
-the Twenty backend is deployed with `CRM_PROVIDER=twenty` and its production
-identity recorded. See
-[governed-execution-certify §1.4](./governed-execution-certify.md#14-live-governed-execution-acceptance-fresh-record).
-
 ## Related PRs
 
 | Slice | Repo |
