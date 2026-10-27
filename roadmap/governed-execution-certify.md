@@ -6,8 +6,13 @@ Implements the cash-flow priority from
 (prior: [2026-09-28](../.aion/research/production-readiness-2026-09-28.md))
 and agent mission [GE-001](../.aion/missions/GE-001-governed-execution-certify.md).
 
-**Do not retarget** the candidate pin to Runtime tip (`7ad6649` / #59–#62).
-Certify the existing `20fe3a4` digest first.
+**Candidate pin (updated 2026-10-26).** `20fe3a4` was deployed on 2026-09-30
+(§1.2) and is the current production record, but it predates the Twenty
+backend and is **no longer the GE-001 candidate**. GE-001 runs on Twenty
+(§1.4), on a Twenty-capable Runtime build selected, digest-pinned and recorded
+under AIO-109 — with its own migration and previous-image rollback review. Do
+not retarget casually to whatever Runtime tip is current; choose that build
+deliberately.
 
 Raises Operator Loop live acceptance from “agent continues after approval” to
 **GOVERNED EXECUTION — VERIFIED** (RES-002), without new subsystems.
@@ -46,6 +51,12 @@ Ordered gates. Do not skip ahead to a live write until 1.1–1.4 are closed.
       — `releases/governed-execution-candidate.manifest.json` (`result` still UNVERIFIED)
 
 ### 1.2 Deploy Runtime tip including synthetic boundary
+
+> **Completed 2026-09-30; historical for GE-001.** Infra `deploy-vps` run 15
+> deployed `20fe3a4` (see the candidate manifest). It remains the record of
+> what production serves today. The GE-001 deploy is now the Twenty-capable
+> build in §1.4 prerequisite 2, using the same `deploy-vps` path and the same
+> capture fields below.
 
 **Owner:** authorized production maintainer (Infra `deploy-vps` + production
 Environment reviewer). Cloud agents and read-only GitHub tokens hit HTTP 403 on
