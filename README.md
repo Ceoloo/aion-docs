@@ -185,3 +185,9 @@ operationalizes it for Cursor.
    [`roadmap/sovereignty-program.md`](roadmap/sovereignty-program.md)
 10. [`adr/ADR-001-greenfield-reset.md`](adr/ADR-001-greenfield-reset.md) and
     [`adr/ADR-016-sovereign-intelligence-doctrine.md`](adr/ADR-016-sovereign-intelligence-doctrine.md)
+
+## Core security pillar
+
+[Untrusted Model Security](architecture/untrusted-model-security.md) requires
+security boundaries outside the model across artifacts, templates, runners,
+network access and tools. It is part of the builder Definition of Done.

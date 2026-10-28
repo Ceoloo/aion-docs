@@ -452,3 +452,11 @@ AIO-46 (customer-zero audit) → AIO-47 (Continuous Assurance). Oct 26 brief
 |---|---|---|
 | 1.0 | 2026-10-05 | Initial AIO-43 baseline |
 | 1.1 | 2026-10-26 | Additive: `SIS-SC-*`, `SIS-TR-*`, `SIS-WEB-*`, `SIS-NW-05`, `SIS-BK-05`, `SIS-GX-11`; layer map + gap list updated from Oct 26 brief |
+
+## Untrusted model security amendment
+
+[UMS-01 through UMS-08](untrusted-model-security.md) extend this baseline for
+model supply chains and execution boundaries. They apply at model/tool/runner
+admission and to changes in reachable credentials, data, filesystem or network.
+Evidence gaps remain open until measured; the [initial audit](../security/untrusted-model-audit-2026-10-28.md)
+separates implemented controls from outstanding work.

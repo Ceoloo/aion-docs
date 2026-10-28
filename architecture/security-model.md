@@ -99,3 +99,10 @@ Security inherits the
   ([ADR-016](../adr/ADR-016-sovereign-intelligence-doctrine.md)).
 - **Agent Identity Registry fields are mandatory infrastructure** before
   Execute-tier work (see Security Infrastructure Standard §3.9).
+
+## Core pillar: untrusted model security
+
+Treat model artifacts, templates, runners and model-generated tool proposals as
+untrusted. Enforce authority outside the model, with bounded data, credentials,
+network and execution reach. The required controls and release evidence are in
+[Untrusted Model Security](untrusted-model-security.md).
