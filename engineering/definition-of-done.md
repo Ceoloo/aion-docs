@@ -56,3 +56,10 @@ Definition of Done qualifies a *change*.
 work that lacks demonstrated behavior (see
 [`.aion/agents/09-qa-engineer.md`](../.aion/agents/09-qa-engineer.md)).
 Typecheck/build alone do not satisfy “It is tested.”
+
+## Model and agent boundary gate
+
+Changes affecting models, templates, runners, tools, credentials, mounts or
+network exposure must satisfy [UMS-01–08](../architecture/untrusted-model-security.md).
+Record worst reachable damage and deterministic denial tests. No model-generated
+claim, benchmark score or clean artifact scan can substitute for authorization.
