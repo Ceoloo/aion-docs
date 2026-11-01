@@ -66,6 +66,16 @@ docker compose -f docker-compose.yml -f twenty/docker-compose.twenty.yml \
 | AT-1…AT-7 green on twenty-fake | `npm run proof:rcaos-at-twenty` (aion-runtime) |
 | No live GHL/Twenty credentials in the harness | proof-env + script unsets |
 
+### Gate B evidence — **PASS** (2026-10-27)
+
+| Item | Record |
+|---|---|
+| PR | [Ceoloo/aion-runtime#67](https://github.com/Ceoloo/aion-runtime/pull/67) — merged |
+| Merge commit | `084dea5` on `main` |
+| Scope | Make CRM-001 Gate B pass; extend `SYNTHETIC_TO_PRODUCTION_DENIED` to `twenty-live` |
+| CI | [actions/runs/40446107527](https://github.com/Ceoloo/aion-runtime/actions/runs/40446107527) successful |
+| Production impact | **None** — do not set `CRM_PROVIDER=twenty` in prod |
+
 ## Gate C — Live HTTP adapter (disposable workspace)
 
 Do not trust Gate C until these adapter invariants hold against Twenty **v0.40.0**:
@@ -97,6 +107,19 @@ All must be true and recorded:
 
 Until D is signed off: **do not** set `CRM_PROVIDER=twenty` on production Runtime.
 
+### Gate D sign-off checklist (template)
+
+Copy into the cutover evidence record. Leave blank until exercised; do **not**
+treat this template as authorization.
+
+| Field | Required evidence | Recorded by | Date | Pass? |
+|---|---|---|---|---|
+| **Workflow** | Gate B evidence link + Gate C disposable evidence path (contact→opp→approved action→Outcome on Twenty); Runtime `/health/ready` shows `crm_provider=twenty` on staging only | | | |
+| **Isolation** | Two staging tenant contexts; tenant A cannot read/write tenant B Twenty records via Runtime (two-process or `TWENTY_API_KEY_B`); no production GHL/Twenty writes | | | |
+| **Governance** | R2 approval park/resume on Twenty; side-effect ledger idempotency (one provider object per key); `SYNTHETIC_TO_PRODUCTION_DENIED` on protected Twenty hash | | | |
+| **Rollback** | Staging drill: unset `CRM_PROVIDER` (or `=ghl`) + `GHL_BACKEND=live` restores GHL path; AION governance rows intact; prior Runtime digest compatibility reviewed (see aion-infra#20 — do not enable prod rollback fields until qualified) | | | |
+| **Sign-off** | Maintainer names (Integrations + Security + Runtime) + explicit “authorize prod `CRM_PROVIDER=twenty`” | | | |
+
 ## Related PRs
 
 | Slice | Repo |
@@ -104,5 +127,7 @@ Until D is signed off: **do not** set `CRM_PROVIDER=twenty` on production Runtim
 | Compose overlay | aion-infra #21 (merged) |
 | CrmBackend + fake/live Twenty | aion-runtime #64 (merged) |
 | Cutover sequence A→D | aion-docs #102 (merged) |
+| Gate B PASS + twenty-live synthetic guard | aion-runtime #67 (merged) |
 | Doctrine | ADR-019 (#100/#101) |
-| Gate A staging host prereqs + Gate C adapter invariants | follow-up docs / runtime / infra PRs |
+| Migration-aware rollback (draft) | aion-infra #20 (open draft — do not enable prod rollback fields) |
+| Gate A staging host prereqs + Gate C disposable proof | follow-up docs / runtime / infra PRs |
