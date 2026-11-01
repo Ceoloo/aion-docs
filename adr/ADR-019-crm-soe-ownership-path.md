@@ -151,6 +151,7 @@ We will adopt **AION CRM Sovereign Infrastructure V1** as follows:
 
 - **ADR (data-layer):** Canonical customer/revenue entities in aion-data —
   amend “no CRM tables” / sync vs own.
+  Proposed as [ADR-020](ADR-020-canonical-crm-domain.md).
 - **ADR (optional):** Promote or reject Espo after CRM-001 benchmark.
 - Complete SOV-003 enforce path so new SoE providers cannot bypass GATEWAY.
 - Workspace embedding of Twenty UI into AION OS (product-module or shortcut) —
