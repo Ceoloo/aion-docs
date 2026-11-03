@@ -141,11 +141,19 @@ optimization, managed workspaces) but the integration must be bounded.
   `adapters/harness-execution-adapter.ts` (bridge to `ExecutionAdapter`; resolves
   `harnessId` from `metadata`/`toolId`, overridable for capability/risk/
   experiment routing; fails closed).
-- **Pilot next:** a UHP/HarnessRouter-backed provider at the composition root
-  (runtime / action-engine), one task class behind `harness.<id>.enabled`,
-  measured against outcomes before promotion. Prove the cost/latency claims on
-  our own task classes — the upstream benchmark numbers are task-dependent by
-  their own methodology.
+- **Pilot (landed in Runtime):** `UhpHarnessProvider` at the composition root
+  (`aion-runtime` adapters/harness), gated by `HARNESSROUTER_ENABLED` (fail-
+  closed) + `HARNESSROUTER_BASE_URL` / `HARNESSROUTER_API_KEY`. Speaks UHP
+  `POST /v1/responses` with idempotency keys; transport loss → `indeterminate`.
+  One task class at a time behind that kill switch; measure before promotion.
+- **Arena routing (landed in Core):** `recommendHarnessConfiguration` applies
+  the HarnessRouter Arena methodology to *our* observations — gate on success
+  (and optional quality), then lowest cost, then lowest latency among eligible
+  configs (`HARNESS_ARENA_MIN_SAMPLES`). Recommendation-only: the composition
+  root / operator applies `harnessId`+`model` to command metadata; Runtime does
+  not auto-switch side-effectful traffic. Prove cost/latency claims on our own
+  task classes — upstream benchmark numbers are task-dependent by their own
+  methodology.
   - **"Shadow" here is not ADR-009 shadow.** ADR-009 shadow is record-only — the
     decision engine computes but never acts. A harness *executes* real
     shell/fs/git, so running one "in shadow" on a live command would duplicate
