@@ -86,3 +86,4 @@ prematurely.** Record the required capability and defer:
 | [ADR-017](ADR-017-sovereign-model-router.md) | Sovereign Model Router | Accepted |
 | [ADR-018](ADR-018-restricted-external-gateway.md) | Restricted External Gateway (IP Policy) | Accepted |
 | [ADR-019](ADR-019-crm-soe-ownership-path.md) | CRM System-of-Engagement Ownership Path (Twenty primary SoE) | Accepted |
+| [ADR-020](ADR-020-aion-security-repo-ownership.md) | `aion-security` Repository Ownership | Accepted |

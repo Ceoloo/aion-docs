@@ -45,6 +45,7 @@ flowchart TD
 | Repository | Role | Detail |
 |---|---|---|
 | **aion-desks** | Desk commerce landing / Stripe checkout — product surface only ([ADR-004](../adr/ADR-004-aion-desks-repo-ownership.md)) | [aion-desks.md](aion-desks.md) |
+| **aion-security** | TechOps blue Continuous Assurance ops + red adversarial harnesses — Gateway client only ([ADR-020](../adr/ADR-020-aion-security-repo-ownership.md)) | [aion-security.md](aion-security.md) |
 | **aion-creative-os** (`aion-creative-os-CVD`) | Creative OS product module: media, clips, edit plans, renders; opens in the Workspace under the [Product Module Contract](../architecture/product-module-contract.md) ([ADR-015](../adr/ADR-015-workspace-product-module-contract.md), Proposed) | [aion-creative-os.md](aion-creative-os.md) |
 | **aion-action-engine** | Action Queue (Signal → Action → Approval → Outcome) + the Decision Plane `@aion/decision-engine` ([ADR-009](../adr/ADR-009-decision-plane.md)) — operational module, not a control plane | [aion-action-engine.md](aion-action-engine.md) |
 
@@ -62,6 +63,11 @@ carry-forward ADR (absorb, bridge, or retire). See
 **[ADR-004 (Accepted)](../adr/ADR-004-aion-desks-repo-ownership.md):** `aion-desks`
 is a **permanent product-commerce satellite** outside the six-repo platform set.
 It must not own control-plane, schema, or gateway concerns.
+
+**[ADR-020 (Accepted)](../adr/ADR-020-aion-security-repo-ownership.md):**
+`aion-security` is a **permanent TechOps security satellite** (blue CA ops +
+red Observe-tier harnesses). It consumes Runtime over HTTP and must not become
+a parallel control plane.
 
 ## The rules that keep them separate
 
