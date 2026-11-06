@@ -13,6 +13,7 @@ Canon details: [`../../repositories/`](../../repositories/).
 | `aion-infra` | VPS/AWS/GCP profiles, deployment contract, policies | Infra, Security |
 | `aion-products` | Revenue Copilot engines, CLI, web console, workforce-control | Product, Frontend, AI |
 | `aion-desks` | Next.js Stripe landing for Operator/Everyday Desk | Product, Frontend, Integrations |
+| `aion-security` | Blue Continuous Assurance ops + red Observe harnesses; satellite (ADR-020) | Security, Runtime, Docs |
 | `aion-action-engine` | Action Queue + Decision Plane (`@aion/decision-engine`); satellite | Product, AI, Runtime |
 | `aion-creative-os-CVD` | Creative OS product module (media, clips, edit plans, renders); satellite per ADR-015 (Proposed) | Product, Frontend, Runtime |
 
@@ -39,6 +40,7 @@ Violations are **architecture defects**, not convenience exceptions.
 | Terraform/Compose, secrets injection, CI deploy | `aion-infra` |
 | Copilot engines, product APIs, workforce UI logic | `aion-products` |
 | Desk marketing/checkout pages | `aion-desks` |
+| Blue CA connectors / red Observe playbooks | `aion-security` |
 | Creative product logic, media processing, creative product data | `aion-creative-os-CVD` |
 | How any product module plugs into Workspace + Runtime | `aion-docs` ([product-module-contract.md](../../architecture/product-module-contract.md)) |
 
@@ -48,3 +50,7 @@ Violations are **architecture defects**, not convenience exceptions.
 the six canonical platform repositories. **[ADR-004 (Accepted)](../../adr/ADR-004-aion-desks-repo-ownership.md)**
 keeps it a **permanent product-commerce satellite** (landing/Stripe only — not a
 seventh platform plane).
+
+`aion-security` is likewise a satellite — **[ADR-020 (Accepted)](../../adr/ADR-020-aion-security-repo-ownership.md)** —
+for TechOps blue/red operations. It consumes Runtime over HTTP and must not
+become a parallel control plane.

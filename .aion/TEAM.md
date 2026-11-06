@@ -12,7 +12,7 @@
 | 05 | Frontend / UX | `AION — FRONTEND` | `aion-products/web`, `workforce-control`, `aion-desks` | Permanent |
 | 06 | Infrastructure | `AION — INFRA` | `aion-infra`, deploy configs | Permanent |
 | 07 | Integrations | `AION — INTEGRATIONS` | adapters (GHL, Stripe, Notion, …) | On-demand |
-| 08 | Security | `AION — SECURITY` | policy, permissions, secrets boundaries | On-demand |
+| 08 | Security | `AION — SECURITY` | `aion-security`, policy, permissions, secrets boundaries | On-demand |
 | 09 | QA / Reliability | `AION — QA` | tests across repos | Permanent — proof over compile; reviews other agents’ handoffs |
 | 10 | Architect / Reviewer | `AION — ARCHITECT` | `aion-docs` ADRs + cross-repo review | Permanent |
 | 11 | Documentation | `AION — DOCS` | `aion-docs`, READMEs | On-demand |
@@ -31,6 +31,7 @@
 | **aion-infra** | Infra | Security, QA | business logic, canonical schemas |
 | **aion-products** | Product | Frontend, AI, Integrations | platform primitives, infra |
 | **aion-desks** | Product + Frontend | Integrations (Stripe) | control-plane / canonical data |
+| **aion-security** | Security (TechOps) | Runtime, Docs, Infra | control-plane / canonical schema / gateway / IaC |
 
 Dependency direction (binding): see
 [`../repositories/dependency-rules.md`](../repositories/dependency-rules.md).
