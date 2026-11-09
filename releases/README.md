@@ -8,7 +8,7 @@ Machine-readable evidence for immutable / release-candidate platform tags.
 | `execution-platform-v0.2.0-rc1` | release candidate | [execution-platform-v0.2.0-rc1.manifest.json](./execution-platform-v0.2.0-rc1.manifest.json) |
 | `execution-platform-m006-complete` | integration baseline | [execution-platform-m006-complete.manifest.json](./execution-platform-m006-complete.manifest.json) |
 | — | cross-repo pin lock | [platform-contract-lock.json](./platform-contract-lock.json) — the one core/data commit every consumer pins |
-| `governed-execution-candidate` | **UNVERIFIED** candidate pin | [governed-execution-candidate.manifest.json](./governed-execution-candidate.manifest.json) — fill production identity after deploy; not a PASS |
+| `governed-execution-candidate` | **UNVERIFIED** candidate pin | [governed-execution-candidate.manifest.json](./governed-execution-candidate.manifest.json) — production identity recorded (serving `20fe3a4`, deploy-vps run 15); rollback compatibility not cleared; not a PASS |
 
 ## Rules
 

@@ -1,10 +1,10 @@
 {
   "release": "governed-execution-candidate",
-  "title": "AION GOVERNED EXECUTION candidate \u2014 release pin (UNVERIFIED)",
+  "title": "AION GOVERNED EXECUTION candidate — release pin (UNVERIFIED)",
   "kind": "candidate",
   "result": "UNVERIFIED",
-  "recordedAt": "2026-09-28",
-  "purpose": "Single cross-repo pin for the next live GOVERNED EXECUTION acceptance run. Fill productionIdentity after deploy. Do not treat this file as a PASS until result is updated and health/ready git_sha matches.",
+  "recordedAt": "2026-10-20",
+  "purpose": "Single cross-repo pin for the next live GOVERNED EXECUTION acceptance run. Production identity is recorded for Runtime #57, but rollback compatibility and the remaining GE-001 gates are not cleared. Do not treat this file as a PASS until result is updated and the GE-001 evidence pack passes.",
   "priorProductionEvidence": {
     "asOf": "2026-09-22",
     "runtimeGitSha": "10de06635f18c83be38e183b20b06a1b0c092fb3",
@@ -19,19 +19,19 @@
         "#57 SYNTHETIC_TO_PRODUCTION_DENIED boundary",
         "#56 proof-suite repair"
       ],
-      "imageDigest": null,
-      "deployStatus": "image published + boot-certified in CI; production deploy not yet evidenced (serving still behind tip)",
+      "imageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+      "deployStatus": "deployed by authorized production workflow; serving identity verified; rollback compatibility review not cleared",
       "candidateImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
       "candidateImageRef": "ghcr.io/ceoloo/aion-runtime@sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
       "bootCertifyCi": "https://github.com/Ceoloo/aion-runtime/actions/runs/36385472906"
     },
     "aion-core": {
-      "gitShaMain": "26f43e506f88d1fcb176d64f65727bae20b97652",
+      "gitShaMain": "6ba12ace604055b1f98d9f12a737059e609b8c44",
       "pinnedByRuntimeSetupDeps": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157",
-      "pinGap": "Runtime/Products/Data setup pins lag Core main \u2014 realign before certifying"
+      "pinGap": "Runtime/Products/Data setup pins lag Core main — realign before certifying"
     },
     "aion-data": {
-      "gitShaMain": "cb29e7cdfcf7213edafae4bbc705a20c6bf23a12",
+      "gitShaMain": "9d4b59f97ca3f759d7aaa22fbeed136c5e2b2e83",
       "pinnedByRuntimeSetupDeps": "5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4",
       "migrations": "0001-0013",
       "pinGap": "Runtime setup pin lags Data main (#24 RLS lineage)"
@@ -60,30 +60,40 @@
     }
   },
   "productionIdentity": {
-    "healthReadyGitSha": null,
-    "servingImageDigest": null,
-    "priorRollbackDigest": null,
-    "verifiedAt": null,
-    "verifiedBy": null,
-    "deployWorkflowUrl": null
+    "healthReadyGitSha": "20fe3a435dab5f12175ae03998ad709398ce931d",
+    "servingImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+    "priorRollbackDigest": "sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee",
+    "priorRollbackGitSha": "75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
+    "verifiedAt": "2026-10-20T07:48:23Z",
+    "verifiedBy": "AION release review; deploy Environment approval recorded for Ceoloo",
+    "deployWorkflowUrl": "https://github.com/Ceoloo/aion-infra/actions/runs/36758112318",
+    "deployConclusion": "success",
+    "deployHeadSha": "3382b611c3f1847b463476fce8bdd879c18e44d9",
+    "productionEnvironmentApproval": {
+      "environment": "production",
+      "reviewer": "Ceoloo"
+    },
+    "deployedAt": "2026-09-30T19:34:05Z",
+    "recheckedAt": "2026-10-26T20:27:25Z",
+    "recheck": "GET /health/ready returned status=ready, database=up, environment=production, git_sha=20fe3a435dab5f12175ae03998ad709398ce931d; deploy-vps run 15 (36758112318) is still the latest deploy-vps run",
+    "servingDigestBasis": "Inferred from the run 15 deploy log (pulled and started the pinned digest; ready, smoke OK, public live OK), no later deploy-vps run, and the matching live git_sha. No host-side docker inspect of the running container has been captured."
   },
   "preflightBlockers": [
-    "Deploy Runtime tip 20fe3a4 (#57) via infra deploy-vps; pin digest sha256:f7041f41\u2026; verify health/ready git_sha == 20fe3a4",
-    "Record serving digest and prior rollback digest from deploy.sh",
-    "Clean Annfiera synthetic CRM note per incident doc (authorized operator only)",
+    "Isolated rollback probe shows previous Runtime image cannot read tenant-scoped rows when candidate RLS policies are active; production migration history is unknown and no rollback mitigation is verified",
+    "CRM cleanup is operator-reported only; provider note ID, deletion UTC time, operator identity, and contact ID SHA-256 are not yet recorded",
     "Realign Core/Data pins across Runtime/Products/Data setup scripts",
-    "Evidence NULL-tenant backfill + RLS with application role on production",
-    "CA-verified DB TLS still open (rejectUnauthorized:false)",
+    "Capture exact production migration IDs and verify NULL-tenant backfill + RLS with application role on production",
+    "CA-verified DB TLS still open: candidate image uses rejectUnauthorized:false and has no CA configuration path",
     "GE-001 live acceptance evidence pack still outstanding"
   ],
-  "acceptanceTarget": "GOVERNED EXECUTION \u2014 VERIFIED (GE-001)",
+  "acceptanceTarget": "GOVERNED EXECUTION — VERIFIED (GE-001)",
   "economicsRule": {
     "providerExpense": "Priced source (invoice / billing export / priced ledger) OR explicit UNVERIFIED stamp",
     "insufficientAlone": [
       "completed mission",
       "Runtime totalCostUnits"
     ],
-    "runbook": "aion-runtime/docs/operator-loop-v1.md \u2014 cost is abstract units until a priced ledger exists",
+    "runbook": "aion-runtime/docs/operator-loop-v1.md — cost is abstract units until a priced ledger exists",
     "annfieraPayment": "Any existing Annfiera payment predates GE-001; keep separate from attributed outcome"
   },
   "explicitlyExcluded": [
@@ -96,17 +106,24 @@
     "A merged change is not a deployed control.",
     "Do not mark result PASS until productionIdentity is filled and GE-001 acceptance evidence pack exists.",
     "Promote to a named immutable tag only after PASS.",
-    "Order: green Products main \u2192 deploy+identify Runtime digest \u2192 clean identified Annfiera note only \u2192 GE-001 on fresh real record.",
+    "Order: green Products main → deploy+identify Runtime digest → clean identified Annfiera note only → GE-001 on fresh real record.",
     "Products #44 merged at 06eedbf9; main CI green (run 36488161210). Candidate remains UNVERIFIED until serving #57 + live GE-001 PASS.",
     "Maintainer handoff recorded: deploy-vps from Infra main only; 403 is an access boundary.",
     "Products #45 (draft) advances Copilot active-session durability in test/CI only; GE-001 and production deploy handoff unchanged.",
     "2026-10-12: Runtime main tip is 7ad6649 (#59 registry, #60 assurance, #61 rooms, #62 RCAOS AT harness). DO NOT retarget this candidate to tip. Certify 20fe3a4 first; tip adds migration 0014 and new release surface.",
-    "2026-10-12 assessment: .aion/research/production-readiness-2026-10-12.md — production/cash-flow readiness unchanged; architecture ahead of ops."
+    "2026-10-12 assessment: .aion/research/production-readiness-2026-10-12.md — production/cash-flow readiness unchanged; architecture ahead of ops.",
+    "2026-10-20: Infra deploy-vps run 36758112318 succeeded under production Environment approval by Ceoloo; candidate digest and /health/ready SHA match. Previous-image compatibility remains NOT_CLEARED pending an exact rollback test or verified mitigation.",
+    "2026-10-20: CRM cleanup is recorded only as an operator-reported manual deletion; required provider note ID, deletion UTC time, operator identity, and contact ID SHA-256 remain missing. OL-001 ledger and pre-existing Annfiera payment were left untouched."
   ],
   "tipDriftAsOf": {
     "recordedAt": "2026-10-12",
     "runtimeMainTip": "7ad664916fdbdf55697fe90801d27d2990cf4f06",
-    "runtimeMainIncludes": ["#59", "#60", "#61", "#62"],
+    "runtimeMainIncludes": [
+      "#59",
+      "#60",
+      "#61",
+      "#62"
+    ],
     "coreMainTip": "6ba12ace604055b1f98d9f12a737059e609b8c44",
     "dataMainTip": "9d4b59f97ca3f759d7aaa22fbeed136c5e2b2e83",
     "dataMigrationsOnTip": "0001-0014",
@@ -115,21 +132,23 @@
     "policy": "Keep candidate gitSha at 20fe3a4 until GE-001 PASS; tipDrift is informational only."
   },
   "observedProduction": {
-    "checkedAt": "2026-09-28T21:45:00Z",
+    "checkedAt": "2026-10-20T07:48:23Z",
     "healthReadyUrl": "https://runtime.srv1655818.hstgr.cloud/health/ready",
     "healthReady": {
       "status": "ready",
       "database": "up",
+      "service": "aion-runtime",
       "environment": "production",
-      "git_sha": "49cff4e3bd1e48ed8a43414c8191ff30a28d00be",
+      "git_sha": "20fe3a435dab5f12175ae03998ad709398ce931d",
       "service_version": "0.2.1",
+      "build_time": "unknown",
       "crm_backend": "live"
     },
-    "note": "Serving git_sha is ancestor of 20fe3a4 (#54 tip) and does NOT include #57. Last Infra-documented digest remains Sep 22 10de0663/e3fef42f\u2026; live health now reports 49cff4e3. Prior rollback digest for next deploy must be captured from deploy.sh output / docker inspect at deploy time."
+    "note": "Live /health/ready reports the exact Runtime #57 candidate SHA. The deploy workflow recorded the serving digest and prior rollback image; compatibility of that previous image against the migrated schema remains uncleared."
   },
   "nextOwner": {
-    "role": "authorized production maintainer",
-    "action": "Review candidate digest + migration/rollback compatibility; dispatch deploy-vps from Infra main; obtain production Environment review",
+    "role": "authorized production maintainer and CRM operator",
+    "action": "Clear previous-image rollback compatibility; finish production tenant/RLS and TLS checks; append the CRM cleanup metadata; then run GE-001 on a fresh real record",
     "workflow": "https://github.com/Ceoloo/aion-infra/blob/main/.github/workflows/deploy-vps.yml",
     "dispatch": {
       "environment": "production",
@@ -137,12 +156,13 @@
       "git_sha": "20fe3a435dab5f12175ae03998ad709398ce931d",
       "ref": "main"
     },
-    "accessBoundary": "HTTP 403 on workflow_dispatch from unauthorized tokens is expected \u2014 do not work around",
-    "afterDeployCapture": [
-      "workflow run URL + conclusion",
-      "serving image digest",
-      "prior rollback digest",
-      "/health/ready git_sha (must be 20fe3a4\u2026)"
+    "accessBoundary": "HTTP 403 on workflow_dispatch from unauthorized tokens is expected — do not work around",
+    "capturedDeploymentEvidence": [
+      "Workflow https://github.com/Ceoloo/aion-infra/actions/runs/36758112318 concluded success",
+      "Serving image sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+      "Prior rollback image sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee (Runtime 75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1)",
+      "/health/ready git_sha 20fe3a435dab5f12175ae03998ad709398ce931d at 2026-10-20T07:48:23Z",
+      "Runtime incident report update: https://github.com/Ceoloo/aion-runtime/pull/63 (operator report recorded; required cleanup identifiers remain missing)"
     ],
     "then": [
       "Authorized GHL operator removes identified Annfiera synthetic note and records cleanup",
@@ -176,5 +196,76 @@
         "Runtime revenue-session contract"
       ]
     }
+  },
+  "deploymentReview": {
+    "candidateDigestMatchesDeployedDigest": true,
+    "runtimeGitShaMatchesHealthReady": true,
+    "runtimeCorePin": "52ecf40b860ec9e32fe62c3fc8a8252c5ad17157",
+    "runtimeDataPin": "5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4",
+    "dataTipMigrations": "0001-0014",
+    "deploymentMigrationLog": "deploy-vps reported 2 migrations applied of 13 total",
+    "rollbackCompatibility": {
+      "status": "NOT_CLEARED",
+      "previousImageGitSha": "75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
+      "previousImageDataPin": "60ff3d2459a5c2fff7dcd9b0592af713306716eb",
+      "finding": "The candidate Runtime tree contains src/tenant-context.ts; the previous Runtime tree does not. Candidate Data includes migration 0010_tenant_rls.sql, which enables tenant policies on executions, approvals, and autonomy_grants. The deployment summary says 2 migrations were applied of 13 but does not identify them in the captured evidence, so whether 0010 is present in the serving schema and how the previous image behaves as the application role are not demonstrated.",
+      "requiredEvidence": "Capture the exact applied migration IDs, then run the exact previous image against that migrated schema using the application role, or document and verify a rollback mitigation before claiming rollback compatibility.",
+      "isolatedProbe": {
+        "recordedAt": "2026-10-26",
+        "status": "PREVIOUS_IMAGE_TENANT_ACCESS_INCOMPATIBLE",
+        "candidateImageDigest": "sha256:f7041f4123929b8f36de9160e82dd6d350edb949d40bcdaa4d0d6538f53694fc",
+        "previousImageDigest": "sha256:b12043ad9be4937dc00345ffe973d61120921492c76b4d5806fa6a7e99eda5ee",
+        "database": "Disposable PostgreSQL 16; candidate migrations applied from empty schema",
+        "result": "With a tenant-scoped execution row and application-role access, SELECT returns 0 rows without aion.tenant_id and 1 row after setting aion.tenant_id to the matching tenant. The previous image contains no tenant-context module; the candidate image contains dist/tenant-context.js.",
+        "limits": "This is a controlled local compatibility probe, not a query against production data or its exact migration ledger. It demonstrates an access incompatibility if tenant RLS is active, but does not identify the exact production migrations or verify a production rollback mitigation."
+      }
+    },
+    "productionMigrationLedger": {
+      "status": "NOT_CAPTURED",
+      "deployLog": "2 of 13 migrations applied; the log does not identify versions or names",
+      "candidateImageMigrations": [
+        "0001_initial_core_state",
+        "0002_execution_object_agent_identity",
+        "0003_service_catalog",
+        "0004_tenant_scope_lineage",
+        "0005_workflows",
+        "0006_evaluation_results",
+        "0007_autonomy_grants",
+        "0008_external_side_effects",
+        "0009_revenue_sessions",
+        "0010_tenant_rls",
+        "0011_implementation_cases",
+        "0012_ie002_activation_statuses",
+        "0013_service_status_inactive"
+      ],
+      "isolatedPreviousImageReplay": "Previous image migration set followed by candidate migrator reported 3 applied migrations on a disposable database; this differs from production's 2 and does not establish the production ledger."
+    },
+    "databaseTransport": {
+      "candidateImageTlsSetting": "rejectUnauthorized:false",
+      "caVerified": false,
+      "productionEvidence": "No CA-verified production connection or negative invalid-CA test captured; the candidate image does not expose a CA configuration path in its compiled runtime bundle."
+    },
+    "evidenceLinks": {
+      "deployWorkflow": "https://github.com/Ceoloo/aion-infra/actions/runs/36758112318",
+      "productionHealthReady": "https://runtime.srv1655818.hstgr.cloud/health/ready",
+      "candidateTenantContext": "https://github.com/Ceoloo/aion-runtime/blob/20fe3a435dab5f12175ae03998ad709398ce931d/src/tenant-context.ts",
+      "previousRuntimeTree": "https://github.com/Ceoloo/aion-runtime/tree/75e9acd841f036c7f6a78cbcd7f0bdbe2c6d0ae1",
+      "candidateRlsMigration": "https://github.com/Ceoloo/aion-data/blob/5da145ae74ea5fa1a6e8deccc129d2f9574f4bc4/migrations/0010_tenant_rls.sql",
+      "cleanupEvidenceUpdatePR": "https://github.com/Ceoloo/aion-runtime/pull/63",
+      "rollbackProbe": "releases/ge001-closeout-2026-10-26.md"
+    }
+  },
+  "crmCleanupEvidence": {
+    "status": "REPORTED_NOT_VERIFIED",
+    "reportedStatement": "Note deleted manually.",
+    "reportRecordedAt": "2026-10-20T07:48:23Z",
+    "providerNoteId": null,
+    "deletionTimeUtc": null,
+    "operatorIdentity": null,
+    "contactIdSha256": null,
+    "ol001LedgerPreserved": "No OL-001 mission, execution, approval, or side-effect ledger changes were made as part of this review.",
+    "preexistingAnnfieraPayment": "Not touched or re-attributed; excluded from GE-001 attributed cash.",
+    "incidentPR": "https://github.com/Ceoloo/aion-runtime/pull/63",
+    "verificationStatus": "NOT_VERIFIED; no GHL credential/provider access or required cleanup metadata is available in this session"
   }
 }
