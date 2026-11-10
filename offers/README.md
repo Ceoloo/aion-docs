@@ -52,6 +52,11 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 |---|---|
 | [aion-outcome-based-services-blueprint.md](aion-outcome-based-services-blueprint.md) | Outcome-Based Services Blueprint (commercial + technical operating model) |
 | [aion-pilot-to-revenue-program.md](aion-pilot-to-revenue-program.md) | Pilot-to-Revenue Program — 14-day plan, acceptance metrics, GE-001 live gate |
+| [client-onboarding-playbook.md](client-onboarding-playbook.md) | **AIO-8** Standardized client onboarding & delivery workflow |
+| [implementation-scope-template.md](implementation-scope-template.md) | **AIO-8** SOW / implementation scope template |
+| [change-order-template.md](change-order-template.md) | **AIO-8** Signed change-order template |
+| [support-tiers.md](support-tiers.md) | **AIO-8** Support responsibilities, tiers, severity, hour caps |
+| [client-profitability-scorecard.md](client-profitability-scorecard.md) | Monthly client margin scorecard (pairs with revenue ledger v1) |
 | [revenue-capture-appointment-os/](revenue-capture-appointment-os/) | Revenue Capture & Appointment OS — Sprint 1 locked pack + mission link |
 | [techops-security-agent-readiness-audit.md](techops-security-agent-readiness-audit.md) | Front-door audit scorecard + readiness bands |
 | [techops-governance-security-infrastructure-audit-v2.md](techops-governance-security-infrastructure-audit-v2.md) | **AIO-48** Audit v2 pack (scorecard add-ons, exec/appendix/roadmap/offer map) |
@@ -71,5 +76,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 ## Program tracker
 
 **Outcome / pilot:** [AIO-71](https://linear.app/aion-empire/issue/AIO-71/p0-pilot-to-revenue-no-shorts-electrical-design-partner-rcaos) (Pilot-to-Revenue; blocked by AIO-35 / AIO-37).  
+**Client delivery standard:** [AIO-8](https://linear.app/aion-empire/issue/AIO-8/standardize-aion-client-onboarding-and-delivery-workflow) · [client-onboarding-playbook.md](client-onboarding-playbook.md).  
+**Growth blockers scoreboard:** [../roadmap/growth-blockers-readiness-2026-11-10.md](../roadmap/growth-blockers-readiness-2026-11-10.md).  
 **TechOps:** AIO-43 … AIO-52. Build order: **AIO-43 → AIO-44 → AIO-45 → AIO-46 → AIO-47 (Continuous Assurance) → AIO-48 (Audit v2) → AIO-49/50/51 (overlays) → AIO-52 (offer ladder)**.  
 **Data Sovereignty commercial validation:** [P-AIO-9](https://linear.app/aion-empire/project/aion-data-sovereignty-and-licensing-validation-sprint-a23e98149964) · [execution spec](aion-data-sovereignty-licensing-execution-spec.md) (does not replace Runtime GE-001 or SOV Phase 2).

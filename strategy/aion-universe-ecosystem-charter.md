@@ -115,6 +115,14 @@ References: [Pilot-to-Revenue Program](../offers/aion-pilot-to-revenue-program.m
 - **Operating entity / product owner:** client success, product economics, domain delivery and acceptance evidence.
 - **Community and ecosystem stewards (future):** transparent rules, moderation, contributors, marketplace reviews; authority remains bounded by documented policy.
 
+## Operating artifacts (2026-11-10)
+
+| Artifact | Purpose |
+|---|---|
+| [../governance/portfolio-registry.md](../governance/portfolio-registry.md) | One owner / repo / status / value goal per portfolio entry |
+| [../governance/investment-committee.md](../governance/investment-committee.md) | Admission, funding, kill/pause decision process |
+| [../roadmap/growth-blockers-readiness-2026-11-10.md](../roadmap/growth-blockers-readiness-2026-11-10.md) | Current growth-blocker scoreboard |
+
 ## Change control
 
 This charter establishes **direction** effective 2026-10-15. It does not retroactively mark any product production-ready, create a funded roadmap, approve third-party data sharing, grant new agent permissions or override accepted ADRs. Reassess quarterly or whenever verified customer value or platform risk warrants change. Budget allocations and technical decisions require separate recorded approvals.
