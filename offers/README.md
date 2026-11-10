@@ -28,9 +28,9 @@ labor operable — complementary, not replaced.
 
 | Layer | Job | Primary artifacts |
 |---|---|---|
-| **1 — Secure Digital Foundation** | Make the SMB safe enough for software and AI to run parts of the company | [AI-Era Identity Protection](techops-ai-era-identity-protection.md); Credential & Token Inventory (K); Certificate & Trust (N); Emergency Web (W); Ransomware resilience (RR) |
-| **2 — Secure AI Execution** | Agent identity, registry, gateway, Observe/Assist/Execute, credential isolation, financial-action policy, supply-chain trust gate, approvals, evidence, kill/revoke | Audit AI/Agents + Supply-chain (M); AIO-44/45; [action-tiers.md](../governance/action-tiers.md); [financial-action-policy.md](../governance/financial-action-policy.md) |
-| **3 — Continuous Assurance** | Connector-sourced observe → investigate → recommend → approve → remediate → verify | [Security Operations Lite](techops-security-operations-lite.md) → [continuous-assurance-v1.md](../architecture/continuous-assurance-v1.md) (AIO-47) |
+| **1 — Secure Digital Foundation** | Make the SMB safe enough for software and AI to run parts of the company | [AI-Era Identity Protection](techops-ai-era-identity-protection.md); [Authentication Path Verification](techops-authentication-path-verification.md); Credential & Token Inventory (K); Certificate & Trust (N); Emergency Web (W); Ransomware resilience (RR) |
+| **2 — Secure AI Execution** | Agent identity, registry, gateway, Observe/Assist/Execute, credential isolation, financial-action policy, supply-chain trust gate, approvals, **Agent Security Evidence Contract**, kill/revoke | Audit AI/Agents + Supply-chain (M); AIO-44/45; [evidence contract](../architecture/agent-security-evidence-contract.md); [action-tiers.md](../governance/action-tiers.md); [financial-action-policy.md](../governance/financial-action-policy.md); [business-action risk](../governance/business-action-risk-classification.md) |
+| **3 — Continuous Assurance** | Connector-sourced observe → investigate → recommend → approve → remediate → verify (+ auth-path / agent-behavior monitors) | [Security Operations Lite](techops-security-operations-lite.md) → [continuous-assurance-v1.md](../architecture/continuous-assurance-v1.md) (AIO-47) |
 
 Front door: [Security & Agent Readiness Audit](techops-security-agent-readiness-audit.md)
 → client packaging: [Governance & Security Infrastructure Audit v2](techops-governance-security-infrastructure-audit-v2.md) (AIO-48).
@@ -44,7 +44,7 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 |---|---|---|
 | Accounting | [Secure Accounting AI Foundation](techops-secure-accounting-ai-foundation.md) + [governance policy template](techops-accounting-ai-governance-policy-template.md) | Strongest near-term security wedge (AIO-50). Discovery lead: client-data protection + governed financial workflows ([financial-action-policy.md](../governance/financial-action-policy.md)) |
 | Auto dealers / rentals | [Dealer/Rental security & pricing governance](techops-dealer-rental-security-overlay.md) | Authority bands; financial/contract human-gated (AIO-51). Discovery lead: vendor-access + operational continuity / management-plane |
-| Electrical contractors | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) | OT/IoT = discovery only (AIO-49). Discovery lead: procurement + project-ops readiness before industrial cybersecurity |
+| Electrical contractors | [Secure Digital Contractor Infrastructure](techops-secure-digital-contractor-infrastructure.md) + [Project Reliability Assessment](techops-contractor-project-reliability-assessment.md) | OT/IoT = discovery only (AIO-49). Lead with operational reliability + margin protection; security in the substrate — not data-center-dependent |
 
 ## Document index
 
@@ -58,6 +58,9 @@ infrastructure layer that makes autonomous digital labor operable for SMBs.
 | [aion-customer-zero-security-baseline-2026-10-06.md](aion-customer-zero-security-baseline-2026-10-06.md) | **AIO-46** AION-as-customer-zero scored baseline |
 | [continuous-assurance-monthly-report-template.md](continuous-assurance-monthly-report-template.md) | **AIO-47** monthly client-facing assurance report |
 | [techops-ai-era-identity-protection.md](techops-ai-era-identity-protection.md) | Foundation SKU — Human + Machine Identity hardening |
+| [techops-authentication-path-verification.md](techops-authentication-path-verification.md) | **2026-11-09** MFA/VPN authentication-path verification procedure |
+| [techops-business-action-risk-audit-module.md](techops-business-action-risk-audit-module.md) | **2026-11-09** Reusable business-action risk → mode audit module |
+| [techops-contractor-project-reliability-assessment.md](techops-contractor-project-reliability-assessment.md) | **2026-11-09** Contractor project reliability + market-selection scorecard |
 | [techops-secure-accounting-ai-foundation.md](techops-secure-accounting-ai-foundation.md) | **AIO-50** Accounting vertical packaging + audit module |
 | [techops-accounting-ai-governance-policy-template.md](techops-accounting-ai-governance-policy-template.md) | **AIO-50** Client AI/automation governance policy template |
 | [techops-secure-digital-contractor-infrastructure.md](techops-secure-digital-contractor-infrastructure.md) | **AIO-49** Electrical/contractor overlay |

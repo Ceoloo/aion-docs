@@ -15,6 +15,15 @@ language for contractors (electrical first; adaptable to adjacent trades).
 > **discovery**, not an OT cybersecurity sale — so estimating, scheduling, and
 > follow-up agents can run under Observe/Assist without owning the plant network.
 
+**Positioning (2026-11-09):** Lead with operational reliability and margin
+protection. Keep this offer broadly applicable to electrical contractors —
+do **not** make it dependent on AI data-center construction. Pair discovery with
+the [Contractor Project Reliability Assessment](techops-contractor-project-reliability-assessment.md)
+(estimate→PO traceability, supplier lead times, change orders, document
+versioning, sub access, schedule dependencies) and the
+[market-selection scorecard](techops-contractor-project-reliability-assessment.md#market-selection-scorecard-strategy)
+when backlog quality or geographic permitting risk is material.
+
 ## Threat & workflow context
 
 | Surface | Why it matters |

@@ -17,6 +17,8 @@ actions can require human gates.
 | [action-tiers.md](action-tiers.md) | Observe / Assist / Execute product tiers (maps to L0–L4). |
 | [agent-trust-score.md](agent-trust-score.md) | Per-execution Trust Score (five dimensions). |
 | [risk-levels.md](risk-levels.md) | How actions are classified by risk. |
+| [business-action-risk-classification.md](business-action-risk-classification.md) | **2026-11-09** Business-action authority → Observe/Assist/Execute. |
+| [financial-action-policy.md](financial-action-policy.md) | Cross-vertical money/financing authorization loop. |
 | [change-management.md](change-management.md) | How changes reach production. |
 | [../architecture/security-infrastructure-standard-v1.md](../architecture/security-infrastructure-standard-v1.md) | AIO-43 TechOps control baseline (mandatory agent registry fields). |
 | [../architecture/agent-identity-registry.md](../architecture/agent-identity-registry.md) | AIO-44 Agent Identity Registry contract. |

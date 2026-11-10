@@ -1,10 +1,14 @@
 # TechOps Foundation — AI-Era Identity Protection
 
-Foundation SKU component (Linear AIO-21; TechOps Monday Briefs 2026-09-14 and
-2026-10-05). Layer: **Secure Digital Foundation** under
+Foundation SKU component (Linear AIO-21; TechOps Monday Briefs 2026-09-14,
+2026-10-05, and 2026-11-09). Layer: **Secure Digital Foundation** under
 [Security Infrastructure Standard v1](../architecture/security-infrastructure-standard-v1.md).
 
 **Stop selling “MFA setup.” Sell Human + Machine Identity Security.**
+
+MFA must be **path-tested**, not only documented. Pair this SKU with
+[Authentication Path Verification](techops-authentication-path-verification.md)
+whenever remote access (VPN/ZTNA/firewall SSL VPN) is in scope.
 
 AI adoption expands the phishing surface (fake Copilot/ChatGPT/Claude updates,
 AiTM token theft, malicious “AI installers”). NIST token guidance and SMB
@@ -60,6 +64,9 @@ alongside human MFA. Identity is the first control in the
 - [ ] Non-compliant device blocked from mail/files
 - [ ] Tabletop: suspicious session → revoke → notify owner &lt; 1 hour
 - [ ] Every inventoried credential has owner, revocation path, and ownership class
+- [ ] Authentication Path Verification completed for remote-access paths (or
+      explicitly out of scope with owner) — see
+      [techops-authentication-path-verification.md](techops-authentication-path-verification.md)
 
 ## Accounting-firm premium posture
 

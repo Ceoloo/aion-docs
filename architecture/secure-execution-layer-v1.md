@@ -1,12 +1,14 @@
 # Secure Execution Layer v1
 
 - **Status:** Active (AIO-45)
-- **Date:** 2026-10-06 · **Amended:** 2026-10-26 (financial-action + supply-chain)
+- **Date:** 2026-10-06 · **Amended:** 2026-10-26 (financial-action + supply-chain) · **Amended:** 2026-11-09 (Agent Security Evidence Contract)
 - **ADR:** [ADR-012](../adr/ADR-012-secure-execution-layer-v1.md)
 - **Standard map:** SIS-GX-01…11 · SIS-SC-* in
   [security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md) §3.10 / §3.10a
 - **Gateway ownership:** [ADR-003](../adr/ADR-003-execution-gateway-into-runtime.md)
 - **Financial-action policy:** [../governance/financial-action-policy.md](../governance/financial-action-policy.md)
+- **Evidence contract:** [agent-security-evidence-contract.md](agent-security-evidence-contract.md)
+- **Trust-boundary plan:** [sentinel-runtime-data-trust-boundary-verification.md](sentinel-runtime-data-trust-boundary-verification.md)
 
 This document is the **product contract** for AION’s agent gateway / control
 plane: what must be true on every sensitive execution path, how components
@@ -55,6 +57,32 @@ SEL assumes deployable artifacts obey the Software Supply-Chain Trust Gate
 verification, restricted CI credentials, secret scanning, and rollback.
 A compromised AI gateway dependency is treated as a **credential-incident
 class** event, not a reinstall-only event.
+
+### 2c. Agent Security Evidence Contract (mandatory for consequential execution)
+
+Consequential executions must emit a durable evidence chain:
+
+```text
+agent_id → principal → tenant → policy → requested_action
+  → authorization → execution_trace → result → verification
+```
+
+Normative schema and predeployment tests (prompt injection, unauthorized tool
+use, tenant isolation, indirect connected-tool access, post-revoke deny,
+missing-evidence fail):
+[agent-security-evidence-contract.md](agent-security-evidence-contract.md).
+
+Operational model aligned to market “test / enforce / verify” category:
+
+| Phase | Requirement |
+|---|---|
+| **Before execution** | ASE-* predeployment tests; incomplete registry blocks Execute |
+| **During execution** | Authenticated principal, authorization, network/tool restrictions |
+| **After execution** | Evidence pack + verification (financial Verify / CA check) |
+
+Continuous behavioral monitoring and periodic retesting are
+[Continuous Assurance](continuous-assurance-v1.md) deliverables — not a substitute
+for this acceptance contract.
 
 ## 3. Component interfaces
 
@@ -107,11 +135,16 @@ Secrets / vault (aion-infra) — credentials never stored on AgentActor
 | T12 Provenance laundering | Untrusted instruction drives R2+ | Provenance quarantine / trust levels |
 | T13 Supply-chain backdoor | Malicious package / image in AI gateway path | SIS-SC-* Trust Gate; digest pins; revoke + rebuild + rotate |
 | T14 Unauthorized financial agent | Third-party agent hits bank / payment rails | SIS-GX-11 financial-action loop; official APIs only |
+| T15 Ungoverned consequential action without proof | Execute succeeds but evidence chain incomplete | Agent Security Evidence Contract; ASE-EV-01 fail closed |
+| T16 Prompt / tool manipulation | Injection or connected-tool pivot exceeds grant | ASE-PI-01 / ASE-TU-01 / ASE-IA-01 predeployment tests |
 
 Residual risks (tracked): progressive credential isolation incomplete on some
 adapters; Continuous Assurance loop (AIO-47); full `contain(agent_id)`
 orchestration across IdP + vault + gateway still maturing; Action SHA-pin /
-image CVE gate incomplete (infra Phase 3 limitation).
+image CVE gate incomplete (infra Phase 3 limitation); Sentinel Keycloak
+staging interoperability pending
+[trust-boundary verification plan](sentinel-runtime-data-trust-boundary-verification.md)
+(AIO-121 / AIO-122).
 
 ## 5. Migration path (from current gateway)
 
@@ -127,6 +160,8 @@ image CVE gate incomplete (infra Phase 3 limitation).
 | M7 | Retire parallel control planes | O2/O3 paths gone or gateway-wrapped |
 | M8 | Financial-action policy wired on money/financing tools | SIS-GX-11 deny without approval evidence |
 | M9 | Deploy path satisfies SIS-SC Trust Gate for Runtime images | Digest pin + rollback drill evidenced |
+| M10 | Agent Security Evidence Contract on consequential paths | Pack fields complete; ASE-* probes recorded |
+| M11 | Sentinel→Runtime→Data trust boundary staging verification | [verification plan](sentinel-runtime-data-trust-boundary-verification.md) S1–S5 |
 
 Products still embedding an in-memory control plane must become Runtime clients
 (system-integration overview O2/O3).
@@ -136,16 +171,21 @@ Products still embedding an in-memory control plane must become Runtime clients
 | Criterion | Evidence |
 |---|---|
 | ADR/spec committed | This file + ADR-012 |
-| Threat model included | §4 (incl. T13/T14) |
+| Threat model included | §4 (incl. T13–T16) |
 | Clear interfaces Runtime/Core/adapters/secrets/audit | §3 |
 | Migration path from current gateway | §5 |
 | Financial-action + supply-chain amendments | §2a / §2b (2026-10-26) |
+| Agent Security Evidence Contract + ASE-* tests | §2c + [evidence contract](agent-security-evidence-contract.md) (2026-11-09) |
 
 ## Related
 
 - [agent-identity-registry.md](agent-identity-registry.md)
+- [agent-security-evidence-contract.md](agent-security-evidence-contract.md)
+- [sentinel-runtime-data-trust-boundary-verification.md](sentinel-runtime-data-trust-boundary-verification.md)
 - [execution-layer.md](execution-layer.md)
 - [security-model.md](security-model.md)
 - [../governance/human-gates.md](../governance/human-gates.md)
 - [../governance/financial-action-policy.md](../governance/financial-action-policy.md)
+- [../governance/business-action-risk-classification.md](../governance/business-action-risk-classification.md)
 - [../.aion/research/techops-monday-brief-2026-10-26.md](../.aion/research/techops-monday-brief-2026-10-26.md)
+- [../.aion/research/techops-monday-brief-2026-11-09.md](../.aion/research/techops-monday-brief-2026-11-09.md)

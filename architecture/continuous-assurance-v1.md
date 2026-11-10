@@ -1,13 +1,16 @@
 # Continuous Assurance v1
 
 - **Status:** Active (AIO-47)
-- **Date:** 2026-10-06 · **Amended:** 2026-10-26 (supply-chain, trust, ransomware, web, management-plane)
+- **Date:** 2026-10-06 · **Amended:** 2026-10-26 (supply-chain, trust, ransomware, web, management-plane) · **Amended:** 2026-11-09 (auth-path + agent behavior)
 - **Standard map:** SIS-CA-01…05 (+ SIS-SC / SIS-TR / SIS-WEB / SIS-BK-05 / SIS-NW-05) in
   [security-infrastructure-standard-v1.md](security-infrastructure-standard-v1.md)
 - **Commercial SKU:** [../offers/techops-security-operations-lite.md](../offers/techops-security-operations-lite.md)
 - **Depends on:** SIS v1.1 (AIO-43), Agent Identity Registry (AIO-44),
   Secure Execution Layer (AIO-45), customer-zero baseline method (AIO-46)
-- **Brief:** [../.aion/research/techops-monday-brief-2026-10-26.md](../.aion/research/techops-monday-brief-2026-10-26.md)
+- **Briefs:** [../.aion/research/techops-monday-brief-2026-10-26.md](../.aion/research/techops-monday-brief-2026-10-26.md) ·
+  [../.aion/research/techops-monday-brief-2026-11-09.md](../.aion/research/techops-monday-brief-2026-11-09.md)
+- **Auth-path procedure:** [../offers/techops-authentication-path-verification.md](../offers/techops-authentication-path-verification.md)
+- **Evidence contract:** [agent-security-evidence-contract.md](agent-security-evidence-contract.md)
 
 Continuous Assurance verifies the security baseline **remains true** after
 implementation. It is designed around **connectors and evidence**, not humans
@@ -74,6 +77,23 @@ Stable check IDs. Each check produces an `AssuranceEvidence` record (§4).
 | `CA-RR-01` | Ransomware resilience | Gap in MFA / VPN exposure / EDR / segmentation / backup verify set | Weekly | high |
 | `CA-NW-01` | Network management plane | Critical CVE on orchestrator / controller (internet or vendor-admin exposed) | Daily | critical |
 | `CA-WEB-01` | Web infrastructure | Internet-facing web runtime below patched security release | Daily | critical |
+| `CA-AP-01` | Auth path / remote access | Remote-access auth path undermines intended MFA (alternate method bypass) | Quarterly (+ urgent on KEV/advisory) | critical |
+| `CA-AP-02` | Auth path / remote access | VPN / firewall firmware below vendor-fixed security release on internet-facing SSL VPN | Weekly | critical |
+| `CA-AG-05` | Agent behavior | Consequential execution missing Agent Security Evidence Contract fields | Continuous | high |
+| `CA-AG-06` | Agent behavior | Periodic ASE-* retest stale for Execute-tier agents (>90d) | Monthly | high |
+
+### 2a. Recurring remote-access authentication reviews (2026-11-09)
+
+Continuous Assurance includes **quarterly** Authentication Path Verification for
+in-scope tenants, plus **out-of-cadence** urgent reviews when a remote-access
+advisory lands in KEV or the customer’s firewall/VPN vendor publishes an
+auth-bypass fix.
+
+Procedure:
+[../offers/techops-authentication-path-verification.md](../offers/techops-authentication-path-verification.md).
+
+Agent behavioral monitoring (`CA-AG-04`…`CA-AG-06`) and periodic ASE retesting
+are CA deliverables; initial ASE-* gates remain Secure AI Execution acceptance.
 
 Connector sources (examples): IdP export, endpoint console API, mail security,
 SaaS admin API, vault/inventory CSV, Runtime
@@ -92,6 +112,7 @@ certificate inventory, hosting provider patch confirmations.
 | **Daily** | Once per day per tenant |
 | **Weekly** | Once per week; included in weekly digest |
 | **Monthly** | Tabletop / report-grade checks |
+| **Quarterly** | Remote-access auth-path reviews; plus urgent out-of-cadence on KEV/advisory |
 
 ### Severity
 
