@@ -97,6 +97,9 @@ All must be true and recorded:
 
 Until D is signed off: **do not** set `CRM_PROVIDER=twenty` on production Runtime.
 
+Operator fill-in packet (do not fabricate PASS):
+[../.aion/evidence/CRM-001/gate-evidence-packet.md](../.aion/evidence/CRM-001/gate-evidence-packet.md)
+
 ## Related PRs
 
 | Slice | Repo |

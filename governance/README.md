@@ -20,6 +20,9 @@ actions can require human gates.
 | [business-action-risk-classification.md](business-action-risk-classification.md) | **2026-11-09** Business-action authority → Observe/Assist/Execute. |
 | [financial-action-policy.md](financial-action-policy.md) | Cross-vertical money/financing authorization loop. |
 | [change-management.md](change-management.md) | How changes reach production. |
+| [portfolio-registry.md](portfolio-registry.md) | **AIO-88** Holding portfolio registry (GROW/VALIDATE/INCUBATE/PAUSE). |
+| [investment-committee.md](investment-committee.md) | **AIO-88** Investment Committee admission and funding process. |
+| [../strategy/aion-universe-ecosystem-charter.md](../strategy/aion-universe-ecosystem-charter.md) | AION Universe ecosystem charter (executive direction). |
 | [../architecture/security-infrastructure-standard-v1.md](../architecture/security-infrastructure-standard-v1.md) | AIO-43 TechOps control baseline (mandatory agent registry fields). |
 | [../architecture/agent-identity-registry.md](../architecture/agent-identity-registry.md) | AIO-44 Agent Identity Registry contract. |
 

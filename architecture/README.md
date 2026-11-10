@@ -30,6 +30,7 @@ It defines architecture and contracts — not implementation.
 | [secure-execution-layer-v1.md](secure-execution-layer-v1.md) | **AIO-45** Secure Execution Layer contract + threat model (+ financial-action / supply-chain / evidence contract). |
 | [agent-security-evidence-contract.md](agent-security-evidence-contract.md) | **2026-11-09** Consequential execution evidence chain + ASE-* predeployment tests. |
 | [sentinel-runtime-data-trust-boundary-verification.md](sentinel-runtime-data-trust-boundary-verification.md) | **2026-11-09** Sentinel→Runtime→Data staging verification plan (AIO-121/122 gates). |
+| [revenue-ledger-v1.md](revenue-ledger-v1.md) | **2026-11-10** Commercial ledger planes — invoices, collections, costs, client margin. |
 | [continuous-assurance-v1.md](continuous-assurance-v1.md) | **AIO-47** Continuous Assurance check catalog, cadence, evidence, escalation. |
 | [../governance/financial-action-policy.md](../governance/financial-action-policy.md) | Cross-vertical financial-action authorization loop (SIS-GX-11). |
 | [../governance/business-action-risk-classification.md](../governance/business-action-risk-classification.md) | Authority-based business-action risk → Observe/Assist/Execute. |

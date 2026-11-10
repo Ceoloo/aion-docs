@@ -156,6 +156,9 @@ Store under operator-controlled evidence location; link from AIO-121.
 
 Missing any slot ⇒ boundary remains **NOT APPROVED**.
 
+Operator fill-in packet (human signatures only):
+[../.aion/evidence/AIO-121/staging-approval-packet.md](../.aion/evidence/AIO-121/staging-approval-packet.md)
+
 ## 7. Explicit non-authorizations
 
 Until S1–S5 are complete and recorded:
