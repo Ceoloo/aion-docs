@@ -46,6 +46,33 @@ Source strategy:
 3. GE-001 stays **UNVERIFIED** until a live Twenty acceptance pack PASSes
 4. Portfolio registry presence does not fund Tier C products
 
+## Authorization summary (decision trail)
+
+Reconciled from Linear holds + Notion strategy/briefs (Granola transcripts were
+not available in this environment). Standing cadence referenced: Monday Holding
+(noon ET) and TechOps Monday brief (8 AM ET).
+
+| Action | Authorized? | Primary record |
+|---|---|---|
+| Universe as long-term organizing vision | **Yes** (direction only) | Notion — Adopted Ecosystem Strategy, **2026-10-15** |
+| Twenty CRM production cutover | **No** — Gate B only | AIO-109; Universe blueprint **2026-11-10** |
+| GE-001 live certification | **No** — UNVERIFIED + docs#107 hold | AIO-37; Production Readiness **2026-09-28**; Operating Sync **2026-10-09** |
+| Forge/Sentinel persistent staging deploy | **No** — S1–S5 missing | AIO-121 (**2026-11-07**); TechOps Monday **2026-11-09** |
+| External quoting from Nov 10 rate card | **No** — Holding approval required | Offer Catalog v0.1 **2026-11-10** |
+| New modules / marketplace / XR / hardware | **No** — deferred behind proof | Universe Oct 15 + Nov 10 |
+| Charter merge / portfolio registry / funding-gate formalization | **Open** | AIO-88; this PR |
+
+### Growth-safety decisions already standing
+
+| Blocker class | Standing rule |
+|---|---|
+| Uncertified production execution | No multi-client / autonomous revenue ops until clean GE-001 |
+| Contaminated CRM evidence | Twenty path after CRM-001; synthetic OL-001 does not certify |
+| Staging / IdP insecurity | No Forge workers or staging activation without human S1–S5 |
+| Speculative sprawl | Fund only proven customer value / shared platform / network opportunity |
+| Unprofitable delivery | Separate cost components; capped support; paid change orders |
+| Economics honesty | `totalCostUnits` is not USD provider expense |
+
 ## Next human actions (ordered)
 
 1. **Operator/maintainer:** complete CRM-001 Gate A host + Gate C disposable live; sign Gate D packet
@@ -53,4 +80,4 @@ Source strategy:
 3. **Operator + approver:** run GE-001 live pack on fresh low-risk Twenty record
 4. **Operator + independent security + maintainer:** fill AIO-121 S1–S5; consider Infra #26
 5. **Commercial:** open client profitability workbook from ledger v1; run first monthly reconcile
-6. **Holding:** ratify Universe charter / registry / IC (merge docs PRs)
+6. **Holding:** ratify Universe charter / registry / IC (merge docs PRs) — IC = Holding review process, not a new legal entity

@@ -6,9 +6,13 @@
 - **Linear:** [AIO-88](https://linear.app/aion-empire/issue/AIO-88/aion-universe-ratify-ecosystem-charter-and-establish-product-admission)
 - **Captured:** 2026-11-10 (America/New_York)
 
-The Investment Committee decides **whether** to allocate budget and capacity to
-a portfolio entry. It does **not** authorize production deploys, customer-facing
-agent writes, identity cutovers, or Forge worker activation. Those remain under
+**Naming:** “Investment Committee” is the **AION Holding review process** for
+portfolio admission and funding (standing Monday Holding deep-dive cadence).
+It is **not** a newly authorized legal entity or parallel control plane.
+
+The IC decides **whether** to allocate budget and capacity to a portfolio
+entry. It does **not** authorize production deploys, customer-facing agent
+writes, identity cutovers, or Forge worker activation. Those remain under
 Runtime / Security / maintainer gates.
 
 ## Membership (initial)
